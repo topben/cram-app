@@ -30,6 +30,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
+    "react-native-mock": "^0.2.4",
     "remote-redux-devtools": "^0.3.3",
     "remote-redux-devtools-on-debugger": "^0.4.6",
     "remotedev-server": "^0.1.2"
