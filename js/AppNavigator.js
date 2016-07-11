@@ -78,7 +78,6 @@ const drawerStyle  = { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius:
 class AppNavigator extends Component {
     constructor(props){
         super(props);
-
     }
 
     componentDidMount() {

@@ -32,6 +32,17 @@
 		A3485C941D216D5D0007821A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A3485C931D216D5D0007821A /* Default-568h@2x.png */; };
 		A3485CA11D216EA20007821A /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A3485C871D2130CE0007821A /* libCodePush.a */; };
 		A3485CA31D216EBB0007821A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A3485CA21D216EBA0007821A /* libz.tbd */; };
+		B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7E51D336E48000C9DA8 /* GetApi.swift */; };
+		B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7E61D336E48000C9DA8 /* PostApi.swift */; };
+		B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7E71D336E48000C9DA8 /* PutApi.swift */; };
+		B592F7EE1D336E55000C9DA8 /* People.m in Sources */ = {isa = PBXBuildFile; fileRef = B592F7EB1D336E55000C9DA8 /* People.m */; };
+		B592F7EF1D336E55000C9DA8 /* People.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7EC1D336E55000C9DA8 /* People.swift */; };
+		B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7ED1D336E55000C9DA8 /* peopleModel.swift */; };
+		B592F7F21D336E5E000C9DA8 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F11D336E5E000C9DA8 /* SwiftExtensions.swift */; };
+		B592F7F71D336E6E000C9DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F31D336E6E000C9DA8 /* User.m */; };
+		B592F7F81D336E6E000C9DA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F41D336E6E000C9DA8 /* User.swift */; };
+		B592F7F91D336E6E000C9DA8 /* userModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F51D336E6E000C9DA8 /* userModel.swift */; };
+		B592F7FA1D336E6E000C9DA8 /* UserTestFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F61D336E6E000C9DA8 /* UserTestFunctions.swift */; };
 		B5A50A881D31550F0031B763 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A50A7A1D3154EF0031B763 /* libCodePush.a */; };
 		B5EFDACC1D2E08D1002EEAE5 /* TmotClassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */; };
 		B5EFDACE1D2E08E3002EEAE5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5EFDACD1D2E08E3002EEAE5 /* Info.plist */; };
@@ -187,6 +198,18 @@
 		A3485C931D216D5D0007821A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A3485CA21D216EBA0007821A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B036868AE4784BC9BCCCF81C /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		B592F7E41D336E47000C9DA8 /* TmotClass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TmotClass-Bridging-Header.h"; sourceTree = "<group>"; };
+		B592F7E51D336E48000C9DA8 /* GetApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetApi.swift; sourceTree = "<group>"; };
+		B592F7E61D336E48000C9DA8 /* PostApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostApi.swift; sourceTree = "<group>"; };
+		B592F7E71D336E48000C9DA8 /* PutApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutApi.swift; sourceTree = "<group>"; };
+		B592F7EB1D336E55000C9DA8 /* People.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = People.m; sourceTree = "<group>"; };
+		B592F7EC1D336E55000C9DA8 /* People.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = People.swift; sourceTree = "<group>"; };
+		B592F7ED1D336E55000C9DA8 /* peopleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = peopleModel.swift; sourceTree = "<group>"; };
+		B592F7F11D336E5E000C9DA8 /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
+		B592F7F31D336E6E000C9DA8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		B592F7F41D336E6E000C9DA8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B592F7F51D336E6E000C9DA8 /* userModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userModel.swift; sourceTree = "<group>"; };
+		B592F7F61D336E6E000C9DA8 /* UserTestFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTestFunctions.swift; sourceTree = "<group>"; };
 		B5A50A751D3154EF0031B763 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TmotClassTests.m; path = TmotClassTests/TmotClassTests.m; sourceTree = SOURCE_ROOT; };
 		B5EFDACD1D2E08E3002EEAE5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TmotClassTests/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -307,6 +330,9 @@
 		13B07FAE1A68108700A75B9A /* TmotClass */ = {
 			isa = PBXGroup;
 			children = (
+				B592F7E31D336E24000C9DA8 /* Extensions */,
+				B592F7E01D336E06000C9DA8 /* Data Modules */,
+				B592F7D11D336DFC000C9DA8 /* API */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -428,6 +454,55 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B592F7D11D336DFC000C9DA8 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B592F7E51D336E48000C9DA8 /* GetApi.swift */,
+				B592F7E61D336E48000C9DA8 /* PostApi.swift */,
+				B592F7E71D336E48000C9DA8 /* PutApi.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
+			isa = PBXGroup;
+			children = (
+				B592F7E41D336E47000C9DA8 /* TmotClass-Bridging-Header.h */,
+				B592F7E11D336E11000C9DA8 /* User */,
+				B592F7E21D336E1A000C9DA8 /* People */,
+			);
+			name = "Data Modules";
+			sourceTree = "<group>";
+		};
+		B592F7E11D336E11000C9DA8 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B592F7F31D336E6E000C9DA8 /* User.m */,
+				B592F7F41D336E6E000C9DA8 /* User.swift */,
+				B592F7F51D336E6E000C9DA8 /* userModel.swift */,
+				B592F7F61D336E6E000C9DA8 /* UserTestFunctions.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		B592F7E21D336E1A000C9DA8 /* People */ = {
+			isa = PBXGroup;
+			children = (
+				B592F7EB1D336E55000C9DA8 /* People.m */,
+				B592F7EC1D336E55000C9DA8 /* People.swift */,
+				B592F7ED1D336E55000C9DA8 /* peopleModel.swift */,
+			);
+			name = People;
+			sourceTree = "<group>";
+		};
+		B592F7E31D336E24000C9DA8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B592F7F11D336E5E000C9DA8 /* SwiftExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		B5A50A761D3154EF0031B763 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +577,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -796,8 +872,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B592F7F71D336E6E000C9DA8 /* User.m in Sources */,
+				B592F7EE1D336E55000C9DA8 /* People.m in Sources */,
+				B592F7F91D336E6E000C9DA8 /* userModel.swift in Sources */,
+				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
+				B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				B592F7FA1D336E6E000C9DA8 /* UserTestFunctions.swift in Sources */,
+				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */,
+				B592F7EF1D336E55000C9DA8 /* People.swift in Sources */,
+				B592F7F21D336E5E000C9DA8 /* SwiftExtensions.swift in Sources */,
+				B592F7F81D336E6E000C9DA8 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -871,6 +958,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "xxIBA2gNKnzvzcbAk7qb8Aeqd-UwEJra5xqUb";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -897,6 +985,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.TmotClass;
 				PRODUCT_NAME = TmotClass;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TmotClass-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -906,6 +996,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = ejMCvioMv5pzl_RNxCf5kGBM3ajjEJra5xqUb;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -931,6 +1022,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.TmotClass;
 				PRODUCT_NAME = TmotClass;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "TmotClass-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -11,11 +11,30 @@ import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
 import { Image } from 'react-native';
 import {popRoute} from '../../actions/route';
-
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
-
 import theme from '../../themes/base-theme';
 import styles from './styles';
+
+const {User} = require('NativeModules');
+const Realm = require('realm');
+
+const TestUserSchema = {
+    name: 'TestUser',
+    primaryKey: 'i_user_id',
+    properties: {
+        i_user_id: 'int',
+        s_name: 'string',
+        s_username: 'string',
+        s_password: 'string',
+        s_email: 'string',
+        s_phone: 'string',
+        s_invitationCode: 'string',
+        s_verificationCode: 'string',
+        b_isDelete: 'bool',
+    },
+};
+
+
 
 class SignUp extends Component {
 
@@ -24,7 +43,77 @@ class SignUp extends Component {
     }
 
     render() {
+      console.log(Realm.defaultPath);
+
+      const realm = new Realm({schema: [TestUserSchema]});
+
+      // realm.write(() => {
+      //   realm.create('TestUser', {i_user_id: 1, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
+      // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
+      // });
+
+      // Query
+      let testUser = realm.objects('TestUser');
+      let count = testUser.length // => 0
+
+      console.log(count);
+
+      User.getUserVerificationCode(
+
+             '0900-000-000',
+             'www.ahhhahahah',
+
+             function successCallback(results) {
+                 alert(results.verificationCode);
+             },
+
+             function errorCallback(results) {
+                 alert('Error: ' + results);
+             }
+      );
+
+      User.checkUserVerificationCode(
+
+        '0900-000-000',
+        'abc123',
+        'www.ahahahahahah',
+
+        function successCallback(results) {
+            alert(results.valid);
+        },
+
+        function errorCallback(results) {
+            alert('Error: ' + results);
+        }
+      );
+
+        var userInfo = {
+          "email": "hahahaha@tmotx.com",
+          "name": "hahahaha",
+          "phone" : "0900-000-000",
+          "username" : "abc123",
+          "password" : "123456"
+        };
+
+        User.createUser(
+
+          userInfo,
+          'asdfasdfasdfasdf',
+
+          function successCallback(results) {
+              alert(results.success);
+          },
+
+          function errorCallback(results) {
+              alert('Error: ' + results);
+          }
+ );
+
+
+
+
         return (
+
             <Container theme={theme} style={{backgroundColor:'#384850'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
                 <Header>
