@@ -53,9 +53,7 @@ class Login extends Component {
     render() {
         return (
             <Container>
-                <Content style={{backgroundColor: '#384850'}} theme={login} scrollEnabled={this.state.scroll}>
-                    <Image source={require('../../../images/glow2.png')} style={styles.container}>
-                        <Image source={require('../../../images/logo.png')} style={styles.shadow}>
+                <Content style={{backgroundColor: '#ffffff'}} theme={login} scrollEnabled={this.state.scroll}>
                             <View style={styles.bg}>
                                 <InputGroup style={{marginBottom: 20}}>
                                     <Icon name="ios-person" />
@@ -73,7 +71,7 @@ class Login extends Component {
                                         Forgot Password
                                     </Text>
                                 </Button>
-                                <Button rounded block style={{marginBottom: 10}} onPress={() => this.replaceRoute('home')}>
+                                <Button transparent rounded block style={{marginBottom: 10}} onPress={() => this.replaceRoute('home')}>
                                     Login
                                 </Button>
                                 <Button transparent style={{alignSelf: 'center'}} onPress={() => this.pushNewRoute('signUp')}>
@@ -82,8 +80,6 @@ class Login extends Component {
                                     </Text>
                                 </Button>
                             </View>
-                        </Image>
-                    </Image>
                 </Content>
             </Container>
         )

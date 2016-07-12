@@ -70,9 +70,9 @@ class App extends Component {
         // }, 30);
 
         // Prompt the user when an update is available
-        // and then display a "downloading" modal 
-        
-        CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE }, 
+        // and then display a "downloading" modal
+
+        CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE },
           (status) => {
               switch (status) {
                   case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
@@ -88,7 +88,7 @@ class App extends Component {
                       break;
               }
           },
-          ({ receivedBytes, totalBytes, }) => { 
+          ({ receivedBytes, totalBytes, }) => {
             this.setState({downloadProgress: totalBytes == 0 ? 0 : receivedBytes / totalBytes * 100});
           }
         );
@@ -96,7 +96,7 @@ class App extends Component {
 
     render() {
         if(this.state.showDownloadingModal)
-            return ( 
+            return (
                 <Container theme={theme} style={{backgroundColor: '#384850'}}>
                     <Image source={require('../images/glow2.png')} style={styles.container} >
                         <Modal style={[styles.modal, styles.modal1]} backdrop={false} ref={"modal"} swipeToClose={false} >
@@ -118,7 +118,7 @@ class App extends Component {
                 </Container>
 
             );
-        else 
+        else
             return(
                 <AppNavigator store={this.props.store} />
             );

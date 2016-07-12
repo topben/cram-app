@@ -13,9 +13,9 @@ module.exports = {
     brandSecondary: "#00c497",   //new style
 
     inverseTextColor: "#000",
-    textColor: "#fff",
+    textColor: "#000",
 
-    fontSizeBase: 15,
+    fontSizeBase: 16,
     titleFontSize: 18,
 
     get fontSizeH1 () {
@@ -51,7 +51,8 @@ module.exports = {
 
     footerHeight: 55,
     toolbarHeight: (Platform.OS === 'ios' ) ? 70 : 55,
-    toolbarDefaultBg: "#00c497",
+    //toolbarDefaultBg: "#00c497",
+    toolbarDefaultBg: "#fff",
     toolbarInverseBg: "#222",
 
     get statusBarColor() {

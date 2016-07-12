@@ -43,54 +43,55 @@ class SignUp extends Component {
     }
 
     render() {
-      // console.log(Realm.defaultPath);
-      //
-      // const realm = new Realm({schema: [TestUserSchema]});
+      console.log(Realm.defaultPath);
+
+      const realm = new Realm({schema: [TestUserSchema]});
 
       // realm.write(() => {
-      //   realm.create('TestUser', {i_user_id: 1, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
+      //   realm.create('TestUser', {i_user_id: 200, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
       // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
       // });
 
       // Query
- //      let testUser = realm.objects('TestUser');
- //      let count = testUser.length // => 0
- //
- //      console.log(count);
- //
- //      User.getUserVerificationCode(
- //
- //             '0900-000-000',
- //             'www.ahhhahahah',
- //
- //             function successCallback(results) {
- //                 alert(results.verificationCode);
- //             },
- //
- //             function errorCallback(results) {
- //                 alert('Error: ' + results);
- //             }
- //      );
- //
- //      User.checkUserVerificationCode(
- //
- //        '0900-000-000',
- //        'abc123',
- //        'www.ahahahahahah',
- //
- //        function successCallback(results) {
- //            alert(results.valid);
- //        },
- //
- //        function errorCallback(results) {
- //            alert('Error: ' + results);
- //        }
- //      );
- //
+      let testUser = realm.objects('TestUser').filtered('s_verificationCode = "abc123"');
+      let count = testUser.length // => 0
+
+      //alert(count);
+
+      User.getUserVerificationCode(
+
+             '0900000000',
+             'www.ahhhahahah',
+
+             function successCallback(results) {
+                 //alert(results.verificationCode);
+             },
+
+             function errorCallback(results) {
+                 //alert('Error: ' + results);
+             }
+      );
+
+
+      // User.checkUserVerificationCode(
+      //
+      //   '0900000000',
+      //   'abc123',
+      //   'www.ahahahahahah',
+      //
+      //   function successCallback(results) {
+      //       alert(results.valid);
+      //   },
+      //
+      //   function errorCallback(results) {
+      //       alert('Error: ' + results);
+      //   }
+      // );
+
  //        var userInfo = {
  //          "email": "hahahaha@tmotx.com",
  //          "name": "hahahaha",
- //          "phone" : "0900-000-000",
+ //          "phone" : "0900000000",
  //          "username" : "abc123",
  //          "password" : "123456"
  //        };
@@ -114,43 +115,26 @@ class SignUp extends Component {
 
         return (
 
-            <Container theme={theme} style={{backgroundColor:'#384850'}}>
+            <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
                 <Header>
                     <Button transparent onPress={() => this.popRoute()}>
                         <Icon name="ios-arrow-back" />
                     </Button>
                     <Title>SignUp</Title>
+                      <Button transparent onPress={() => this.popRoute()}>
+                          Next
+                      </Button>
                 </Header>
 
                 <Content padder style={{backgroundColor: 'transparent'}}>
                     <View padder>
+                      <Text>請輸入電話</Text>
                         <InputGroup style={styles.mb20}>
-                            <Icon name="ios-person" />
-                            <Input placeholder="Name" />
+                            <Icon name="ios-home" />
+                            <Input placeholder="ex:09xx-xxx-xxx" />
                         </InputGroup>
-                        <InputGroup style={styles.mb20}>
-                            <Icon name="ios-mail-open-outline" />
-                            <Input placeholder="Email" />
-                        </InputGroup>
-                        <InputGroup style={styles.mb20}>
-                            <Icon name="ios-unlock-outline" />
-                            <Input
-                                placeholder="Password"
-                                secureTextEntry={true}
-                            />
-                        </InputGroup>
-                        <InputGroup style={styles.mb20}>
-                            <Icon name="ios-calendar-outline" />
-                            <Input placeholder="Birthday"/>
-                        </InputGroup>
-                        <InputGroup style={styles.mb20}>
-                            <Icon name="ios-transgender" />
-                            <Input placeholder="Gender"/>
-                        </InputGroup>
-                        <Button rounded block style={{backgroundColor: '#fff', marginTop: 20}} textStyle={{color: '#00c497'}}>
-                            Save and Continue
-                        </Button>
+                        <Text>註冊電話號碼時，必須認證電話號碼，請同意服務條款及隱私權政策內容後，點選“下一步”取得認證碼</Text>
                     </View>
                 </Content>
               </Image>

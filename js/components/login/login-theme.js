@@ -11,7 +11,7 @@ module.exports = {
     brandSidebar: "#252932",
 
     inverseTextColor: "#00c497",
-    textColor: "#fff",
+    textColor: "#000",
 
     fontSizeBase: 15,
 
@@ -44,43 +44,43 @@ module.exports = {
 
     get borderRadiusLarge () {
         return this.fontSizeBase* 3.8;
-    },  
+    },
 
     footerHeight: 55,
-    toolbarHeight: (Platform.OS === 'ios' ) ? 70 : 55, 
+    toolbarHeight: (Platform.OS === 'ios' ) ? 70 : 55,
     toolbarDefaultBg: "#4563ED",
     toolbarInverseBg: "#222",
 
     get btnPrimaryBg () {
         return this.brandPrimary;
-    },  
+    },
     get btnPrimaryColor () {
         return this.inverseTextColor;
-    },  
+    },
     get btnSuccessBg () {
         return this.brandSuccess;
-    },  
+    },
     get btnSuccessColor () {
         return this.inverseTextColor;
-    },  
+    },
     get btnDangerBg () {
         return this.brandDanger;
-    },  
+    },
     get btnDangerColor () {
         return this.inverseTextColor;
-    },  
+    },
     get btnInfoBg () {
         return this.brandInfo;
-    },  
+    },
     get btnInfoColor () {
         return this.inverseTextColor;
-    },  
+    },
     get btnWarningBg () {
         return this.brandWarning;
-    },  
+    },
     get btnWarningColor () {
         return this.inverseTextColor;
-    },  
+    },
 
     borderWidth: 0.5,
 
@@ -91,7 +91,7 @@ module.exports = {
         return 'rgba(255, 255, 255, 1.0)';
     },
     inputBorderColor: "#fff",
-    inputHeightBase: 40,    
+    inputHeightBase: 40,
     inputGroupMarginBottom: 30,
     inputPaddingLeft: 5,
     get inputPaddingLeftIcon () {
