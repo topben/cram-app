@@ -43,49 +43,50 @@ class SignUp extends Component {
     }
 
     render() {
-
+      // console.log(Realm.defaultPath);
+      //
       // const realm = new Realm({schema: [TestUserSchema]});
-      //
-      // // realm.write(() => {
-      // //   realm.create('TestUser', {i_user_id: 1, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
-      // // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
-      // // });
-      //
-      // // Query
-      // let testUser = realm.objects('TestUser');
-      // let count = testUser.length // => 0
-      //
-      // console.log(count);
 
-      User.getUserVerificationCode(
+      // realm.write(() => {
+      //   realm.create('TestUser', {i_user_id: 1, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
+      // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
+      // });
 
-             '0900-000-000',
-             'www.ahhhahahah',
-
-             function successCallback(results) {
-                 alert(results.verificationCode);
-             },
-
-             function errorCallback(results) {
-                 alert('Error: ' + results);
-             }
-      );
-
-      User.checkUserVerificationCode(
-
-        '0900-000-000',
-        'abc123',
-        'www.ahahahahahah',
-
-        function successCallback(results) {
-            alert(results.valid);
-        },
-
-        function errorCallback(results) {
-            alert('Error: ' + results);
-        }
-      );
-
+      // Query
+ //      let testUser = realm.objects('TestUser');
+ //      let count = testUser.length // => 0
+ //
+ //      console.log(count);
+ //
+ //      User.getUserVerificationCode(
+ //
+ //             '0900-000-000',
+ //             'www.ahhhahahah',
+ //
+ //             function successCallback(results) {
+ //                 alert(results.verificationCode);
+ //             },
+ //
+ //             function errorCallback(results) {
+ //                 alert('Error: ' + results);
+ //             }
+ //      );
+ //
+ //      User.checkUserVerificationCode(
+ //
+ //        '0900-000-000',
+ //        'abc123',
+ //        'www.ahahahahahah',
+ //
+ //        function successCallback(results) {
+ //            alert(results.valid);
+ //        },
+ //
+ //        function errorCallback(results) {
+ //            alert('Error: ' + results);
+ //        }
+ //      );
+ //
  //        var userInfo = {
  //          "email": "hahahaha@tmotx.com",
  //          "name": "hahahaha",
@@ -94,8 +95,8 @@ class SignUp extends Component {
  //          "password" : "123456"
  //        };
  //
- //
  //        User.createUser(
+ //
  //          userInfo,
  //          'asdfasdfasdfasdf',
  //
