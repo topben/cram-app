@@ -24,7 +24,7 @@ class UserTestFunctions{
   static func checkVerificationCodeWithPhoneNumber(phone: String, verificationCode: String) -> Bool{
     
     let realm = try! Realm()
-    let test_user = realm.objects(TestUser.self).filter("s_phone = " + "'" + String(phone) + "'").first
+    let test_user = realm.objects(TestUser.self).filter("s_phone = %@", phone).first
         
     if verificationCode  == test_user!.s_verificationCode{
       return true
