@@ -11,6 +11,6 @@ module.exports = StyleSheet.create({
     },
     mb20: {
       marginBottom: 20,
-      borderBottomColor: "rgba(182, 182, 182, 0.62)"
+      borderBottomColor: "rgba(0, 0, 0, 0.62)"
     }
 });
