@@ -467,6 +467,7 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F49757291D35EB3700DEE799 /* Teacher */,
 				B592F7E41D336E47000C9DA8 /* TmotClass-Bridging-Header.h */,
 				B592F7E11D336E11000C9DA8 /* User */,
 				B592F7E21D336E1A000C9DA8 /* People */,
@@ -527,6 +528,13 @@
 				5DC962055729336017FE20DA /* Pods-TmotClass.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F49757291D35EB3700DEE799 /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Teacher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
