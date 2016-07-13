@@ -51,14 +51,24 @@ class User: NSObject {
   }
   
   // check user's verification code
-  @objc func checkUserVerificationCode(phone: String, verificationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func checkUserVerificationCode(verificationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
 
+    if verificationCode == "abc123"{
+      
+      var result = ["success" : "true"]
+      result["valid"] = "true"
+      
+      successCallBack([result])
+    }
+    else{
+      
+      var result = ["success" : "true"]
+      result["valid"] = "false"
+      
+      successCallBack([result])
+    }
     
-    let valid = UserTestFunctions.checkVerificationCodeWithPhoneNumber(phone, verificationCode: verificationCode)
-    var result = ["success" : "true"]
-    result["valid"] = valid.description
     
-    successCallBack([result])
 
     
     

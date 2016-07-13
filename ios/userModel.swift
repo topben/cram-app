@@ -20,6 +20,7 @@ class UserModel: Object{
   dynamic var s_phone            : String  = ""
   dynamic var s_invitationCode   : String  = ""
   dynamic var s_permission       : String  = ""
+  dynamic var i_scannerUsage     : Int     = 0
   dynamic var data_profileImage  : NSData? = "".dataUsingEncoding(NSUTF8StringEncoding)
   dynamic var b_isDelete         : Bool    = false
   
