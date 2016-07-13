@@ -17,10 +17,8 @@ class User: NSObject {
   // get user's verification code
   @objc func getUserVerificationCode(phone: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    
-    let code = UserTestFunctions.createVerificationCodeWithPhoneNumber(phone)
     var result = ["success" : "true"]
-    result["verificationCode"] = code
+    result["verificationCode"] = "abc123"
     
     successCallBack([result])
     
