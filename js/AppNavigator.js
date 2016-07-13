@@ -17,6 +17,8 @@ import Login from './components/login/';
 import SplashPage from './components/splashscreen/';
 import Home from './components/home/';
 import SignUp from './components/sign-up/';
+import SignUpVerify from './components/sign-up/sign-up-verify';
+import SignUpCreate from './components/sign-up/sign-up-create';
 import Inbox from './components/inbox/';
 import Mail from './components/mail/';
 import Compose from './components/compose/';
@@ -170,6 +172,10 @@ class AppNavigator extends Component {
                 return <Compose navigator={navigator} />;
             case 'signUp':
                 return <SignUp navigator={navigator} />;
+            case 'signUpVerify':
+                return <SignUpVerify navigator={navigator} />;
+            case 'signUpCreate':
+                return <SignUpCreate navigator={navigator} />;
             case 'mail':
                 return <Mail navigator={navigator} />;
             case 'lists':

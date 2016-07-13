@@ -9,9 +9,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput } from 'react-native';
+import { Image } from 'react-native';
 import {popRoute} from '../../actions/route';
-import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -31,7 +30,7 @@ const TestUserSchema = {
         s_phone: 'string',
         s_invitationCode: 'string',
         s_verificationCode: 'string',
-        b_isDelete: 'bool'
+        b_isDelete: 'bool',
     },
 };
 
@@ -39,55 +38,39 @@ const TestUserSchema = {
 
 class SignUp extends Component {
 
-    constructor(props) {
-        super(props);
-        this.onNextPressed = this.onNextPressed.bind(this);
-        this.state = {
-            phone: ''
-        };
-    }
-
     popRoute() {
         this.props.popRoute();
     }
 
-    navigateTo(route) {
-        this.props.replaceOrPushRoute(route);
-    }
+    render() {
+      console.log(Realm.defaultPath);
 
-    onNextPressed(){
+      const realm = new Realm({schema: [TestUserSchema]});
+
+      // realm.write(() => {
+      //   realm.create('TestUser', {i_user_id: 200, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
+      // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
+      // });
+
+      // Query
+      let testUser = realm.objects('TestUser').filtered('s_verificationCode = "abc123"');
+      let count = testUser.length // => 0
+
+      //alert(count);
+
       User.getUserVerificationCode(
-             this.state.phone,
+
+             '0900000000',
              'www.ahhhahahah',
+
              function successCallback(results) {
-                 alert(results.verificationCode);
+                 //alert(results.verificationCode);
              },
+
              function errorCallback(results) {
-                 alert('Error: ' + results);
+                 //alert('Error: ' + results);
              }
       );
-      this.navigateTo('signUpCreate');
-    }
-
-
-
-    render() {
-      // console.log(Realm.defaultPath);
-      //
-      // const realm = new Realm({schema: [TestUserSchema]});
-      //
-      // // realm.write(() => {
-      // //   realm.create('TestUser', {i_user_id: 200, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
-      // // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
-      // // });
-      //
-      // // Query
-      // let testUser = realm.objects('TestUser').filtered('s_verificationCode = "abc123"');
-      // let count = testUser.length // => 0
-      //
-      // //alert(count);
-      //
-
 
 
       // User.checkUserVerificationCode(
@@ -127,6 +110,8 @@ class SignUp extends Component {
  //          }
  // );
 
+
+
         return (
             <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
@@ -135,18 +120,20 @@ class SignUp extends Component {
                         <Icon name="ios-arrow-back" />
                     </Button>
                     <Title>SignUp</Title>
-                      <Button transparent onPress={this.onNextPressed}>
+                      <Button transparent onPress={() => this.popRoute()}>
                           Next
                       </Button>
                 </Header>
 
                 <Content padder style={{backgroundColor: 'transparent'}}>
                     <View padder>
-                      <Text>請輸入電話</Text>
-                        <View style={styles.mb20}>
-                            <Input placeholder="ex:09xx-xxx-xxx" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
-                        </View>
-                        <Text>註冊電話號碼時，必須認證電話號碼，請同意服務條款及隱私權政策內容後，點選“下一步”取得認證碼。</Text>
+                      <Text>請輸入認證碼</Text>
+                        <InputGroup style={styles.mb20}>
+                            <Icon name="ios-home" />
+                            <Input placeholder="ex:09xx-xxx-xxx" />
+                        </InputGroup>
+                        <Text>認證碼已寄到輸入電話號碼。</Text>
+                        <Text>若未收到認證碼請點選 "重寄認證碼"。</Text>
                     </View>
                 </Content>
               </Image>
@@ -157,9 +144,8 @@ class SignUp extends Component {
 
 function bindAction(dispatch) {
     return {
-        popRoute: () => dispatch(popRoute()),
-        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
+        popRoute: () => dispatch(popRoute())
     }
 }
 
-export default connect(null, bindAction)(SignUp);
+export default connect(null, bindAction)(SignUpVerify);
