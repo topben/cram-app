@@ -50,6 +50,11 @@
 		D3D997FA3B3B480FB88BD184 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3739FF607A8E42BBA1B335B6 /* Ionicons.ttf */; };
 		E2DFA8988D69608FC1848D95 /* Pods_TmotClass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBD36625A9E9B3C3C8C520 /* Pods_TmotClass.framework */; };
 		E86ECB360E9243F5A04771F6 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28C711C633DF48929A6CF067 /* EvilIcons.ttf */; };
+		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
+		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
+		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
+		F4F52A641D36376100166B69 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A631D36376100166B69 /* Student.swift */; };
+		F4F52A751D372A3000166B69 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A741D372A3000166B69 /* Student.m */; };
 		FA2810ADB6784EE5A416EF52 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28CE3C95513D4ECB8852B6CA /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
@@ -216,6 +221,11 @@
 		C1DBD36625A9E9B3C3C8C520 /* Pods_TmotClass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TmotClass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3AB60516FB49F7AC2C0396 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		D1F06753F8394B5A8088138E /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
+		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
+		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
+		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
+		F4F52A631D36376100166B69 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		F4F52A741D372A3000166B69 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,8 +477,10 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
-				F49757291D35EB3700DEE799 /* Teacher */,
 				B592F7E41D336E47000C9DA8 /* TmotClass-Bridging-Header.h */,
+				F49757421D35F1E600DEE799 /* Course */,
+				F497573D1D35EF7A00DEE799 /* Attendance */,
+				F497573C1D35EF6C00DEE799 /* Student */,
 				B592F7E11D336E11000C9DA8 /* User */,
 				B592F7E21D336E1A000C9DA8 /* People */,
 			);
@@ -530,11 +542,30 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		F49757291D35EB3700DEE799 /* Teacher */ = {
+		F497573C1D35EF6C00DEE799 /* Student */ = {
 			isa = PBXGroup;
 			children = (
+				F4F52A741D372A3000166B69 /* Student.m */,
+				F4F52A631D36376100166B69 /* Student.swift */,
+				F497573E1D35EF9D00DEE799 /* StudentModel.swift */,
 			);
-			name = Teacher;
+			name = Student;
+			sourceTree = "<group>";
+		};
+		F497573D1D35EF7A00DEE799 /* Attendance */ = {
+			isa = PBXGroup;
+			children = (
+				F49757401D35F0E900DEE799 /* AttendanceModel.swift */,
+			);
+			name = Attendance;
+			sourceTree = "<group>";
+		};
+		F49757421D35F1E600DEE799 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				F49757431D35F1F800DEE799 /* CourseModel.swift */,
+			);
+			name = Course;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -886,13 +917,18 @@
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
 				B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				F4F52A641D36376100166B69 /* Student.swift in Sources */,
 				B592F7FA1D336E6E000C9DA8 /* UserTestFunctions.swift in Sources */,
+				F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */,
+				F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */,
 				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */,
 				B592F7EF1D336E55000C9DA8 /* People.swift in Sources */,
 				B592F7F21D336E5E000C9DA8 /* SwiftExtensions.swift in Sources */,
+				F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */,
 				B592F7F81D336E6E000C9DA8 /* User.swift in Sources */,
+				F4F52A751D372A3000166B69 /* Student.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

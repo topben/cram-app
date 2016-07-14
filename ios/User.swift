@@ -15,7 +15,7 @@ class User: NSObject {
   // MARK: SIGN UP FUNCTIONS
   
   // get user's verification code
-  @objc func getUserVerificationCode(phone: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func getVerificationCode(phone: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
     var result = ["success" : "true"]
     result["verificationCode"] = "abc123"
@@ -49,7 +49,7 @@ class User: NSObject {
   }
   
   // check user's verification code
-  @objc func checkUserVerificationCode(verificationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func checkVerificationCode(verificationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
 
     if verificationCode == "abc123"{
       
@@ -129,7 +129,7 @@ class User: NSObject {
   
   
   // create user
-  @objc func createUser(userInfo: Dictionary<String, AnyObject>, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func create(userInfo: Dictionary<String, AnyObject>, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
 
     
     UserTestFunctions.createUser(userInfo)
@@ -195,7 +195,7 @@ class User: NSObject {
   }
   
   // get user permission
-  @objc func getUserPermission(invitationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func getPermission(invitationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
     // save user permissions in realm, and return result in callback
     GetApi.getUserPermission(invitationCode, url: url,
@@ -236,7 +236,7 @@ class User: NSObject {
   
   
   // update user in realm
-  @objc func updateUserInRealm(user_id: Int, name: String?, phone: String?, email: String?) -> Void{
+  @objc func updateInRealm(user_id: Int, password: String?, email: String?) -> Void{
     
     let realm = try! Realm()
     let userModel = realm.objects(UserModel.self).filter("i_user_id = " + String(user_id)).first
@@ -245,20 +245,19 @@ class User: NSObject {
     
     try! realm.write{
       
-      userModel!.s_name       = name  ?? userModel!.s_name
-      userModel!.s_phone      = phone ?? userModel!.s_phone
+      userModel!.s_name       = password  ?? userModel!.s_password
       userModel!.s_email      = email ?? userModel!.s_email
     }
     saveToRealm(userModel!)
     
-  } // end of updatePersonInRealm()
+  } // end of updateInRealm()
   
   
   
   // update user info in server
-  @objc func updateUserInServer(id: Int, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func updateInServer(user_id: Int, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    PutApi.updateUser(id, url: url,
+    PutApi.updateUser(user_id, url: url,
                         
                         // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
@@ -280,7 +279,7 @@ class User: NSObject {
         failureCallBack([result])
     })
     
-  } // end of updatePersonInServer()
+  } // end of updateInServer()
   
   
   // MARK: LOGIN FUNCTIONS
@@ -292,7 +291,7 @@ class User: NSObject {
     let realm = try! Realm()
     let testUser = realm.objects(TestUser.self).filter("s_username = " + String(username)).first
     
-    var result = ["success" : "true"]
+    var result = ["message" : "success"]
     
     if testUser?.s_password == password{
       result["valid"] = "true"
@@ -327,7 +326,7 @@ class User: NSObject {
 //        failureCallBack([result])
 //    })
     
-  } // end of updatePersonInServer()
+  } // end of login()
   
   
   

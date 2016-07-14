@@ -22,6 +22,8 @@ class UserModel: Object{
   dynamic var s_permission       : String  = ""
   dynamic var i_scannerUsage     : Int     = 0
   dynamic var data_profileImage  : NSData? = "".dataUsingEncoding(NSUTF8StringEncoding)
+  dynamic var b_isTeacher        : Bool    = false
+  dynamic var b_isParent         : Bool    = false
   dynamic var b_isDelete         : Bool    = false
   
   static override func primaryKey() -> String?{
