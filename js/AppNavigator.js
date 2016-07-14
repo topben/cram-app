@@ -14,11 +14,13 @@ import {popRoute} from './actions/route';
 import Navigator from 'Navigator';
 
 import Login from './components/login/';
+import LoginInfo from './components/login/login-info';
 import SplashPage from './components/splashscreen/';
 import Home from './components/home/';
 import SignUp from './components/sign-up/';
 import SignUpVerify from './components/sign-up/sign-up-verify';
 import SignUpCreate from './components/sign-up/sign-up-create';
+import Edit from './components/edit/';
 import Inbox from './components/inbox/';
 import Mail from './components/mail/';
 import Compose from './components/compose/';
@@ -164,6 +166,8 @@ class AppNavigator extends Component {
                 return <SplashPage navigator={navigator} />;
             case 'login':
                 return <Login navigator={navigator} />;
+            case 'loginInfo':
+                return <LoginInfo navigator={navigator} />;
             case 'home':
                 return <Home navigator={navigator} />;
             case 'inbox':
@@ -176,6 +180,8 @@ class AppNavigator extends Component {
                 return <SignUpVerify navigator={navigator} />;
             case 'signUpCreate':
                 return <SignUpCreate navigator={navigator} />;
+            case 'edit':
+                return <Edit navigator={navigator} />;
             case 'mail':
                 return <Mail navigator={navigator} />;
             case 'lists':

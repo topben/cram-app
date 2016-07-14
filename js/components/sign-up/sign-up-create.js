@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image } from 'react-native';
+import { Image ,TextInput } from 'react-native';
 import {popRoute} from '../../actions/route';
 import {closeDrawer} from '../../actions/drawer';
 import {replaceOrPushRoute} from '../../actions/route';
@@ -20,99 +20,39 @@ import styles from './styles';
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
-const TestUserSchema = {
-    name: 'TestUser',
-    primaryKey: 'i_user_id',
-    properties: {
-        i_user_id: 'int',
-        s_name: 'string',
-        s_username: 'string',
-        s_password: 'string',
-        s_email: 'string',
-        s_phone: 'string',
-        s_invitationCode: 'string',
-        s_verificationCode: 'string',
-        b_isDelete: 'bool',
-    },
-};
-
-
-
 class SignUpCreate extends Component {
+
+  constructor(props) {
+      super(props);
+      this.onNextPressed = this.onNextPressed.bind(this);
+      this.state = {
+          password: '',
+          retype_password: ''
+      };
+  }
 
     popRoute() {
         this.props.popRoute();
     }
 
+    navigateTo(route) {
+        this.props.replaceOrPushRoute(route);
+    }
+
+    // next button tapped
+    onNextPressed(){
+
+      if(this.state.password != this.state.retype_password)
+      {
+        alert("密碼不一致");
+        return;
+      }
+      //this.setState({client_error_msg: '成功'});
+      this.navigateTo('edit');
+    }
+
     render() {
       console.log(Realm.defaultPath);
-
-      const realm = new Realm({schema: [TestUserSchema]});
-
-      // realm.write(() => {
-      //   realm.create('TestUser', {i_user_id: 200, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
-      // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
-      // });
-
-      // Query
-      let testUser = realm.objects('TestUser').filtered('s_verificationCode = "abc123"');
-      let count = testUser.length // => 0
-
-      //alert(count);
-
-      User.getUserVerificationCode(
-
-             '0900000000',
-             'www.ahhhahahah',
-
-             function successCallback(results) {
-                 //alert(results.verificationCode);
-             },
-
-             function errorCallback(results) {
-                 //alert('Error: ' + results);
-             }
-      );
-
-
-      // User.checkUserVerificationCode(
-      //
-      //   '0900000000',
-      //   'abc123',
-      //   'www.ahahahahahah',
-      //
-      //   function successCallback(results) {
-      //       alert(results.valid);
-      //   },
-      //
-      //   function errorCallback(results) {
-      //       alert('Error: ' + results);
-      //   }
-      // );
-
- //        var userInfo = {
- //          "email": "hahahaha@tmotx.com",
- //          "name": "hahahaha",
- //          "phone" : "0900000000",
- //          "username" : "abc123",
- //          "password" : "123456"
- //        };
- //
- //        User.createUser(
- //
- //          userInfo,
- //          'asdfasdfasdfasdf',
- //
- //          function successCallback(results) {
- //              alert(results.success);
- //          },
- //
- //          function errorCallback(results) {
- //              alert('Error: ' + results);
- //          }
- // );
-
-
 
         return (
             <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
@@ -121,8 +61,8 @@ class SignUpCreate extends Component {
                     <Button transparent onPress={() => this.popRoute()}>
                         <Icon name="ios-arrow-back" />
                     </Button>
-                    <Title>SignUp</Title>
-                      <Button transparent onPress={() => this.popRoute()}>
+                    <Title>註冊</Title>
+                      <Button transparent onPress={this.onNextPressed}>
                           Next
                       </Button>
                 </Header>
@@ -131,10 +71,10 @@ class SignUpCreate extends Component {
                     <View padder>
                       <Text>建立密碼</Text>
                         <View style={styles.mb20}>
-                            <Input placeholder="ex:password" />
+                            <Input placeholder="ex:password" onChangeText={(password) => this.setState({password})} value={this.state.password}/>
                         </View>
                         <View style={styles.mb20}>
-                            <Input placeholder="re-type password" />
+                            <Input placeholder="re-type password" onChangeText={(retype_password) => this.setState({retype_password})} value={this.state.retype_password}/>
                         </View>
                     </View>
                 </Content>
@@ -146,7 +86,8 @@ class SignUpCreate extends Component {
 
 function bindAction(dispatch) {
     return {
-        popRoute: () => dispatch(popRoute())
+        popRoute: () => dispatch(popRoute()),
+        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
     }
 }
 

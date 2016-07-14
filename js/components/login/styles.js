@@ -27,5 +27,14 @@ module.exports = StyleSheet.create({
         paddingRight: 20,
         paddingBottom: 70
     },
+    mb20: {
+      flex:1,
+      flexDirection:'row',
+      alignItems:'center',
+      backgroundColor:'#eaebed',
+      marginTop: 20,
+      marginBottom: 20,
+      borderRadius: 7
+    }
 
 });

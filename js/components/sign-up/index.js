@@ -43,7 +43,8 @@ class SignUp extends Component {
         super(props);
         this.onNextPressed = this.onNextPressed.bind(this);
         this.state = {
-            phone: ''
+            phone: '',
+            client_error_msg: ''
         };
     }
 
@@ -55,78 +56,45 @@ class SignUp extends Component {
         this.props.replaceOrPushRoute(route);
     }
 
-    onNextPressed(){
-      User.getUserVerificationCode(
-             this.state.phone,
-             'www.ahhhahahah',
-             function successCallback(results) {
-                 alert(results.verificationCode);
-             },
-             function errorCallback(results) {
-                 alert('Error: ' + results);
-             }
-      );
-      this.navigateTo('signUpCreate');
+    isNormalInteger(str) {
+        var n = ~~Number(str);
+        return String(n) === str && n >= 0;
     }
 
+    // check phone number
+    isPhoneNumber(inputtxt)
+    {
+      var phoneno = /^\d{10}$/;
+      if(inputtxt.match(phoneno))
+      {
+        return true;
+      }
+      else
+      {
+        this.setState({client_error_msg: '電話規格錯誤'});
+        return false;
+      }
+    }
 
+    // next button tapped
+    onNextPressed(){
+      if(this.isPhoneNumber(this.state.phone)==false)
+      {
+        return;
+      }
+
+      var first_two_phone_numbers = this.state.phone.substring(0, 2);
+      if(first_two_phone_numbers != '09')
+      {
+        this.setState({client_error_msg: '需要09開頭'});
+        return;
+      }
+
+      //this.setState({client_error_msg: '成功'});
+      this.navigateTo('signUpVerify');
+    }
 
     render() {
-      // console.log(Realm.defaultPath);
-      //
-      // const realm = new Realm({schema: [TestUserSchema]});
-      //
-      // // realm.write(() => {
-      // //   realm.create('TestUser', {i_user_id: 200, s_name: 'ben', s_username: 'ben@tmotx.com', s_password: '123456',
-      // // s_email: 'ben@tmotx.com', s_phone: '0900-000-000', s_invitationCode: 'abc123', s_verificationCode: '123456', b_isDelete: false});
-      // // });
-      //
-      // // Query
-      // let testUser = realm.objects('TestUser').filtered('s_verificationCode = "abc123"');
-      // let count = testUser.length // => 0
-      //
-      // //alert(count);
-      //
-
-
-
-      // User.checkUserVerificationCode(
-      //
-      //   '0900000000',
-      //   'abc123',
-      //   'www.ahahahahahah',
-      //
-      //   function successCallback(results) {
-      //       alert(results.valid);
-      //   },
-      //
-      //   function errorCallback(results) {
-      //       alert('Error: ' + results);
-      //   }
-      // );
-
- //        var userInfo = {
- //          "email": "hahahaha@tmotx.com",
- //          "name": "hahahaha",
- //          "phone" : "0900000000",
- //          "username" : "abc123",
- //          "password" : "123456"
- //        };
- //
- //        User.createUser(
- //
- //          userInfo,
- //          'asdfasdfasdfasdf',
- //
- //          function successCallback(results) {
- //              alert(results.success);
- //          },
- //
- //          function errorCallback(results) {
- //              alert('Error: ' + results);
- //          }
- // );
-
         return (
             <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
@@ -134,7 +102,7 @@ class SignUp extends Component {
                     <Button transparent onPress={() => this.popRoute()}>
                         <Icon name="ios-arrow-back" />
                     </Button>
-                    <Title>SignUp</Title>
+                    <Title>註冊</Title>
                       <Button transparent onPress={this.onNextPressed}>
                           Next
                       </Button>
@@ -145,7 +113,8 @@ class SignUp extends Component {
                       <Text>請輸入電話</Text>
                         <View style={styles.mb20}>
                             <Input placeholder="ex:09xx-xxx-xxx" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
-                        </View>
+                            <Text>{this.state.client_error_msg}</Text>
+                          </View>
                         <Text>註冊電話號碼時，必須認證電話號碼，請同意服務條款及隱私權政策內容後，點選“下一步”取得認證碼。</Text>
                     </View>
                 </Content>

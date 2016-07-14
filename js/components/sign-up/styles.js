@@ -10,9 +10,12 @@ module.exports = StyleSheet.create({
         height: null,
     },
     mb20: {
+      flex:1,
+      flexDirection:'row',
+      alignItems:'center',
       backgroundColor:'#eaebed',
       marginTop: 20,
       marginBottom: 20,
-      borderRadius: 10
+      borderRadius: 7
     }
 });

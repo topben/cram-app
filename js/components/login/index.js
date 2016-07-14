@@ -52,36 +52,49 @@ class Login extends Component {
 
     render() {
         return (
-            <Container>
-                <Content style={{backgroundColor: '#ffffff'}} theme={login} scrollEnabled={this.state.scroll}>
-                            <View style={styles.bg}>
-                                <InputGroup style={{marginBottom: 20}}>
-                                    <Icon name="ios-person" />
-                                    <Input placeholder="EMAIL" />
-                                </InputGroup>
-                                <InputGroup style={{marginBottom: 10}}>
-                                    <Icon name="ios-unlock-outline" />
-                                    <Input
-                                        placeholder="PASSWORD"
-                                        secureTextEntry={true}
-                                    />
-                                </InputGroup>
-                                <Button transparent style={{alignSelf: 'flex-end',  marginBottom: (Platform.OS === 'ios' ) ? 10 : 0, marginTop: (Platform.OS === 'ios' ) ? -10 : 0}}>
-                                    <Text>
-                                        Forgot Password
-                                    </Text>
-                                </Button>
-                                <Button transparent rounded block style={{marginBottom: 10}} onPress={() => this.replaceRoute('home')}>
-                                    Login
-                                </Button>
-                                <Button transparent style={{alignSelf: 'center'}} onPress={() => this.pushNewRoute('signUp')}>
-                                    <Text>
-                                        Sign Up Here
-                                    </Text>
-                                </Button>
-                            </View>
-                </Content>
-            </Container>
+          <Container>
+            <Content
+              style={{backgroundColor: '#ffffff'}}
+              theme={login}
+              scrollEnabled={this.state.scroll}>
+              <View style={styles.bg}>
+                <InputGroup style={{marginBottom: 20}}>
+                  <Icon name="ios-person" />
+                  <Input placeholder="EMAIL" />
+                </InputGroup>
+                <InputGroup style={{marginBottom: 10}}>
+                  <Icon name="ios-unlock-outline" />
+                  <Input
+                    placeholder="PASSWORD"
+                    secureTextEntry={true}
+                    />
+                </InputGroup>
+                <Button
+                  transparent
+                  style={{alignSelf: 'flex-end',  marginBottom: (Platform.OS === 'ios' ) ? 10 : 0, marginTop: (Platform.OS === 'ios' ) ? -10 : 0}}>
+                  <Text>
+                    Forgot Password
+                  </Text>
+                </Button>
+                <Button
+                  transparent
+                  rounded
+                  block
+                  style={{marginBottom: 10}}
+                  onPress={() => this.replaceRoute('loginInfo')}>
+                  Login
+                </Button>
+                <Button
+                  transparent
+                  style={{alignSelf: 'center'}}
+                  onPress={() => this.pushNewRoute('signUp')}>
+                  <Text>
+                    Sign Up Here
+                  </Text>
+                </Button>
+              </View>
+            </Content>
+          </Container>
         )
     }
 }
