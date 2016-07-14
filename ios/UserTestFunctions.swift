@@ -37,10 +37,10 @@ class UserTestFunctions{
   static func checkUsername(username: String) -> Bool{
     
     let realm = try! Realm()
-    let test_user = realm.objects(TestUser.self).filter("s_username = " + String(username)).first
+    let user = realm.objects(UserModel.self).filter("s_username = " + String(username)).first
     
     
-    if test_user == nil{
+    if user == nil{
       return true
     }
     else{
@@ -51,14 +51,13 @@ class UserTestFunctions{
   
   static func createUser(userInfo: Dictionary<String, AnyObject>){
     
-    let testUser = TestUser()
-    testUser.i_user_id = getNextLocalId()
-    testUser.s_email = userInfo["email"] as! String
-    testUser.s_phone = userInfo["phone"] as! String
-    testUser.s_name  = userInfo["name"]  as! String
-    testUser.s_username = userInfo["username"] as! String
-    testUser.s_password = userInfo["password"] as! String
-    saveToRealm(testUser)
+    let user = UserModel()
+    user.i_user_id = getNextLocalId()
+    user.s_email = userInfo["email"] as! String
+    user.s_phone = userInfo["phone"] as! String
+    user.s_username = userInfo["username"] as! String
+    user.s_password = userInfo["password"] as! String
+    saveToRealm(user)
   }
   
   
