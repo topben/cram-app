@@ -24,7 +24,7 @@ RCT_EXTERN_METHOD(activateInvitationCode:(NSString *)invitationCode url:(NSStrin
 
 RCT_EXTERN_METHOD(getUserPermission:(NSString *)invitationCode url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
-RCT_EXTERN_METHOD(login:(NSString *)username password:(NSString *) password url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
+RCT_EXTERN_METHOD(login:(NSString *)username phone:(NSString *) phone password:(NSString *) password url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
 RCT_EXTERN_METHOD(updateInRealm:(NSInteger *)user_id password:(NSString *) password email:(NSString *) email url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 

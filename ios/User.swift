@@ -285,24 +285,47 @@ class User: NSObject {
   // MARK: LOGIN FUNCTIONS
   
   // login
-  @objc func login(username: String, password: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func login(username: String?, phone: String?, password: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
 
     
     let realm = try! Realm()
-    let testUser = realm.objects(TestUser.self).filter("s_username = " + String(username)).first
     
-    var result = ["message" : "success"]
+    if username != nil{
     
-    if testUser?.s_password == password{
-      result["valid"] = "true"
+      let testUser = realm.objects(TestUser.self).filter("s_username = " + String(username!)).first
+      
+      var result = ["message" : "success"]
+      
+      if testUser?.s_password == password{
+        result["valid"] = "true"
+      }
+      else{
+        result["valid"] = "false"
+      }
+      
+      successCallBack([result])
     }
+      
     else{
-      result["valid"] = "false"
+      
+      let testUser = realm.objects(TestUser.self).filter("s_phone = " + String(phone!)).first
+      
+      var result = ["message" : "success"]
+      
+      if testUser?.s_password == password{
+        
+        result["valid"] = "true"
+      }
+      else{
+        result["valid"] = "false"
+      }
+      
+      successCallBack([result])
+      
     }
     
     
-    successCallBack([result])
-
+    
     
 //    PostApi.login(username, password: password, url: url,
 //                      
