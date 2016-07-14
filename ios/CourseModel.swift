@@ -20,7 +20,7 @@ class CourseModel: Object{
   dynamic var NSDate_endTime     : NSDate?
   dynamic var NSDate_checkInTime : NSDate?
   dynamic var NSDate_lateTime    : NSDate?
-  dynamic var User_instructor    : User? // the teacher for this course
+  dynamic var User_instructor    : UserModel? // the teacher for this course
           let List_students               = List<StudentModel>() // students in this course
   dynamic var b_isDelete         : Bool   = false
   

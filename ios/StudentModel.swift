@@ -19,7 +19,7 @@ class StudentModel: Object{
           let List_courses                 = List<CourseModel>()         // courses this student is attending
           let List_checkInHistory          = List<AttendanceModel>()      // date/time this student checked in
   
-  dynamic var data_profileImage  : NSData? = "".dataUsingEncoding(NSUTF8StringEncoding)
+  dynamic var s_profileImage     : String  = ""
   dynamic var b_isDelete         : Bool    = false
     
   static override func primaryKey() -> String?{
@@ -33,7 +33,7 @@ class StudentModel: Object{
     
     studentModel.i_student_id              = Int(data["id"]           as! String)!
     studentModel.s_name                    = data["name"]             as! String
-    studentModel.data_profileImage         = (data["profileImage"]    as! String).dataUsingEncoding(NSUTF8StringEncoding)
+    studentModel.s_profileImage            = data["profileImage"]     as! String
     
     return studentModel
   }
@@ -47,7 +47,7 @@ class StudentModel: Object{
     
     studentModel["id"]            = student!.i_student_id
     studentModel["name"]          = student!.s_name
-    studentModel["profileImage"]  = student!.data_profileImage
+    studentModel["profileImage"]  = student!.s_profileImage
     
     return studentModel
   }

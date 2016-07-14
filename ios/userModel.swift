@@ -21,7 +21,7 @@ class UserModel: Object{
   dynamic var s_invitationCode   : String  = ""
   dynamic var s_permission       : String  = ""
   dynamic var i_scannerUsage     : Int     = 0
-  dynamic var data_profileImage  : NSData? = "".dataUsingEncoding(NSUTF8StringEncoding)
+  dynamic var s_profileImage     : String  = ""
   dynamic var b_isTeacher        : Bool    = false
   dynamic var b_isParent         : Bool    = false
   dynamic var b_isDelete         : Bool    = false
@@ -43,7 +43,7 @@ class UserModel: Object{
     userModel.s_password                = data["password"]         as! String
     userModel.s_invitationCode          = data["invitationCode"]   as! String
     userModel.s_permission              = data["permission"]       as! String
-    userModel.data_profileImage         = (data["profileImage"]    as! String).dataUsingEncoding(NSUTF8StringEncoding)
+    userModel.s_profileImage            = data["profileImage"]     as! String
     
     return userModel
   }
@@ -63,7 +63,7 @@ class UserModel: Object{
     userModel["phone"]         = user!.s_phone
     userModel["inviationCode"] = user!.s_invitationCode
     userModel["permission"]    = user!.s_permission
-    userModel["profileImage"]  = user!.data_profileImage
+    userModel["profileImage"]  = user!.s_profileImage
 
     return userModel
   }
