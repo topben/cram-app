@@ -17,5 +17,10 @@ module.exports = StyleSheet.create({
       marginTop: 20,
       marginBottom: 20,
       borderRadius: 7
+    },
+    card: {
+      borderWidth: 0,
+      flex: 1,
+      flexDirection: 'row'
     }
 });

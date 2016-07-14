@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
 import { Image ,TextInput } from 'react-native';
 import {popRoute} from '../../actions/route';
+import {closeDrawer} from '../../actions/drawer';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
@@ -19,34 +20,16 @@ import styles from './styles';
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
-const TestUserSchema = {
-    name: 'TestUser',
-    primaryKey: 'i_user_id',
-    properties: {
-        i_user_id: 'int',
-        s_name: 'string',
-        s_username: 'string',
-        s_password: 'string',
-        s_email: 'string',
-        s_phone: 'string',
-        s_invitationCode: 'string',
-        s_verificationCode: 'string',
-        b_isDelete: 'bool'
-    },
-};
+class SignUpCreate extends Component {
 
-
-
-class SignUp extends Component {
-
-    constructor(props) {
-        super(props);
-        this.onNextPressed = this.onNextPressed.bind(this);
-        this.state = {
-            phone: '',
-            client_error_msg: ''
-        };
-    }
+  constructor(props) {
+      super(props);
+      this.onNextPressed = this.onNextPressed.bind(this);
+      this.state = {
+          password: '',
+          retype_password: ''
+      };
+  }
 
     popRoute() {
         this.props.popRoute();
@@ -56,45 +39,21 @@ class SignUp extends Component {
         this.props.replaceOrPushRoute(route);
     }
 
-    isNormalInteger(str) {
-        var n = ~~Number(str);
-        return String(n) === str && n >= 0;
-    }
-
-    // check phone number
-    isPhoneNumber(inputtxt)
-    {
-      var phoneno = /^\d{10}$/;
-      if(inputtxt.match(phoneno))
-      {
-        return true;
-      }
-      else
-      {
-        this.setState({client_error_msg: '電話規格錯誤'});
-        return false;
-      }
-    }
-
     // next button tapped
     onNextPressed(){
-      if(this.isPhoneNumber(this.state.phone)==false)
+
+      if(this.state.password != this.state.retype_password)
       {
+        alert("密碼不一致");
         return;
       }
-
-      var first_two_phone_numbers = this.state.phone.substring(0, 2);
-      if(first_two_phone_numbers != '09')
-      {
-        this.setState({client_error_msg: '需要09開頭'});
-        return;
-      }
-
       //this.setState({client_error_msg: '成功'});
-      this.navigateTo('signUpVerify');
+      this.navigateTo('edit');
     }
 
     render() {
+      console.log(Realm.defaultPath);
+
         return (
             <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
@@ -110,12 +69,13 @@ class SignUp extends Component {
 
                 <Content padder style={{backgroundColor: 'transparent'}}>
                     <View padder>
-                      <Text>請輸入電話</Text>
+                      <Text>建立密碼</Text>
                         <View style={styles.mb20}>
-                            <Input placeholder="ex:09xx-xxx-xxx" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
-                            <Text>{this.state.client_error_msg}</Text>
-                          </View>
-                        <Text>註冊電話號碼時，必須認證電話號碼，請同意服務條款及隱私權政策內容後，點選“下一步”取得認證碼。</Text>
+                            <Input placeholder="ex:password" onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+                        </View>
+                        <View style={styles.mb20}>
+                            <Input placeholder="re-type password" onChangeText={(retype_password) => this.setState({retype_password})} value={this.state.retype_password}/>
+                        </View>
                     </View>
                 </Content>
               </Image>
@@ -131,4 +91,4 @@ function bindAction(dispatch) {
     }
 }
 
-export default connect(null, bindAction)(SignUp);
+export default connect(null, bindAction)(SignUpCreate);
