@@ -15,6 +15,8 @@ class StudentModel: Object{
   dynamic var i_student_id       : Int     = 0
   dynamic var s_student_qrCode   : String  = ""
   dynamic var s_name             : String  = ""
+  dynamic var f_longitude        : Float   = 0.0
+  dynamic var f_latitude         : Float   = 0.0
 
           let List_courses                 = List<CourseModel>()         // courses this student is attending
           let List_checkInHistory          = List<AttendanceModel>()      // date/time this student checked in

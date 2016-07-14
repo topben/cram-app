@@ -15,7 +15,7 @@ class Invitation: NSObject {
   // MARK: SIGN UP FUNCTIONS
   
   // get student info. the studentId is the QR code scanned result
-  @objc func getInfo(user_id: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void{
+  @objc func getInfo(user_id: Int, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void{
     
     // get all invitations of the current user
     let realm   = try! Realm()
@@ -80,6 +80,42 @@ class Invitation: NSObject {
     
     
   }
+  
+  @objc func activate(invitation_id: Int, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void{
+  
+    let realm   = try! Realm()
+    let invitation = realm.objects(InvitationModel.self).filter("i_invitation_id = " + String(invitation_id)).first
+    
+    invitation?.b_isActivated = true
+    
+    let result = ["message" : "invitation activated"]
+
+    successCallBack([result])
+    
+  }
+  
+  @objc func checkStatus(user_id: Int, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void{
+    
+    // set today's date
+    let today = NSDate()
+    
+    let realm   = try! Realm()
+    let predicate = NSPredicate(format: "i_user_id = %@ AND NSDate_date > %@", String(user_id), today)
+    let invitations = realm.objects(InvitationModel.self).filter(predicate)
+    
+    for invitation in invitations{
+    
+      invitation.b_isActivated = false
+      invitation.b_expired = true
+    }
+    
+    let result = ["message" : "invitation activated"]
+    
+    successCallBack([result])
+    
+  }
+
+  
   
   // private methods just for swift
   func saveToRealm(realmObject: Object){
