@@ -292,7 +292,8 @@ class User: NSObject {
     
     if username != nil{
     
-      let user = realm.objects(UserModel.self).filter("s_username = " + String(username!)).first
+      let predicate = NSPredicate(format: "s_username = %@", username!)
+      let user = realm.objects(UserModel.self).filter(predicate).first
       
       var result = ["message" : "success"]
       
@@ -308,11 +309,12 @@ class User: NSObject {
       
     else{
       
-      let testUser = realm.objects(TestUser.self).filter("s_phone = " + String(phone!)).first
-      
+      let predicate = NSPredicate(format: "s_phone = %@", phone!)
+      let user = realm.objects(UserModel.self).filter(predicate).first
+
       var result = ["message" : "success"]
       
-      if testUser?.s_password == password{
+      if user?.s_password == password{
         
         result["valid"] = "true"
       }

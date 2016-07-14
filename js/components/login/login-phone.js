@@ -20,7 +20,7 @@ import styles from './styles';
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
-class LoginInfo extends Component {
+class LoginPhone extends Component {
 
   constructor(props) {
       super(props);
@@ -86,4 +86,4 @@ function bindAction(dispatch) {
     }
 }
 
-export default connect(null, bindAction)(LoginInfo);
+export default connect(null, bindAction)(LoginPhone);

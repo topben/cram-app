@@ -14,7 +14,8 @@ import {popRoute} from './actions/route';
 import Navigator from 'Navigator';
 
 import Login from './components/login/';
-import LoginInfo from './components/login/login-info';
+import LoginPhone from './components/login/login-phone';
+import LoginAccount from './components/login/login-account';
 import SplashPage from './components/splashscreen/';
 import Home from './components/home/';
 import SignUp from './components/sign-up/';
@@ -166,8 +167,10 @@ class AppNavigator extends Component {
                 return <SplashPage navigator={navigator} />;
             case 'login':
                 return <Login navigator={navigator} />;
-            case 'loginInfo':
-                return <LoginInfo navigator={navigator} />;
+            case 'loginPhone':
+                return <LoginPhone navigator={navigator} />;
+            case 'loginAccount':
+                return <LoginAccount navigator={navigator} />;
             case 'home':
                 return <Home navigator={navigator} />;
             case 'inbox':
