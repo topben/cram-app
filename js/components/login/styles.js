@@ -35,6 +35,15 @@ module.exports = StyleSheet.create({
       marginTop: 20,
       marginBottom: 20,
       borderRadius: 7
+    },
+    btn: {
+      alignSelf:'center',
+      backgroundColor: '#bfbfc1',
+      margin: 10
+    },
+    txt: {
+      color:'black',
+      justifyContent:'center'
     }
 
 });

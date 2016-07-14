@@ -58,38 +58,25 @@ class Login extends Component {
               theme={login}
               scrollEnabled={this.state.scroll}>
               <View style={styles.bg}>
-                <InputGroup style={{marginBottom: 20}}>
-                  <Icon name="ios-person" />
-                  <Input placeholder="EMAIL" />
-                </InputGroup>
-                <InputGroup style={{marginBottom: 10}}>
-                  <Icon name="ios-unlock-outline" />
-                  <Input
-                    placeholder="PASSWORD"
-                    secureTextEntry={true}
-                    />
-                </InputGroup>
                 <Button
-                  transparent
-                  style={{alignSelf: 'flex-end',  marginBottom: (Platform.OS === 'ios' ) ? 10 : 0, marginTop: (Platform.OS === 'ios' ) ? -10 : 0}}>
-                  <Text>
-                    Forgot Password
+                  style={styles.btn}
+                  onPress={() => this.replaceRoute('loginPhone')}>
+                  <Text style={styles.txt}>
+                  手機號碼登入
                   </Text>
                 </Button>
                 <Button
-                  transparent
-                  rounded
-                  block
-                  style={{marginBottom: 10}}
-                  onPress={() => this.replaceRoute('loginInfo')}>
-                  Login
+                  style={styles.btn}
+                  onPress={() => this.pushNewRoute('loginAccount')}>
+                  <Text style={styles.txt}>
+                    帳號登入
+                  </Text>
                 </Button>
                 <Button
-                  transparent
-                  style={{alignSelf: 'center'}}
+                  style={styles.btn}
                   onPress={() => this.pushNewRoute('signUp')}>
-                  <Text>
-                    Sign Up Here
+                  <Text style={styles.txt}>
+                    註冊帳號
                   </Text>
                 </Button>
               </View>
