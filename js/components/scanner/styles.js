@@ -23,5 +23,21 @@ module.exports = StyleSheet.create({
     },
     name: {
       color: 'red'
+    },
+    camera: {
+      height:deviceHeight,
+      alignItems: 'center',
+    },
+    rectangle: {
+      height: 250,
+      width: 250,
+      borderWidth: 2,
+      borderColor: '#00FF00',
+      backgroundColor: 'transparent',
+    },
+    rectangleContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'transparent',
     }
 });

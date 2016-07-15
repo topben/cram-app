@@ -57,7 +57,7 @@ module.exports = {
 
     get statusBarColor() {
 		return Color(this.toolbarDefaultBg).darken(0.1).hexString();
-	},
+	  },
 
     get btnPrimaryBg () {
         return this.brandPrimary;

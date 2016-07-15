@@ -16,6 +16,7 @@ import Navigator from 'Navigator';
 import Login from './components/login/';
 import LoginPhone from './components/login/login-phone';
 import LoginAccount from './components/login/login-account';
+import Scanner from './components/scanner/';
 import SplashPage from './components/splashscreen/';
 import Home from './components/home/';
 import SignUp from './components/sign-up/';
@@ -142,7 +143,7 @@ class AppNavigator extends Component {
                 negotiatePan={true}>
                 <StatusBar
                     backgroundColor={statusBarColor}
-                    barStyle="light-content"
+                    barStyle="default"
                 />
                 <Navigator
                     ref={(ref) => this._navigator = ref}
@@ -171,6 +172,8 @@ class AppNavigator extends Component {
                 return <LoginPhone navigator={navigator} />;
             case 'loginAccount':
                 return <LoginAccount navigator={navigator} />;
+            case 'scanner':
+                return <Scanner navigator={navigator} />;
             case 'home':
                 return <Home navigator={navigator} />;
             case 'inbox':
