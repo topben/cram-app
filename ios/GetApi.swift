@@ -24,23 +24,21 @@ class GetApi{
     Alamofire.request(.GET, domain + url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      let status = json?["status"] as? String
       
       switch(response.result){
-      case .Success:
-        // change status later..
-        if status == "0"{
-          print("Get verification code success.") // JSON = \(json)")
-          successBlock(json as! Dictionary<String, AnyObject>)
-        }
-        else{
-          print("Get verification code failed.") // JSON = \(json)")
-          failureBlock(json as! Dictionary<String, AnyObject>)
-        }
-        break
-      case .Failure:
-        print("connection error")
-        break
+        case .Success:
+          if (response.response?.statusCode)! == "200"{
+            print("Get verification code success.")
+            successBlock(json as! Dictionary<String, AnyObject>)
+          }
+          else{
+            print("Get verification code failed.")
+            failureBlock(json as! Dictionary<String, AnyObject>)
+          }
+          break
+        case .Failure:
+          print("connection error")
+          break
       } // end of switch
       
     } // end of request
@@ -80,7 +78,7 @@ class GetApi{
   } // end of getUserPermission()
 
   
-  // get verification code
+  // get student info
   static func getStudentInfo(studentId: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
     
     var parameters = [String: AnyObject]()
@@ -89,17 +87,16 @@ class GetApi{
     Alamofire.request(.GET, domain + url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      let status = json?["status"] as? String
       
       switch(response.result){
       case .Success:
         // change status later..
-        if status == "0"{
-          print("Get student info success.") // JSON = \(json)")
+        if (response.response?.statusCode)! == "200"{
+          print("Get student info success.")
           successBlock(json as! Dictionary<String, AnyObject>)
         }
         else{
-          print("Get student info failed.") // JSON = \(json)")
+          print("Get student info failed.")
           failureBlock(json as! Dictionary<String, AnyObject>)
         }
         break

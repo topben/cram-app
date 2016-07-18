@@ -14,7 +14,7 @@
 
 RCT_EXTERN_METHOD(getVerificationCode:(NSString *)phone url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
-RCT_EXTERN_METHOD(checkVerificationCode:(NSString *)phone verificationCode:(NSString *) verificationCode url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
+RCT_EXTERN_METHOD(checkVerificationCode:(NSString *) verificationCode url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
 RCT_EXTERN_METHOD(checkUsername:(NSString *)username url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 

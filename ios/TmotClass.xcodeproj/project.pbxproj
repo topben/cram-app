@@ -63,6 +63,7 @@
 		F4F52AA21D38D30E00166B69 /* DirectMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA11D38D30E00166B69 /* DirectMessageModel.swift */; };
 		F4F52AA51D38D48C00166B69 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA41D38D48C00166B69 /* NotificationModel.swift */; };
 		F4F52AA71D38DEC300166B69 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA61D38DEC300166B69 /* Notification.swift */; };
+		F4F52AA91D3CA50900166B69 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA81D3CA50900166B69 /* Notification.m */; };
 		FA2810ADB6784EE5A416EF52 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28CE3C95513D4ECB8852B6CA /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
@@ -242,6 +243,7 @@
 		F4F52AA11D38D30E00166B69 /* DirectMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectMessageModel.swift; sourceTree = "<group>"; };
 		F4F52AA41D38D48C00166B69 /* NotificationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		F4F52AA61D38DEC300166B69 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		F4F52AA81D3CA50900166B69 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -626,6 +628,7 @@
 		F4F52AA31D38D47A00166B69 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				F4F52AA81D3CA50900166B69 /* Notification.m */,
 				F4F52AA61D38DEC300166B69 /* Notification.swift */,
 				F4F52AA41D38D48C00166B69 /* NotificationModel.swift */,
 			);
@@ -978,6 +981,7 @@
 				F4F52A7C1D376DAB00166B69 /* Invitation.m in Sources */,
 				F4F52A9F1D38D06E00166B69 /* AnnouncementModel.swift in Sources */,
 				B592F7F71D336E6E000C9DA8 /* User.m in Sources */,
+				F4F52AA91D3CA50900166B69 /* Notification.m in Sources */,
 				B592F7EE1D336E55000C9DA8 /* People.m in Sources */,
 				B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */,
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,

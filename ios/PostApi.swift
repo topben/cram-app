@@ -46,33 +46,30 @@ class PostApi{
   
 
   // check verification code
-  static func checkVerificationCode(phone: String, verificationCode: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+  static func checkVerificationCode(verificationCode: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
     
     var parameters = [String : AnyObject]()
-    parameters["phone"] = phone
     parameters["verificationCode"] = verificationCode
     
     Alamofire.request(.POST, domain + url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      let status = json?["status"] as? String
       
       switch(response.result){
-      case .Success:
-        // change status later..
-        if status == "0"{
-          print("Check verification code success.") // JSON = \(json)")
-          successBlock(json as! Dictionary<String, AnyObject>)
-        }
-        else{
-          print("Check verification code failed.") // JSON = \(json)")
-          failureBlock(json as! Dictionary<String, AnyObject>)
-        }
-        break
-      case .Failure:
-        print("connection error")
-        break
-      } // end of switch
+        case .Success:
+          if (response.response?.statusCode)! == "200"{
+            print("Check verification code success.")
+            successBlock(json as! Dictionary<String, AnyObject>)
+          }
+          else{
+            print("Check verification code failed.")
+            failureBlock(json as! Dictionary<String, AnyObject>)
+          }
+          break
+        case .Failure:
+          print("connection error")
+          break
+        } // end of switch
       
     } // end of request
     
@@ -88,17 +85,15 @@ class PostApi{
     Alamofire.request(.POST, domain + url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      let status = json?["status"] as? String
       
       switch(response.result){
       case .Success:
-        // change status later..
-        if status == "0"{
-          print("Check username success.") // JSON = \(json)")
+        if (response.response?.statusCode)! == "200"{
+          print("Check username success.")
           successBlock(json as! Dictionary<String, AnyObject>)
         }
         else{
-          print("Check username failed.") // JSON = \(json)")
+          print("Check username failed.")
           failureBlock(json as! Dictionary<String, AnyObject>)
         }
         break

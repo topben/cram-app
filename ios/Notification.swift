@@ -20,6 +20,7 @@ class Notification: NSObject {
     // create notification object
     let notification = NotificationModel()
     notification.i_notification_id = Int(notificationInfo["notification id"]! as String)!
+    notification.NSDate_date       = NSDate(dateString: notificationInfo["date"]! as String)
     
     //
     switch notificationInfo["type"]! {
@@ -37,10 +38,13 @@ class Notification: NSObject {
       case "attendance":
         let attendance = AttendanceModel()
         attendance.i_attendance_id = Int(notificationInfo["attendance id"]! as String)!
+        attendance.i_student_id    = Int(notificationInfo["student id"]! as String)!
+        attendance.i_course_id     = Int(notificationInfo["course id"]! as String)!
+        attendance.NSDate_date     = NSDate(dateString: notificationInfo["date"]! as String)
+        attendance.b_attend        = false
+        attendance.b_leave         = true
         
-        // how to get student's name and class' name from attendance model?
-        
-        notification.absentNotice = attendance
+        notification.absentNotice  = attendance
         
         break
       case "directmessage":
@@ -57,17 +61,13 @@ class Notification: NSObject {
         print("no such type")
     }
     
-//    notification.i_notification_id = notificationInfo["id"]
-//    notification.i_notification_id = notificationInfo["id"]
-//    notification.i_notification_id = notificationInfo["id"]
-//    notification.i_notification_id = notificationInfo["id"]
-    
     // save it into realm
-    
+    saveToRealm(notification)
     
   }
   
-  // get student info. the studentId is the QR code scanned result
+  
+  // set the read/unread flag of each notification
   @objc func setNewNotificationFlag(list_notification_id: [Int], url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void{
     
     // get all invitations of the current user
@@ -131,5 +131,25 @@ class Notification: NSObject {
     //        failureCallBack([result])
     //    })
   }
+  
+  
+  // private methods just for swift
+  func saveToRealm(realmObject: Object){
     
+    let realm = try! Realm()
+    try! realm.write({
+      realm.add(realmObject, update: true)
+    })
+  }
+  
+  
+  // for attendance
+  func getNextLocalId() -> Int{
+    
+    let realm = try! Realm()
+    
+    return realm.objects(AttendanceModel.self).count + 1
+  }
+  
+  
 }

@@ -17,79 +17,57 @@ class User: NSObject {
   // get user's verification code
   @objc func getVerificationCode(phone: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    var result = ["success" : "true"]
-    result["verificationCode"] = "abc123"
-    
-    successCallBack([result])
-    
-    
-//    // return verification code in callback
-//    GetApi.getVerificationCode(phone, url: url,
-//                       
-//      // SuccessBlock (parse response to realm object)
-//      successBlock: { (response) in
-//        
-//        // return true if get person info success
-//        var result = ["success" : "true"];
-//        result["verificationCode"] = (response["verificationCode"] as! String)
-//        
-//        successCallBack([result])
-//      },
-//      
-//      // FailureBlock (print the error message from server)
-//      failureBlock: { (response) in
-//        
-//        // return false if get person info failed
-//        let result = ["success" : false];
-//        
-//        failureCallBack([result])
-//    })
+    // return verification code in SMS
+    GetApi.getVerificationCode(phone, url: url,
+                       
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        // return true if get person info success
+        var result = ["success" : "true"];
+        result["msg"] = (response["msg"] as! String)
+        
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["msg"] as! String)
+        
+        failureCallBack([result])
+    })
 
     
   }
   
   // check user's verification code
   @objc func checkVerificationCode(verificationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
-
-    if verificationCode == "abc123"{
-      
-      var result = ["success" : "true"]
-      result["valid"] = "true"
-      
-      successCallBack([result])
-    }
-    else{
-      
-      var result = ["success" : "true"]
-      result["valid"] = "false"
-      
-      successCallBack([result])
-    }
     
-    
-
-    
-    
-//    // return result in callback
-//    PostApi.checkVerificationCode(phone, verificationCode: verificationCode, url: url,
-//                               
-//      // SuccessBlock (parse response to realm object)
-//      successBlock: { (response) in
-//        
-//        // return true if get person info success
-//        let result = ["success" : true];
-//        
-//        successCallBack([result])
-//      },
-//      
-//      // FailureBlock (print the error message from server)
-//      failureBlock: { (response) in
-//        
-//        // return false if get person info failed
-//        let result = ["success" : false];
-//        
-//        failureCallBack([result])
-//    })
+    // return result in callback
+    PostApi.checkVerificationCode(verificationCode, url: url,
+                               
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        // return true if get person info success
+        let result = ["success" : "true"];
+        result["msg"] = (response["msg"] as! String)
+        
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        let result = ["success" : "false"];
+        result["msg"] = (response["msg"] as! String)
+        
+        failureCallBack([result])
+    })
 
   }
   

@@ -17,8 +17,8 @@ class NotificationModel: Object{
   dynamic var NSDate_date       : NSDate?
   dynamic var announcement      : AnnoucementModel?
   dynamic var absentNotice      : AttendanceModel?
-  dynamic var directMessage     : DirectMessageModel?
-  dynamic var invitation        : InvitationModel?
+  dynamic var directMessages    : DirectMessageModel?
+  dynamic var invitations       : InvitationModel?
   dynamic var b_isDelete        : Bool   = false
   
   static override func primaryKey() -> String?{
