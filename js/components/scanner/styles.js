@@ -6,10 +6,11 @@ var React = require('react-native');
 var { StyleSheet, Dimensions } = React;
 
 var deviceHeight = Dimensions.get('window').height;
+var deviceWidth = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
     container: {
-        flex: 1,
+        flex:1,
         width: null,
         height: null,
     },
@@ -26,7 +27,6 @@ module.exports = StyleSheet.create({
     },
     camera: {
       height:deviceHeight,
-      alignItems: 'center',
     },
     rectangle: {
       height: 250,
@@ -36,8 +36,45 @@ module.exports = StyleSheet.create({
       backgroundColor: 'transparent',
     },
     rectangleContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
+      flex:1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
       backgroundColor: 'transparent',
-    }
+    },
+    markerTop:{
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    markerBottom:{
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+    markerTopLeft:{
+      transform: [{rotate: '0deg'}],
+    },
+    markerTopRight:{
+      transform: [{rotate: '90deg'}],
+    },
+    markerBottomLeft:{
+      transform: [{rotate: '270deg'}],
+    },
+    markerBottomRight:{
+      transform: [{rotate: '180deg'}],
+    },
+    modal: {
+      height: (deviceHeight/2)-78,
+      width: deviceWidth-40,
+      // marginTop: (deviceHeight/2)+78,
+      // height: deviceHeight-78,
+      // position: 'relative',
+       justifyContent: 'center'
+    },
+    space: {
+      marginTop: 10,
+      marginBottom: 10,
+      alignSelf: 'center'
+    },
+
 });
