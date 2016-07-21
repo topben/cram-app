@@ -69,12 +69,19 @@ module.exports = StyleSheet.create({
       // marginTop: (deviceHeight/2)+78,
       // height: deviceHeight-78,
       // position: 'relative',
-       justifyContent: 'center'
+       justifyContent: 'center',
+       backgroundColor: 'transparent'
     },
     space: {
       marginTop: 10,
       marginBottom: 10,
       alignSelf: 'center'
     },
-
+    overlay: {
+      height:deviceHeight,
+      width:deviceWidth-40,
+      backgroundColor:'#fff',
+      alignSelf:'center',
+      marginTop:70
+    }
 });

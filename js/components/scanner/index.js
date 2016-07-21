@@ -12,13 +12,15 @@ import {openDrawer} from '../../actions/drawer';
 import {popRoute, replaceRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
 import { Image, View, VibrationIOS, ScrollView} from 'react-native';
-import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer} from 'native-base';
+import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail} from 'native-base';
 import FooterComponent from "./../footer";
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
 import Camera from 'react-native-camera';
 import Modal from 'react-native-modalbox';
+import Overlay from 'react-native-overlay';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 class Scanner extends Component {
   constructor(props){
@@ -29,6 +31,7 @@ class Scanner extends Component {
      this.state = {
          swipeToClose: true,
          studentInfo: "",
+         isOverlay: false
        };
     }
 
@@ -42,6 +45,11 @@ class Scanner extends Component {
 
     closeModal() {
         this.refs.modal.close();
+        this.setState({isOverlay: true});
+    }
+
+    closeOverlay() {
+        this.setState({isOverlay: false});
     }
 
     replaceRoute(route) {
@@ -74,8 +82,10 @@ class Scanner extends Component {
                         <Icon name="ios-menu" />
                       </Button>
                       <View />
-                      <Button transparent>
-                        <Icon name="ios-alert" />
+                      <Button
+                        transparent
+                        onPress={() => this.replaceRoute('notifications')}>
+                        <Icon name="md-notifications" />
                       </Button>
                     </Header>
                     <Camera
@@ -104,12 +114,48 @@ class Scanner extends Component {
                 </View>
               </View>
               <Modal style={styles.modal} backdrop={false} ref={"modal"} swipeToClose={true} position="bottom" entry="bottom">
-                  <View style={styles.space}>
+                  <Card style={styles.space}>
                       <Text style={{color: '#050'}}>
                           {this.state.studentInfo}
                       </Text>
-                  </View>
+                      <Button transparent style={{position: 'absolute', top: 0, right: 0}} onPress={this.closeModal.bind(this)} >
+                        <Icon name="ios-keypad" style={{color:'#000'}} />
+                      </Button>
+                  </Card>
               </Modal>
+              <Overlay isVisible={this.state.isOverlay}>
+                <View style={styles.overlay}>
+                  <ScrollView contentContainerStyle={{}}>
+                    <Grid style={{height:300}}>
+                        <Col style={{ backgroundColor: '#D954D7', height: 200 }}>
+                          <Row>
+                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
+                            <Text>Card Header</Text>
+                          </Row>
+                          <Row>
+                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
+                            <Text>Card Header</Text>
+                          </Row>
+                          <Row>
+                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
+                            <Text>Card Header</Text>
+                          </Row>
+                        </Col>
+                        <Col style={{ backgroundColor: '#D93735', height: 200 }}>
+                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
+                            <Text>
+                                //Your text here
+                            </Text>
+                        </Col>
+                        <Col style={{ backgroundColor: '#D954D7', height: 200 }}>
+                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
+                            <Text>Card Footer</Text>
+                        </Col>
+                   </Grid>
+                    <Button onPress={this.closeOverlay.bind(this)}>TTTTT</Button>
+                    </ScrollView>
+                </View>
+              </Overlay>
             </Camera>
           </View>
         )

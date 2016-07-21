@@ -17,6 +17,8 @@ import Login from './components/login/';
 import LoginPhone from './components/login/login-phone';
 import LoginAccount from './components/login/login-account';
 import Scanner from './components/scanner/';
+import Notifications from './components/notifications/';
+import Comments from './components/notifications/comments';
 import SplashPage from './components/splashscreen/';
 import Home from './components/home/';
 import SignUp from './components/sign-up/';
@@ -158,8 +160,6 @@ class AppNavigator extends Component {
                   />
             </Drawer>
         );
-
-
     }
 
     renderScene(route, navigator) {
@@ -174,6 +174,10 @@ class AppNavigator extends Component {
                 return <LoginAccount navigator={navigator} />;
             case 'scanner':
                 return <Scanner navigator={navigator} />;
+            case 'notifications':
+                return <Notifications navigator={navigator} />;
+            case 'comments':
+                return <Comments navigator={navigator} />;
             case 'home':
                 return <Home navigator={navigator} />;
             case 'inbox':
