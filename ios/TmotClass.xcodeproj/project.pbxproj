@@ -41,7 +41,7 @@
 		B592F7F21D336E5E000C9DA8 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F11D336E5E000C9DA8 /* SwiftExtensions.swift */; };
 		B592F7F71D336E6E000C9DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F31D336E6E000C9DA8 /* User.m */; };
 		B592F7F81D336E6E000C9DA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F41D336E6E000C9DA8 /* User.swift */; };
-		B592F7F91D336E6E000C9DA8 /* userModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F51D336E6E000C9DA8 /* userModel.swift */; };
+		B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F51D336E6E000C9DA8 /* UserModel.swift */; };
 		B5A50A881D31550F0031B763 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A50A7A1D3154EF0031B763 /* libCodePush.a */; };
 		B5EFDACC1D2E08D1002EEAE5 /* TmotClassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */; };
 		B5EFDACE1D2E08E3002EEAE5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5EFDACD1D2E08E3002EEAE5 /* Info.plist */; };
@@ -221,7 +221,7 @@
 		B592F7F11D336E5E000C9DA8 /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		B592F7F31D336E6E000C9DA8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		B592F7F41D336E6E000C9DA8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		B592F7F51D336E6E000C9DA8 /* userModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userModel.swift; sourceTree = "<group>"; };
+		B592F7F51D336E6E000C9DA8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		B5A50A751D3154EF0031B763 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TmotClassTests.m; path = TmotClassTests/TmotClassTests.m; sourceTree = SOURCE_ROOT; };
 		B5EFDACD1D2E08E3002EEAE5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TmotClassTests/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -513,7 +513,7 @@
 			children = (
 				B592F7F31D336E6E000C9DA8 /* User.m */,
 				B592F7F41D336E6E000C9DA8 /* User.swift */,
-				B592F7F51D336E6E000C9DA8 /* userModel.swift */,
+				B592F7F51D336E6E000C9DA8 /* UserModel.swift */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -980,7 +980,7 @@
 				B592F7F71D336E6E000C9DA8 /* User.m in Sources */,
 				F4F52AA91D3CA50900166B69 /* Notification.m in Sources */,
 				B592F7EE1D336E55000C9DA8 /* People.m in Sources */,
-				B592F7F91D336E6E000C9DA8 /* userModel.swift in Sources */,
+				B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */,
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
 				F4F52AA21D38D30E00166B69 /* DirectMessageModel.swift in Sources */,
 				B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */,

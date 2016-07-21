@@ -40,7 +40,6 @@ class UserModel: Object{
     userModel.s_phone                   = data["phone"]            as! String
     userModel.s_name                    = data["name"]             as! String
     userModel.s_username                = data["username"]         as! String
-    userModel.s_password                = data["password"]         as! String
     userModel.s_invitationCode          = data["invitationCode"]   as! String
     userModel.s_permission              = data["permission"]       as! String
     userModel.s_profileImage            = data["profileImage"]     as! String
@@ -54,16 +53,11 @@ class UserModel: Object{
     let user = realm.objects(UserModel.self).filter("i_user_id = " + String(userId)).first
 
     var userModel = [String: AnyObject]()
-    
-    userModel["id"]            = user!.i_user_id
+   
     userModel["name"]          = user!.s_name
-    userModel["username"]      = user!.s_username
     userModel["password"]      = user!.s_password
     userModel["email"]         = user!.s_email
     userModel["phone"]         = user!.s_phone
-    userModel["inviationCode"] = user!.s_invitationCode
-    userModel["permission"]    = user!.s_permission
-    userModel["profileImage"]  = user!.s_profileImage
 
     return userModel
   }
