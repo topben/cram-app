@@ -65,34 +65,24 @@ class Modal1 extends Component {
                                <Button block rounded style={{backgroundColor: '#00c497'}} textStyle={{color: '#fff'}} onPress={this.openModal1.bind(this)}>
                                    Basic Modal
                                </Button>
-
                           </View>
                           <View style={styles.space}>
-
                                <Button block rounded style={{backgroundColor: '#00c497'}} textStyle={{color: '#fff'}} onPress={this.openModal2.bind(this)}>
                                    Custom Modal
                                </Button>
-
                          </View>
                        </View>
 
-
-
                            <Modal style={[styles.modal, styles.modal1]} backdrop={false} ref={"modal1"} swipeToClose={this.state.swipeToClose} >
-
                                <View style={styles.space}>
                                    <Text style={{color: '#000', marginBottom: 10}}>Basic modal</Text>
                                    <Button  rounded style={{backgroundColor: '#00c497'}} textStyle={{color: '#fff'}} onPress={this.closeModal1.bind(this)} >
                                      Close Modal
                                    </Button>
                                </View>
-
                            </Modal>
 
-
-
                            <Modal style={[styles.modal, styles.modal2]} backdrop={false} ref={"modal2"} swipeToClose={false} >
-
                              <Button transparent style={{position: 'absolute', top: 0, right: 0}} onPress={this.closeModal2.bind(this)} >
                                <Icon name="ios-close" style={{color:'#000'}} />
                              </Button>
@@ -101,9 +91,8 @@ class Modal1 extends Component {
                                        This is a full screen modal.
                                    </Text>
                                </View>
-
                            </Modal>
-                </Content>
+                 </Content>
               </Image>
             </Container>
         )

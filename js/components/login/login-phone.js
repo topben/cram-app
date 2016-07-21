@@ -42,7 +42,7 @@ class LoginPhone extends Component {
     // next button tapped
     onNextPressed(){
       //this.setState({client_error_msg: '成功'});
-      this.navigateTo('login');
+      this.navigateTo('scanner');
     }
 
     render() {

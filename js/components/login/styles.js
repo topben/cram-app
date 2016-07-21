@@ -28,7 +28,6 @@ module.exports = StyleSheet.create({
         paddingBottom: 70
     },
     mb20: {
-      flex:1,
       flexDirection:'row',
       alignItems:'center',
       backgroundColor:'#eaebed',
@@ -43,7 +42,9 @@ module.exports = StyleSheet.create({
     },
     txt: {
       color:'black',
-      justifyContent:'center'
+      justifyContent:'center',
+      fontSize: 15,
+      marginBottom:12
     }
 
 });

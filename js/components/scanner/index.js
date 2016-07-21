@@ -11,15 +11,38 @@ import {connect} from 'react-redux';
 import {openDrawer} from '../../actions/drawer';
 import {popRoute, replaceRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
-import { Image, View } from 'react-native';
-
+import { Image, View, VibrationIOS, ScrollView} from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer} from 'native-base';
 import FooterComponent from "./../footer";
 
 import theme from '../../themes/base-theme';
 import styles from './styles';
+import Camera from 'react-native-camera';
+import Modal from 'react-native-modalbox';
 
-class Home extends Component {
+class Scanner extends Component {
+  constructor(props){
+     super(props);
+     this.onBarCodeRead = this.onBarCodeRead.bind(this);
+     this.openModal = this.openModal.bind(this);
+     this.barCodeData = "";
+     this.state = {
+         swipeToClose: true,
+         studentInfo: "",
+       };
+    }
+
+    static propTypes = {
+    };
+
+    openModal() {
+        VibrationIOS.vibrate();
+        this.refs.modal.open();
+    }
+
+    closeModal() {
+        this.refs.modal.close();
+    }
 
     replaceRoute(route) {
         this.props.replaceRoute(route);
@@ -29,50 +52,66 @@ class Home extends Component {
         this.props.popRoute();
     }
 
-    render() {
-        return (
-            <Container theme={theme} style={{backgroundColor: '#384850'}}>
-              <Image source={require('../../../images/glow2.png')} style={styles.container} >
-                <Header>
-                    <View />
-                    <Title>Home</Title>
-                    <Button transparent onPress={this.props.openDrawer}>
-                        <Icon name="ios-menu" />
-                    </Button>
-                </Header>
-                <Content padder style={{backgroundColor: 'transparent'}}>
-                    <List>
-                        <ListItem iconLeft >
-                            <Icon name="ios-megaphone"/>
-                            <Text>Discussion With Client</Text>
-                            <Text note>8:00 AM</Text>
-                        </ListItem>
-                        <ListItem iconLeft >
-                            <Icon name="ios-people"/>
-                            <Text >Daily Stand Up</Text>
-                            <Text note>10:00 AM</Text>
-                        </ListItem>
-                        <ListItem iconLeft >
-                            <Icon name="ios-flag"/>
-                            <Text>Finish list Screen</Text>
-                            <Text note>By 2:00 PM</Text>
-                        </ListItem>
-                        <ListItem iconLeft >
-                            <Icon name="ios-restaurant"/>
-                            <Text>Lunch Break</Text>
-                            <Text note>2:00 PM</Text>
-                        </ListItem>
-                    </List>
+    onBarCodeRead(result) {
+      var $this = this;
+      if ($this.barCodeData != result.data) {
+        $this.barCodeData = result.data;
+        setTimeout(function() {
+          $this.setState({studentInfo: result.data});
+          $this.openModal();
+        }, 500);
+      }
+    }
 
-                    <Button transparent large style={styles.roundedButton} onPress={() => this.replaceRoute('login')}>
-                        <Icon name="ios-close-outline" />
-                    </Button>
-                </Content>
-                <Footer>
-                  <FooterComponent navigator={this.props.navigator} />
-                </Footer>
-              </Image>
-            </Container>
+    render() {
+      this.barCodeFlag = true;
+        return (
+                  <View style={{backgroundColor: '#fff'}}>
+                    <Header>
+                      <Button
+                        transparent
+                        onPress={this.props.openDrawer}>
+                        <Icon name="ios-menu" />
+                      </Button>
+                      <View />
+                      <Button transparent>
+                        <Icon name="ios-alert" />
+                      </Button>
+                    </Header>
+                    <Camera
+                      onBarCodeRead={this.onBarCodeRead}
+                      style={styles.camera}>
+                      <View style={styles.rectangleContainer}>
+                        <View style={styles.markerTop}>
+                          <Image
+                          source={require('../../../images/marker/qrcodescannermarker.png')}
+                          style={styles.markerTopLeft}>
+                        </Image>
+                        <Image
+                        source={require('../../../images/marker/qrcodescannermarker.png')}
+                        style={styles.markerTopRight}>
+                      </Image>
+                    </View>
+                    <View style={styles.markerBottom}>
+                      <Image
+                      source={require('../../../images/marker/qrcodescannermarker.png')}
+                      style={styles.markerBottomLeft}>
+                    </Image>
+                    <Image
+                    source={require('../../../images/marker/qrcodescannermarker.png')}
+                    style={styles.markerBottomRight}>
+                  </Image>
+                </View>
+              </View>
+              <Modal style={styles.modal} backdrop={false} ref={"modal"} swipeToClose={true} position="bottom" entry="bottom">
+                  <View style={styles.space}>
+                      <Text style={{color: '#050'}}>
+                          {this.state.studentInfo}
+                      </Text>
+                  </View>
+              </Modal>
+            </Camera>
+          </View>
         )
     }
 }
@@ -80,9 +119,9 @@ class Home extends Component {
 function bindAction(dispatch) {
     return {
         openDrawer: ()=>dispatch(openDrawer()),
-        popRoute: () => dispatch(popRoute()),
+        popRoute: ()=> dispatch(popRoute()),
         replaceRoute:(route)=>dispatch(replaceRoute(route))
     }
 }
 
-export default connect(null, bindAction)(Home);
+export default connect(null, bindAction)(Scanner);
