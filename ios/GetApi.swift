@@ -12,27 +12,26 @@ import RealmSwift
 
 class GetApi{
   
-  static let        domain:       String =              "https://www.tmot.net/api/"
+  // MARK: READY API
   
-  
-  // get verification code
-  static func getVerificationCode(phone: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+  // check verification code
+  static func checkVerificationCode(verificationCode: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
     
-    var parameters = [String: AnyObject]()
-    parameters["phone"] = phone
+    var parameters = [String : AnyObject]()
+    parameters["code"] = verificationCode
     
-    Alamofire.request(.GET, domain + url, parameters: parameters).responseJSON { response in
+    Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
       
       switch(response.result){
         case .Success:
           if (response.response?.statusCode)! == "200"{
-            print("Get verification code success.")
+            print("Check verification code success.")
             successBlock(json as! Dictionary<String, AnyObject>)
           }
           else{
-            print("Get verification code failed.")
+            print("Check verification code failed.")
             failureBlock(json as! Dictionary<String, AnyObject>)
           }
           break
@@ -43,7 +42,47 @@ class GetApi{
       
     } // end of request
     
-  } // end of getVerificationCode()
+  } // end of checkVerificationCode()
+  
+  
+  // check username
+  static func checkUsername(username: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    var parameters = [String : AnyObject]()
+    parameters["username"] = username
+    
+    Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
+      
+      let json = response.result.value
+      
+      switch(response.result){
+        case .Success:
+          if (response.response?.statusCode)! == "200"{
+            print("Check username success.")
+            successBlock(json as! Dictionary<String, AnyObject>)
+          }
+          else{
+            print("Check username failed.")
+            failureBlock(json as! Dictionary<String, AnyObject>)
+          }
+          break
+        case .Failure:
+          print("connection error")
+          break
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of checkUsername()
+  
+  
+  
+  
+  
+  
+  
+  // MARK: NOT USED YET
+  
   
   // get user permission
   static func getUserPermission(invitationCode: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
@@ -51,7 +90,7 @@ class GetApi{
     var parameters = [String: AnyObject]()
     parameters["invitationCode"] = invitationCode
     
-    Alamofire.request(.GET, domain + url, parameters: parameters).responseJSON { response in
+    Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
       let status = json?["status"] as? String
@@ -84,7 +123,7 @@ class GetApi{
     var parameters = [String: AnyObject]()
     
     
-    Alamofire.request(.GET, domain + url, parameters: parameters).responseJSON { response in
+    Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
       

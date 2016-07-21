@@ -15,17 +15,17 @@ class User: NSObject {
   // MARK: SIGN UP FUNCTIONS
   
   // get user's verification code
-  @objc func getVerificationCode(phone: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  @objc func sendVerificationCode(phone: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
     // return verification code in SMS
-    GetApi.getVerificationCode(phone, url: url,
+    PostApi.sendVerificationCode(phone, url: url,
                        
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
         // return true if get person info success
         var result = ["success" : "true"];
-        result["msg"] = (response["msg"] as! String)
+        result["msg"] = (response["result"] as! String)
         
         successCallBack([result])
       },
@@ -35,7 +35,7 @@ class User: NSObject {
         
         // return false if get person info failed
         var result = ["success" : "false"];
-        result["msg"] = (response["msg"] as! String)
+        result["msg"] = (response["error"] as! String)
         
         failureCallBack([result])
     })
@@ -47,14 +47,14 @@ class User: NSObject {
   @objc func checkVerificationCode(verificationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
     // return result in callback
-    PostApi.checkVerificationCode(verificationCode, url: url,
+    GetApi.checkVerificationCode(verificationCode, url: url,
                                
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
         // return true if get person info success
-        let result = ["success" : "true"];
-        result["msg"] = (response["msg"] as! String)
+        var result = ["success" : "true"];
+        result["msg"] = (response["result"] as! String)
         
         successCallBack([result])
       },
@@ -63,8 +63,8 @@ class User: NSObject {
       failureBlock: { (response) in
         
         // return false if get person info failed
-        let result = ["success" : "false"];
-        result["msg"] = (response["msg"] as! String)
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
         
         failureCallBack([result])
     })
@@ -74,71 +74,64 @@ class User: NSObject {
   // check username if valid
   @objc func checkUsername(username: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    let valid = UserTestFunctions.checkUsername(username)
-    var result = ["success" : "true"]
-    result["valid"] = valid.description
-    
-    successCallBack([result])
-    
-    
-//    // return result in callback
-//    PostApi.checkUsername(username, url: url,
-//                                  
-//      // SuccessBlock (parse response to realm object)
-//      successBlock: { (response) in
-//        
-//        // return true if get person info success
-//        let result = ["success" : true];
-//        
-//        successCallBack([result])
-//      },
-//      
-//      // FailureBlock (print the error message from server)
-//      failureBlock: { (response) in
-//        
-//        // return false if get person info failed
-//        let result = ["success" : false];
-//        
-//        failureCallBack([result])
-//    })
+    // return result in callback
+    GetApi.checkUsername(username, url: url,
+                                  
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        // return true if get person info success
+        var result = ["success" : "true"];
+        result["msg"] = (response["result"] as! String)
+        
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        
+        failureCallBack([result])
+    })
 
-  }
-  
+  } // end of checkUsername()
   
   
   // create user
   @objc func create(userInfo: Dictionary<String, AnyObject>, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
 
-    
-    UserTestFunctions.createUser(userInfo)
-    let result = ["success" : "true"]
-    successCallBack([result])
-
-    
-//    PostApi.createUser(userInfo, url: url,
-//                         
-//      // SuccessBlock (parse response to realm object)
-//      successBlock: { (response) in
-//        
-//        let userModel = UserModel.toRealmObject(response)
-//        self.saveToRealm(userModel)
-//        
-//        // return true if get person info success
-//        let result = ["success" : true];
-//        
-//        successCallBack([result])
-//      },
-//      
-//      // FailureBlock (print the error message from server)
-//      failureBlock: { (response) in
-//        
-//        // return false if get person info failed
-//        let result = ["success" : false];
-//        
-//        failureCallBack([result])
-//    })
+    PostApi.createUser(userInfo, url: url,
+                         
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        let userModel = UserModel.toRealmObject(response)
+        self.saveToRealm(userModel)
+        
+        // return true if get person info success
+        var result = ["success" : "true"];
+        result["msg"] = (response["result"] as! String)
+        
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        
+        failureCallBack([result])
+    })
     
   } // end of createUser()
+  
+  
+  
   
   // activate invitation code
   @objc func activateInvitationCode(invitationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
@@ -213,20 +206,39 @@ class User: NSObject {
   }
   
   
+  // create user in realm
+  @objc func createInRealm(user_id: Int, username: String, email: String, phone: String, name: String) -> Void{
+    
+    let userModel = UserModel()
+    userModel.i_user_id = user_id
+    userModel.s_username = username
+    userModel.s_email = email
+    userModel.s_phone = phone
+    userModel.s_name = name
+    
+    saveToRealm(userModel)
+    
+  } // end of createInRealm()
+  
+  
   // update user in realm
-  @objc func updateInRealm(user_id: Int, password: String?, email: String?) -> Void{
+  @objc func updateInRealm(user_id: Int, name: String?, email: String?) -> Void{
     
     let realm = try! Realm()
     let userModel = realm.objects(UserModel.self).filter("i_user_id = " + String(user_id)).first
     
     // if there is new data, use it, or else, use the old data
     
-    try! realm.write{
+    if userModel != nil{
       
-      userModel!.s_name       = password  ?? userModel!.s_password
-      userModel!.s_email      = email ?? userModel!.s_email
+      try! realm.write{
+        
+        userModel!.s_name       = name  ?? userModel!.s_name
+        userModel!.s_email      = email ?? userModel!.s_email
+      }
+      saveToRealm(userModel!)
+      
     }
-    saveToRealm(userModel!)
     
   } // end of updateInRealm()
   
@@ -237,22 +249,20 @@ class User: NSObject {
     
     PutApi.updateUser(user_id, url: url,
                         
-                        // SuccessBlock (parse response to realm object)
+      // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
         // return true if get person info success
-        let result = ["success" : true];
+        let result = ["success" : "true"];
         
         successCallBack([result])
       },
       
       // FailureBlock (print the error message from server)
-      failureBlock: {
-        (response) in
-        print(response)
+      failureBlock: { (response) in
         
         // return false if get person info failed
-        let result = ["success" : false];
+        let result = ["success" : "false"];
         
         failureCallBack([result])
     })

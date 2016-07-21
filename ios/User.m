@@ -12,7 +12,7 @@
 
 @interface RCT_EXTERN_MODULE(User, NSObject)
 
-RCT_EXTERN_METHOD(getVerificationCode:(NSString *)phone url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
+RCT_EXTERN_METHOD(sendVerificationCode:(NSString *)phone url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
 RCT_EXTERN_METHOD(checkVerificationCode:(NSString *) verificationCode url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
