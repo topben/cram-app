@@ -18,7 +18,7 @@ class StudentModel: Object{
   dynamic var f_longitude        : Float   = 0.0
   dynamic var f_latitude         : Float   = 0.0
 
-          let List_courses                 = List<CourseModel>()         // courses this student is attending
+          let List_courses                 = List<CourseModel>()          // courses this student is attending
           let List_checkInHistory          = List<AttendanceModel>()      // date/time this student checked in
   
   dynamic var s_profileImage     : String  = ""

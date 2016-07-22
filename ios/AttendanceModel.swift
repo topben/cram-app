@@ -14,7 +14,8 @@ class AttendanceModel: Object{
   
   dynamic var i_attendance_id    : Int          = 0
   dynamic var i_course_id        : Int          = 0 // use this id to filter course details
-  dynamic var NSDate_date        : NSDate? // ex: 7/16/2016 is enough
+  dynamic var i_student_id       : Int          = 0
+  dynamic var NSDate_date        : NSDate?          // ex: 7/16/2016 is enough
   dynamic var b_attend           : Bool = false
   dynamic var b_leave            : Bool = false
   dynamic var b_isDelete         : Bool = false

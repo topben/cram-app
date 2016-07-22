@@ -44,7 +44,6 @@
 		B592F7F71D336E6E000C9DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F31D336E6E000C9DA8 /* User.m */; };
 		B592F7F81D336E6E000C9DA8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F41D336E6E000C9DA8 /* User.swift */; };
 		B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F51D336E6E000C9DA8 /* UserModel.swift */; };
-		B592F7FA1D336E6E000C9DA8 /* UserTestFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592F7F61D336E6E000C9DA8 /* UserTestFunctions.swift */; };
 		B5A50A881D31550F0031B763 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A50A7A1D3154EF0031B763 /* libCodePush.a */; };
 		B5EFDACC1D2E08D1002EEAE5 /* TmotClassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */; };
 		B5EFDACE1D2E08E3002EEAE5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5EFDACD1D2E08E3002EEAE5 /* Info.plist */; };
@@ -66,6 +65,12 @@
 		F4F52A781D376D9200166B69 /* InvitationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A771D376D9200166B69 /* InvitationModel.swift */; };
 		F4F52A7A1D376D9C00166B69 /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A791D376D9C00166B69 /* Invitation.swift */; };
 		F4F52A7C1D376DAB00166B69 /* Invitation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A7B1D376DAB00166B69 /* Invitation.m */; };
+		F4F52A9C1D38CF0300166B69 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A9B1D38CF0300166B69 /* MessageModel.swift */; };
+		F4F52A9F1D38D06E00166B69 /* AnnouncementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A9E1D38D06E00166B69 /* AnnouncementModel.swift */; };
+		F4F52AA21D38D30E00166B69 /* DirectMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA11D38D30E00166B69 /* DirectMessageModel.swift */; };
+		F4F52AA51D38D48C00166B69 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA41D38D48C00166B69 /* NotificationModel.swift */; };
+		F4F52AA71D38DEC300166B69 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA61D38DEC300166B69 /* Notification.swift */; };
+		F4F52AA91D3CA50900166B69 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F52AA81D3CA50900166B69 /* Notification.m */; };
 		FA2810ADB6784EE5A416EF52 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28CE3C95513D4ECB8852B6CA /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
@@ -241,7 +246,6 @@
 		B592F7F31D336E6E000C9DA8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		B592F7F41D336E6E000C9DA8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B592F7F51D336E6E000C9DA8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		B592F7F61D336E6E000C9DA8 /* UserTestFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTestFunctions.swift; sourceTree = "<group>"; };
 		B5A50A751D3154EF0031B763 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TmotClassTests.m; path = TmotClassTests/TmotClassTests.m; sourceTree = SOURCE_ROOT; };
 		B5EFDACD1D2E08E3002EEAE5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TmotClassTests/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -262,6 +266,12 @@
 		F4F52A771D376D9200166B69 /* InvitationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationModel.swift; sourceTree = "<group>"; };
 		F4F52A791D376D9C00166B69 /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
 		F4F52A7B1D376DAB00166B69 /* Invitation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invitation.m; sourceTree = "<group>"; };
+		F4F52A9B1D38CF0300166B69 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		F4F52A9E1D38D06E00166B69 /* AnnouncementModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnouncementModel.swift; sourceTree = "<group>"; };
+		F4F52AA11D38D30E00166B69 /* DirectMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectMessageModel.swift; sourceTree = "<group>"; };
+		F4F52AA41D38D48C00166B69 /* NotificationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		F4F52AA61D38DEC300166B69 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		F4F52AA81D3CA50900166B69 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +388,7 @@
 		13B07FAE1A68108700A75B9A /* TmotClass */ = {
 			isa = PBXGroup;
 			children = (
+				B592F7E41D336E47000C9DA8 /* TmotClass-Bridging-Header.h */,
 				B592F7E31D336E24000C9DA8 /* Extensions */,
 				B592F7E01D336E06000C9DA8 /* Data Modules */,
 				B592F7D11D336DFC000C9DA8 /* API */,
@@ -534,7 +545,10 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
-				B592F7E41D336E47000C9DA8 /* TmotClass-Bridging-Header.h */,
+				F4F52AA31D38D47A00166B69 /* Notifications */,
+				F4F52AA01D38D2FD00166B69 /* DirectMessage */,
+				F4F52A9D1D38D04000166B69 /* Announcement */,
+				F4F52A8C1D38CECC00166B69 /* Message */,
 				F4F52A761D376D6000166B69 /* Invitation */,
 				F49757421D35F1E600DEE799 /* Course */,
 				F497573D1D35EF7A00DEE799 /* Attendance */,
@@ -551,7 +565,6 @@
 				B592F7F31D336E6E000C9DA8 /* User.m */,
 				B592F7F41D336E6E000C9DA8 /* User.swift */,
 				B592F7F51D336E6E000C9DA8 /* UserModel.swift */,
-				B592F7F61D336E6E000C9DA8 /* UserTestFunctions.swift */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -647,6 +660,40 @@
 				F4F52A771D376D9200166B69 /* InvitationModel.swift */,
 			);
 			name = Invitation;
+			sourceTree = "<group>";
+		};
+		F4F52A8C1D38CECC00166B69 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				F4F52A9B1D38CF0300166B69 /* MessageModel.swift */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		F4F52A9D1D38D04000166B69 /* Announcement */ = {
+			isa = PBXGroup;
+			children = (
+				F4F52A9E1D38D06E00166B69 /* AnnouncementModel.swift */,
+			);
+			name = Announcement;
+			sourceTree = "<group>";
+		};
+		F4F52AA01D38D2FD00166B69 /* DirectMessage */ = {
+			isa = PBXGroup;
+			children = (
+				F4F52AA11D38D30E00166B69 /* DirectMessageModel.swift */,
+			);
+			name = DirectMessage;
+			sourceTree = "<group>";
+		};
+		F4F52AA31D38D47A00166B69 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				F4F52AA81D3CA50900166B69 /* Notification.m */,
+				F4F52AA61D38DEC300166B69 /* Notification.swift */,
+				F4F52AA41D38D48C00166B69 /* NotificationModel.swift */,
+			);
+			name = Notifications;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1021,24 +1068,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4F52A7C1D376DAB00166B69 /* Invitation.m in Sources */,
+				F4F52A9F1D38D06E00166B69 /* AnnouncementModel.swift in Sources */,
 				B592F7F71D336E6E000C9DA8 /* User.m in Sources */,
+				F4F52AA91D3CA50900166B69 /* Notification.m in Sources */,
 				B592F7EE1D336E55000C9DA8 /* People.m in Sources */,
 				B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */,
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
+				F4F52AA21D38D30E00166B69 /* DirectMessageModel.swift in Sources */,
 				B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				F4F52A641D36376100166B69 /* Student.swift in Sources */,
-				B592F7FA1D336E6E000C9DA8 /* UserTestFunctions.swift in Sources */,
 				F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */,
 				F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */,
+				F4F52AA51D38D48C00166B69 /* NotificationModel.swift in Sources */,
 				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */,
 				B592F7EF1D336E55000C9DA8 /* People.swift in Sources */,
 				B592F7F21D336E5E000C9DA8 /* SwiftExtensions.swift in Sources */,
 				F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */,
+				F4F52AA71D38DEC300166B69 /* Notification.swift in Sources */,
 				F4F52A7A1D376D9C00166B69 /* Invitation.swift in Sources */,
 				B592F7F81D336E6E000C9DA8 /* User.swift in Sources */,
+				F4F52A9C1D38CF0300166B69 /* MessageModel.swift in Sources */,
 				F4F52A751D372A3000166B69 /* Student.m in Sources */,
 				F4F52A781D376D9200166B69 /* InvitationModel.swift in Sources */,
 			);
