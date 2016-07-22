@@ -54,29 +54,26 @@ class Login extends Component {
         return (
           <Container>
             <Content
-              style={{backgroundColor: '#ffffff'}}
+              style={{backgroundColor: '#f5f6f7'}}
               theme={login}
               scrollEnabled={this.state.scroll}>
+              <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
+              <Text style={styles.welcomeTxt}>WELCOME</Text>
               <View style={styles.bg}>
                 <Button
+                  rounded
                   style={styles.btn}
-                  onPress={() => this.replaceRoute('loginPhone')}>
-                  <Text style={styles.txt}>
+                  onPress={() => this.pushNewRoute('loginPhone')}>
+                  <Text style={styles.phoneLoginTxt}>
                   手機號碼登入
                   </Text>
                 </Button>
                 <Button
-                  style={styles.btn}
-                  onPress={() => this.pushNewRoute('loginAccount')}>
-                  <Text style={styles.txt}>
-                    帳號登入
-                  </Text>
-                </Button>
-                <Button
-                  style={styles.btn}
+                  transparent
+                  style={{alignSelf:'center'}}
                   onPress={() => this.pushNewRoute('signUp')}>
-                  <Text style={styles.txt}>
-                    註冊帳號
+                  <Text style={styles.registerTxt}>
+                    創建新帳號
                   </Text>
                 </Button>
               </View>

@@ -48,6 +48,12 @@
 		B5A50A881D31550F0031B763 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5A50A7A1D3154EF0031B763 /* libCodePush.a */; };
 		B5EFDACC1D2E08D1002EEAE5 /* TmotClassTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */; };
 		B5EFDACE1D2E08E3002EEAE5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5EFDACD1D2E08E3002EEAE5 /* Info.plist */; };
+		B5F548CB1D40CD0E009DCFB3 /* SF-UI-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F548C51D40CD0E009DCFB3 /* SF-UI-Display-Bold.otf */; };
+		B5F548CC1D40CD0E009DCFB3 /* SF-UI-Display-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F548C61D40CD0E009DCFB3 /* SF-UI-Display-Light.otf */; };
+		B5F548CD1D40CD0E009DCFB3 /* SF-UI-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F548C71D40CD0E009DCFB3 /* SF-UI-Display-Medium.otf */; };
+		B5F548CE1D40CD0E009DCFB3 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F548C81D40CD0E009DCFB3 /* SF-UI-Display-Regular.otf */; };
+		B5F548CF1D40CD0E009DCFB3 /* SF-UI-Display-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F548C91D40CD0E009DCFB3 /* SF-UI-Display-Thin.otf */; };
+		B5F548D01D40CD0E009DCFB3 /* SF-UI-Display-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = B5F548CA1D40CD0E009DCFB3 /* SF-UI-Display-Ultralight.otf */; };
 		C183179402FD434CB9703D4B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3AB60516FB49F7AC2C0396 /* libc++.tbd */; };
 		D3D997FA3B3B480FB88BD184 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3739FF607A8E42BBA1B335B6 /* Ionicons.ttf */; };
 		E2DFA8988D69608FC1848D95 /* Pods_TmotClass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBD36625A9E9B3C3C8C520 /* Pods_TmotClass.framework */; };
@@ -239,6 +245,12 @@
 		B5A50A751D3154EF0031B763 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		B5EFDACB1D2E08D1002EEAE5 /* TmotClassTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TmotClassTests.m; path = TmotClassTests/TmotClassTests.m; sourceTree = SOURCE_ROOT; };
 		B5EFDACD1D2E08E3002EEAE5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TmotClassTests/Info.plist; sourceTree = SOURCE_ROOT; };
+		B5F548C51D40CD0E009DCFB3 /* SF-UI-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Bold.otf"; path = "../fonts/SF-UI-Display-Bold.otf"; sourceTree = "<group>"; };
+		B5F548C61D40CD0E009DCFB3 /* SF-UI-Display-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Light.otf"; path = "../fonts/SF-UI-Display-Light.otf"; sourceTree = "<group>"; };
+		B5F548C71D40CD0E009DCFB3 /* SF-UI-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Medium.otf"; path = "../fonts/SF-UI-Display-Medium.otf"; sourceTree = "<group>"; };
+		B5F548C81D40CD0E009DCFB3 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Regular.otf"; path = "../fonts/SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
+		B5F548C91D40CD0E009DCFB3 /* SF-UI-Display-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Thin.otf"; path = "../fonts/SF-UI-Display-Thin.otf"; sourceTree = "<group>"; };
+		B5F548CA1D40CD0E009DCFB3 /* SF-UI-Display-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Ultralight.otf"; path = "../fonts/SF-UI-Display-Ultralight.otf"; sourceTree = "<group>"; };
 		C1DBD36625A9E9B3C3C8C520 /* Pods_TmotClass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TmotClass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3AB60516FB49F7AC2C0396 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		D1F06753F8394B5A8088138E /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
@@ -445,6 +457,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B5F548B41D40CCFF009DCFB3 /* Fonts */,
 				A3485CA21D216EBA0007821A /* libz.tbd */,
 				A3485C931D216D5D0007821A /* Default-568h@2x.png */,
 				13B07FAE1A68108700A75B9A /* TmotClass */,
@@ -567,6 +580,19 @@
 				B5A50A7A1D3154EF0031B763 /* libCodePush.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B5F548B41D40CCFF009DCFB3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B5F548C51D40CD0E009DCFB3 /* SF-UI-Display-Bold.otf */,
+				B5F548C61D40CD0E009DCFB3 /* SF-UI-Display-Light.otf */,
+				B5F548C71D40CD0E009DCFB3 /* SF-UI-Display-Medium.otf */,
+				B5F548C81D40CD0E009DCFB3 /* SF-UI-Display-Regular.otf */,
+				B5F548C91D40CD0E009DCFB3 /* SF-UI-Display-Thin.otf */,
+				B5F548CA1D40CD0E009DCFB3 /* SF-UI-Display-Ultralight.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		B8F4D35DF658AB13C992542D /* Frameworks */ = {
@@ -897,8 +923,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F548CC1D40CD0E009DCFB3 /* SF-UI-Display-Light.otf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B5F548CE1D40CD0E009DCFB3 /* SF-UI-Display-Regular.otf in Resources */,
+				B5F548CD1D40CD0E009DCFB3 /* SF-UI-Display-Medium.otf in Resources */,
+				B5F548CF1D40CD0E009DCFB3 /* SF-UI-Display-Thin.otf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				B5F548D01D40CD0E009DCFB3 /* SF-UI-Display-Ultralight.otf in Resources */,
 				A3485C941D216D5D0007821A /* Default-568h@2x.png in Resources */,
 				0A293EA8AD0F4FE38B697451 /* Entypo.ttf in Resources */,
 				E86ECB360E9243F5A04771F6 /* EvilIcons.ttf in Resources */,
@@ -907,6 +938,7 @@
 				D3D997FA3B3B480FB88BD184 /* Ionicons.ttf in Resources */,
 				FA2810ADB6784EE5A416EF52 /* MaterialIcons.ttf in Resources */,
 				1AC9E70129F14AAF94511622 /* Octicons.ttf in Resources */,
+				B5F548CB1D40CD0E009DCFB3 /* SF-UI-Display-Bold.otf in Resources */,
 				9232B684671D4C9F99BB778F /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

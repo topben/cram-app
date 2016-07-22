@@ -74,8 +74,8 @@ class Scanner extends Component {
     render() {
       this.barCodeFlag = true;
         return (
-                  <View style={{backgroundColor: '#fff'}}>
-                    <Header>
+                  <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
+
                       <Button
                         transparent
                         onPress={this.props.openDrawer}>
@@ -87,7 +87,6 @@ class Scanner extends Component {
                         onPress={() => this.replaceRoute('notifications')}>
                         <Icon name="md-notifications" />
                       </Button>
-                    </Header>
                     <Camera
                       onBarCodeRead={this.onBarCodeRead}
                       style={styles.camera}>

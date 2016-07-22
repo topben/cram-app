@@ -33,6 +33,12 @@
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SF-UI-Display-Bold.otf</string>
+		<string>SF-UI-Display-Light.otf</string>
+		<string>SF-UI-Display-Medium.otf</string>
+		<string>SF-UI-Display-Regular.otf</string>
+		<string>SF-UI-Display-Thin.otf</string>
+		<string>SF-UI-Display-Ultralight.otf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>FontAwesome.ttf</string>

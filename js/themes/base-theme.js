@@ -50,9 +50,9 @@ module.exports = {
     },
 
     footerHeight: 55,
-    toolbarHeight: (Platform.OS === 'ios' ) ? 70 : 55,
+    toolbarHeight: (Platform.OS === 'ios' ) ? 60 : 55,
     //toolbarDefaultBg: "#00c497",
-    toolbarDefaultBg: "#fff",
+    toolbarDefaultBg: "#f5f6f7",
     toolbarInverseBg: "#222",
 
     get statusBarColor() {
@@ -127,7 +127,7 @@ module.exports = {
     badgeBg: "#ED1727",
 
     lineHeight: 21,
-
+    headerBtnMarginTop: 20,
     defaultSpinnerColor: "#45D56E",
     inverseSpinnerColor: "#1A191B",
 

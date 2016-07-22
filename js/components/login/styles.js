@@ -21,7 +21,7 @@ module.exports = StyleSheet.create({
     },
     bg: {
         flex: 1,
-        marginTop: (deviceHeight/2)-15,
+        marginTop: (deviceHeight/2)-220,
         paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
@@ -30,21 +30,58 @@ module.exports = StyleSheet.create({
     mb20: {
       flexDirection:'row',
       alignItems:'center',
-      backgroundColor:'#eaebed',
-      marginTop: 20,
-      marginBottom: 20,
-      borderRadius: 7
+      margin: 20,
+      borderBottomColor: '#4a4a4a',
+      borderBottomWidth: 1
     },
     btn: {
+      flex:1,
+      width:300,
+      height:45,
       alignSelf:'center',
-      backgroundColor: '#bfbfc1',
+      backgroundColor: '#79b4ba',
       margin: 10
     },
-    txt: {
-      color:'black',
-      justifyContent:'center',
+    welcomeTxt: {
+      fontFamily: 'SFUIDisplay-Ultralight',
+      fontSize:36,
+      alignSelf:'center',
+      color:'#4a4a4a',
+      letterSpacing:7
+    },
+    registerTxt: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'#ff6100',
+      fontSize: 14,
+      marginTop:100
+    },
+    phoneLoginTxt: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'#fff',
+      alignSelf:'center',
+      alignItems:'center',
       fontSize: 15,
-      marginBottom:12
-    }
-
+      marginBottom:10
+    },
+    phoneLoginTitle: {
+      fontFamily: 'PingFangTC-Ultralight',
+      fontSize:36,
+      alignSelf:'center',
+      color:'#4a4a4a',
+      letterSpacing:7,
+      paddingTop:50
+    },
+    phoneBtn: {
+      flex:1,
+      width:300,
+      height:45,
+      alignSelf:'center',
+      backgroundColor: '#9b9b9b',
+      margin: 10
+    },
+    generalChineseTxt: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'#4a4a4a',
+      fontSize: 15
+    },
 });
