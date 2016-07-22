@@ -108,12 +108,11 @@ class User: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        let userModel = UserModel.toRealmObject(response)
+        let userModel = UserModel.toRealmObject_create(response)
         self.saveToRealm(userModel)
         
         // return true if get person info success
-        var result = ["success" : "true"];
-        result["msg"] = (response["result"] as! String)
+        let result = ["success" : "true"];
         
         successCallBack([result])
       },
@@ -128,39 +127,80 @@ class User: NSObject {
         failureCallBack([result])
     })
     
-  } // end of createUser()
+  } // end of create()
   
+  
+  // MARK: LOGIN FUNCTIONS
+  
+  // user login
+  @objc func login(username: String, password: String, grantType: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+    
+    PostApi.login(username, password: password, grantType: grantType, url: url,
+                       
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        let userModel = UserModel.toRealmObject_login(response)
+        self.saveToRealm(userModel)
+        
+        // return true if get person info success
+        let result = ["success" : "true"];
+        
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        
+        failureCallBack([result])
+    })
+    
+  } // end of getInfo()
+  
+  
+  // get info
+  @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+    
+    GetApi.getUserInfo(url,
+                       
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        let userModel = UserModel.toRealmObject_getInfo(response)
+        self.saveToRealm(userModel)
+        
+        // return true if get person info success
+        let result = ["success" : "true"];
+        
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        
+        failureCallBack([result])
+    })
+    
+  } // end of getInfo()
+  
+  
+  
+  
+  
+  // MARK: NOT READY
   
   
   
   // activate invitation code
   @objc func activateInvitationCode(invitationCode: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
-
-    let result = ["success" : "true"]
-    successCallBack([result])
-
-    
-    
-//    // return result in callback
-//    PostApi.activateInvitationCode(invitationCode, url: url,
-//                                  
-//      // SuccessBlock (parse response to realm object)
-//      successBlock: { (response) in
-//        
-//        // return true if get person info success
-//        let result = ["success" : true];
-//        
-//        successCallBack([result])
-//      },
-//      
-//      // FailureBlock (print the error message from server)
-//      failureBlock: { (response) in
-//        
-//        // return false if get person info failed
-//        let result = ["success" : false];
-//        
-//        failureCallBack([result])
-//    })
 
     
   }
@@ -184,7 +224,7 @@ class User: NSObject {
         
           let permission = response["permission"] as! String
           
-          user!.s_permission = permission ?? user!.s_permission
+//          user!.s_permission = permission ?? user!.s_permission
         }
         self.saveToRealm(user!)
         
@@ -207,14 +247,13 @@ class User: NSObject {
   
   
   // create user in realm
-  @objc func createInRealm(user_id: Int, username: String, email: String, phone: String, name: String) -> Void{
+  @objc func createInRealm(user_id: String, email: String, phone: String, password: String) -> Void{
     
     let userModel = UserModel()
-    userModel.i_user_id = user_id
-    userModel.s_username = username
+    userModel.s_user_id = user_id
     userModel.s_email = email
     userModel.s_phone = phone
-    userModel.s_name = name
+    userModel.s_password = password
     
     saveToRealm(userModel)
     
@@ -247,120 +286,28 @@ class User: NSObject {
   // update user info in server
   @objc func updateInServer(user_id: Int, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    PutApi.updateUser(user_id, url: url,
-                        
-      // SuccessBlock (parse response to realm object)
-      successBlock: { (response) in
-        
-        // return true if get person info success
-        let result = ["success" : "true"];
-        
-        successCallBack([result])
-      },
-      
-      // FailureBlock (print the error message from server)
-      failureBlock: { (response) in
-        
-        // return false if get person info failed
-        let result = ["success" : "false"];
-        
-        failureCallBack([result])
-    })
-    
-  } // end of updateInServer()
-  
-  
-  // MARK: LOGIN FUNCTIONS
-  
-  // login
-  @objc func login(username: String?, phone: String?, password: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
-
-    
-    let realm = try! Realm()
-    
-    if username != nil{
-    
-      let predicate = NSPredicate(format: "s_username = %@", username!)
-      let user = realm.objects(UserModel.self).filter(predicate).first
-      
-      var result = ["message" : "success"]
-      
-      if user?.s_password == password{
-        result["valid"] = "true"
-      }
-      else{
-        result["valid"] = "false"
-      }
-      
-      successCallBack([result])
-    }
-      
-    else{
-      
-      let predicate = NSPredicate(format: "s_phone = %@", phone!)
-      let user = realm.objects(UserModel.self).filter(predicate).first
-
-      var result = ["message" : "success"]
-      
-      if user?.s_password == password{
-        
-        result["valid"] = "true"
-      }
-      else{
-        result["valid"] = "false"
-      }
-      
-      successCallBack([result])
-      
-    }
-    
-    
-    
-    
-//    PostApi.login(username, password: password, url: url,
-//                      
+//    PutApi.updateUser(user_id, url: url,
+//                        
 //      // SuccessBlock (parse response to realm object)
 //      successBlock: { (response) in
 //        
 //        // return true if get person info success
-//        let result = ["success" : true];
+//        let result = ["success" : "true"];
 //        
 //        successCallBack([result])
 //      },
 //      
 //      // FailureBlock (print the error message from server)
-//      failureBlock: {
-//        (response) in
-//        print(response)
+//      failureBlock: { (response) in
 //        
 //        // return false if get person info failed
-//        let result = ["success" : false];
+//        let result = ["success" : "false"];
 //        
 //        failureCallBack([result])
 //    })
     
-  } // end of login()
-  
-  
-  
-  
-  @objc func callbackMethod(callback: RCTResponseSenderBlock) -> Void {
-    
-    let resultsDict = [
-      "success" : true
-    ];
-    
-    callback([NSNull() ,resultsDict])
-    
-  }
-  
-  @objc func simpleMethod(message: String!) {
-    
-    let documentPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-    print(documentPath)
-    
-  }
-  
+  } // end of updateInServer()
+
   
   // private methods just for swift
   func saveToRealm(realmObject: Object){

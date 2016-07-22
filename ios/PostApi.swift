@@ -25,19 +25,16 @@ class PostApi{
       
       let json = response.result.value
       
-      switch(response.result){
-        case .Success:
-          if (response.response?.statusCode)! == "200"{
-            print("Send verification code success.")
-            successBlock(json as! Dictionary<String, AnyObject>)
-          }
-          else{
-            print("Send verification code failed.")
-            failureBlock(json as! Dictionary<String, AnyObject>)
-          }
+      let statusCode = (response.response?.statusCode)!
+      
+      switch(statusCode){
+        case 200 ... 299:
+          print("Send verification code success.")
+          successBlock(json as! Dictionary<String, AnyObject>)
           break
-        case .Failure:
-          print("connection error")
+        default:
+          print("Send verification code failed.")
+          failureBlock(json as! Dictionary<String, AnyObject>)
           break
       } // end of switch
       
@@ -48,25 +45,21 @@ class PostApi{
   
   // create user
   static func createUser(userInfo: Dictionary<String, AnyObject>, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
-
+ 
     Alamofire.request(.POST, url, parameters: userInfo).responseJSON { response in
       
       let json = response.result.value
       
-      switch(response.result){
-        case .Success:
-          if (response.response?.statusCode)! == "200"{
-            print("Create user success.")
-            successBlock(json as! Dictionary<String, AnyObject>)
-          }
-          else{
-            print("Create user failed.")
-            failureBlock(json as! Dictionary<String, AnyObject>)
-          }
-          break
-        case .Failure:
-          print("connection error")
-          break
+      let statusCode = (response.response?.statusCode)!
+      
+      switch(statusCode){
+        case 200 ... 299:
+              print("Create user success.")
+              successBlock(json as! Dictionary<String, AnyObject>)
+              break
+        default:
+              print("Create user failed.")
+              failureBlock(json as! Dictionary<String, AnyObject>)
       } // end of switch
       
     } // end of request
@@ -74,7 +67,32 @@ class PostApi{
   } // end of createUser()
   
 
-  
+  // login
+  static func login(username: String, password: String, grantType: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    var parameters = [String : AnyObject]()
+    parameters["grant_type"] = grantType
+    parameters["username"]   = username
+    parameters["password"]   = password
+    
+    Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
+      
+      let json = response.result.value
+      let statusCode = (response.response?.statusCode)!
+      
+      switch(statusCode){
+        case 200 ... 299:
+          print("Log in success.") // JSON = \(json)")
+          successBlock(json as! Dictionary<String, AnyObject>)
+          break
+        default:
+          print("Log in failed.") // JSON = \(json)")
+          break
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of login()
 
   
   
@@ -119,38 +137,7 @@ class PostApi{
   } // end of activateInvitationCode()
 
   
-  //login
-  static func login(username: String, password: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
-    
-    var parameters = [String : AnyObject]()
-    parameters["username"] = username
-    parameters["password"] = password
-    
-    Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
-      
-      let json = response.result.value
-      let status = json?["status"] as? String
-      
-      switch(response.result){
-      case .Success:
-        // change status later..
-        if status == "0"{
-          print("Log in success.") // JSON = \(json)")
-          successBlock(json as! Dictionary<String, AnyObject>)
-        }
-        else{
-          print("Log in failed.") // JSON = \(json)")
-          failureBlock(json as! Dictionary<String, AnyObject>)
-        }
-        break
-      case .Failure:
-        print("connection error")
-        break
-      } // end of switch
-      
-    } // end of request
-    
-  } // end of activateInvitationCode()
+  
   
 
 } // end of class

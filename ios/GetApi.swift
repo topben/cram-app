@@ -23,21 +23,17 @@ class GetApi{
     Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
+      let statusCode = (response.response?.statusCode)!
       
-      switch(response.result){
-        case .Success:
-          if (response.response?.statusCode)! == "200"{
+      switch(statusCode){
+        case 200 ... 299:
             print("Check verification code success.")
             successBlock(json as! Dictionary<String, AnyObject>)
-          }
-          else{
+            break
+        default:
             print("Check verification code failed.")
             failureBlock(json as! Dictionary<String, AnyObject>)
-          }
-          break
-        case .Failure:
-          print("connection error")
-          break
+            break
       } // end of switch
       
     } // end of request
@@ -54,20 +50,15 @@ class GetApi{
     Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
+      let statusCode = (response.response?.statusCode)!
       
-      switch(response.result){
-        case .Success:
-          if (response.response?.statusCode)! == "200"{
-            print("Check username success.")
-            successBlock(json as! Dictionary<String, AnyObject>)
-          }
-          else{
-            print("Check username failed.")
-            failureBlock(json as! Dictionary<String, AnyObject>)
-          }
+      switch(statusCode){
+        case 200 ... 299:
+          print("Check username success.")
+          successBlock(json as! Dictionary<String, AnyObject>)
           break
-        case .Failure:
-          print("connection error")
+        default:
+          print("Check username failed.")
           break
       } // end of switch
       
@@ -76,6 +67,30 @@ class GetApi{
   } // end of checkUsername()
   
   
+  // get user info
+  static func getUserInfo(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      let statusCode = (response.response?.statusCode)!
+      
+      switch(statusCode){
+        case 200 ... 299:
+          print("Get user info success.")
+          successBlock(json as! Dictionary<String, AnyObject>)
+          break
+        default:
+          print("Get user info failed.")
+          failureBlock(json as! Dictionary<String, AnyObject>)
+          break
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getUserInfo()
+
   
   
   
@@ -117,36 +132,6 @@ class GetApi{
   } // end of getUserPermission()
 
   
-  // get student info
-  static func getStudentInfo(studentId: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
-    
-    var parameters = [String: AnyObject]()
-    
-    
-    Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
-      
-      let json = response.result.value
-      
-      switch(response.result){
-      case .Success:
-        // change status later..
-        if (response.response?.statusCode)! == "200"{
-          print("Get student info success.")
-          successBlock(json as! Dictionary<String, AnyObject>)
-        }
-        else{
-          print("Get student info failed.")
-          failureBlock(json as! Dictionary<String, AnyObject>)
-        }
-        break
-      case .Failure:
-        print("connection error")
-        break
-      } // end of switch
-      
-    } // end of request
-    
-  } // end of getStudentInfo()
   
   
   

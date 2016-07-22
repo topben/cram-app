@@ -22,21 +22,6 @@ extension Bool{
   
 }
 
-extension Dictionary{
-  
-  func toString() -> Dictionary<String, String>{
-    
-    let toString = Dictionary<String, String>()
-    
-    // handle int, string, nsDate, float, bool
-    
-    
-    
-    return toString
-  }
-  
-}
-
 extension NSDate{
   
   convenience init(dateString: String) {
