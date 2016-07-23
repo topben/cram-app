@@ -1,24 +1,34 @@
-const UserSchema = {
+module.exports = {
+
+UserSchema : {
     name: 'User',
-    primaryKey: 'i_user_id',
+    primaryKey: 's_user_id',
     properties: {
-        i_user_id: {type: 'int', default: 0},
+        s_user_id: {type: 'string', default: ''},
         s_name: {type: 'string', default: ''},
-        s_username: {type: 'string', default: ''},
         s_password: {type: 'string', default: ''},
         s_email: {type: 'string', default: ''},
         s_phone: {type: 'string', default: ''},
+        s_country: {type: 'string', default: ''},
+        s_access_token: {type: 'string', default: ''},
+        s_refresh_token: {type: 'string', default: ''},
+        s_token_type: {type: 'string', default: ''},
+        i_updateTimestamp: {type: 'int', default: 0},
+        i_created_at: {type: 'int', default: 0},
+        i_updated_at: {type: 'int', default: 0},
+        i_deleted_at: {type: 'int', default: 0},
         s_invitationCode: {type: 'string', default: ''},
-        s_permission: {type: 'string', default: ''},
         i_scannerUsage: {type: 'int', default: 0},
         s_profileImage: {type: 'string', default: ''},
+        s_profile_picture_file_name: {type: 'string', default: ''},
+        i_profile_picture_updated_at: {type: 'int', default: 0},
         b_isTeacher: {type: 'bool', default: false},
         b_isParent: {type: 'bool', default: false},
         b_isDelete: {type: 'bool', default: false}
     },
-};
+},
 
-const CourseSchema = {
+CourseSchema : {
     name: 'Course',
     primaryKey: 'i_course_id',
     properties: {
@@ -34,9 +44,8 @@ const CourseSchema = {
         List_students: {type: 'list', objectType: 'StudentModel'},
         b_isDelete: {type: 'bool', default: false}
     },
-};
-
- const StudentSchema = {
+},
+StudentSchema : {
      name: 'Student',
      primaryKey: 'i_student_id',
      properties: {
@@ -48,9 +57,8 @@ const CourseSchema = {
          List_checkInHistory: {type: 'list', objectType: 'AttendanceModel'},
          b_isDelete: {type: 'bool', default: false}
      },
- };
-
- const AttendanceSchema = {
+ },
+AttendanceSchema : {
      name: 'Attendance',
      primaryKey: 'i_attendance_id',
      properties: {
@@ -61,4 +69,5 @@ const CourseSchema = {
          b_leave: {type: 'bool', default: false},
          b_isDelete: {type: 'bool', default: false}
      },
- };
+ }
+}

@@ -75,18 +75,19 @@ class Scanner extends Component {
       this.barCodeFlag = true;
         return (
                   <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
-
+                    <Header style={{backgroundColor:'#f5f6f7'}}>
                       <Button
                         transparent
                         onPress={this.props.openDrawer}>
-                        <Icon name="ios-menu" />
+                        <Image source={require('../../../images/menu/btn_menu.png')}/>
                       </Button>
-                      <View />
+                      <Image style={{alignSelf:'center'}}source={require('../../../images/scanner/ic_tmot_scan.png')}/>
                       <Button
                         transparent
                         onPress={() => this.replaceRoute('notifications')}>
-                        <Icon name="md-notifications" />
+                        <Image source={require('../../../images/notification/btn_notification.png')}/>
                       </Button>
+                    </Header>
                     <Camera
                       onBarCodeRead={this.onBarCodeRead}
                       style={styles.camera}>
@@ -114,18 +115,52 @@ class Scanner extends Component {
               </View>
               <Modal style={styles.modal} backdrop={false} ref={"modal"} swipeToClose={true} position="bottom" entry="bottom">
                   <Card style={styles.space}>
-                      <Text style={{color: '#050'}}>
-                          {this.state.studentInfo}
-                      </Text>
-                      <Button transparent style={{position: 'absolute', top: 0, right: 0}} onPress={this.closeModal.bind(this)} >
-                        <Icon name="ios-keypad" style={{color:'#000'}} />
+                      <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
+                      <View style={{flexDirection:'row',paddingTop:20}}>
+                        <CardItem padder>
+                                  <Text style={styles.arriveTxtCh}>抵達</Text>
+                                  <Text style={styles.arriveNum}>3</Text>
+                        </CardItem>
+                        <CardItem padder>
+                                  <Text style={styles.abscenceTxtCh}>請假</Text>
+                                  <Text style={styles.abscenceNum}>2</Text>
+                        </CardItem>
+                        <CardItem padder>
+                                  <Text style={styles.leaveTxtCh}>未到</Text>
+                                  <Text style={styles.leaveNum}>17</Text>
+                        </CardItem>
+                      </View>
+                      <Button rounded style={styles.btn} onPress={this.closeModal.bind(this)} >
+                        <Text style={styles.btnTxtCh}>未到名單</Text>
                       </Button>
                   </Card>
               </Modal>
               <Overlay isVisible={this.state.isOverlay}>
                 <View style={styles.overlay}>
                   <ScrollView contentContainerStyle={{}}>
-                    <Grid style={{height:300}}>
+                    <View style={styles.space}>
+                        <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
+                        <Text style={styles.subtitle}>向日葵補習班</Text>
+                        <View style={{flexDirection:'row',paddingTop:20}}>
+                          <CardItem padder>
+                                    <Text style={styles.arriveTxtCh}>抵達</Text>
+                                    <Text style={styles.arriveNum}>3</Text>
+                          </CardItem>
+                          <CardItem padder>
+                                    <Text style={styles.abscenceTxtCh}>請假</Text>
+                                    <Text style={styles.abscenceNum}>2</Text>
+                          </CardItem>
+                          <CardItem padder>
+                                    <Text style={styles.leaveTxtCh}>未到</Text>
+                                    <Text style={styles.leaveNum}>17</Text>
+                          </CardItem>
+                        </View>
+                      </View>
+                    <Grid style={styles.gridStyle}>
+                      <Row style={{alignSelf:'center'}}>
+                      <Text style={styles.overlayAbsence}>未到名單</Text>
+                      </Row>
+                      <Row style={{paddingBottom:300}}>
                         <Col style={{ backgroundColor: '#D954D7', height: 200 }}>
                           <Row>
                           <Thumbnail source={require('../../../images/contacts/sanket.png')} />
@@ -150,8 +185,9 @@ class Scanner extends Component {
                           <Thumbnail source={require('../../../images/contacts/sanket.png')} />
                             <Text>Card Footer</Text>
                         </Col>
+                      </Row>
                    </Grid>
-                    <Button onPress={this.closeOverlay.bind(this)}>TTTTT</Button>
+                    <Button style={{alignSelf:'center'}}onPress={this.closeOverlay.bind(this)}>TTTTT</Button>
                     </ScrollView>
                 </View>
               </Overlay>

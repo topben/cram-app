@@ -14,19 +14,37 @@ import {popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
+import schema from '../../realm_schema';
 import styles from './styles';
 
 const Realm = require('realm');
-
+const {User} = require('NativeModules');
 
 class SignUpVerify extends Component {
+
+  constructor(props) {
+      super(props);
+      this.state = {
+          code: ''
+      };
+  }
 
     popRoute() {
         this.props.popRoute();
     }
 
     navigateTo(route) {
-        this.props.replaceOrPushRoute(route);
+      var $this = this;
+      User.checkVerificationCode(this.state.code, 'http://192.168.11.48:3000/api/v1/signup/check_verification_code',
+       function successCallback(results) {
+           alert(results.success);
+           $this.props.replaceOrPushRoute(route);
+       },
+       function errorCallback(results) {
+           alert(results.msg);
+       });
+
+
     }
 
     render() {
@@ -47,7 +65,7 @@ class SignUpVerify extends Component {
                     <View padder>
                       <Text>請輸入認證碼</Text>
                         <View style={styles.mb20}>
-                            <Input placeholder="ex:verifymeverifyme" />
+                            <Input placeholder="ex:verifymeverifyme" onChangeText={(code) => this.setState({code})} value={this.state.code}/>
                         </View>
                         <Text>認證碼已寄到輸入電話號碼。</Text>
                         <Text>若未收到認證碼請點選 "重寄認證碼"。</Text>

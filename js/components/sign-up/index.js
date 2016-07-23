@@ -19,24 +19,6 @@ import styles from './styles';
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
-const TestUserSchema = {
-    name: 'TestUser',
-    primaryKey: 'i_user_id',
-    properties: {
-        i_user_id: 'int',
-        s_name: 'string',
-        s_username: 'string',
-        s_password: 'string',
-        s_email: 'string',
-        s_phone: 'string',
-        s_invitationCode: 'string',
-        s_verificationCode: 'string',
-        b_isDelete: 'bool'
-    },
-};
-
-
-
 class SignUp extends Component {
 
     constructor(props) {
@@ -78,6 +60,7 @@ class SignUp extends Component {
 
     // next button tapped
     onNextPressed(){
+      var $this = this;
       if(this.isPhoneNumber(this.state.phone)==false)
       {
         return;
@@ -90,9 +73,18 @@ class SignUp extends Component {
         return;
       }
 
-      //this.setState({client_error_msg: '成功'});
-      this.navigateTo('signUpVerify');
-    }
+      var phoneWithCountryCode = '886' + this.state.phone.substring(1, 10);
+
+      User.sendVerificationCode(phoneWithCountryCode, 'http://192.168.11.48:3000/api/v1/signup/send_verification_code_sms',
+
+       function successCallback(results) {
+          $this.navigateTo('signUpVerify');
+       },
+
+       function errorCallback(results) {
+           alert(results.msg);
+       });
+      }
 
     render() {
         return (

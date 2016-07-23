@@ -14,17 +14,6 @@ module.exports = StyleSheet.create({
         width: null,
         height: null,
     },
-    roundedButton: {
-      alignSelf: 'center',
-      marginTop: 25,
-      backgroundColor: '#00c497',
-      borderRadius:90,
-      width: 65,
-      height:65
-    },
-    name: {
-      color: 'red'
-    },
     camera: {
       height:deviceHeight,
     },
@@ -75,13 +64,92 @@ module.exports = StyleSheet.create({
     space: {
       marginTop: 10,
       marginBottom: 10,
-      alignSelf: 'center'
+      width:deviceWidth-40,
+      alignSelf: 'center',
     },
     overlay: {
       height:deviceHeight,
-      width:deviceWidth-40,
-      backgroundColor:'#fff',
+      width:deviceWidth,
+      backgroundColor:'#f5f6f7',
       alignSelf:'center',
-      marginTop:70
-    }
+      //marginTop:70
+    },
+    modalTitleCh: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'#ff6100',
+      fontSize:25,
+      alignSelf:'center',
+      paddingTop:20,
+      letterSpacing:3
+    },
+    btnTxtCh: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'#ff6100',
+      fontSize:20,
+      alignSelf:'center'
+    },
+    arriveTxtCh: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#77b4bb',
+      fontSize:18,
+      alignSelf:'center'
+    },
+    abscenceTxtCh: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#4a4a4a',
+      fontSize:18,
+      alignSelf:'center'
+    },
+    leaveTxtCh: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#ff6100',
+      fontSize:18,
+      alignSelf:'center'
+    },
+    arriveNum: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#77b4bb',
+      fontSize:15,
+      alignSelf:'center'
+    },
+    abscenceNum: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#4a4a4a',
+      fontSize:15,
+      alignSelf:'center'
+    },
+    leaveNum: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#ff6100',
+      fontSize:15,
+      alignSelf:'center'
+    },
+    subtitle: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#4a4a4a',
+      fontSize:15,
+      alignSelf:'center',
+      letterSpacing:1
+    },
+    btn: {
+      width:300,
+      height:45,
+      alignSelf:'center',
+      backgroundColor: '#f6f3ed',
+      borderColor:'#ff6100',
+      borderWidth: 1
+    },
+    gridStyle: {
+      width:deviceWidth-40,
+      height:deviceHeight/2,
+      alignSelf:'center',
+      backgroundColor: '#fff',
+    },
+    overlayAbsence: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'#ff6100',
+      fontSize:20,
+      alignSelf:'center',
+      paddingTop:10
+    },
 });
