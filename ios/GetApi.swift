@@ -23,7 +23,12 @@ class GetApi{
     Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      let statusCode = (response.response?.statusCode)!
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
       
       switch(statusCode){
         case 200 ... 299:
@@ -31,9 +36,9 @@ class GetApi{
             successBlock(json as! Dictionary<String, AnyObject>)
             break
         default:
-            print("Check verification code failed.")
-            failureBlock(json as! Dictionary<String, AnyObject>)
-            break
+          print("Check verification code failed.")
+          let error = ["error": "Server Error: " + String(statusCode)]
+          failureBlock(error)
       } // end of switch
       
     } // end of request
@@ -50,7 +55,12 @@ class GetApi{
     Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      let statusCode = (response.response?.statusCode)!
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
       
       switch(statusCode){
         case 200 ... 299:
@@ -59,7 +69,8 @@ class GetApi{
           break
         default:
           print("Check username failed.")
-          break
+          let error = ["error": "Server Error: " + String(statusCode)]
+          failureBlock(error)
       } // end of switch
       
     } // end of request
@@ -74,7 +85,11 @@ class GetApi{
       
       let json = response.result.value
       
-      let statusCode = (response.response?.statusCode)!
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
       
       switch(statusCode){
         case 200 ... 299:
@@ -83,8 +98,8 @@ class GetApi{
           break
         default:
           print("Get user info failed.")
-          failureBlock(json as! Dictionary<String, AnyObject>)
-          break
+          let error = ["error": "Server Error: " + String(statusCode)]
+          failureBlock(error)
       } // end of switch
       
     } // end of request

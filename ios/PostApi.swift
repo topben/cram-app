@@ -24,11 +24,10 @@ class PostApi{
     Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      // give the initial value
+      
       var statusCode = 404
       
-      if(response.response?.statusCode != nil)
-      {
+      if(response.response?.statusCode != nil){
         statusCode = (response.response?.statusCode)!
       }
       
@@ -39,11 +38,8 @@ class PostApi{
           break
         default:
           print("Send verification code failed.")
-          let errorMsg = [
-            "msg": "Server Doesn't Work"+String(statusCode)
-          ]
-            //failureBlock(errorMsg)
-          break
+          let error = ["error": "Server Error: " + String(statusCode)]
+          failureBlock(error)
       } // end of switch
       
     } // end of request
@@ -57,16 +53,21 @@ class PostApi{
       
       let json = response.result.value
       
-      let statusCode = (response.response?.statusCode)!
+      var statusCode = 404
       
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+
       switch(statusCode){
         case 200 ... 299:
-              print("Create user success.")
-              successBlock(json as! Dictionary<String, AnyObject>)
-              break
+            print("Create user success.")
+            successBlock(json as! Dictionary<String, AnyObject>)
+            break
         default:
-              print("Create user failed.")
-              failureBlock(json as! Dictionary<String, AnyObject>)
+            print("Create user failed.")
+            let error = ["error": "Server Error: " + String(statusCode)]
+            failureBlock(error)
       } // end of switch
       
     } // end of request
@@ -85,16 +86,22 @@ class PostApi{
     Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
-      let statusCode = (response.response?.statusCode)!
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
       
       switch(statusCode){
         case 200 ... 299:
-          print("Log in success.") // JSON = \(json)")
+          print("Log in success.")
           successBlock(json as! Dictionary<String, AnyObject>)
           break
         default:
-          print("Log in failed.") // JSON = \(json)")
-          break
+          print("Log in failed.")
+          let error = ["error": "Status Code: " + String(statusCode)]
+          failureBlock(error)
       } // end of switch
       
     } // end of request
