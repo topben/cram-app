@@ -24,8 +24,13 @@ class PostApi{
     Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
       
       let json = response.result.value
+      // give the initial value
+      var statusCode = 404
       
-      let statusCode = (response.response?.statusCode)!
+      if(response.response?.statusCode != nil)
+      {
+        statusCode = (response.response?.statusCode)!
+      }
       
       switch(statusCode){
         case 200 ... 299:
@@ -34,14 +39,16 @@ class PostApi{
           break
         default:
           print("Send verification code failed.")
-          failureBlock(json as! Dictionary<String, AnyObject>)
+          let errorMsg = [
+            "msg": "Server Doesn't Work"+String(statusCode)
+          ]
+            //failureBlock(errorMsg)
           break
       } // end of switch
       
     } // end of request
     
   } // end of getVerificationCode()
-  
   
   // create user
   static func createUser(userInfo: Dictionary<String, AnyObject>, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){

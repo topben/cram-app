@@ -15,6 +15,7 @@ import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
 import styles from './styles';
+import signup from './signup-theme';
 
 const {User} = require('NativeModules');
 const Realm = require('realm');
@@ -78,39 +79,34 @@ class SignUp extends Component {
       User.sendVerificationCode(phoneWithCountryCode, 'http://192.168.11.48:3000/api/v1/signup/send_verification_code_sms',
 
        function successCallback(results) {
-          $this.navigateTo('signUpVerify');
+          //$this.navigateTo('signUpVerify');
        },
 
        function errorCallback(results) {
            alert(results.msg);
        });
+       this.navigateTo('signUpVerify');
       }
 
     render() {
         return (
             <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
-              <Image source={require('../../../images/glow2.png')} style={styles.container} >
-                <Header>
-                    <Button transparent onPress={() => this.popRoute()}>
-                        <Icon name="ios-arrow-back" />
-                    </Button>
-                    <Title>註冊</Title>
-                      <Button transparent onPress={this.onNextPressed}>
-                          Next
-                      </Button>
-                </Header>
-
-                <Content padder style={{backgroundColor: 'transparent'}}>
-                    <View padder>
-                      <Text>請輸入電話</Text>
-                        <View style={styles.mb20}>
-                            <Input placeholder="ex:09xx-xxx-xxx" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
-                            <Text>{this.state.client_error_msg}</Text>
-                          </View>
-                        <Text>註冊電話號碼時，必須認證電話號碼，請同意服務條款及隱私權政策內容後，點選“下一步”取得認證碼。</Text>
+              <Content
+                theme={signup}
+                style={{backgroundColor: '#f5f6f7'}}
+                scrollEnabled={this.state.scroll}>
+                <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
+                <Text style={styles.newAccountTxt}>創建新帳號</Text>
+                <View style={styles.bg}>
+                  <View style={styles.mb20}>
+                      <Input placeholder="手機號碼" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
+                      <Text>{this.state.client_error_msg}</Text>
                     </View>
-                </Content>
-              </Image>
+                    <Button transparent rounded style={styles.getVerifyBtn} onPress={this.onNextPressed}>
+                      <Text style={styles.verifyTxt}>取得驗證碼</Text>
+                    </Button>
+                </View>
+              </Content>
             </Container>
         )
     }

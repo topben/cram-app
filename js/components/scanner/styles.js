@@ -141,7 +141,7 @@ module.exports = StyleSheet.create({
     },
     gridStyle: {
       width:deviceWidth-40,
-      height:deviceHeight/2,
+      height:deviceHeight/2+50,
       alignSelf:'center',
       backgroundColor: '#fff',
     },
@@ -150,6 +150,16 @@ module.exports = StyleSheet.create({
       color:'#ff6100',
       fontSize:20,
       alignSelf:'center',
-      paddingTop:10
+      paddingTop:30,
+      paddingBottom:30
     },
+    overlayRow:{
+      flexDirection:'column'
+    },
+    overlayThumb:{
+      width:70,
+      height:70,
+      borderRadius:35,
+      alignSelf:'center'
+    }
 });

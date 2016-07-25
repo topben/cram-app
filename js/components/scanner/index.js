@@ -137,7 +137,10 @@ class Scanner extends Component {
               </Modal>
               <Overlay isVisible={this.state.isOverlay}>
                 <View style={styles.overlay}>
-                  <ScrollView contentContainerStyle={{}}>
+                  <ScrollView contentContainerStyle={{paddingTop:20}}>
+                    <Button transparent style={{alignSelf:'flex-end'}}onPress={this.closeOverlay.bind(this)}>
+                      <Image source={require('../../../images/button/btn_close.png')}/>
+                    </Button>
                     <View style={styles.space}>
                         <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
                         <Text style={styles.subtitle}>向日葵補習班</Text>
@@ -157,37 +160,66 @@ class Scanner extends Component {
                         </View>
                       </View>
                     <Grid style={styles.gridStyle}>
-                      <Row style={{alignSelf:'center'}}>
                       <Text style={styles.overlayAbsence}>未到名單</Text>
-                      </Row>
-                      <Row style={{paddingBottom:300}}>
-                        <Col style={{ backgroundColor: '#D954D7', height: 200 }}>
-                          <Row>
-                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
-                            <Text>Card Header</Text>
+                      <Row>
+                        <Col>
+                          <Row style={styles.overlayRow}>
+                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                            <Text style={{alignSelf:'center'}}>Card Header</Text>
                           </Row>
-                          <Row>
-                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
-                            <Text>Card Header</Text>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
                           </Row>
-                          <Row>
-                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
-                            <Text>Card Header</Text>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
                           </Row>
                         </Col>
-                        <Col style={{ backgroundColor: '#D93735', height: 200 }}>
-                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
-                            <Text>
-                                //Your text here
-                            </Text>
+                        <Col>
+                          <Row style={styles.overlayRow}>
+                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                            <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
                         </Col>
-                        <Col style={{ backgroundColor: '#D954D7', height: 200 }}>
-                          <Thumbnail source={require('../../../images/contacts/sanket.png')} />
-                            <Text>Card Footer</Text>
+                        <Col>
+                          <Row style={styles.overlayRow}>
+                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                            <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
+                        </Col>
+                        <Col>
+                          <Row style={styles.overlayRow}>
+                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                            <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
+                          <Row style={styles.overlayRow}>
+                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          </Row>
                         </Col>
                       </Row>
                    </Grid>
-                    <Button style={{alignSelf:'center'}}onPress={this.closeOverlay.bind(this)}>TTTTT</Button>
                     </ScrollView>
                 </View>
               </Overlay>

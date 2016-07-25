@@ -16,6 +16,7 @@ import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input
 import theme from '../../themes/base-theme';
 import schema from '../../realm_schema';
 import styles from './styles';
+import signup from './signup-theme';
 
 const Realm = require('realm');
 const {User} = require('NativeModules');
@@ -27,6 +28,7 @@ class SignUpVerify extends Component {
       this.state = {
           code: ''
       };
+      this.onNextPressed = this.onNextPressed.bind(this);
   }
 
     popRoute() {
@@ -34,45 +36,41 @@ class SignUpVerify extends Component {
     }
 
     navigateTo(route) {
+       this.props.replaceOrPushRoute(route);
+    }
+
+    onNextPressed(){
       var $this = this;
       User.checkVerificationCode(this.state.code, 'http://192.168.11.48:3000/api/v1/signup/check_verification_code',
        function successCallback(results) {
            alert(results.success);
-           $this.props.replaceOrPushRoute(route);
+           //$this.props.replaceOrPushRoute(route);
        },
        function errorCallback(results) {
            alert(results.msg);
        });
-
-
     }
 
     render() {
         return (
-            <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
-              <Image source={require('../../../images/glow2.png')} style={styles.container} >
-                <Header>
-                    <Button transparent onPress={() => this.popRoute()}>
-                        <Icon name="ios-arrow-back" />
-                    </Button>
-                    <Title>註冊</Title>
-                      <Button transparent onPress={() => this.navigateTo('signUpCreate')}>
-                          Next
-                      </Button>
-                </Header>
-
-                <Content padder style={{backgroundColor: 'transparent'}}>
-                    <View padder>
-                      <Text>請輸入認證碼</Text>
-                        <View style={styles.mb20}>
-                            <Input placeholder="ex:verifymeverifyme" onChangeText={(code) => this.setState({code})} value={this.state.code}/>
-                        </View>
-                        <Text>認證碼已寄到輸入電話號碼。</Text>
-                        <Text>若未收到認證碼請點選 "重寄認證碼"。</Text>
-                    </View>
-                </Content>
-              </Image>
-            </Container>
+          <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
+            <Content
+              theme={signup}
+              style={{backgroundColor: '#f5f6f7'}}
+              scrollEnabled={this.state.scroll}>
+              <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
+              <Text style={styles.newAccountTxt}>創建新帳號</Text>
+              <View style={styles.bg}>
+                <View style={styles.mb20}>
+                    <Input placeholder="驗證碼" onChangeText={(code) => this.setState({code})} value={this.state.code} />
+                    <Text>{this.state.client_error_msg}</Text>
+                  </View>
+                  <Button transparent rounded style={styles.getVerifyBtn} onPress={this.onNextPressed}>
+                    <Text style={styles.verifyTxt}>驗證驗證碼</Text>
+                  </Button>
+              </View>
+            </Content>
+          </Container>
         )
     }
 }

@@ -97,7 +97,7 @@ class App extends Component {
     render() {
         if(this.state.showDownloadingModal)
             return (
-                <Container theme={theme} style={{backgroundColor: '#384850'}}>
+                <Container theme={theme} style={{backgroundColor: '#fff'}}>
                     <Image source={require('../images/glow2.png')} style={styles.container} >
                         <Modal style={[styles.modal, styles.modal1]} backdrop={false} ref={"modal"} swipeToClose={false} >
 
