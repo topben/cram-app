@@ -143,9 +143,5 @@ class PostApi{
     
   } // end of activateInvitationCode()
 
-  
-  
-  
-
 } // end of class
 

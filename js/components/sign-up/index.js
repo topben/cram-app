@@ -76,16 +76,16 @@ class SignUp extends Component {
 
       var phoneWithCountryCode = '886' + this.state.phone.substring(1, 10);
 
-      User.sendVerificationCode(phoneWithCountryCode, 'http://192.168.11.48:3000/api/v1/signup/send_verification_code_sms',
-
-       function successCallback(results) {
-          //$this.navigateTo('signUpVerify');
-       },
-
-       function errorCallback(results) {
-           alert(results.msg);
-       });
-       this.navigateTo('signUpVerify');
+      // User.sendVerificationCode(phoneWithCountryCode, 'http://192.168.11.48:3000/api/v1/signup/send_verification_code_sms',
+      //
+      //  function successCallback(results) {
+      //     //$this.navigateTo('signUpVerify');
+      //  },
+      //
+      //  function errorCallback(results) {
+      //      alert(results.msg);
+      //  });
+       this.navigateTo('signUpCreate');
       }
 
     render() {

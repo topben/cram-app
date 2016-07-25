@@ -41,19 +41,22 @@ class SignUpVerify extends Component {
 
     onNextPressed(){
       var $this = this;
-      User.checkVerificationCode(this.state.code, 'http://192.168.11.48:3000/api/v1/signup/check_verification_code',
-       function successCallback(results) {
-           alert(results.success);
-           //$this.props.replaceOrPushRoute(route);
-       },
-       function errorCallback(results) {
-           alert(results.msg);
-       });
+      // User.checkVerificationCode(this.state.code, 'http://192.168.11.48:3000/api/v1/signup/check_verification_code',
+      //  function successCallback(results) {
+      //      alert(results.success);
+      //      //$this.props.replaceOrPushRoute(route);
+      //  },
+      //  function errorCallback(results) {
+      //      alert(results.msg);
+      //  });
     }
 
     render() {
         return (
-          <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
+          <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
+            <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
+              <Image source={require('../../../images/button/btn_back.png')}/>
+            </Button>
             <Content
               theme={signup}
               style={{backgroundColor: '#f5f6f7'}}
@@ -70,7 +73,7 @@ class SignUpVerify extends Component {
                   </Button>
               </View>
             </Content>
-          </Container>
+          </View>
         )
     }
 }
