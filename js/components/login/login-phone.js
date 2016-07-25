@@ -56,7 +56,7 @@ class LoginPhone extends Component {
                 <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
                   <Image source={require('../../../images/button/btn_back.png')}/>
                 </Button>
-                <Content padder style={{backgroundColor: 'transparent'}}>
+                <Content theme={login} padder style={{backgroundColor: 'transparent'}}>
                   <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
                   <Text style={styles.phoneLoginTitle}>手機號碼登入</Text>
                     <View padder>
@@ -67,7 +67,7 @@ class LoginPhone extends Component {
                             <Input placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
                         </View>
                         <Button rounded style={styles.phoneBtn} onPress={this.onNextPressed}>
-                            Next
+                            <Text style={styles.phoneLoginTxt}>確定</Text>
                         </Button>
                     </View>
                 </Content>

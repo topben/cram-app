@@ -53,4 +53,20 @@ module.exports = StyleSheet.create({
       backgroundColor: '#9b9b9b',
       margin: 10
     },
+    verifyPwd:{
+      fontFamily: 'PingFangTC-Medium',
+      color:'#77b4bb',
+      alignSelf:'center',
+      alignItems:'center',
+      fontSize: 17,
+      paddingTop:20
+    },
+    checkPwd:{
+      fontFamily: 'PingFangTC-Medium',
+      color:'#ff6100',
+      alignSelf:'center',
+      alignItems:'center',
+      fontSize: 17,
+      paddingTop:20
+    }
 });

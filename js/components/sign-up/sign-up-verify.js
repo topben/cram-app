@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
 import { Image } from 'react-native';
-import {popRoute} from '../../actions/route';
+import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
@@ -49,6 +49,7 @@ class SignUpVerify extends Component {
       //  function errorCallback(results) {
       //      alert(results.msg);
       //  });
+      this.props.pushNewRoute('signUpCreate');
     }
 
     render() {
@@ -81,7 +82,8 @@ class SignUpVerify extends Component {
 function bindAction(dispatch) {
     return {
         popRoute: () => dispatch(popRoute()),
-        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
+        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route)),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route))
     }
 }
 
