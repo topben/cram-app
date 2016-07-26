@@ -17,11 +17,11 @@ class SideBar extends Component {
           <Content style={{backgroundColor: '#f5f6f7'}} >
               <Thumbnail size={200} style={{alignSelf: 'center', marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/tmot_logo/ic_tmot_logo.png')} />
               <List  foregroundColor={"white"} >
-                <ListItem button onPress={() => this.navigateTo('login')} iconLeft  style={styles.links} >
+                <ListItem button onPress={() => this.navigateTo('account')} iconLeft  style={styles.links} >
                     <Icon name="ios-person-outline" style={{color: '#ff6100'}}/>
                     <Text style={styles.sideBarChineseTxt}>帳號</Text>
                 </ListItem>
-                <ListItem button onPress={() => this.navigateTo('login')} iconLeft style={styles.links} >
+                <ListItem button onPress={() => this.navigateTo('invitation')} iconLeft style={styles.links} >
                     <Icon name="ios-mail-open-outline" style={{color: '#ff6100'}}/>
                     <Text style={styles.sideBarChineseTxt}>邀請碼</Text>
                 </ListItem>

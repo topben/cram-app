@@ -31,35 +31,43 @@ class Notifications extends Component {
         return (
             <Container theme={theme} style={{backgroundColor: '#FFF'}}>
                 <Header>
-                    <Button transparent onPress={() => this.replaceRoute('scanner')}>
-                        <Icon name="md-close" />
-                    </Button>
-                    <Title><Icon name="md-notifications" /></Title>
+                  <View></View>
+                    <Text style={styles.topTitle}>通知</Text>
+                      <Button transparent onPress={() => this.popRoute()}>
+                        <Image source={require('../../../images/button/btn_close.png')}/>
+                      </Button>
                 </Header>
 
                 <Content style={{backgroundColor: 'transparent'}}>
                     <List>
-                        <ListItem iconLeft button onPress={() => this.replaceRoute('comments')}>
-                            <Icon name="ios-people"/>
-                            <Text >Daily Stand Up</Text>
-                            <Text note>10:00 AM</Text>
+                        <ListItem iconLeft button>
+                            <Icon name="ios-people" style={{color: '#ff6100'}}/>
+                            <View style={{paddingLeft:30}}>
+                            <Text style={styles.subBlackTxt} >兒童英語初級班有新的班級留言</Text>
+                            <Text style={styles.timeTxt}note>今天 10:00 AM</Text>
+                            </View>
                         </ListItem>
-                      <ListItem iconLeft>
-                          <Icon name="ios-flag"/>
-                          <Text>Finish list Screen</Text>
-                          <Text note>By 2:00 PM</Text>
-                      </ListItem>
-                      <ListItem iconLeft>
-                          <Icon name="ios-restaurant"/>
-                          <Text>Lunch Break</Text>
-                          <Text note>2:00 PM</Text>
-                          <Badge>2</Badge>
-                      </ListItem>
-                      <ListItem iconLeft>
-                        <Icon name="ios-megaphone"/>
-                          <Text>Discussion With Client</Text>
-                          <Text note>6:00 PM</Text>
-                      </ListItem>
+                        <ListItem iconLeft button>
+                            <Icon name="ios-people" style={{color: '#ff6100'}}/>
+                            <View style={{paddingLeft:30}}>
+                            <Text style={styles.subBlackTxt} >兒童英語初級班有新的班級留言</Text>
+                            <Text style={styles.timeTxt}note>今天 10:00 AM</Text>
+                            </View>
+                        </ListItem>
+                        <ListItem iconLeft button>
+                            <Icon name="ios-people" style={{color: '#ff6100'}}/>
+                            <View style={{paddingLeft:30}}>
+                            <Text style={styles.subBlackTxt} >兒童英語初級班有新的班級留言</Text>
+                            <Text style={styles.timeTxt}note>今天 10:00 AM</Text>
+                            </View>
+                        </ListItem>
+                        <ListItem iconLeft button>
+                            <Icon name="ios-people" style={{color: '#ff6100'}}/>
+                            <View style={{paddingLeft:30}}>
+                            <Text style={styles.subBlackTxt} >兒童英語初級班有新的班級留言</Text>
+                            <Text style={styles.timeTxt}note>今天 10:00 AM</Text>
+                            </View>
+                        </ListItem>
                     </List>
                 </Content>
             </Container>

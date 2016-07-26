@@ -28,5 +28,24 @@ module.exports = StyleSheet.create({
       fontWeight: '100',
       marginTop: -35,
       fontSize: 13
+    },
+    topTitle: {
+      fontFamily: 'PingFangTC-Regular',
+      fontSize:18,
+      color:'#ff6100',
+      letterSpacing:2,
+      alignSelf:'center'
+    },
+    subBlackTxt: {
+      fontFamily: 'SFUIDisplay-Regular',
+      fontSize:16,
+      color:'#4a4a4a',
+      letterSpacing:1
+    },
+    timeTxt: {
+      fontFamily: 'SFUIDisplay-Regular',
+      fontSize:13,
+      color:'#4a4a4a',
+      letterSpacing:1
     }
 });

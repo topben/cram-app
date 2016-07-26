@@ -13,6 +13,7 @@ import {closeDrawer} from './actions/drawer';
 import {popRoute} from './actions/route';
 import Navigator from 'Navigator';
 
+import Account from './components/account/';
 import Login from './components/login/';
 import LoginPhone from './components/login/login-phone';
 import LoginAccount from './components/login/login-account';
@@ -26,6 +27,7 @@ import SignUpVerify from './components/sign-up/sign-up-verify';
 import SignUpCreate from './components/sign-up/sign-up-create';
 import Edit from './components/edit/';
 import Inbox from './components/inbox/';
+import Invitation from './components/invitation/';
 import Mail from './components/mail/';
 import Compose from './components/compose/';
 import Lists from './components/lists/';
@@ -164,6 +166,8 @@ class AppNavigator extends Component {
 
     renderScene(route, navigator) {
         switch (route.id) {
+            case 'account':
+                return <Account navigator={navigator} />;
             case 'splashscreen':
                 return <SplashPage navigator={navigator} />;
             case 'login':
@@ -198,6 +202,8 @@ class AppNavigator extends Component {
                 return <Lists navigator={navigator} />;
             case 'icons':
                 return <Icons navigator={navigator} />;
+            case 'invitation':
+                return <Invitation navigator={navigator} />;
             case 'progressBar':
                 return <ProgressBar navigator={navigator} />;
             case 'spinners':
