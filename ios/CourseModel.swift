@@ -12,16 +12,10 @@ import RealmSwift
 // Course Model
 class CourseModel: Object{
   
-  dynamic var i_course_id        : Int    = 0
+  dynamic var s_course_id        : String = ""
   dynamic var s_name             : String = ""
-  dynamic var s_dayOfTheWeek     : String = ""
-  dynamic var s_company          : String = ""
-  dynamic var NSDate_startTime   : NSDate?
-  dynamic var NSDate_endTime     : NSDate?
-  dynamic var NSDate_checkInTime : NSDate?
-  dynamic var NSDate_lateTime    : NSDate?
-  dynamic var User_instructor    : UserModel? // the teacher for this course
-          let List_students               = List<StudentModel>() // students in this course
+  dynamic var i_frequency        : Int    = 0
+  dynamic var s_period           : String = ""
   dynamic var b_isDelete         : Bool   = false
   
   static override func primaryKey() -> String?{
@@ -31,19 +25,11 @@ class CourseModel: Object{
   // parser for single course
   static func toRealmObject(data: Dictionary<String, AnyObject>) -> CourseModel{
     
+    let result = data["result"]!
+    
     let courseModel = CourseModel()
     
-   
-    return courseModel
-  }
-  
-  static func toDictionary(courseId: Int) -> Dictionary<String, AnyObject>{
-    
-    let realm = try! Realm()
-    let course = realm.objects(CourseModel.self).filter("i_course_id = " + String(courseId)).first
-    
-    var courseModel = [String: AnyObject]()
-    
+    courseModel.s_name     = result["name"]            as! String
     
     return courseModel
   }

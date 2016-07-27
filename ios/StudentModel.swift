@@ -12,20 +12,14 @@ import RealmSwift
 // Student Model
 class StudentModel: Object{
   
-  dynamic var i_student_id       : Int     = 0
+  dynamic var s_student_id       : String  = ""
   dynamic var s_student_qrCode   : String  = ""
   dynamic var s_name             : String  = ""
-  dynamic var f_longitude        : Float   = 0.0
-  dynamic var f_latitude         : Float   = 0.0
-
-          let List_courses                 = List<CourseModel>()          // courses this student is attending
-          let List_checkInHistory          = List<AttendanceModel>()      // date/time this student checked in
-  
-  dynamic var s_profileImage     : String  = ""
+  dynamic var s_group_role       : String  = ""
   dynamic var b_isDelete         : Bool    = false
-    
+  
   static override func primaryKey() -> String?{
-    return "i_student_id"
+    return "s_student_id"
   }
   
   // parser for single user
@@ -33,26 +27,12 @@ class StudentModel: Object{
     
     let studentModel = StudentModel()
     
-    studentModel.i_student_id              = Int(data["id"]           as! String)!
-    studentModel.s_name                    = data["name"]             as! String
-    studentModel.s_profileImage            = data["profileImage"]     as! String
+    studentModel.s_student_id              = data["id"]             as! String
+    studentModel.s_student_qrCode          = data["qr_code_id"]     as! String
+    studentModel.s_name                    = data["name"]           as! String
+    studentModel.s_group_role              = data["group_"]         as! String
     
     return studentModel
   }
   
-  static func toDictionary(studentId: Int) -> Dictionary<String, AnyObject>{
-    
-    let realm = try! Realm()
-    let student = realm.objects(StudentModel.self).filter("i_student_id = " + String(studentId)).first
-    
-    var studentModel = [String: AnyObject]()
-    
-    studentModel["id"]            = student!.i_student_id
-    studentModel["name"]          = student!.s_name
-    studentModel["profileImage"]  = student!.s_profileImage
-    
-    return studentModel
-  }
-  
-
 }

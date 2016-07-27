@@ -1,0 +1,65 @@
+//
+//  Student.swift
+//  TmotClass
+//
+//  Created by Robert Shapiro on 2016/7/13.
+//  Copyright © 2016年 Facebook. All rights reserved.
+//
+
+import Foundation
+import RealmSwift
+
+@objc(Teacher)
+class Teacher: NSObject {
+  
+  // MARK: READY FUNCTIONS
+  
+  // check student in
+  @objc func checkIn(qrCode_id: String, checkIn_method: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+    
+    // return verification code in callback
+    PostApi.checkIn(qrCode_id, checkIn_method: checkIn_method, url: url,
+                    
+                    // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        // return true if get person info success
+        var result = ["success" : "true"];
+        result["msg"] = (response["result"] as! String)
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        failureCallBack([result])
+    })
+    
+    
+  }
+  
+  // MARK: NOT READY FUNCTIONS
+  
+  // private methods just for swift
+  func saveToRealm(realmObject: Object){
+    
+    let realm = try! Realm()
+    try! realm.write({
+      realm.add(realmObject, update: true)
+    })
+  }
+  
+  // for attendance
+  func getNextLocalId() -> Int{
+    
+    let realm = try! Realm()
+    
+    return realm.objects(AttendanceModel.self).count + 1
+  }
+  
+  
+  
+}
