@@ -1,5 +1,3 @@
-//import Color from 'color';
-
 module.exports = {
     // textColor: "#9b9b9b",
 

@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
 import { Image ,TextInput } from 'react-native';
-import {popRoute} from '../../actions/route';
+import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
@@ -33,6 +33,10 @@ class SignUp extends Component {
 
     popRoute() {
         this.props.popRoute();
+    }
+
+    pushNewRoute(route) {
+         this.props.pushNewRoute(route);
     }
 
     navigateTo(route) {
@@ -76,16 +80,16 @@ class SignUp extends Component {
 
       var phoneWithCountryCode = '886' + this.state.phone.substring(1, 10);
 
-      User.sendVerificationCode(phoneWithCountryCode, 'http://192.168.11.48:3000/api/v1/signup/send_verification_code_sms',
-
-       function successCallback(results) {
-          //$this.navigateTo('signUpVerify');
-       },
-
-       function errorCallback(results) {
-           alert(results.msg);
-       });
-       this.navigateTo('signUpVerify');
+      // User.sendVerificationCode(phoneWithCountryCode, 'http://192.168.11.48:3000/api/v1/signup/send_verification_code_sms',
+      //
+      //  function successCallback(results) {
+      //     //$this.navigateTo('signUpVerify');
+      //  },
+      //
+      //  function errorCallback(results) {
+      //      alert(results.msg);
+      //  });
+       this.props.pushNewRoute('signUpVerify');
       }
 
     render() {
@@ -115,7 +119,8 @@ class SignUp extends Component {
 function bindAction(dispatch) {
     return {
         popRoute: () => dispatch(popRoute()),
-        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
+        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route)),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route))
     }
 }
 

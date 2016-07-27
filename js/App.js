@@ -112,11 +112,9 @@ class App extends Component {
                                     </View>
                                 }
                             </View>
-
                         </Modal>
                     </Image>
                 </Container>
-
             );
         else
             return(

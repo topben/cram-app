@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
 import { Image } from 'react-native';
-import {popRoute} from '../../actions/route';
+import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
@@ -41,19 +41,23 @@ class SignUpVerify extends Component {
 
     onNextPressed(){
       var $this = this;
-      User.checkVerificationCode(this.state.code, 'http://192.168.11.48:3000/api/v1/signup/check_verification_code',
-       function successCallback(results) {
-           alert(results.success);
-           //$this.props.replaceOrPushRoute(route);
-       },
-       function errorCallback(results) {
-           alert(results.msg);
-       });
+      // User.checkVerificationCode(this.state.code, 'http://192.168.11.48:3000/api/v1/signup/check_verification_code',
+      //  function successCallback(results) {
+      //      alert(results.success);
+      //      //$this.props.replaceOrPushRoute(route);
+      //  },
+      //  function errorCallback(results) {
+      //      alert(results.msg);
+      //  });
+      this.props.pushNewRoute('signUpCreate');
     }
 
     render() {
         return (
-          <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
+          <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
+            <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
+              <Image source={require('../../../images/button/btn_back.png')}/>
+            </Button>
             <Content
               theme={signup}
               style={{backgroundColor: '#f5f6f7'}}
@@ -70,7 +74,7 @@ class SignUpVerify extends Component {
                   </Button>
               </View>
             </Content>
-          </Container>
+          </View>
         )
     }
 }
@@ -78,7 +82,8 @@ class SignUpVerify extends Component {
 function bindAction(dispatch) {
     return {
         popRoute: () => dispatch(popRoute()),
-        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
+        replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route)),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route))
     }
 }
 

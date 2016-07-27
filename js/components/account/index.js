@@ -17,7 +17,7 @@ import theme from '../../themes/base-theme';
 import styles from './styles';
 import edit from './edit-theme';
 
-class Edit extends Component {
+class Account extends Component {
 
   constructor(props) {
       super(props);
@@ -127,4 +127,4 @@ function bindAction(dispatch) {
     }
 }
 
-export default connect(null, bindAction)(Edit);
+export default connect(null, bindAction)(Account);
