@@ -29,7 +29,7 @@ class AttendanceModel: Object{
     
     let attendanceModel = AttendanceModel()
     
-  
+    
     return attendanceModel
   }
   

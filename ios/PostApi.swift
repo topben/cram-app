@@ -32,14 +32,14 @@ class PostApi{
       }
       
       switch(statusCode){
-        case 200 ... 299:
-          print("Send verification code success.")
-          successBlock(json as! Dictionary<String, AnyObject>)
-          break
-        default:
-          print("Send verification code failed.")
-          let error = ["error": "Server Error: " + String(statusCode)]
-          failureBlock(error)
+      case 200 ... 299:
+        print("Send verification code success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Send verification code failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
       } // end of switch
       
     } // end of request
@@ -48,7 +48,7 @@ class PostApi{
   
   // create user
   static func createUser(userInfo: Dictionary<String, AnyObject>, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
- 
+    
     Alamofire.request(.POST, url, parameters: userInfo).responseJSON { response in
       
       let json = response.result.value
@@ -58,23 +58,23 @@ class PostApi{
       if(response.response?.statusCode != nil){
         statusCode = (response.response?.statusCode)!
       }
-
+      
       switch(statusCode){
-        case 200 ... 299:
-            print("Create user success.")
-            successBlock(json as! Dictionary<String, AnyObject>)
-            break
-        default:
-            print("Create user failed.")
-            let error = ["error": "Server Error: " + String(statusCode)]
-            failureBlock(error)
+      case 200 ... 299:
+        print("Create user success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Create user failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
       } // end of switch
       
     } // end of request
     
   } // end of createUser()
   
-
+  
   // login
   static func login(username: String, password: String, grantType: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
     
@@ -94,22 +94,53 @@ class PostApi{
       }
       
       switch(statusCode){
-        case 200 ... 299:
-          print("Log in success.")
-          successBlock(json as! Dictionary<String, AnyObject>)
-          break
-        default:
-          print("Log in failed.")
-          let error = ["error": "Status Code: " + String(statusCode)]
-          failureBlock(error)
+      case 200 ... 299:
+        print("Log in success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Log in failed.")
+        let error = ["error": "Status Code: " + String(statusCode)]
+        failureBlock(error)
       } // end of switch
       
     } // end of request
     
   } // end of login()
-
   
   
+  
+  // student check in
+  static func checkIn(qrCode_id: String, checkIn_method: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    var parameters = [String : AnyObject]()
+    parameters["qr_code_id"] = qrCode_id
+    parameters["check_in_method"]   = checkIn_method
+    
+    Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Check in success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Check in failed.")
+        let error = ["error": "Status Code: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of login()
   
   
   
@@ -149,10 +180,10 @@ class PostApi{
     } // end of request
     
   } // end of activateInvitationCode()
-
   
   
   
-
+  
+  
 } // end of class
 

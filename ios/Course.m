@@ -10,11 +10,9 @@
 
 #import "RCTBridgeModule.h"
 
-@interface RCT_EXTERN_MODULE(Student, NSObject)
+@interface RCT_EXTERN_MODULE(Course, NSObject)
 
 RCT_EXTERN_METHOD(getInfo:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
-
-RCT_EXTERN_METHOD(getClassAndAttendanceInfo:(NSString *)studentId url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
 @end
 

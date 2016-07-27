@@ -60,6 +60,11 @@
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
+		F4DA5FA31D485B80009B5735 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FA21D485B80009B5735 /* Course.m */; };
+		F4DA5FB51D485B89009B5735 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FB41D485B89009B5735 /* Course.swift */; };
+		F4DA5FB81D485C67009B5735 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FB71D485C67009B5735 /* Teacher.swift */; };
+		F4DA5FBA1D485C74009B5735 /* Teacher.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FB91D485C74009B5735 /* Teacher.m */; };
+		F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FBB1D485C84009B5735 /* TeacherModel.swift */; };
 		F4F52A641D36376100166B69 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A631D36376100166B69 /* Student.swift */; };
 		F4F52A751D372A3000166B69 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A741D372A3000166B69 /* Student.m */; };
 		F4F52A781D376D9200166B69 /* InvitationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F52A771D376D9200166B69 /* InvitationModel.swift */; };
@@ -261,6 +266,11 @@
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
+		F4DA5FA21D485B80009B5735 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		F4DA5FB41D485B89009B5735 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		F4DA5FB71D485C67009B5735 /* Teacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
+		F4DA5FB91D485C74009B5735 /* Teacher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Teacher.m; sourceTree = "<group>"; };
+		F4DA5FBB1D485C84009B5735 /* TeacherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherModel.swift; sourceTree = "<group>"; };
 		F4F52A631D36376100166B69 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		F4F52A741D372A3000166B69 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		F4F52A771D376D9200166B69 /* InvitationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationModel.swift; sourceTree = "<group>"; };
@@ -545,6 +555,7 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F4DA5FB61D485C55009B5735 /* Teacher */,
 				F4F52AA31D38D47A00166B69 /* Notifications */,
 				F4F52AA01D38D2FD00166B69 /* DirectMessage */,
 				F4F52A9D1D38D04000166B69 /* Announcement */,
@@ -647,9 +658,21 @@
 		F49757421D35F1E600DEE799 /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				F4DA5FA21D485B80009B5735 /* Course.m */,
+				F4DA5FB41D485B89009B5735 /* Course.swift */,
 				F49757431D35F1F800DEE799 /* CourseModel.swift */,
 			);
 			name = Course;
+			sourceTree = "<group>";
+		};
+		F4DA5FB61D485C55009B5735 /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+				F4DA5FB91D485C74009B5735 /* Teacher.m */,
+				F4DA5FB71D485C67009B5735 /* Teacher.swift */,
+				F4DA5FBB1D485C84009B5735 /* TeacherModel.swift */,
+			);
+			name = Teacher;
 			sourceTree = "<group>";
 		};
 		F4F52A761D376D6000166B69 /* Invitation */ = {
@@ -1075,6 +1098,7 @@
 				B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */,
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
 				F4F52AA21D38D30E00166B69 /* DirectMessageModel.swift in Sources */,
+				F4DA5FB51D485B89009B5735 /* Course.swift in Sources */,
 				B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				F4F52A641D36376100166B69 /* Student.swift in Sources */,
@@ -1082,16 +1106,20 @@
 				F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */,
 				F4F52AA51D38D48C00166B69 /* NotificationModel.swift in Sources */,
 				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
+				F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */,
+				F4DA5FBA1D485C74009B5735 /* Teacher.m in Sources */,
 				B592F7EF1D336E55000C9DA8 /* People.swift in Sources */,
 				B592F7F21D336E5E000C9DA8 /* SwiftExtensions.swift in Sources */,
 				F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */,
 				F4F52AA71D38DEC300166B69 /* Notification.swift in Sources */,
 				F4F52A7A1D376D9C00166B69 /* Invitation.swift in Sources */,
+				F4DA5FA31D485B80009B5735 /* Course.m in Sources */,
 				B592F7F81D336E6E000C9DA8 /* User.swift in Sources */,
 				F4F52A9C1D38CF0300166B69 /* MessageModel.swift in Sources */,
 				F4F52A751D372A3000166B69 /* Student.m in Sources */,
+				F4DA5FB81D485C67009B5735 /* Teacher.swift in Sources */,
 				F4F52A781D376D9200166B69 /* InvitationModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

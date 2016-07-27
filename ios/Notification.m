@@ -12,7 +12,7 @@
 
 @interface RCT_EXTERN_MODULE(Notification, NSObject)
 
-RCT_EXTERN_METHOD(saveNotification:(NSDictionary *)notificationInfo)
+RCT_EXTERN_METHOD(getCheckInNotification:(NSArray *)notification_id successCallBack:(RCTResponseSenderBlock) successCallBack)
 
 @end
 

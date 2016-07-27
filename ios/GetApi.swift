@@ -31,14 +31,14 @@ class GetApi{
       }
       
       switch(statusCode){
-        case 200 ... 299:
-            print("Check verification code success.")
-            successBlock(json as! Dictionary<String, AnyObject>)
-            break
-        default:
-          print("Check verification code failed.")
-          let error = ["error": "Server Error: " + String(statusCode)]
-          failureBlock(error)
+      case 200 ... 299:
+        print("Check verification code success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Check verification code failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
       } // end of switch
       
     } // end of request
@@ -63,14 +63,14 @@ class GetApi{
       }
       
       switch(statusCode){
-        case 200 ... 299:
-          print("Check username success.")
-          successBlock(json as! Dictionary<String, AnyObject>)
-          break
-        default:
-          print("Check username failed.")
-          let error = ["error": "Server Error: " + String(statusCode)]
-          failureBlock(error)
+      case 200 ... 299:
+        print("Check username success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Check username failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
       } // end of switch
       
     } // end of request
@@ -92,12 +92,12 @@ class GetApi{
       }
       
       switch(statusCode){
-        case 200 ... 299:
-          print("Get user info success.")
-          successBlock(json as! Dictionary<String, AnyObject>)
-          break
-        default:
-          print("Get user info failed.")
+      case 200 ... 299:
+        print("Get user info success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Get user info failed.")
           let error = ["error": "Server Error: " + String(statusCode)]
           failureBlock(error)
       } // end of switch
@@ -107,7 +107,95 @@ class GetApi{
   } // end of getUserInfo()
 
   
+  // get student info
+  static func getStudentInfo(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+        case 200 ... 299:
+          print("Get student info success.")
+          successBlock(json as! Dictionary<String, AnyObject>)
+          break
+        default:
+          print("Get student info failed.")
+          let error = ["error": "Server Error: " + String(statusCode)]
+          failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getStudentInfo()
   
+  
+  // get user notifications
+  static func getNotifications(timestamp: Int, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    // change this line later
+    let parameters = ["timestamp" : timestamp]
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Get notifications success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Get notifications failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getNotifications()
+  
+  
+  
+  // get course info
+  static func getCourseInfo(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Get course info success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Get course info failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getCourseInfo()
   
   
   
