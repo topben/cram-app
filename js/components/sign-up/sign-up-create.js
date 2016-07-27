@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput } from 'react-native';
+import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard } from 'react-native';
 import {pushNewRoute,popRoute} from '../../actions/route';
 import {closeDrawer} from '../../actions/drawer';
 import {replaceOrPushRoute} from '../../actions/route';
@@ -30,9 +30,25 @@ class SignUpCreate extends Component {
           password: '',
           re_password: '',
           verifyPwdMsg: '',
-          checkPwdMsg: ''
+          checkPwdMsg: '',
+          newHeight: 0
       };
   }
+
+  componentWillMount () {
+      Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+      Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+  }
+
+  keyboardWillShow (e) {
+      let newSize = Dimensions.get('window').height - e.endCoordinates.height;
+      this.setState({newHeight: newSize});
+  }
+
+  keyboardWillHide (e) {
+      this.setState({newHeight: 0});
+  }
+
 
     pushNewRoute(route) {
          this.props.pushNewRoute(route);
@@ -77,7 +93,7 @@ class SignUpCreate extends Component {
             <Content
               theme={signup}
               style={{backgroundColor: '#f5f6f7'}}
-              scrollEnabled={this.state.scroll}>
+              >
               <Text style={styles.newAccountTxt}>設定新帳號</Text>
               <View style={styles.bg}>
                 <View style={styles.mb20}>

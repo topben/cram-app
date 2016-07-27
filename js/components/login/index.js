@@ -13,7 +13,6 @@ import { DeviceEventEmitter, Dimensions, Image, Platform, Keyboard} from 'react-
 import {pushNewRoute, replaceRoute} from '../../actions/route';
 
 import {Container, Content, Text, InputGroup, Input, Button, Icon, View } from 'native-base';
-
 import login from './login-theme';
 import styles from './styles';
 
@@ -24,8 +23,6 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            visibleHeight: Dimensions.get('window').height,
-            scroll: false
         };
     }
     // componentWillMount () {

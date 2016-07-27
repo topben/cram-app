@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput } from 'react-native';
+import {ScrollView, Image,TextInput,DeviceEventEmitter, Dimensions, Platform, Keyboard } from 'react-native';
 import {popRoute} from '../../actions/route';
 import {closeDrawer} from '../../actions/drawer';
 import {pushNewRoute, replaceOrPushRoute} from '../../actions/route';
@@ -27,9 +27,24 @@ class LoginPhone extends Component {
       this.onNextPressed = this.onNextPressed.bind(this);
       this.state = {
           phone: '',
-          password: ''
+          password: '',
+          newHeight: 0
       };
   }
+
+    componentWillMount () {
+        Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+        Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+    }
+
+    keyboardWillShow (e) {
+        let newSize = Dimensions.get('window').height - e.endCoordinates.height;
+        this.setState({newHeight: newSize});
+    }
+
+    keyboardWillHide (e) {
+        this.setState({newHeight: 0});
+    }
 
     popRoute() {
         this.props.popRoute();
@@ -56,7 +71,7 @@ class LoginPhone extends Component {
                 <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
                   <Image source={require('../../../images/button/btn_back.png')}/>
                 </Button>
-                <Content theme={login} padder style={{backgroundColor: 'transparent'}}>
+                <Content theme={login} padder style={{backgroundColor: 'transparent',marginTop:-(this.state.newHeight/3)}} scrollEnabled={true}>
                   <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
                   <Text style={styles.phoneLoginTitle}>手機號碼登入</Text>
                     <View padder>

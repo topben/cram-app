@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput } from 'react-native';
+import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard } from 'react-native';
 import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
@@ -27,9 +27,25 @@ class SignUp extends Component {
         this.onNextPressed = this.onNextPressed.bind(this);
         this.state = {
             phone: '',
-            client_error_msg: ''
+            client_error_msg: '',
+            newHeight: 0
         };
     }
+
+    componentWillMount () {
+        Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
+        Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+    }
+
+    keyboardWillShow (e) {
+        let newSize = Dimensions.get('window').height - e.endCoordinates.height;
+        this.setState({newHeight: newSize});
+    }
+
+    keyboardWillHide (e) {
+        this.setState({newHeight: 0});
+    }
+
 
     popRoute() {
         this.props.popRoute();
@@ -97,7 +113,7 @@ class SignUp extends Component {
             <Container theme={theme} style={{backgroundColor:'#ffffff'}}>
               <Content
                 theme={signup}
-                style={{backgroundColor: '#f5f6f7'}}
+                style={{backgroundColor: '#f5f6f7',marginTop: -(this.state.newHeight/3)}}
                 scrollEnabled={this.state.scroll}>
                 <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
                 <Text style={styles.newAccountTxt}>創建新帳號</Text>

@@ -19,8 +19,8 @@ module.exports = StyleSheet.create({
       alignItems:'center',
       borderColor: '#4a4a4a',
       borderBottomWidth: 1,
-      marginLeft: deviceWidth/10,
-      marginRight: deviceWidth/10
+      marginLeft: deviceWidth/15,
+      marginRight: deviceWidth/15
     },
     bg: {
         flex: 1,
@@ -47,7 +47,7 @@ module.exports = StyleSheet.create({
     },
     getVerifyBtn: {
       flex:1,
-      width:300,
+      width:deviceWidth/2,
       height:45,
       alignSelf:'center',
       backgroundColor: '#9b9b9b',
