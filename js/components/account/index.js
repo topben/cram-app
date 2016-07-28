@@ -17,16 +17,31 @@ import {Container, Header, Title, Content, Card, List, ListItem, Thumbnail, Text
 import theme from '../../themes/base-theme';
 import styles from './styles';
 import account from './account-theme';
+import global_variables from '../../global_variables';
+import realm_schema from '../../realm_schema';
+const {User} = require('NativeModules');
 
 class Account extends Component {
   constructor(props) {
       super(props);
       this.onNextPressed = this.onNextPressed.bind(this);
       this.state = {
-          username: '',
-          email: ''
+          phone: '',
+          email: '',
+          scan_count: ''
       };
   }
+
+    componentWillMount () {
+      var $this = this;
+
+      let realm = new Realm({schema: [realm_schema.UserModel]});
+      let person = realm.objects('UserModel').filtered('s_email = "' + global_variables.email + '"')[0];
+    
+      this.state.phone = person.s_phone;
+      this.state.email = person.s_email;
+      this.state.scan_count = person.i_scannerUsage;
+    }
 
     popRoute() {
         this.props.popRoute();
@@ -60,9 +75,9 @@ class Account extends Component {
               <Image source={require('../../../images/profile/ic_profile_photo_md.png')} style={{alignSelf:'center',marginTop:30}} />
               <View style={{marginLeft:20,marginBottom:10}}><Text style={styles.subGrayTxt}>帳號資料</Text></View>
               <Grid style={styles.bg}>
-                <Row style={styles.row}><Text style={styles.subGrayTxt}>手機號碼</Text><Text style={styles.subBlackTxt}>+886 912345678</Text></Row>
-                <Row style={styles.row}><Text style={styles.subGrayTxt}>電子信箱</Text><Text style={styles.subBlackTxt}>+ merrycheng@gmail.com</Text></Row>
-                <Row style={styles.row}><Text style={styles.subGrayTxt}>QR Code 掃描次數</Text><Text style={styles.subOrangeTxt}>70次</Text></Row>
+                <Row style={styles.row}><Text style={styles.subGrayTxt}>手機號碼</Text><Text style={styles.subBlackTxt}>{this.state.phone}</Text></Row>
+                <Row style={styles.row}><Text style={styles.subGrayTxt}>電子信箱</Text><Text style={styles.subBlackTxt}>{this.state.email}</Text></Row>
+                <Row style={styles.row}><Text style={styles.subGrayTxt}>QR Code 掃描次數</Text><Text style={styles.subOrangeTxt}>{this.state.scan_count}</Text></Row>
               </Grid>
               <View style={{paddingTop:100}}>
               <ListItem button onPress={() => this.navigateTo('login')} style={{borderWidth:0.5,borderColor:'#808080',backgroundColor:'#fff',height:50}}>

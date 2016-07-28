@@ -14,6 +14,8 @@ import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
+import global_variables from '../../global_variables';
+import realm_schema from '../../realm_schema';
 import styles from './styles';
 import signup from './signup-theme';
 
@@ -24,7 +26,6 @@ class SignUp extends Component {
 
     constructor(props) {
         super(props);
-        this.onNextPressed = this.onNextPressed.bind(this);
         this.state = {
             phone: '',
             client_error_msg: '',
@@ -33,8 +34,12 @@ class SignUp extends Component {
     }
 
     componentWillMount () {
+        // keyboard events
         Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
         Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+        this.onNextPressed = this.onNextPressed.bind(this);
+        this.pushNewRoute = this.pushNewRoute.bind(this);
+        console.log(Realm.defaultPath);
     }
 
     keyboardWillShow (e) {
@@ -46,13 +51,45 @@ class SignUp extends Component {
         this.setState({newHeight: 0});
     }
 
-
     popRoute() {
         this.props.popRoute();
     }
 
-    pushNewRoute(route) {
-         this.props.pushNewRoute(route);
+    pushNewRoute(route , phoneWithCountryCode) {
+      // Create Realm
+      let realm = new Realm({schema: [realm_schema.People]});
+
+      // check realm library
+      // let people = realm.objects('People').filtered('s_phone_id = "'+$this.state.phone+'"');
+       //let person = people.filtered('s_phone_id = '+$this.state.phone);
+
+      // if(people.length == 0)
+      // {
+        //Create Realm objects and write to local storage
+        realm.write(() => {
+          let person = realm.create('People', {
+            s_phone: phoneWithCountryCode,
+            s_verificationCode:'',
+            s_email:''
+          });
+        });
+      // }
+      // else {
+      //
+      //   let person = people[0]
+      //
+      //   console.warn(person);
+      //   // console.warn(person.s_phone_id)
+      //   // person.s_verificationCode = '100';
+      //   realm.write(() => {
+      //     person.s_verificationCode = '100';
+      //     // realm.create('People', {s_phone_id: $this.state.phone,
+      //     //             s_verificationCode:'55667788',
+      //     //             s_password:'',
+      //     //             s_email:''});
+      //   });
+      // }
+      this.props.pushNewRoute(route);
     }
 
     navigateTo(route) {
@@ -81,6 +118,7 @@ class SignUp extends Component {
 
     // next button tapped
     onNextPressed(){
+      //console.warn('onNextPressed')
       var $this = this;
       if(this.isPhoneNumber(this.state.phone)==false)
       {
@@ -96,16 +134,16 @@ class SignUp extends Component {
 
       var phoneWithCountryCode = '886' + this.state.phone.substring(1, 10);
 
-      // User.sendVerificationCode(phoneWithCountryCode, 'http://192.168.11.48:3000/api/v1/signup/send_verification_code_sms',
-      //
-      //  function successCallback(results) {
-      //     //$this.navigateTo('signUpVerify');
-      //  },
-      //
-      //  function errorCallback(results) {
-      //      alert(results.msg);
-      //  });
-       this.props.pushNewRoute('signUpVerify');
+      User.sendVerificationCode(phoneWithCountryCode, global_variables.HOST+'/api/v1/signup/send_verification_code_sms',
+
+       function successCallback(results) {
+          $this.pushNewRoute('signUpVerify',phoneWithCountryCode);
+       },
+
+       function errorCallback(results) {
+           alert(results.msg);
+       });
+       //this.props.pushNewRoute('signUpVerify');
       }
 
     render() {

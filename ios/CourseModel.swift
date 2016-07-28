@@ -19,7 +19,7 @@ class CourseModel: Object{
   dynamic var b_isDelete         : Bool   = false
   
   static override func primaryKey() -> String?{
-    return "i_course_id"
+    return "s_course_id"
   }
   
   // parser for single course

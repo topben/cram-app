@@ -15,7 +15,7 @@ import Navigator from 'Navigator';
 
 import Account from './components/account/';
 import Login from './components/login/';
-import LoginPhone from './components/login/login-phone';
+import LoginEmail from './components/login/login-email';
 import LoginAccount from './components/login/login-account';
 import Scanner from './components/scanner/';
 import Notifications from './components/notifications/';
@@ -172,8 +172,8 @@ class AppNavigator extends Component {
                 return <SplashPage navigator={navigator} />;
             case 'login':
                 return <Login navigator={navigator} />;
-            case 'loginPhone':
-                return <LoginPhone navigator={navigator} />;
+            case 'loginEmail':
+                return <LoginEmail navigator={navigator} />;
             case 'loginAccount':
                 return <LoginAccount navigator={navigator} />;
             case 'scanner':

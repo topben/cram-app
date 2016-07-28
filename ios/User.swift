@@ -17,6 +17,7 @@ class User: NSObject {
   // get user's verification code
   @objc func sendVerificationCode(phone: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
+  
     // return verification code in SMS
     PostApi.sendVerificationCode(phone, url: url,
                        
@@ -140,7 +141,7 @@ class User: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        let userModel = UserModel.toRealmObject_login(response)
+        let userModel = UserModel.toRealmObject_login(response, email: username)
         self.saveToRealm(userModel)
         
         // return true if get person info success

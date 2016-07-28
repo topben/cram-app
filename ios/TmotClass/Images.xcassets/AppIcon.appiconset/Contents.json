@@ -3,7 +3,7 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "TMOT_ios_app_icon-setting@2x.png",
+      "filename" : "TMOT_ios_app_icon-spotlight@2x-2.png",
       "scale" : "2x"
     },
     {
@@ -45,13 +45,13 @@
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "TMOT_ios_app_icon-setting@2x-2.png",
+      "filename" : "TMOT_ios_app_icon-ipad@2x-2.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "TMOT_ios_app_icon-spotlight.png",
+      "filename" : "TMOT_ios_app_icon-ipad-1.png",
       "scale" : "1x"
     },
     {

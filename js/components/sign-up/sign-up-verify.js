@@ -14,7 +14,8 @@ import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
-import schema from '../../realm_schema';
+import global_variables from '../../global_variables';
+import realm_schema from '../../realm_schema';
 import styles from './styles';
 import signup from './signup-theme';
 
@@ -57,15 +58,27 @@ class SignUpVerify extends Component {
 
     onNextPressed(){
       var $this = this;
-      // User.checkVerificationCode(this.state.code, 'http://192.168.11.48:3000/api/v1/signup/check_verification_code',
-      //  function successCallback(results) {
-      //      alert(results.success);
-      //      //$this.props.replaceOrPushRoute(route);
-      //  },
-      //  function errorCallback(results) {
-      //      alert(results.msg);
-      //  });
-      this.props.pushNewRoute('signUpCreate');
+      // Create Realm
+      let realm = new Realm({schema: [realm_schema.People]});
+      // get realm object
+      let people = realm.objects('People');
+      let person = people[people.length - 1];
+
+      User.checkVerificationCode(this.state.code, global_variables.HOST+'/api/v1/signup/check_verification_code',
+       function successCallback(results) {
+
+          $this.props.pushNewRoute('edit');
+          //  $this.props.pushNewRoute('signUpCreate');
+
+          realm.write(() => {
+            person.s_verificationCode = $this.state.code;
+          });
+       },
+       function errorCallback(results) {
+           alert(results.msg);
+       });
+      //  console.log(Realm.defaultPath);
+      //this.props.pushNewRoute('signUpCreate');
     }
 
     render() {

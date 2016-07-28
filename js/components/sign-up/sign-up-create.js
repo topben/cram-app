@@ -17,6 +17,8 @@ import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input
 import theme from '../../themes/base-theme';
 import styles from './styles';
 import signup from './signup-theme';
+import global_variables from '../../global_variables';
+import realm_schema from '../../realm_schema';
 
 const {User} = require('NativeModules');
 const Realm = require('realm');
@@ -25,7 +27,6 @@ class SignUpCreate extends Component {
 
   constructor(props) {
       super(props);
-      this.onNextPressed = this.onNextPressed.bind(this);
       this.state = {
           password: '',
           re_password: '',
@@ -33,22 +34,27 @@ class SignUpCreate extends Component {
           checkPwdMsg: '',
           newHeight: 0
       };
+      this.onNextPressed = this.onNextPressed.bind(this);
   }
 
   componentWillMount () {
       Keyboard.addListener('keyboardWillShow', this.keyboardWillShow.bind(this));
       Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
+      // Create Realm
+      // let realm = new Realm({schema: [realm_schema.People]});
+      // // get realm object
+      // let people = realm.objects('People');
+      // alert(people.s_verificationCode)
   }
 
-  keyboardWillShow (e) {
-      let newSize = Dimensions.get('window').height - e.endCoordinates.height;
-      this.setState({newHeight: newSize});
-  }
+    keyboardWillShow (e) {
+        let newSize = Dimensions.get('window').height - e.endCoordinates.height;
+        this.setState({newHeight: newSize});
+    }
 
-  keyboardWillHide (e) {
-      this.setState({newHeight: 0});
-  }
-
+    keyboardWillHide (e) {
+        this.setState({newHeight: 0});
+    }
 
     pushNewRoute(route) {
          this.props.pushNewRoute(route);
@@ -64,7 +70,7 @@ class SignUpCreate extends Component {
 
     // next button tapped
     onNextPressed(){
-
+      var $this = this;
       if(this.state.password == this.state.re_password && this.state.password == "")
       {
         alert("未輸入密碼");
@@ -76,12 +82,37 @@ class SignUpCreate extends Component {
         alert("密碼不一致");
         return;
       }
-      //this.setState({client_error_msg: '成功'});
-      this.props.pushNewRoute('edit');
+
+      let realm = new Realm({schema: [realm_schema.People]});
+      // get realm object
+      let people = realm.objects('People');
+      let person = people[people.length - 1];
+
+      // var $this = this;
+      console.warn(this.state.password);
+      // realm.write(() => {
+      //   person.s_password = this.state.password
+      // });
+
+      var userInfo = {
+      	password : this.state.password,
+      	email    : person.s_email,
+      	phone    : person.s_phone
+      };
+
+      User.create(userInfo, global_variables.HOST+'/api/v1/signup',
+       function successCallback(results) {
+         // navigate to scanner page
+          $this.navigateTo('scanner');
+       },
+       function errorCallback(results) {
+           alert(results.msg);
+       });
+      // this.props.pushNewRoute('edit');
     }
 
     render() {
-      console.log(Realm.defaultPath);
+      //console.log(Realm.defaultPath);
         return (
           <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
             <Button

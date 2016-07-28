@@ -17,16 +17,19 @@ import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input
 import theme from '../../themes/base-theme';
 import styles from './styles';
 import login from './login-theme';
+import global_variables from '../../global_variables';
+import realm_schema from '../../realm_schema';
+
 
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
-class LoginPhone extends Component {
+class LoginEmail extends Component {
   constructor(props) {
       super(props);
       this.onNextPressed = this.onNextPressed.bind(this);
       this.state = {
-          phone: '',
+          email: '',
           password: '',
           newHeight: 0
       };
@@ -59,8 +62,20 @@ class LoginPhone extends Component {
 
     // next button tapped
     onNextPressed(){
-      //this.setState({client_error_msg: '成功'});
-      this.props.pushNewRoute('scanner');
+
+      var $this = this;
+
+      User.login(this.state.email, this.state.password, 'password', global_variables.HOST+'/oauth/token',
+       function successCallback(results) {
+
+         global_variables.email = $this.state.email
+         // navigate to scanner page
+          $this.navigateTo('scanner');
+       },
+       function errorCallback(results) {
+           alert(results.msg);
+       });
+
     }
 
     render() {
@@ -73,10 +88,10 @@ class LoginPhone extends Component {
                 </Button>
                 <Content theme={login} padder style={{backgroundColor: 'transparent',marginTop:-(this.state.newHeight/3)}} scrollEnabled={true}>
                   <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
-                  <Text style={styles.phoneLoginTitle}>手機號碼登入</Text>
+                  <Text style={styles.phoneLoginTitle}>電子信箱登入</Text>
                     <View padder>
                         <View style={styles.mb20}>
-                            <Input placeholder="+886" style={styles.generalChineseTxt} onChangeText={(phone) => this.setState({phone})} value={this.state.phone}/>
+                            <Input placeholder="電子信箱" style={styles.generalChineseTxt} onChangeText={(email) => this.setState({email})} value={this.state.email}/>
                         </View>
                         <View style={styles.mb20}>
                             <Input placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
@@ -99,4 +114,4 @@ function bindAction(dispatch) {
     }
 }
 
-export default connect(null, bindAction)(LoginPhone);
+export default connect(null, bindAction)(LoginEmail);

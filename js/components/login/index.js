@@ -12,6 +12,9 @@ import {connect} from 'react-redux';
 import { DeviceEventEmitter, Dimensions, Image, Platform, Keyboard} from 'react-native';
 import {pushNewRoute, replaceRoute} from '../../actions/route';
 
+
+import global_variables from '../../global_variables';
+import realm_schema from '../../realm_schema';
 import {Container, Content, Text, InputGroup, Input, Button, Icon, View } from 'native-base';
 import login from './login-theme';
 import styles from './styles';
@@ -60,9 +63,9 @@ class Login extends Component {
                 <Button
                   rounded
                   style={styles.btn}
-                  onPress={() => this.pushNewRoute('loginPhone')}>
+                  onPress={() => this.pushNewRoute('loginEmail')}>
                   <Text style={styles.phoneLoginTxt}>
-                  手機號碼登入
+                  電子信箱登入
                   </Text>
                 </Button>
                 <Button

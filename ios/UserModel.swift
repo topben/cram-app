@@ -76,17 +76,20 @@ class UserModel: Object{
   }
 
   // parser for login response
-  static func toRealmObject_login(data: Dictionary<String, AnyObject>) -> UserModel{
-    
-//    let result = data["result"]!
+  static func toRealmObject_login(data: Dictionary<String, AnyObject>, email: String) -> UserModel{
+
     let result = data
     
-    let userModel = UserModel()
+    let realm = try! Realm()
+    let userModel = realm.objects(UserModel.self).filter("s_email = '" + email + "'").first!
     
-    userModel.s_access_token                  = result["access_token"]                   as! String
-    userModel.s_token_type                    = result["token_type"]                     as! String
-    userModel.s_refresh_token                 = result["refresh_token"]                  as! String
-    userModel.i_created_at                    = result["created_at"]                     as! Int
+    try! realm.write{
+      
+      userModel.s_access_token                  = result["access_token"]                   as! String
+      userModel.s_token_type                    = result["token_type"]                     as! String
+      userModel.s_refresh_token                 = result["refresh_token"]                  as! String
+      userModel.i_created_at                    = result["created_at"]                     as! Int
+    }
     
     return userModel
   }
