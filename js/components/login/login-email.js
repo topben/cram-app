@@ -80,8 +80,6 @@ class LoginEmail extends Component {
     }
 
     render() {
-      console.log(Realm.defaultPath);
-
         return (
             <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
                 <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
@@ -95,7 +93,7 @@ class LoginEmail extends Component {
                             <Input placeholder="電子信箱" style={styles.generalChineseTxt} onChangeText={(email) => this.setState({email})} value={this.state.email}/>
                         </View>
                         <View style={styles.mb20}>
-                            <Input placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
+                            <Input secureTextEntry={true} placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
                         </View>
                         <Button rounded style={styles.phoneBtn} onPress={this.onNextPressed}>
                             <Text style={styles.phoneLoginTxt}>確定</Text>

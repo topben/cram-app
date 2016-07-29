@@ -68,14 +68,6 @@ class Login extends Component {
                   電子信箱登入
                   </Text>
                 </Button>
-                <Button
-                  transparent
-                  style={{alignSelf:'center'}}
-                  onPress={() => this.pushNewRoute('signUp')}>
-                  <Text style={styles.registerTxt}>
-                    創建新帳號
-                  </Text>
-                </Button>
               </View>
             </Content>
           </Container>
@@ -83,6 +75,14 @@ class Login extends Component {
     }
 }
 
+// <Button
+//   transparent
+//   style={{alignSelf:'center'}}
+//   onPress={() => this.pushNewRoute('signUp')}>
+//   <Text style={styles.registerTxt}>
+//     創建新帳號
+//   </Text>
+// </Button>
 
 function bindActions(dispatch){
     return {

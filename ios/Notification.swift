@@ -13,7 +13,32 @@ import RealmSwift
 class Notification: NSObject {
   
   // MARK: READY FUNCTIONS
+  @objc func getIDs(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void{
   
+    // return verification code in SMS
+    GetApi.getNotificationIDs(url,
+                                 
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        // return true if get person info success
+        var IDs = NotificationModel.toRealmObject_getNotificationIDs(response)
+        
+        successCallBack(IDs)
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        
+        failureCallBack([result])
+    })
+
+  
+  }
   
   @objc func getCheckInNotification(notification_id: [String], successCallBack: RCTResponseSenderBlock) -> Void{
     

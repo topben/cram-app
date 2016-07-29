@@ -28,21 +28,17 @@ class NotificationModel: Object{
   
   
   // parser for getting notification
-  static func toRealmObject_getNotifications(data: Dictionary<String, AnyObject>) -> NotificationModel{
+  static func toRealmObject_getNotificationIDs(data: Dictionary<String, AnyObject>) -> [String]{
     
-    let result = data["result"]!
+    let result = (data["result"]! as! NSArray) as Array
     
-    let notificationModel = NotificationModel()
+    var IDs = [String]()
     
-    notificationModel.s_notification_id                 = result["id"]                    as! String
-    notificationModel.s_course_id                       = result["course_id"]             as! String
-    notificationModel.s_teacher_id                      = result["teacher_id"]            as? String ?? ""
-    notificationModel.s_student_id                      = result["student_id"]            as! String
-    notificationModel.check_in_method                   = result["check_in_method"]       as! String
-    notificationModel.s_status                          = result["status"]                as! String
-    //    notificationModel.s_status                    = result["created_at"]             as! String
+    for i in 0...(result.count-1){
+      IDs.append(result[i]["id"] as! String)
+    }
     
-    return notificationModel
+    return IDs
   }
   
   

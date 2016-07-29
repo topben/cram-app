@@ -34,19 +34,13 @@ class Notifications extends Component {
         this.convertTimestamp = this.convertTimestamp.bind(this);
     }
 
-    componentWillMount () {
-
-      var $this = this;
-
-      // get notifications_ids from api call later....
-      var notifications_ids = ['0', '1', '2', '3', '4'];
+    buildNotifications(results){
       let realm = new Realm({schema: [realm_schema.NotificationModel,
                                         realm_schema.StudentModel,
                                         realm_schema.CourseModel]});
-      var i = 0;
-      for(i = 0; i < notifications_ids.length; i++){
+      for(var i = 0; i < results.length; i++){
         // get note realm object
-        var noteObject = realm.objects('NotificationModel').filtered('s_notification_id = "' + notifications_ids[i] + '"')[0];
+        var noteObject = realm.objects('NotificationModel').filtered('s_notification_id = "' + results[i] + '"')[0];
         var courseObject = realm.objects('CourseModel').filtered('s_course_id = "' + noteObject.s_course_id +'"')[0];
         var studentObject = realm.objects('StudentModel').filtered('s_student_id = "' + noteObject.s_student_id + '"')[0];
 
@@ -58,24 +52,38 @@ class Notifications extends Component {
         var unix_timestamp = noteObject.i_created_at;
         // Create a new JavaScript Date object based on the timestamp
         // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+
+        // change this hardcoded timestamp. get it from notification table.. remember to multipy by 1000
         var date = $this.convertTimestamp(1469750400);
+
         var notify = new Object();
         notify.note = checkInNote;
         notify.date = date;
 
         $this.state.notifications.push(notify);
-        console.log('notify')
-        console.log(notify);
-    } // end of for looop
+      } // end of for looop
+    } // end of buildNotifications()
 
-
-      // Notification.getCheckInNotification(notifications_ids,
-      //
-      //   function successCallback(results) {
-      //
-      //       $this.state.notifications = results;
-      //   });
-    }
+    // componentWillMount () {
+    //   var $this = this;
+    //
+    //   let realm = new Realm({schema: [realm_schema.UserModel]});
+    //   // get user access token
+    //   var users = realm.objects('UserModel').sorted('i_login_at', true);
+    //   console.log("user = " + users[users.length-1]);
+    //   var access_token = users[users.length-1].s_access_token;
+    //
+    //   // get notifications_ids from api call
+    //   Notification.getIDs(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
+    //     function successCallback(results) {
+    //       // results is an array of string IDs. save the IDs and pass it to make notification function
+    //       buildNotifications(results);
+    //     },
+    //     function errorCallback(results) {
+    //         alert(results.msg);
+    //   });
+    //
+    // }
 
     convertTimestamp(timestamp) {
       var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds

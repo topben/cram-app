@@ -40,13 +40,13 @@ class Scanner extends Component {
        };
     }
 
+    // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
-         let realm = new Realm({schema: [realm_schema.UserModel]});
-         console.log('email = ' + global_variables.email);
-         var temp = global_variables.email;
+        let realm = new Realm({schema: [realm_schema.UserModel]});
+         //console.log(Realm.defaultPath);
          // get user access token
-         var user = realm.objects('UserModel').filtered('s_email = "' + temp + '"')[0];
-         var access_token = user.s_access_token;
+         var users = realm.objects('UserModel').sorted('i_login_at', true);
+         var access_token = users[users.length-1].s_access_token;
          // build the URL with the access token
          var url = global_variables.HOST + '/api/v1/me?access_token=' + access_token
          // perform api call
@@ -56,10 +56,10 @@ class Scanner extends Component {
 
            },
            function errorCallback(results) {
-             alert(results.msg);
+             //alert(results.msg);
            });
+    }
 
-       }
     openModal() {
         VibrationIOS.vibrate();
         this.refs.modal.open();
@@ -105,11 +105,6 @@ class Scanner extends Component {
                         <Image source={require('../../../images/menu/btn_menu.png')}/>
                       </Button>
                       <Image style={{alignSelf:'center'}}source={require('../../../images/scanner/ic_tmot_scan.png')}/>
-                      <Button
-                        transparent
-                        onPress={() => this.replaceRoute('notifications')}>
-                        <Image source={require('../../../images/notification/btn_notification.png')}/>
-                      </Button>
                     </Header>
                     <Camera
                       onBarCodeRead={this.onBarCodeRead}
@@ -251,6 +246,12 @@ class Scanner extends Component {
         )
     }
 }
+
+// <Button
+//   transparent
+//   onPress={() => this.replaceRoute('notifications')}>
+//   <Image source={require('../../../images/notification/btn_notification.png')}/>
+// </Button>
 
 function bindAction(dispatch) {
     return {

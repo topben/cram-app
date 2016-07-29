@@ -21,15 +21,16 @@ class SideBar extends Component {
                     <Icon name="ios-person-outline" style={{color: '#ff6100'}}/>
                     <Text style={styles.sideBarChineseTxt}>帳號</Text>
                 </ListItem>
-                <ListItem button onPress={() => this.navigateTo('invitation')} iconLeft style={styles.links} >
-                    <Icon name="ios-mail-open-outline" style={{color: '#ff6100'}}/>
-                    <Text style={styles.sideBarChineseTxt}>邀請碼</Text>
-                </ListItem>
               </List>
           </Content>
         );
     }
 }
+
+// <ListItem button onPress={() => this.navigateTo('invitation')} iconLeft style={styles.links} >
+//     <Icon name="ios-mail-open-outline" style={{color: '#ff6100'}}/>
+//     <Text style={styles.sideBarChineseTxt}>邀請碼</Text>
+// </ListItem>
 
 function bindAction(dispatch) {
     return {

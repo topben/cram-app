@@ -36,11 +36,14 @@ class Account extends Component {
       var $this = this;
 
       let realm = new Realm({schema: [realm_schema.UserModel]});
-      let person = realm.objects('UserModel').filtered('s_email = "' + global_variables.email + '"')[0];
-    
-      this.state.phone = person.s_phone;
-      this.state.email = person.s_email;
-      this.state.scan_count = person.i_scannerUsage;
+      console.log(Realm.defaultPath);
+      // get user access token
+      var users = realm.objects('UserModel').sorted('i_login_at', true);
+      var currentUser = users[users.length-1]
+
+      this.state.phone = currentUser.s_phone;
+      this.state.email = currentUser.s_email;
+      this.state.scan_count = currentUser.i_scannerUsage;
     }
 
     popRoute() {
@@ -60,7 +63,7 @@ class Account extends Component {
         return (
           <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-            <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
+            <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.navigateTo('scanner')}>
               <Image source={require('../../../images/button/btn_back.png')}/>
             </Button>
             <Text></Text>
@@ -80,8 +83,8 @@ class Account extends Component {
                 <Row style={styles.row}><Text style={styles.subGrayTxt}>QR Code 掃描次數</Text><Text style={styles.subOrangeTxt}>{this.state.scan_count}</Text></Row>
               </Grid>
               <View style={{paddingTop:100}}>
-              <ListItem button onPress={() => this.navigateTo('login')} style={{borderWidth:0.5,borderColor:'#808080',backgroundColor:'#fff',height:50}}>
-                  <Text style={styles.logOutText}>回首頁</Text>
+              <ListItem button onPress={() => this.navigateTo('scanner')} style={{borderWidth:0.5,borderColor:'#808080',backgroundColor:'#fff',height:50}}>
+                  <Text style={styles.logOutText}>回掃描</Text>
               </ListItem>
               </View>
             </Content>

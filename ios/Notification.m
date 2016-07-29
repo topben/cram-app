@@ -12,6 +12,8 @@
 
 @interface RCT_EXTERN_MODULE(Notification, NSObject)
 
+RCT_EXTERN_METHOD(getIDs:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock) failureCallBack)
+
 RCT_EXTERN_METHOD(getCheckInNotification:(NSArray *)notification_id successCallBack:(RCTResponseSenderBlock) successCallBack)
 
 @end

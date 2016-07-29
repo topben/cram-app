@@ -197,7 +197,36 @@ class GetApi{
     
   } // end of getCourseInfo()
   
-  
+    
+
+  // get course info
+  static func getNotificationIDs(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Get notification IDs success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Get notification IDs failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getNotificationIDs()
+
   
   // MARK: NOT USED YET
   
