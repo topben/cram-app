@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Spinner from './../loaders/Spinner';
 // import CodePush from 'react-native-code-push';
 import {ScrollView, Image,TextInput,DeviceEventEmitter, Dimensions, Platform, Keyboard } from 'react-native';
 import {popRoute} from '../../actions/route';
@@ -105,6 +106,8 @@ class LoginEmail extends Component {
         )
     }
 }
+
+// <Spinner color='#ff6100'/>
 
 function bindAction(dispatch) {
     return {

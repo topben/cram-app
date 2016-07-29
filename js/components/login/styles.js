@@ -76,7 +76,7 @@ module.exports = StyleSheet.create({
       width:300,
       height:45,
       alignSelf:'center',
-      backgroundColor: '#9b9b9b',
+      backgroundColor: '#79b4ba',
       margin: 10
     },
     generalChineseTxt: {

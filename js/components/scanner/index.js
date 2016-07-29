@@ -22,6 +22,11 @@ import Modal from 'react-native-modalbox';
 import Overlay from 'react-native-overlay';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
+import global_variables from '../../global_variables';
+import realm_schema from '../../realm_schema';
+const {User} = require('NativeModules');
+const Realm = require('realm');
+
 class Scanner extends Component {
   constructor(props){
      super(props);
@@ -35,9 +40,26 @@ class Scanner extends Component {
        };
     }
 
-    static propTypes = {
-    };
+    componentWillMount () {
+         let realm = new Realm({schema: [realm_schema.UserModel]});
+         console.log('email = ' + global_variables.email);
+         var temp = global_variables.email;
+         // get user access token
+         var user = realm.objects('UserModel').filtered('s_email = "' + temp + '"')[0];
+         var access_token = user.s_access_token;
+         // build the URL with the access token
+         var url = global_variables.HOST + '/api/v1/me?access_token=' + access_token
+         // perform api call
+         User.getInfo(url,
 
+           function successCallback(results) {
+
+           },
+           function errorCallback(results) {
+             alert(results.msg);
+           });
+
+       }
     openModal() {
         VibrationIOS.vibrate();
         this.refs.modal.open();
@@ -66,7 +88,8 @@ class Scanner extends Component {
         $this.barCodeData = result.data;
         setTimeout(function() {
           $this.setState({studentInfo: result.data});
-          $this.openModal();
+          //$this.openModal();
+          alert(result.data);
         }, 500);
       }
     }

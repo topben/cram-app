@@ -52,7 +52,7 @@ class Notifications extends Component {
 
         var courseName = courseObject.s_name;
         var studentName = studentObject.s_name;
-        var checkInNote = '學生：' + studentName + '在班級：' + courseName + ' 遲到了十分鐘';
+        var checkInNote = studentName + '尚未抵達' + courseName ;
         console.log(i + ". " + checkInNote);
 
         var unix_timestamp = noteObject.i_created_at;
@@ -78,27 +78,27 @@ class Notifications extends Component {
     }
 
     convertTimestamp(timestamp) {
-    var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
-    		yyyy = d.getFullYear(),
-    		mm = ('0' + (d.getMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
-    		dd = ('0' + d.getDate()).slice(-2),			// Add leading 0.
-    		hh = d.getHours(),
-    		h = hh,
-    		min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
-    		ampm = 'AM',
-    		time;
-    if (hh > 12) {
-    		h = hh - 12;
-    		ampm = 'PM';
-    	} else if (hh === 12) {
-    		h = 12;
-    		ampm = 'PM';
-    	} else if (hh == 0) {
-    		h = 12;
-    	}
-      // ie: 2013-02-18, 8:35 AM
-    	time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
-    return time;
+      var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
+      		yyyy = d.getFullYear(),
+      		mm = ('0' + (d.getMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
+      		dd = ('0' + d.getDate()).slice(-2),			// Add leading 0.
+      		hh = d.getHours(),
+      		h = hh,
+      		min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
+      		ampm = 'AM',
+      		time;
+      if (hh > 12) {
+      		h = hh - 12;
+      		ampm = 'PM';
+      	} else if (hh === 12) {
+      		h = 12;
+      		ampm = 'PM';
+      	} else if (hh == 0) {
+      		h = 12;
+      	}
+        // ie: 2013-02-18, 8:35 AM
+      	time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
+      return time;
     }
 
     popRoute() {
@@ -130,7 +130,6 @@ class Notifications extends Component {
                             </View>
                         </ListItem>
                       )}
-
                     </List>
                 </Content>
             </Container>

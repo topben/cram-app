@@ -15,7 +15,7 @@ UserModel : {
         s_access_token: {type: 'string', default: ''},
         s_refresh_token: {type: 'string', default: ''},
         s_token_type: {type: 'string', default: ''},
-        i_updateTimestamp: {type: 'int', default: 0},
+        i_login_at: {type: 'int', default: 0},
         i_scannerUsage: {type: 'int', default: 0},
         i_created_at: {type: 'int', default: 0},
         i_updated_at: {type: 'int', default: 0},
