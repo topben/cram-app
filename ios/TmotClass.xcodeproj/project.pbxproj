@@ -556,7 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				F4DA5FB61D485C55009B5735 /* Teacher */,
-				F4F52AA31D38D47A00166B69 /* Notifications */,
+				F4F52AA31D38D47A00166B69 /* Notification */,
 				F4F52AA01D38D2FD00166B69 /* DirectMessage */,
 				F4F52A9D1D38D04000166B69 /* Announcement */,
 				F4F52A8C1D38CECC00166B69 /* Message */,
@@ -709,14 +709,14 @@
 			name = DirectMessage;
 			sourceTree = "<group>";
 		};
-		F4F52AA31D38D47A00166B69 /* Notifications */ = {
+		F4F52AA31D38D47A00166B69 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
 				F4F52AA81D3CA50900166B69 /* Notification.m */,
 				F4F52AA61D38DEC300166B69 /* Notification.swift */,
 				F4F52AA41D38D48C00166B69 /* NotificationModel.swift */,
 			);
-			name = Notifications;
+			name = Notification;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

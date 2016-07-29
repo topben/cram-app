@@ -24,37 +24,47 @@ UserModel : {
         i_profile_picture_updated_at: {type: 'int', default: 0},
     },
 },
-//
-// CourseSchema : {
-//     name: 'Course',
-//     primaryKey: 'i_course_id',
-//     properties: {
-//         i_course_id: {type: 'int', default: 0},
-//         s_name: {type: 'string', default: ''},
-//         s_dayOfTheWeek: {type: 'string', default: ''},
-//         s_company: {type: 'string', default: ''},
-//         NSDate_startTime: {type: 'date', optional: true},
-//         NSDate_endTime: {type: 'date', optional: true},
-//         NSDate_checkInTime: {type: 'date', optional: true},
-//         NSDate_lateTime: {type: 'date', optional: true},
-//         User_instructor: {type: 'UserModel', optional: true},
-//         List_students: {type: 'list', objectType: 'StudentModel'},
-//         b_isDelete: {type: 'bool', default: false}
-//     },
-// },
-// StudentSchema : {
-//      name: 'Student',
-//      primaryKey: 'i_student_id',
-//      properties: {
-//          i_student_id: {type: 'int', default: 0},
-//          s_name: {type: 'string', default: ''},
-//          s_student_qrCode: {type: 'string', default: ''},
-//          s_profileImage: {type: 'string', default: ''},
-//          List_courses: {type: 'list', objectType: 'CourseModel'},
-//          List_checkInHistory: {type: 'list', objectType: 'AttendanceModel'},
-//          b_isDelete: {type: 'bool', default: false}
-//      },
-//  },
+
+NotificationModel : {
+  name: 'NotificationModel',
+  primaryKey: 's_notification_id',
+  properties: {
+          s_notification_id : {type: 'string', default: ''},
+          b_isRead         : {type: 'bool',   default: false},
+          i_created_at     : {type: 'int',    default: 0},
+          s_teacher_id     : {type: 'string', default: ''},
+          s_course_id      : {type: 'string', default: ''},
+          s_student_id     : {type: 'string', default: ''},
+          check_in_method  : {type: 'string', default: ''},
+          s_status         : {type: 'string', default: ''},
+          b_isDelete       : {type: 'bool',   default: false},
+  },
+},
+
+CourseModel : {
+    name: 'CourseModel',
+    primaryKey: 's_course_id',
+    properties: {
+        s_course_id: {type: 'string', default: ''},
+        s_name: {type: 'string', default: ''},
+        i_frequency: {type: 'int', default: 0},
+        s_period: {type: 'string', default: ''},
+        b_isDelete: {type: 'bool', default: false}
+    },
+},
+
+StudentModel : {
+     name: 'StudentModel',
+     primaryKey: 's_student_id',
+     properties: {
+         s_student_id: {type: 'string', default: ''},
+         s_student_qrCode: {type: 'string', default: ''},
+         s_name: {type: 'string', default: ''},
+         s_group_role: {type: 'string', default: ''},
+         b_isDelete: {type: 'bool', default: false}
+     },
+ },
+
 // AttendanceSchema : {
 //      name: 'Attendance',
 //      primaryKey: 'i_attendance_id',
@@ -67,6 +77,7 @@ UserModel : {
 //          b_isDelete: {type: 'bool', default: false}
 //      },
 //  },
+
  People : {
   name: 'People',
   properties: {

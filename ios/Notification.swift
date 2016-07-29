@@ -17,6 +17,24 @@ class Notification: NSObject {
   
   @objc func getCheckInNotification(notification_id: [String], successCallBack: RCTResponseSenderBlock) -> Void{
     
+//    for i in 0...9{
+////      let notificatn = NotificationModel()
+////      notificatn.s_notification_id = String(i)
+////      notificatn.s_course_id = String(i)
+////      notificatn.s_student_id = String(i)
+////      self.saveToRealm(notificatn)
+//      
+//      let notification = CourseModel()
+//      notification.s_course_id = String(i)
+//      notification.s_name = "course_" + String(i)
+//      self.saveToRealm(notification)
+//      
+//      let notificatio = StudentModel()
+//      notificatio.s_student_id = String(i)
+//      notificatio.s_name = "student_" + String(i)
+//      self.saveToRealm(notificatio)
+//    }
+    
     var checkInNotifications = [Dictionary<String, String>]()
     
     let realm = try! Realm()
@@ -25,13 +43,13 @@ class Notification: NSObject {
     for id in notification_id{
       
       // get notification from current id
-      let notification = realm.objects(NotificationModel.self).filter("s_notification_id = " + id).first
+      var notification = realm.objects(NotificationModel.self).filter("s_notification_id CONTAINS '" + id + "'").first
       
       // get course_id
       let course_id = notification!.s_course_id
       
       // get course' name
-      let course = realm.objects(CourseModel.self).filter("s_course_id = " + course_id).first
+      let course = realm.objects(CourseModel.self).filter("s_course_id = '" + course_id + "'").first
       let course_name = course!.s_name
       
       // create temp check in notification dictionary
@@ -41,7 +59,7 @@ class Notification: NSObject {
       let student_id = notification!.s_student_id
       
       // get student's name
-      let student = realm.objects(StudentModel.self).filter("s_student_id = " + student_id).first
+      let student = realm.objects(StudentModel.self).filter("s_student_id = '" + student_id + "'").first
       let student_name = student?.s_name
       
       temp["student name"] = student_name

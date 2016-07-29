@@ -1,7 +1,9 @@
 /* @flow */
 'use strict';
 
-import { StyleSheet } from "react-native";
+var React = require('react-native');
+var { StyleSheet, Dimensions } = React;
+var deviceWidth = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
     container: {
@@ -38,7 +40,8 @@ module.exports = StyleSheet.create({
     },
     subBlackTxt: {
       fontFamily: 'SFUIDisplay-Regular',
-      fontSize:16,
+      width:deviceWidth/1.5,
+      fontSize:15,
       color:'#4a4a4a',
       letterSpacing:1
     },
