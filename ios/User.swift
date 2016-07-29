@@ -141,7 +141,7 @@ class User: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        let userModel = UserModel.toRealmObject_login(response, email: username)
+        let userModel = UserModel.toRealmObject_login(response)
         self.saveToRealm(userModel)
         
         // return true if get person info success
