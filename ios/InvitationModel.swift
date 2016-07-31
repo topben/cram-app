@@ -34,16 +34,5 @@ class InvitationModel: Object{
     
     return invitationModel
   }
-  
-  static func toDictionary(invitationId: Int) -> Dictionary<String, AnyObject>{
     
-    let realm = try! Realm()
-    let course = realm.objects(InvitationModel.self).filter("i_invitation_id = " + String(invitationId)).first
-    
-    var courseModel = [String: AnyObject]()
-    
-    
-    return courseModel
-  }
-  
 }

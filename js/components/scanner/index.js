@@ -24,8 +24,12 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
-const {User} = require('NativeModules');
-const Realm = require('realm');
+
+const {User}         = require('NativeModules');
+const {Course}       = require('NativeModules');
+const {Student}      = require('NativeModules');
+const {Notification} = require('NativeModules');
+const Realm          = require('realm');
 
 class Scanner extends Component {
   constructor(props){
@@ -42,22 +46,41 @@ class Scanner extends Component {
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
-        let realm = new Realm({schema: [realm_schema.UserModel]});
-         //console.log(Realm.defaultPath);
+
+         let realm = new Realm({schema: [realm_schema.UserModel]});
+
          // get user access token
          var users = realm.objects('UserModel').sorted('i_login_at', true);
          var access_token = users[users.length-1].s_access_token;
-         // build the URL with the access token
-         var url = global_variables.HOST + '/api/v1/me?access_token=' + access_token
-         // perform api call
-         User.getInfo(url,
 
+         // perform api calls
+         User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
            function successCallback(results) {
-
            },
            function errorCallback(results) {
-             //alert(results.msg);
+             alert(results.msg);
            });
+
+          Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+            function successCallback(results) {
+            },
+            function errorCallback(results) {
+              alert(results.msg);
+            });
+
+          Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
+            function successCallback(results) {
+            },
+            function errorCallback(results) {
+              alert(results.msg);
+            });
+
+          // Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+          //   function successCallback(results) {
+          //   },
+          //   function errorCallback(results) {
+          //     alert(results.msg);
+          //   });
     }
 
     openModal() {
