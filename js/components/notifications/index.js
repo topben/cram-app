@@ -29,7 +29,7 @@ class Notifications extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notifications: []
+            notification_list: []
         };
         this.convertTimestamp = this.convertTimestamp.bind(this);
     }
@@ -62,18 +62,19 @@ class Notifications extends Component {
 
         console.log(i + ". " + checkInNote);
 
+        var notify = new Object();
+            notify.note = checkInNote;
+            notify.date = date;
+
+       $this.state.notification_list.push(notify);
+
       } // end of for loop
 
     } // end of buildAttendanceNotifications()
 
     // build the 4 types of notifications
     componentWillMount () {
-
       buildAttendanceNotifications();
-
-
-
-
     }
 
     convertTimestamp(timestamp) {
@@ -120,7 +121,7 @@ class Notifications extends Component {
                 </Header>
                 <Content style={{backgroundColor: 'transparent'}}>
                     <List>
-                      {this.state.notifications.map((i, index)=>
+                      {this.state.notification_list.map((i, index)=>
                         <ListItem iconLeft button>
                             <Icon name="ios-people" style={{color: '#ff6100'}}/>
                             <View style={{paddingLeft:30}}>
