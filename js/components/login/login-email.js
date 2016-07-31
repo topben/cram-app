@@ -32,7 +32,9 @@ class LoginEmail extends Component {
       this.state = {
           email: '',
           password: '',
-          newHeight: 0
+          newHeight: 0,
+          isProcessing: false,
+          btnDisabled: false
       };
   }
 
@@ -64,16 +66,22 @@ class LoginEmail extends Component {
     // next button tapped
     onNextPressed(){
 
+      // for obj connecting
       var $this = this;
-
+      // Spinner Control
+      this.setState({isProcessing: true});
+      this.setState({btnDisabled: true});
+      // User login Api Call Via Swift Component
       User.login(this.state.email, this.state.password, 'password', global_variables.HOST+'/oauth/token',
        function successCallback(results) {
-
-         global_variables.email = $this.state.email
+         $this.setState({isProcessing: false});
+         $this.setState({btnDisabled: false});
          // navigate to scanner page
           $this.navigateTo('scanner');
        },
        function errorCallback(results) {
+           $this.setState({btnDisabled: false});
+           $this.setState({isProcessing: false});
            alert(results.msg);
        });
 
@@ -95,8 +103,8 @@ class LoginEmail extends Component {
                         <View style={styles.mb20}>
                             <Input secureTextEntry={true} placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
                         </View>
-                        <Button rounded style={styles.phoneBtn} onPress={this.onNextPressed}>
-                            <Text style={styles.phoneLoginTxt}>確定</Text>
+                        <Button rounded style={styles.phoneBtn} disabled={this.state.btnDisabled} onPress={this.onNextPressed}>
+                          {this.state.isProcessing?<Spinner color='#000'/>:<Text style={styles.phoneLoginTxt}>確定</Text>}
                         </Button>
                     </View>
                 </Content>

@@ -35,33 +35,33 @@ class Notifications extends Component {
     }
 
     buildNotifications(results){
-      let realm = new Realm({schema: [realm_schema.NotificationModel,
-                                        realm_schema.StudentModel,
-                                        realm_schema.CourseModel]});
-      for(var i = 0; i < results.length; i++){
-        // get note realm object
-        var noteObject = realm.objects('NotificationModel').filtered('s_notification_id = "' + results[i] + '"')[0];
-        var courseObject = realm.objects('CourseModel').filtered('s_course_id = "' + noteObject.s_course_id +'"')[0];
-        var studentObject = realm.objects('StudentModel').filtered('s_student_id = "' + noteObject.s_student_id + '"')[0];
-
-        var courseName = courseObject.s_name;
-        var studentName = studentObject.s_name;
-        var checkInNote = studentName + '尚未抵達' + courseName ;
-        console.log(i + ". " + checkInNote);
-
-        var unix_timestamp = noteObject.i_created_at;
-        // Create a new JavaScript Date object based on the timestamp
-        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-
-        // change this hardcoded timestamp. get it from notification table.. remember to multipy by 1000
-        var date = $this.convertTimestamp(1469750400);
-
-        var notify = new Object();
-        notify.note = checkInNote;
-        notify.date = date;
-
-        $this.state.notifications.push(notify);
-      } // end of for looop
+      // let realm = new Realm({schema: [realm_schema.NotificationModel,
+      //                                   realm_schema.StudentModel,
+      //                                   realm_schema.CourseModel]});
+      // for(var i = 0; i < results.length; i++){
+      //   // get note realm object
+      //   var noteObject = realm.objects('NotificationModel').filtered('s_notification_id = "' + results[i] + '"')[0];
+      //   var courseObject = realm.objects('CourseModel').filtered('s_course_id = "' + noteObject.s_course_id +'"')[0];
+      //   var studentObject = realm.objects('StudentModel').filtered('s_student_id = "' + noteObject.s_student_id + '"')[0];
+      //
+      //   var courseName = courseObject.s_name;
+      //   var studentName = studentObject.s_name;
+      //   var checkInNote = studentName + '尚未抵達' + courseName ;
+      //   console.log(i + ". " + checkInNote);
+      //
+      //   var unix_timestamp = noteObject.i_created_at;
+      //   // Create a new JavaScript Date object based on the timestamp
+      //   // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+      //
+      //   // change this hardcoded timestamp. get it from notification table.. remember to multipy by 1000
+      //   var date = $this.convertTimestamp(1469750400);
+      //
+      //   var notify = new Object();
+      //   notify.note = checkInNote;
+      //   notify.date = date;
+      //
+      //   $this.state.notifications.push(notify);
+      //} // end of for looop
     } // end of buildNotifications()
 
     // componentWillMount () {
@@ -129,21 +129,19 @@ class Notifications extends Component {
                 </Header>
                 <Content style={{backgroundColor: 'transparent'}}>
                     <List>
-                      {this.state.notifications.map((i, index)=>
                         <ListItem iconLeft button>
                             <Icon name="ios-people" style={{color: '#ff6100'}}/>
                             <View style={{paddingLeft:30}}>
-                            <Text style={styles.subBlackTxt} numberOfLines={2}>{i.note}</Text>
-                            <Text style={styles.timeTxt} note >{i.date}</Text>
+                            <Text style={styles.subBlackTxt} numberOfLines={2}>Test</Text>
+                            <Text style={styles.timeTxt} note >Test</Text>
                             </View>
                         </ListItem>
-                      )}
                     </List>
                 </Content>
             </Container>
         )
     }
-                  // {this.state.notifications.map((i, index)=>)}
+                  //  {this.state.notifications.map((i, index)=>)}
 }
 
 function bindAction(dispatch) {

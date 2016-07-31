@@ -105,6 +105,11 @@ class Scanner extends Component {
                         <Image source={require('../../../images/menu/btn_menu.png')}/>
                       </Button>
                       <Image style={{alignSelf:'center'}}source={require('../../../images/scanner/ic_tmot_scan.png')}/>
+                       <Button
+                         transparent
+                         onPress={() => this.replaceRoute('notifications')}>
+                         <Image source={require('../../../images/notification/btn_notification.png')}/>
+                       </Button>
                     </Header>
                     <Camera
                       onBarCodeRead={this.onBarCodeRead}
@@ -246,12 +251,6 @@ class Scanner extends Component {
         )
     }
 }
-
-// <Button
-//   transparent
-//   onPress={() => this.replaceRoute('notifications')}>
-//   <Image source={require('../../../images/notification/btn_notification.png')}/>
-// </Button>
 
 function bindAction(dispatch) {
     return {
