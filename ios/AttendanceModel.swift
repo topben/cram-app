@@ -33,15 +33,4 @@ class AttendanceModel: Object{
     return attendanceModel
   }
   
-  static func toDictionary(attendanceId: Int) -> Dictionary<String, AnyObject>{
-    
-    let realm = try! Realm()
-    let student = realm.objects(UserModel.self).filter("i_student_id = " + String(attendanceId)).first
-    
-    var attendanceModel = [String: AnyObject]()
-    
-    
-    return attendanceModel
-  }
-  
 }

@@ -171,9 +171,14 @@ class User: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        let userModel = UserModel.toRealmObject_getInfo(response)
-        self.saveToRealm(userModel)
+        if response.count > 0{
         
+          let response = response["result"]! as! Dictionary<String, AnyObject>
+          
+          let userModel = UserModel.toRealmObject_list(response)
+          self.saveToRealm(userModel)
+          
+        }
         // return true if get person info success
         let result = ["success" : "true"];
         
@@ -192,9 +197,7 @@ class User: NSObject {
     
   } // end of getInfo()
   
-  
-  
-  
+    
   
   // MARK: NOT READY
   
@@ -214,20 +217,6 @@ class User: NSObject {
                                   
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
-        
-        let user_id = Int(response["verificationCode"] as! String)
-        
-        let realm = try! Realm()
-        let user = realm.objects(UserModel.self).filter("i_user_id = " + String(user_id)).first
-        
-        // if there is new data, use it, or else, use the old data
-        try! realm.write{
-        
-          let permission = response["permission"] as! String
-          
-//          user!.s_permission = permission ?? user!.s_permission
-        }
-        self.saveToRealm(user!)
         
         // return true if get person info success
         let result = ["success" : true];

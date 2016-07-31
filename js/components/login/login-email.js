@@ -66,6 +66,8 @@ class LoginEmail extends Component {
 
       var $this = this;
 
+      console.log(Realm.defaultPath);
+
       User.login(this.state.email, this.state.password, 'password', global_variables.HOST+'/oauth/token',
        function successCallback(results) {
 

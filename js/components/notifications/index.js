@@ -34,56 +34,47 @@ class Notifications extends Component {
         this.convertTimestamp = this.convertTimestamp.bind(this);
     }
 
-    buildNotifications(results){
-      let realm = new Realm({schema: [realm_schema.NotificationModel,
-                                        realm_schema.StudentModel,
-                                        realm_schema.CourseModel]});
-      for(var i = 0; i < results.length; i++){
-        // get note realm object
-        var noteObject = realm.objects('NotificationModel').filtered('s_notification_id = "' + results[i] + '"')[0];
-        var courseObject = realm.objects('CourseModel').filtered('s_course_id = "' + noteObject.s_course_id +'"')[0];
-        var studentObject = realm.objects('StudentModel').filtered('s_student_id = "' + noteObject.s_student_id + '"')[0];
+    buildAttendanceNotifications(){
 
-        var courseName = courseObject.s_name;
-        var studentName = studentObject.s_name;
-        var checkInNote = studentName + '尚未抵達' + courseName ;
+      // initialize realm
+      let realm = new Realm({schema: [realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel]});
+
+      // get notification realm objects
+      var notifications = realm.objects('NotificationModel').filtered('s_type = "student_late"');
+
+      // loop through each notification object and build the notifications
+      for(var i = 0; i < notifications.length; i++){
+
+        // get course id & name
+        var course_id = notifications[i].s_course_id;
+        var course_name = realm.objects('CourseModel').filtered('s_course_id = "' + s_course_id + '"')[0].s_name;
+
+        // get student id & name
+        var student_id = notifications[i].s_student_id;
+        var student_name = realm.objects('StudentModel').filtered('s_student_id = "' + s_student_id + '"')[0].s_name;
+
+        // get timestamp of notification and convert it to date format
+        var i_created_at = notifications[i].i_created_at
+        var timestamp = $this.convertTimestamp(i_created_at * 1000);
+
+        // build the attendance notification
+        var checkInNote = studentName + ' 於 ' + timestamp + ' 尚未抵達 ' + courseName;
+
         console.log(i + ". " + checkInNote);
 
-        var unix_timestamp = noteObject.i_created_at;
-        // Create a new JavaScript Date object based on the timestamp
-        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+      } // end of for loop
 
-        // change this hardcoded timestamp. get it from notification table.. remember to multipy by 1000
-        var date = $this.convertTimestamp(1469750400);
+    } // end of buildAttendanceNotifications()
 
-        var notify = new Object();
-        notify.note = checkInNote;
-        notify.date = date;
+    // build the 4 types of notifications
+    componentWillMount () {
 
-        $this.state.notifications.push(notify);
-      } // end of for looop
-    } // end of buildNotifications()
+      buildAttendanceNotifications();
 
-    // componentWillMount () {
-    //   var $this = this;
-    //
-    //   let realm = new Realm({schema: [realm_schema.UserModel]});
-    //   // get user access token
-    //   var users = realm.objects('UserModel').sorted('i_login_at', true);
-    //   console.log("user = " + users[users.length-1]);
-    //   var access_token = users[users.length-1].s_access_token;
-    //
-    //   // get notifications_ids from api call
-    //   Notification.getIDs(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
-    //     function successCallback(results) {
-    //       // results is an array of string IDs. save the IDs and pass it to make notification function
-    //       buildNotifications(results);
-    //     },
-    //     function errorCallback(results) {
-    //         alert(results.msg);
-    //   });
-    //
-    // }
+
+
+
+    }
 
     convertTimestamp(timestamp) {
       var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds

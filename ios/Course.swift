@@ -14,21 +14,27 @@ class Course: NSObject {
   
   // MARK: READY FUNCTIONS
   
-  // get course info
+  // get course(s) info
   @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
     GetApi.getCourseInfo(url,
                          
-                         // SuccessBlock (parse response to realm object)
+      // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        // parse response into realm object
-        let course = CourseModel.toRealmObject(response)
-        self.saveToRealm(course)
+        if response.count > 0{
         
+          let response = ((response["result"]! as! NSArray) as Array)
+          
+          for i in 0...(response.count-1){
+            let courseModel = CourseModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
+            self.saveToRealm(courseModel)
+          }
+        
+        }
         // return true if get course info success
-        var result = ["success" : "true"];
-        result["msg"] = (response["result"] as! String)
+        let result = ["success" : "true"];
+        
         successCallBack([result])
       },
       

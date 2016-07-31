@@ -23,14 +23,13 @@ class CourseModel: Object{
   }
   
   // parser for single course
-  static func toRealmObject(data: Dictionary<String, AnyObject>) -> CourseModel{
-    
-    let result = data["result"]!
+  static func toRealmObject_list(data: Dictionary<String, AnyObject>) -> CourseModel{
     
     let courseModel = CourseModel()
-    
-    courseModel.s_name     = result["name"]            as! String
-    
+
+    courseModel.s_course_id = data["id"] as! String
+    courseModel.s_name      = data["name"] as! String
+   
     return courseModel
   }
   
