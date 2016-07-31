@@ -32,10 +32,10 @@ class Notifications extends Component {
             notification_list: []
         };
         this.convertTimestamp = this.convertTimestamp.bind(this);
+        this.buildAttendanceNotifications = this.buildAttendanceNotifications.bind(this);
     }
 
     buildAttendanceNotifications(){
-
       // initialize realm
       let realm = new Realm({schema: [realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel]});
 
@@ -58,13 +58,13 @@ class Notifications extends Component {
         var timestamp = $this.convertTimestamp(i_created_at * 1000);
 
         // build the attendance notification
-        var checkInNote = studentName + ' 於 ' + timestamp + ' 尚未抵達 ' + courseName;
+        var checkInNote = student_name + ' 尚未抵達 ' + course_name;
 
         console.log(i + ". " + checkInNote);
 
         var notify = new Object();
             notify.note = checkInNote;
-            notify.date = date;
+            notify.date = timestamp;
 
        $this.state.notification_list.push(notify);
 
