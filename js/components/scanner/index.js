@@ -54,26 +54,26 @@ class Scanner extends Component {
          var access_token = users[users.length-1].s_access_token;
 
          // perform api calls
-         User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
-           function successCallback(results) {
-           },
-           function errorCallback(results) {
-             alert(results.msg);
-           });
-
-          Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-            function successCallback(results) {
-            },
-            function errorCallback(results) {
-              alert(results.msg);
-            });
-
-          Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
-            function successCallback(results) {
-            },
-            function errorCallback(results) {
-              alert(results.msg);
-            });
+        //  User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
+        //    function successCallback(results) {
+        //    },
+        //    function errorCallback(results) {
+        //      alert(results.msg);
+        //    });
+         //
+        //   Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+        //     function successCallback(results) {
+        //     },
+        //     function errorCallback(results) {
+        //       alert(results.msg);
+        //     });
+         //
+        //   Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
+        //     function successCallback(results) {
+        //     },
+        //     function errorCallback(results) {
+        //       alert(results.msg);
+        //     });
 
           // Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
           //   function successCallback(results) {

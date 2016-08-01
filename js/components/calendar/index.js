@@ -17,8 +17,8 @@ import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, F
 import FooterComponent from "./../footer";
 import CalendarPicker from 'react-native-calendar-picker';
 
-import theme from '../../themes/base-theme';
 import styles from './styles';
+import calendar from './calendar-theme';
 
 class Calendar extends Component {
 
@@ -39,9 +39,8 @@ class Calendar extends Component {
 
     render() {
         return (
-            <Container theme={theme} style={{backgroundColor: '#384850'}}>
-              <Image source={require('../../../images/glow2.png')} style={styles.container} >
-                <Header>
+            <Container theme={calendar} style={{backgroundColor: '#f5f6f7'}}>
+                <Header style={{borderColor:'#000',borderBottomWidth:1}}>
                     <Button transparent onPress={() => this.popRoute()}>
                         <Icon name="ios-arrow-back" />
                     </Button>
@@ -50,19 +49,16 @@ class Calendar extends Component {
                         <Icon name="ios-menu" />
                     </Button>
                 </Header>
-
-                <Content padder style={{backgroundColor: 'transparent'}}>
+                <Content padder style={{backgroundColor: '#f5f6f7'}}>
                     <CalendarPicker
+                        style={{textColor:'#000'}}
                         selectedDate={this.state.date}
+                        selectedBackgroundColor={'#000'}
                         onDateChange={this.onDateChange.bind(this)} />
                       <Text style={{marginTop: 5, alignSelf: 'center'}} >
                       Date:  { this.state.date.toString().substr(4,12) }
                     </Text>
                 </Content>
-                <Footer>
-                  <FooterComponent />
-                </Footer>
-              </Image>
             </Container>
         )
     }
