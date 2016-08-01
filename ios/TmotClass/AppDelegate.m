@@ -13,17 +13,57 @@
 
 @implementation AppDelegate
 
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+  //register to receive notifications
+  [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+{
+  //handle the actions
+  if ([identifier isEqualToString:@"declineAction"]){
+  }
+  else if ([identifier isEqualToString:@"answerAction"]){
+  }
+}
+#endif
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken{
+  
+  NSLog(@"deviceToken: %@", deviceToken);
+  NSString * token = [NSString stringWithFormat:@"%@", deviceToken];
+  //Format token as you need:
+  token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+  token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+  token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+  NSLog(@"deviceToken: %@", deviceToken);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  #ifdef __IPHONE_8_0
+    //Right, that is the point
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound) categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+  #else
+    //register to receive notifications
+    UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+  #endif
+  
+  
   NSURL *jsCodeLocation;
-//  for (NSString* family in [UIFont familyNames])
-//  {
-//    NSLog(@"%@", family);
-//    for (NSString* name in [UIFont fontNamesForFamilyName: family])
-//    {
-//      NSLog(@" %@", name);
-//    }
-//  }
+  //  for (NSString* family in [UIFont familyNames])
+  //  {
+  //    NSLog(@"%@", family);
+  //    for (NSString* name in [UIFont fontNamesForFamilyName: family])
+  //    {
+  //      NSLog(@" %@", name);
+  //    }
+  //  }
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
@@ -37,13 +77,13 @@
    * `inet` value under `en0:`) and make sure your computer and iOS device are
    * on the same Wi-Fi network.
    */
-
+  
 #ifdef DEBUG
-  jsCodeLocation = [NSURL URLWithString:@"http://127.0.0.1:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.11.10:8081/index.ios.bundle?platform=ios&dev=true"];
 #else
   jsCodeLocation = [CodePush bundleURL];
 #endif
-
+  
   /**
    * OPTION 2
    * Load from pre-bundled file on disk. The static bundle is automatically
@@ -51,15 +91,15 @@
    * running the project on an actual device or running the project on the
    * simulator in the "Release" build configuration.
    */
-
-//   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-
+  
+  //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"TmotClass"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
