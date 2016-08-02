@@ -65,18 +65,34 @@ StudentModel : {
      },
  },
 
-// AttendanceSchema : {
-//      name: 'Attendance',
-//      primaryKey: 'i_attendance_id',
-//      properties: {
-//          i_attendance_id: {type: 'int', default: 0},
-//          i_course_id: {type: 'int', default: 0},
-//          NSDate_date: {type: 'date', optional: true},
-//          b_attend: {type: 'bool', default: false},
-//          b_leave: {type: 'bool', default: false},
-//          b_isDelete: {type: 'bool', default: false}
-//      },
-//  },
+AttendanceModel : {
+     name: 'AttendanceModel',
+     primaryKey: 's_attendance_id',
+     properties: {
+         s_attendance_id: {type: 'string', default: ''},
+         s_klass_id: {type: 'string', default: ''},
+         s_student_id: {type: 'string', default: ''},
+         s_teacher_id: {type: 'string', default: ''},
+         s_check_in_method: {type: 'string', default: ''},
+         s_status: {type: 'string', default: ''},
+         i_arrived_at: {type: 'int', default: 0},
+         b_isDelete: {type: 'bool', default: false}
+     },
+ },
+
+ KlassModel : {
+      name: 'KlassModel',
+      primaryKey: 's_klass_id',
+      properties: {
+          s_klass_id: {type: 'string', default: ''},
+          s_course_id: {type: 'string', default: ''},
+          s_teacher_id: {type: 'string', default: ''},
+          s_location: {type: 'string', default: ''},
+          i_start_date: {type: 'int', default: 0},
+          i_end_date: {type: 'int', default: 0},
+          b_isDelete: {type: 'bool', default: false}
+      },
+ },
 
  People : {
   name: 'People',

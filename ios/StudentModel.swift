@@ -28,11 +28,11 @@ class StudentModel: Object{
     
     let studentModel = StudentModel()
     
-      studentModel.s_student_id              = data["id"]             as! String
-      studentModel.s_student_qrCode          = data["qr_code_id"]     as! String
-      studentModel.s_name                    = data["name"]           as! String
-      studentModel.s_group_role              = data["group_role"]     as! String
-      studentModel.s_profile_picture_url     = data["profile_picture_url"]     as! String
+    studentModel.s_student_id              = data["id"]             as! String
+    studentModel.s_student_qrCode          = data["qr_code_id"]     as! String
+    studentModel.s_name                    = data["name"]           as! String
+    studentModel.s_group_role              = data["group_role"]     as! String
+    studentModel.s_profile_picture_url     = data["profile_picture_url"]     as! String
     
     return studentModel
   }

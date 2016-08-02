@@ -19,6 +19,10 @@ class NotificationModel: Object{
   dynamic var s_teacher_id      : String = ""
   dynamic var s_student_id      : String = ""
   dynamic var s_check_in_method : String = ""
+  dynamic var s_announcement_id : String = ""
+  dynamic var s_message_id      : String = ""
+  dynamic var s_invitation_id   : String = ""
+  dynamic var s_attendance_id   : String = ""
   dynamic var s_status          : String = ""
   dynamic var s_type            : String = ""
   dynamic var b_isDelete        : Bool   = false
@@ -27,8 +31,26 @@ class NotificationModel: Object{
     return "s_notification_id"
   }
   
+  
   // parser for getting all notifications
   static func toRealmObject_list(data: Dictionary<String, AnyObject>) -> NotificationModel{
+    
+    let notificationModel = NotificationModel()
+    
+    notificationModel.s_notification_id =     data["id"]               as! String
+    notificationModel.s_announcement_id =     data["announcement_id"]  as? String ?? ""
+    notificationModel.s_attendance_id   =     data["attendance_id"]    as? String ?? ""
+    notificationModel.s_message_id      =     data["message_id"]       as? String ?? ""
+    notificationModel.s_invitation_id   =     data["invitation_id"]    as? String ?? ""
+    notificationModel.i_created_at      =     data["created_at"]       as! Int
+    
+    return notificationModel
+    
+  }
+  
+  
+  // parser for getting all notifications
+  static func toRealmObject_list_new(data: Dictionary<String, AnyObject>) -> NotificationModel{
     
     let notificationModel = NotificationModel()
     

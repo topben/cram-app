@@ -66,6 +66,8 @@ class LoginEmail extends Component {
     // next button tapped
     onNextPressed(){
 
+      console.log('path =    ' + Realm.defaultPath);
+
       // for obj connecting
       var $this = this;
       // Spinner Control

@@ -195,7 +195,63 @@ class GetApi{
   } // end of getCourseInfo()
   
   
+  // get class info
+  static func getClassInfo(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+        case 200 ... 299:
+          print("Get class info success.")
+          successBlock(json as! Dictionary<String, AnyObject>)
+          break
+        default:
+          print("Get class info failed.")
+          let error = ["error": "Server Error: " + String(statusCode)]
+          failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getClassInfo()
 
+  
+  // get attendance info
+  static func getAttendanceInfo(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+        case 200 ... 299:
+          print("Get class info success.")
+          successBlock(json as! Dictionary<String, AnyObject>)
+          break
+        default:
+          print("Get class info failed.")
+          let error = ["error": "Server Error: " + String(statusCode)]
+          failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getAttendanceInfo()
+  
   
   // MARK: NOT USED YET
   

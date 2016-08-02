@@ -72,18 +72,20 @@ class UserModel: Object{
   }
 
   // parser for getting user info
-  static func toRealmObject_list(data: Dictionary<String, AnyObject>) -> UserModel{
+  static func toRealmObject_me(data: Dictionary<String, AnyObject>){
     
-    let userModel = UserModel()
+    let realm = try! Realm()
+    let userModel = realm.objects(UserModel.self).filter("s_user_id = '" + String(data["id"]!) + "'").first!
     
-    userModel.s_user_id                   = data["id"]               as! String
-    userModel.s_email                     = data["email"]            as! String
-    userModel.s_phone                     = data["phone"]            as! String
-    userModel.s_role                      = data["role"]             as! String
-    userModel.s_profile_picture_file_name = data["profile_picture_url"] as! String
+    try! realm.write({
+      
+      userModel.s_email                     = data["email"]            as! String
+      userModel.s_phone                     = data["phone"]            as! String
+      userModel.s_role                      = data["role"]             as! String
+      userModel.s_profile_picture_file_name = data["profile_picture_url"] as! String
+    })
     
-    return userModel
   }
-  
 
+  
 }

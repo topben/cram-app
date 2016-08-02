@@ -1,25 +1,24 @@
 //
-//  Student.swift
+//  Attendance.swift
 //  TmotClass
 //
-//  Created by Robert Shapiro on 2016/7/13.
+//  Created by Robert Shapiro on 2016/8/2.
 //  Copyright © 2016年 Facebook. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-@objc(Teacher)
-class Teacher: NSObject {
+@objc(Attendance)
+class Attendance: NSObject {
   
   // MARK: READY FUNCTIONS
   
-  // check student in
-  @objc func checkIn(qrCode_id: String, checkIn_method: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+  // get attendance(s) info
+  @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    // return verification code in callback
-    PostApi.checkIn(qrCode_id, checkIn_method: checkIn_method, url: url,
-                    
+    GetApi.getAttendanceInfo(url,
+                         
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
@@ -37,7 +36,7 @@ class Teacher: NSObject {
         let result = ["success" : "true"];
         
         successCallBack([result])
-    },
+      },
       
       // FailureBlock (print the error message from server)
       failureBlock: { (response) in
@@ -62,13 +61,6 @@ class Teacher: NSObject {
     })
   }
   
-  // for attendance
-  func getNextLocalId() -> Int{
-    
-    let realm = try! Realm()
-    
-    return realm.objects(AttendanceModel.self).count + 1
-  }
   
   
   

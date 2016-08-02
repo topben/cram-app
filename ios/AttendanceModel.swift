@@ -12,25 +12,40 @@ import RealmSwift
 // Attendance Model
 class AttendanceModel: Object{
   
-  dynamic var i_attendance_id    : Int          = 0
-  dynamic var i_course_id        : Int          = 0 // use this id to filter course details
-  dynamic var i_student_id       : Int          = 0
-  dynamic var NSDate_date        : NSDate?          // ex: 7/16/2016 is enough
-  dynamic var b_attend           : Bool = false
-  dynamic var b_leave            : Bool = false
+  dynamic var s_attendance_id    : String = ""
+  dynamic var s_klass_id         : String = ""
+  dynamic var s_student_id       : String = ""
+  dynamic var s_teacher_id       : String = ""
+  dynamic var s_check_in_method  : String = ""
+  dynamic var s_status           : String = ""
+  dynamic var i_arrived_at       : Int    = 0
   dynamic var b_isDelete         : Bool = false
   
   static override func primaryKey() -> String?{
-    return "i_attendance_id"
+    return "s_attendance_id"
   }
   
   // parser for single user
-  static func toRealmObject(data: Dictionary<String, AnyObject>) -> AttendanceModel{
+  static func toRealmObject_list(data: Dictionary<String, AnyObject>) -> AttendanceModel{
     
     let attendanceModel = AttendanceModel()
     
+    attendanceModel.s_attendance_id   = data["id"]              as! String
+    attendanceModel.s_klass_id        = data["klass_id"]        as! String
+    attendanceModel.s_student_id      = data["student_id"]      as! String
+    attendanceModel.s_teacher_id      = data["teacher_id"]      as? String ?? ""
+    attendanceModel.s_check_in_method = data["check_in_method"] as! String
+    attendanceModel.s_status          = data["status"]          as! String
+    attendanceModel.i_arrived_at      = data["arrived_at"]      as? Int ?? 0
     
     return attendanceModel
   }
+  
+  
+  
+  
+  
+  
+  
   
 }

@@ -175,9 +175,7 @@ class User: NSObject {
         
           let response = response["result"]! as! Dictionary<String, AnyObject>
           
-          let userModel = UserModel.toRealmObject_list(response)
-          self.saveToRealm(userModel)
-          
+          UserModel.toRealmObject_me(response)
         }
         // return true if get person info success
         let result = ["success" : "true"];

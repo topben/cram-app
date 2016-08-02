@@ -25,6 +25,9 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 
+const {Klass}        = require('NativeModules');
+const {Teacher}      = require('NativeModules');
+const {Attendance}   = require('NativeModules');
 const {User}         = require('NativeModules');
 const {Course}       = require('NativeModules');
 const {Student}      = require('NativeModules');
@@ -49,9 +52,12 @@ class Scanner extends Component {
 
          let realm = new Realm({schema: [realm_schema.UserModel]});
 
+
          // get user access token
          var users = realm.objects('UserModel').sorted('i_login_at', true);
          var access_token = users[users.length-1].s_access_token;
+
+         console.log('access_token = ' + access_token);
 
          // perform api calls
          User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
@@ -75,12 +81,26 @@ class Scanner extends Component {
               alert(results.msg);
             });
 
-          // Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
-          //   function successCallback(results) {
-          //   },
-          //   function errorCallback(results) {
-          //     alert(results.msg);
-          //   });
+          Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+            function successCallback(results) {
+            },
+            function errorCallback(results) {
+              alert(results.msg);
+            });
+
+          Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
+            function successCallback(results) {
+            },
+            function errorCallback(results) {
+              alert(results.msg);
+            });
+
+          Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
+            function successCallback(results) {
+            },
+            function errorCallback(results) {
+              alert(results.msg);
+            });
     }
 
     openModal() {
@@ -113,6 +133,18 @@ class Scanner extends Component {
           $this.setState({studentInfo: result.data});
           //$this.openModal();
           alert(result.data);
+
+          Teacher.checkIn(results.msg, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
+            function successCallback(results) {
+
+              let realm = new Realm({schema: [realm_schema.StudentModel]});
+              var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + results.msg + '"');
+              alert(studentModel.s_name + ' checked in successfully!');
+            },
+            function errorCallback(results) {
+              alert(results.msg);
+            });
+
         }, 500);
       }
     }

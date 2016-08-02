@@ -128,14 +128,14 @@ class PostApi{
       }
       
       switch(statusCode){
-      case 200 ... 299:
-        print("Check in success.")
-        successBlock(json as! Dictionary<String, AnyObject>)
-        break
-      default:
-        print("Check in failed.")
-        let error = ["error": "Status Code: " + String(statusCode)]
-        failureBlock(error)
+        case 200 ... 299:
+          print("Check in success.")
+          successBlock(json as! Dictionary<String, AnyObject>)
+          break
+        default:
+          print("Check in failed.")
+          let error = ["error": "Status Code: " + String(statusCode)]
+          failureBlock(error)
       } // end of switch
       
     } // end of request

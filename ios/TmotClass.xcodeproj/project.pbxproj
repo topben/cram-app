@@ -55,6 +55,12 @@
 		D3D997FA3B3B480FB88BD184 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3739FF607A8E42BBA1B335B6 /* Ionicons.ttf */; };
 		E2DFA8988D69608FC1848D95 /* Pods_TmotClass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1DBD36625A9E9B3C3C8C520 /* Pods_TmotClass.framework */; };
 		E86ECB360E9243F5A04771F6 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28C711C633DF48929A6CF067 /* EvilIcons.ttf */; };
+		F41032251D50411400CA579D /* Klass.m in Sources */ = {isa = PBXBuildFile; fileRef = F41032221D50411400CA579D /* Klass.m */; };
+		F41032261D50411400CA579D /* Klass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41032231D50411400CA579D /* Klass.swift */; };
+		F41032271D50411400CA579D /* KlassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41032241D50411400CA579D /* KlassModel.swift */; };
+		F41032291D50412B00CA579D /* PatchApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41032281D50412B00CA579D /* PatchApi.swift */; };
+		F410322B1D507C1700CA579D /* Attendance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F410322A1D507C1700CA579D /* Attendance.swift */; };
+		F410322D1D507C2B00CA579D /* Attendance.m in Sources */ = {isa = PBXBuildFile; fileRef = F410322C1D507C2B00CA579D /* Attendance.m */; };
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
@@ -251,6 +257,12 @@
 		C1DBD36625A9E9B3C3C8C520 /* Pods_TmotClass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TmotClass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3AB60516FB49F7AC2C0396 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		D1F06753F8394B5A8088138E /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
+		F41032221D50411400CA579D /* Klass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Klass.m; sourceTree = "<group>"; };
+		F41032231D50411400CA579D /* Klass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Klass.swift; sourceTree = "<group>"; };
+		F41032241D50411400CA579D /* KlassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KlassModel.swift; sourceTree = "<group>"; };
+		F41032281D50412B00CA579D /* PatchApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatchApi.swift; sourceTree = "<group>"; };
+		F410322A1D507C1700CA579D /* Attendance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attendance.swift; sourceTree = "<group>"; };
+		F410322C1D507C2B00CA579D /* Attendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attendance.m; sourceTree = "<group>"; };
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
@@ -507,6 +519,7 @@
 		B592F7D11D336DFC000C9DA8 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				F41032281D50412B00CA579D /* PatchApi.swift */,
 				B592F7E51D336E48000C9DA8 /* GetApi.swift */,
 				B592F7E61D336E48000C9DA8 /* PostApi.swift */,
 				B592F7E71D336E48000C9DA8 /* PutApi.swift */,
@@ -517,6 +530,7 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F41032111D50410000CA579D /* Klass */,
 				F4DA5FB61D485C55009B5735 /* Teacher */,
 				F4F52AA31D38D47A00166B69 /* Notification */,
 				F4F52AA01D38D2FD00166B69 /* DirectMessage */,
@@ -599,6 +613,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F41032111D50410000CA579D /* Klass */ = {
+			isa = PBXGroup;
+			children = (
+				F41032221D50411400CA579D /* Klass.m */,
+				F41032231D50411400CA579D /* Klass.swift */,
+				F41032241D50411400CA579D /* KlassModel.swift */,
+			);
+			name = Klass;
+			sourceTree = "<group>";
+		};
 		F497573C1D35EF6C00DEE799 /* Student */ = {
 			isa = PBXGroup;
 			children = (
@@ -612,6 +636,8 @@
 		F497573D1D35EF7A00DEE799 /* Attendance */ = {
 			isa = PBXGroup;
 			children = (
+				F410322C1D507C2B00CA579D /* Attendance.m */,
+				F410322A1D507C1700CA579D /* Attendance.swift */,
 				F49757401D35F0E900DEE799 /* AttendanceModel.swift */,
 			);
 			name = Attendance;
@@ -1013,10 +1039,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F41032291D50412B00CA579D /* PatchApi.swift in Sources */,
+				F41032251D50411400CA579D /* Klass.m in Sources */,
 				F4F52A7C1D376DAB00166B69 /* Invitation.m in Sources */,
 				F4F52A9F1D38D06E00166B69 /* AnnouncementModel.swift in Sources */,
 				B592F7F71D336E6E000C9DA8 /* User.m in Sources */,
 				F4F52AA91D3CA50900166B69 /* Notification.m in Sources */,
+				F410322B1D507C1700CA579D /* Attendance.swift in Sources */,
 				B592F7EE1D336E55000C9DA8 /* People.m in Sources */,
 				B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */,
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
@@ -1024,11 +1053,14 @@
 				F4DA5FB51D485B89009B5735 /* Course.swift in Sources */,
 				B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				F410322D1D507C2B00CA579D /* Attendance.m in Sources */,
 				F4F52A641D36376100166B69 /* Student.swift in Sources */,
 				F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */,
 				F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */,
 				F4F52AA51D38D48C00166B69 /* NotificationModel.swift in Sources */,
+				F41032261D50411400CA579D /* Klass.swift in Sources */,
 				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
+				F41032271D50411400CA579D /* KlassModel.swift in Sources */,
 				F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */,
