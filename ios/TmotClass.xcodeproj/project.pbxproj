@@ -716,7 +716,7 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = V2C9WCMBCC;
+						DevelopmentTeam = F39DFYNQTG;
 					};
 				};
 			};
@@ -1092,7 +1092,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tmotx.TmotClass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tmotx.class;
 				PRODUCT_NAME = TmotClass;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TmotClass-Bridging-Header.h";
@@ -1130,7 +1130,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tmotx.TmotClass;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tmotx.class;
 				PRODUCT_NAME = TmotClass;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TmotClass-Bridging-Header.h";
@@ -1183,6 +1183,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "ddbb9594-fcd8-4b4b-a616-e2198092d350";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1225,6 +1226,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "ddbb9594-fcd8-4b4b-a616-e2198092d350";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
