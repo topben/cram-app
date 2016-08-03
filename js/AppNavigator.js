@@ -18,6 +18,7 @@ import Login from './components/login/';
 import LoginEmail from './components/login/login-email';
 import LoginAccount from './components/login/login-account';
 import Scanner from './components/scanner/';
+import ScannerOverlay from './components/scanner/scanner-overlay';
 import Notifications from './components/notifications/';
 import Comments from './components/notifications/comments';
 import SplashPage from './components/splashscreen/';
@@ -178,6 +179,8 @@ class AppNavigator extends Component {
                 return <LoginAccount navigator={navigator} />;
             case 'scanner':
                 return <Scanner navigator={navigator} />;
+            case 'scannerOverlay':
+                return <ScannerOverlay navigator={navigator} />;
             case 'notifications':
                 return <Notifications navigator={navigator} />;
             case 'comments':

@@ -42,8 +42,7 @@ class Scanner extends Component {
      this.barCodeData = "";
      this.state = {
          swipeToClose: true,
-         studentInfo: "",
-         isOverlay: false
+         studentInfo: ""
        };
     }
 
@@ -111,11 +110,7 @@ class Scanner extends Component {
 
     closeModal() {
         this.refs.modal.close();
-        this.setState({isOverlay: true});
-    }
-
-    closeOverlay() {
-        this.setState({isOverlay: false});
+        this.replaceRoute('scannerOverlay');
     }
 
     replaceRoute(route) {
@@ -128,7 +123,6 @@ class Scanner extends Component {
 
     onBarCodeRead(result) {
       var $this = this;
-
 
       if ($this.barCodeData != result.data) {
         $this.barCodeData = result.data;
@@ -156,6 +150,7 @@ class Scanner extends Component {
               let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
               alert(studentModel.s_name + ' checked in successfully!');
+              $this.openModal();
               clearInterval(Id);
             },
             function errorCallback(results) {
@@ -232,94 +227,6 @@ class Scanner extends Component {
                       </Button>
                   </Card>
               </Modal>
-              <Overlay isVisible={this.state.isOverlay}>
-                <View style={styles.overlay}>
-                  <ScrollView contentContainerStyle={{paddingTop:20}}>
-                    <Button transparent style={{alignSelf:'flex-end'}}onPress={this.closeOverlay.bind(this)}>
-                      <Image source={require('../../../images/button/btn_close.png')}/>
-                    </Button>
-                    <View style={styles.space}>
-                        <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
-                        <Text style={styles.subtitle}>向日葵補習班</Text>
-                        <View style={{flexDirection:'row',paddingTop:20}}>
-                          <CardItem padder>
-                                    <Text style={styles.arriveTxtCh}>抵達</Text>
-                                    <Text style={styles.arriveNum}>3</Text>
-                          </CardItem>
-                          <CardItem padder>
-                                    <Text style={styles.abscenceTxtCh}>請假</Text>
-                                    <Text style={styles.abscenceNum}>2</Text>
-                          </CardItem>
-                          <CardItem padder>
-                                    <Text style={styles.leaveTxtCh}>未到</Text>
-                                    <Text style={styles.leaveNum}>17</Text>
-                          </CardItem>
-                        </View>
-                      </View>
-                    <Grid style={styles.gridStyle}>
-                      <Text style={styles.overlayAbsence}>未到名單</Text>
-                      <Row>
-                        <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                        </Col>
-                        <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                        </Col>
-                        <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                        </Col>
-                        <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                        </Col>
-                      </Row>
-                   </Grid>
-                    </ScrollView>
-                </View>
-              </Overlay>
             </Camera>
           </View>
         )

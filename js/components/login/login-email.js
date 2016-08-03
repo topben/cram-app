@@ -12,7 +12,6 @@ import Spinner from './../loaders/Spinner';
 // import CodePush from 'react-native-code-push';
 import {ScrollView, Image,TextInput,DeviceEventEmitter, Dimensions, Platform, Keyboard } from 'react-native';
 import {popRoute} from '../../actions/route';
-import {closeDrawer} from '../../actions/drawer';
 import {pushNewRoute, replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
@@ -59,15 +58,14 @@ class LoginEmail extends Component {
     pushNewRoute(route) {
          this.props.pushNewRoute(route);
     }
+    
     navigateTo(route) {
         this.props.replaceOrPushRoute(route);
     }
 
     // next button tapped
     onNextPressed(){
-
       console.log('path =    ' + Realm.defaultPath);
-
       // for obj connecting
       var $this = this;
       // Spinner Control
@@ -86,7 +84,6 @@ class LoginEmail extends Component {
            $this.setState({isProcessing: false});
            alert(results.msg);
        });
-
     }
 
     render() {
