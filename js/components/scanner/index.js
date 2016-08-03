@@ -50,8 +50,9 @@ class Scanner extends Component {
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
 
-         let realm = new Realm({schema: [realm_schema.UserModel]});
+         console.log('path = ' + Realm.defaultPath);
 
+         let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
 
          // get user access token
          var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -127,27 +128,45 @@ class Scanner extends Component {
 
     onBarCodeRead(result) {
       var $this = this;
+
+
       if ($this.barCodeData != result.data) {
         $this.barCodeData = result.data;
-        setTimeout(function() {
-          $this.setState({studentInfo: result.data});
-          //$this.openModal();
-          alert(result.data);
 
-          Teacher.checkIn(results.msg, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
+        var Id = setInterval(function(){
+
+          if($this.barCodeData == null)
+            return;
+          // var $schema = realm_schema;
+          $this.setState({studentInfo: result.data});
+
+          let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+          // get user access token
+          var users = realm.objects('UserModel').sorted('i_login_at', true);
+          var current_user = users[users.length-1];
+          var access_token = current_user.s_access_token;
+
+          realm.write(() => {
+            current_user.i_scannerUsage += 1;
+          });
+
+          Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
             function successCallback(results) {
 
-              let realm = new Realm({schema: [realm_schema.StudentModel]});
-              var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + results.msg + '"');
+              let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+              var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
               alert(studentModel.s_name + ' checked in successfully!');
+              clearInterval(Id);
             },
             function errorCallback(results) {
-              alert(results.msg);
+              alert(result.msg)
+              clearInterval(Id);
             });
 
-        }, 500);
-      }
-    }
+        },500); // end of setInterval()
+
+      } // end of if qr code dupe check
+    } // end of onBarCodeRead()
 
     render() {
       this.barCodeFlag = true;

@@ -21,6 +21,10 @@ class SideBar extends Component {
                     <Icon name="ios-person-outline" style={{color: '#ff6100'}}/>
                     <Text style={styles.sideBarChineseTxt}>帳號</Text>
                 </ListItem>
+                <ListItem button onPress={() => this.navigateTo('calendar')} iconLeft  style={styles.links} >
+                    <Icon name="ios-calendar-outline" style={{color: '#ff6100'}}/>
+                    <Text style={styles.sideBarChineseTxt}>行事曆</Text>
+                </ListItem>
               </List>
           </Content>
         );

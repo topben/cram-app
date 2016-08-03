@@ -1,54 +1,60 @@
 /**
 * Calendar Picker Component
 * By Stephani Alves - April 11, 2015
-*/
+/* @flow */
 'use strict';
 
-var StyleSheet = require('react-native').StyleSheet;
-var secondary = require('../../themes/base-theme').brandSecondary
+var React = require('react-native');
+
+var { StyleSheet, Dimensions } = React;
+
+var deviceWidth = Dimensions.get('window').width;
 
 var styles = StyleSheet.create({
     calendar: {
         height: 320,
-        marginTop: 10
+        marginTop: 5
     },
     dayWrapper: {
-        width: 45,
-        height: 40,
+        width: (deviceWidth-40)/7,
+        height: 35,
         backgroundColor: 'rgba(0,0,0,0.0)'
     },
 
     dayButton: {
-        width: 45,
-        height: 40,
+        width: 40,
+        height: 35,
         alignSelf: 'center'
     },
 
     dayButtonSelected: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: secondary,
+        width: 28,
+        height: 28,
+        borderRadius: 14,
+        backgroundColor: '#ff6100',
         alignSelf: 'center'
     },
 
     dayLabel: {
         fontSize: 14,
-        color: '#fff',
+        fontFamily: 'SFUIDisplay-Regular',
+        color:'#4a4a4a',
         marginTop: 6,
         alignSelf: 'center'
     },
 
     dayLabelsWrapper: {
+        width: deviceWidth-40,
         flexDirection: 'row',
+        justifyContent:'space-between',
         marginBottom: 10,
         borderBottomWidth: 1,
         borderTopWidth: 1,
         paddingTop: 10,
         paddingBottom: 10,
         alignSelf: 'center',
-        backgroundColor: 'rgba(0,0,0,0.0)',
-        borderColor: 'rgba(255,255,255,0.4)'
+        backgroundColor: '#f5f6f7',
+        borderColor: '#f5f6f7'
     },
 
     daysWrapper: {
@@ -56,34 +62,34 @@ var styles = StyleSheet.create({
     },
 
     dayLabels: {
-        width: 45,
-        fontSize: 16,
-        color: '#fff',
-        textAlign: 'center',
+      fontFamily: 'SFUIDisplay-Regular',
+      color:'#4a4a4a',
+      width: 45,
+      fontSize: 16,
+      textAlign: 'center'
     },
 
     selectedDay: {
         width: 60,
         height:60,
-        backgroundColor: secondary,
+        backgroundColor: '#ff6100',
         borderRadius: 30,
         alignSelf: 'center'
     },
 
     monthLabel: {
         fontSize: 16,
-        color: '#fff',
+        fontFamily: 'PingFangTC-Regular',
+        color:'#4a4a4a',
         width: 180,
         textAlign: 'center'
     },
 
     headerWrapper: {
-        alignItems: 'center',  
+        alignItems: 'center',
         flexDirection: 'row',
         alignSelf: 'center',
-        marginBottom: 10,
         padding: 5,
-        paddingBottom: 3,
         backgroundColor: 'rgba(0,0,0,0.0)'
     },
 
@@ -93,18 +99,21 @@ var styles = StyleSheet.create({
 
     prev: {
         textAlign: 'left',
-        color: '#fff'
+        fontFamily: 'SFUIDisplay-Regular',
+        color:'#4a4a4a'
     },
 
     next: {
         textAlign: 'right',
-        color: '#fff'
+        fontFamily: 'SFUIDisplay-Regular',
+        color:'#4a4a4a'
     },
 
     yearLabel: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: '#fff',
+        fontFamily: 'SFUIDisplay-Regular',
+        color:'#4a4a4a',
         textAlign: 'center'
     },
 

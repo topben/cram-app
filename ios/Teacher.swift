@@ -23,16 +23,14 @@ class Teacher: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
+        let response = response["result"]!
+        
         if response.count > 0{
           
-          let response = ((response["result"]! as! NSArray) as Array)
-          
-          for i in 0...(response.count-1){
-            let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
-            self.saveToRealm(attendanceModel)
-          }
-          
+          let attendanceModel = AttendanceModel.toRealmObject_list(response as! Dictionary<String, AnyObject>)
+          self.saveToRealm(attendanceModel)
         }
+        
         // return true if get course info success
         let result = ["success" : "true"];
         

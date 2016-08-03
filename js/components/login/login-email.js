@@ -91,7 +91,7 @@ class LoginEmail extends Component {
 
     render() {
         return (
-            <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
+            <Container style={{flex:1,backgroundColor:'#f5f6f7'}}>
                 <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
                   <Image source={require('../../../images/button/btn_back.png')}/>
                 </Button>
@@ -110,7 +110,7 @@ class LoginEmail extends Component {
                         </Button>
                     </View>
                 </Content>
-            </View>
+            </Container>
         )
     }
 }
