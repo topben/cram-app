@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {openDrawer} from '../../actions/drawer';
-import {popRoute, replaceRoute} from '../../actions/route';
+import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
 import { Image, View, VibrationIOS, ScrollView} from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail} from 'native-base';
@@ -44,6 +44,10 @@ class Scanner extends Component {
          swipeToClose: true,
          studentInfo: ""
        };
+    }
+
+    pushNewRoute(route) {
+         this.props.pushNewRoute(route);
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
@@ -110,7 +114,7 @@ class Scanner extends Component {
 
     closeModal() {
         this.refs.modal.close();
-        this.replaceRoute('scannerOverlay');
+        this.pushNewRoute('scannerOverlay');
     }
 
     replaceRoute(route) {
@@ -144,20 +148,24 @@ class Scanner extends Component {
             current_user.i_scannerUsage += 1;
           });
 
-          // check if scanned qr code is student's qrcode
-          var students = realm.objects('StudentModel');
-          // if not student qr code, don't call API
-          if(!isStudentQrCode(students))
-            return;
+          // // check if scanned qr code is student's qrcode
+          // var students = realm.objects('StudentModel');
+          // // if not student qr code, don't call API
+          // if(!$this.isStudentQrCode(students, $this.barCodeData)){
+          //   clearInterval(Id);
+          //   alert('not student qr code. ' + $this.barCodeData);
+          //   return;
+          // }
 
           Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
             function successCallback(results) {
 
               let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
+              clearInterval(Id);
               alert(studentModel.s_name + ' checked in successfully!');
               $this.openModal();
-              clearInterval(Id);
+
             },
             function errorCallback(results) {
               alert(result.msg)
@@ -169,16 +177,17 @@ class Scanner extends Component {
       } // end of if qr code dupe check
     } // end of onBarCodeRead()
 
-    isStudentQrCode(students){
+    isStudentQrCode(students, barCodeData){
       var studentQrCode = false;
 
-      for (student in students){
-        if(student.s_student_qrCode == $this.barCodeData){
-          return true;
+      for (var i = 0; i < students.length; i++){
+        console.log('students= ' + students[i].s_student_qrCode + ', barcodedata= '+ barCodeData);
+        if(students[i].s_student_qrCode == barCodeData){
+          studentQrCode = true;
         }
       }
 
-      return false;
+      return studentQrCode;
     }
 
     render() {
@@ -254,6 +263,7 @@ class Scanner extends Component {
 function bindAction(dispatch) {
     return {
         openDrawer: ()=>dispatch(openDrawer()),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route)),
         popRoute: ()=> dispatch(popRoute()),
         replaceRoute:(route)=>dispatch(replaceRoute(route))
     }

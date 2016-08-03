@@ -57,7 +57,7 @@ class Notifications extends Component {
 
         // get student id & name
         var s_student_id = realm.objects('AttendanceModel').filtered('s_attendance_id = "' + s_attendance_id + '"')[0].s_student_id;
-        
+
         var student_name = realm.objects('StudentModel').filtered('s_student_id = "' + s_student_id + '"')[0].s_name;
 
         // get timestamp of notification and convert it to date format
@@ -122,7 +122,7 @@ class Notifications extends Component {
                 <Header>
                   <View></View>
                     <Text style={styles.topTitle}>通知</Text>
-                      <Button transparent onPress={() => this.popRoute()}>
+                      <Button transparent onPress={() => this.replaceRoute('scanner')}>
                         <Image source={require('../../../images/button/btn_close.png')}/>
                       </Button>
                 </Header>
@@ -148,7 +148,7 @@ class Notifications extends Component {
 function bindAction(dispatch) {
     return {
         openDrawer: ()=>dispatch(openDrawer()),
-        popRoute: () => dispatch(popRoute()),
+        popRoute: ()=> dispatch(popRoute()),
         replaceRoute:(route)=>dispatch(replaceRoute(route))
     }
 }
