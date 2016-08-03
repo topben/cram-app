@@ -239,11 +239,11 @@ class GetApi{
       
       switch(statusCode){
         case 200 ... 299:
-          print("Get class info success.")
+          print("Get attendance info success.")
           successBlock(json as! Dictionary<String, AnyObject>)
           break
         default:
-          print("Get class info failed.")
+          print("Get attendance info failed.")
           let error = ["error": "Server Error: " + String(statusCode)]
           failureBlock(error)
       } // end of switch

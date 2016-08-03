@@ -27,6 +27,7 @@ class Attendance: NSObject {
           let response = ((response["result"]! as! NSArray) as Array)
           
           for i in 0...(response.count-1){
+            print("inserting attendance model " + String(i))
             let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
             self.saveToRealm(attendanceModel)
           }

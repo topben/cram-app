@@ -61,8 +61,6 @@ class Scanner extends Component {
          var users = realm.objects('UserModel').sorted('i_login_at', true);
          var access_token = users[users.length-1].s_access_token;
 
-         console.log('access_token = ' + access_token);
-
          // perform api calls
          User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
            function successCallback(results) {
@@ -126,17 +124,11 @@ class Scanner extends Component {
     }
 
     onBarCodeRead(result) {
-      var $this = this;
 
-      if ($this.barCodeData != result.data) {
-        $this.barCodeData = result.data;
+      if (this.barCodeData != null && this.barCodeData != result.data) {
+        this.barCodeData = result.data;
 
-        var Id = setInterval(function(){
-
-          if($this.barCodeData == null)
-            return;
-          // var $schema = realm_schema;
-          $this.setState({studentInfo: result.data});
+          this.setState({studentInfo: result.data});
 
           let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
           // get user access token
@@ -157,38 +149,35 @@ class Scanner extends Component {
           //   return;
           // }
 
+          var $this = this;
+
           Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
             function successCallback(results) {
 
               let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
-              clearInterval(Id);
+
               alert(studentModel.s_name + ' checked in successfully!');
               $this.openModal();
-
             },
             function errorCallback(results) {
               alert(result.msg)
-              clearInterval(Id);
             });
-
-        },500); // end of setInterval()
-
       } // end of if qr code dupe check
     } // end of onBarCodeRead()
 
-    isStudentQrCode(students, barCodeData){
-      var studentQrCode = false;
-
-      for (var i = 0; i < students.length; i++){
-        console.log('students= ' + students[i].s_student_qrCode + ', barcodedata= '+ barCodeData);
-        if(students[i].s_student_qrCode == barCodeData){
-          studentQrCode = true;
-        }
-      }
-
-      return studentQrCode;
-    }
+    // isStudentQrCode(students, barCodeData){
+    //   var studentQrCode = false;
+    //
+    //   for (var i = 0; i < students.length; i++){
+    //     console.log('students= ' + students[i].s_student_qrCode + ', barcodedata= '+ barCodeData);
+    //     if(students[i].s_student_qrCode == barCodeData){
+    //       studentQrCode = true;
+    //     }
+    //   }
+    //
+    //   return studentQrCode;
+    // }
 
     render() {
       this.barCodeFlag = true;
