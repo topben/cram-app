@@ -52,7 +52,7 @@ class Scanner extends Component {
 
          console.log('path = ' + Realm.defaultPath);
 
-         let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+         let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
 
          // get user access token
          var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -140,7 +140,7 @@ class Scanner extends Component {
           // var $schema = realm_schema;
           $this.setState({studentInfo: result.data});
 
-          let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+          let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
           // get user access token
           var users = realm.objects('UserModel').sorted('i_login_at', true);
           var current_user = users[users.length-1];
@@ -153,7 +153,7 @@ class Scanner extends Component {
           Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
             function successCallback(results) {
 
-              let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+              let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
               alert(studentModel.s_name + ' checked in successfully!');
               clearInterval(Id);

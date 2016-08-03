@@ -35,7 +35,7 @@ class Account extends Component {
     componentWillMount () {
       var $this = this;
 
-      let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+      let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
       console.log(Realm.defaultPath);
       // get user access token
       var users = realm.objects('UserModel').sorted('i_login_at', true);
