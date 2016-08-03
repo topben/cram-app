@@ -51,7 +51,7 @@ class Scanner extends Component {
 
          console.log('path = ' + Realm.defaultPath);
 
-         let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+         let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
 
          // get user access token
          var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -134,7 +134,7 @@ class Scanner extends Component {
           // var $schema = realm_schema;
           $this.setState({studentInfo: result.data});
 
-          let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+          let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
           // get user access token
           var users = realm.objects('UserModel').sorted('i_login_at', true);
           var current_user = users[users.length-1];
@@ -144,10 +144,16 @@ class Scanner extends Component {
             current_user.i_scannerUsage += 1;
           });
 
+          // check if scanned qr code is student's qrcode
+          var students = realm.objects('StudentModel');
+          // if not student qr code, don't call API
+          if(!isStudentQrCode(students))
+            return;
+
           Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
             function successCallback(results) {
 
-              let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+              let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
               alert(studentModel.s_name + ' checked in successfully!');
               $this.openModal();
@@ -162,6 +168,18 @@ class Scanner extends Component {
 
       } // end of if qr code dupe check
     } // end of onBarCodeRead()
+
+    isStudentQrCode(students){
+      var studentQrCode = false;
+
+      for (student in students){
+        if(student.s_student_qrCode == $this.barCodeData){
+          return true;
+        }
+      }
+
+      return false;
+    }
 
     render() {
       this.barCodeFlag = true;

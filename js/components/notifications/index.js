@@ -37,25 +37,32 @@ class Notifications extends Component {
 
     buildAttendanceNotifications(){
       // initialize realm
-      let realm = new Realm({schema: [realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel]});
+      let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
 
       // get notification realm objects
-      var notifications = realm.objects('NotificationModel').filtered('s_type = "student_late"');
+      var notifications = realm.objects('NotificationModel').filtered('s_attendance_id != ""');
 
       // loop through each notification object and build the notifications
       for(var i = 0; i < notifications.length; i++){
 
+        // get attendance id
+        var s_attendance_id = notifications[i].s_attendance_id;
+
+        // get klass id
+        var s_klass_id = realm.objects('AttendanceModel').filtered('s_attendance_id = "' + s_attendance_id + '"')[0].s_klass_id;
+
         // get course id & name
-        var course_id = notifications[i].s_course_id;
+        var s_course_id = realm.objects('KlassModel').filtered('s_klass_id = "' + s_klass_id + '"')[0].s_course_id;
         var course_name = realm.objects('CourseModel').filtered('s_course_id = "' + s_course_id + '"')[0].s_name;
 
         // get student id & name
-        var student_id = notifications[i].s_student_id;
+        var s_student_id = realm.objects('AttendanceModel').filtered('s_attendance_id = "' + s_attendance_id + '"')[0].s_student_id;
+        
         var student_name = realm.objects('StudentModel').filtered('s_student_id = "' + s_student_id + '"')[0].s_name;
 
         // get timestamp of notification and convert it to date format
         var i_created_at = notifications[i].i_created_at
-        var timestamp = $this.convertTimestamp(i_created_at * 1000);
+        var timestamp = this.convertTimestamp(i_created_at);
 
         // build the attendance notification
         var checkInNote = student_name + ' 尚未抵達 ' + course_name;
@@ -63,10 +70,10 @@ class Notifications extends Component {
         console.log(i + ". " + checkInNote);
 
         var notify = new Object();
-            notify.note = checkInNote;
-            notify.date = timestamp;
+        notify.note = checkInNote;
+        notify.date = timestamp;
 
-       $this.state.notification_list.push(notify);
+        this.state.notification_list.push(notify);
 
       } // end of for loop
 
@@ -74,7 +81,7 @@ class Notifications extends Component {
 
     // build the 4 types of notifications
     componentWillMount () {
-      buildAttendanceNotifications();
+      this.buildAttendanceNotifications();
     }
 
     convertTimestamp(timestamp) {
