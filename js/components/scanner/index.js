@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {openDrawer} from '../../actions/drawer';
 import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
-import { Image, View, VibrationIOS, ScrollView} from 'react-native';
+import { Image, View, VibrationIOS, ScrollView,InteractionManager} from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail} from 'native-base';
 import FooterComponent from "./../footer";
 
@@ -61,48 +61,50 @@ class Scanner extends Component {
          var users = realm.objects('UserModel').sorted('i_login_at', true);
          var access_token = users[users.length-1].s_access_token;
 
-         // perform api calls
-         User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
-           function successCallback(results) {
-           },
-           function errorCallback(results) {
-             alert(results.msg);
-           });
+         InteractionManager.runAfterInteractions(() => {
+           // perform api calls
+           User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
+             function successCallback(results) {
+             },
+             function errorCallback(results) {
+               alert(results.msg);
+             });
 
-          Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-            function successCallback(results) {
-            },
-            function errorCallback(results) {
-              alert(results.msg);
-            });
+            Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
 
-          Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
-            function successCallback(results) {
-            },
-            function errorCallback(results) {
-              alert(results.msg);
-            });
+            Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
 
-          Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
-            function successCallback(results) {
-            },
-            function errorCallback(results) {
-              alert(results.msg);
-            });
+            Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
 
-          Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
-            function successCallback(results) {
-            },
-            function errorCallback(results) {
-              alert(results.msg);
-            });
+            Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
 
-          Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
-            function successCallback(results) {
-            },
-            function errorCallback(results) {
-              alert(results.msg);
-            });
+            Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
+          });
     }
 
     openModal() {
@@ -158,10 +160,10 @@ class Scanner extends Component {
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
 
               alert(studentModel.s_name + ' checked in successfully!');
-              $this.openModal();
+              //$this.openModal();
             },
             function errorCallback(results) {
-              alert(result.msg)
+              alert('qr code is not a student qr code. This qr code is: ' + $this.barCodeData)
             });
       } // end of if qr code dupe check
     } // end of onBarCodeRead()

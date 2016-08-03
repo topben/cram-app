@@ -58,7 +58,7 @@ class LoginEmail extends Component {
     pushNewRoute(route) {
          this.props.pushNewRoute(route);
     }
-    
+
     navigateTo(route) {
         this.props.replaceOrPushRoute(route);
     }
@@ -103,7 +103,7 @@ class LoginEmail extends Component {
                             <Input secureTextEntry={true} placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
                         </View>
                         <Button rounded style={styles.phoneBtn} disabled={this.state.btnDisabled} onPress={this.onNextPressed}>
-                          {this.state.isProcessing?<Spinner color='#000'/>:<Text style={styles.phoneLoginTxt}>確定</Text>}
+                          {this.state.isProcessing?<Spinner color='#000'/>:<Text style={styles.phoneLoginTxt}>登入</Text>}
                         </Button>
                     </View>
                 </Content>

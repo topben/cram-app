@@ -22,17 +22,23 @@ class Attendance: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
+        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        
         if response.count > 0{
           
           let response = ((response["result"]! as! NSArray) as Array)
           
-          for i in 0...(response.count-1){
-            print("inserting attendance model " + String(i))
-            let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
-            self.saveToRealm(attendanceModel)
-          }
+          dispatch_async(backgroundQueue, {
+            print("This is run on the background queue")
           
-        }
+            for i in 0...(response.count-1){
+              
+              let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
+              self.saveToRealm(attendanceModel)
+            } // end of for loop
+          }) // end of background queue
+        } // end of if()
+        
         // return true if get course info success
         let result = ["success" : "true"];
         
@@ -56,13 +62,19 @@ class Attendance: NSObject {
   // private methods just for swift
   func saveToRealm(realmObject: Object){
     
-    let realm = try! Realm()
-    try! realm.write({
-      realm.add(realmObject, update: true)
-    })
+      let realm = try! Realm()
+      
+      try! realm.write({
+        realm.add(realmObject, update: true)
+      })
   }
-  
-  
-  
-  
 }
+
+
+//    dispatch_async(dispatch_queue_create("background", nil)) {
+//      let realm = try! Realm()
+//      try! realm.write({
+//        realm.add(realmObject, update: true)
+//      })
+//      }
+//  }
