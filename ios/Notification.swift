@@ -15,12 +15,21 @@ class Notification: NSObject {
   // MARK: READY FUNCTIONS
   @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void{
   
-    GetApi.getNotifications(url,
+    var last_updated_at = 0
+    let realm = try! Realm()
+    
+    if realm.objects(SynchronizationModel).count > 1{
+      last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = 1").first!.i_last_updated_at
+    }
+    
+    let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
+    
+    GetApi.getNotifications(url + "&updated_at=" + updated_at,
                                  
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        if response.count > 0{
+        if response["result"]?.count > 0{
         
           let response = ((response["result"]! as! NSArray) as Array)
         
@@ -28,7 +37,12 @@ class Notification: NSObject {
             let notificationModel = NotificationModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
             self.saveToRealm(notificationModel)
           }
-        
+          
+          let synchModel = SynchronizationModel()
+          synchModel.i_table_id        = 1
+          synchModel.s_table_name      = "notification table"
+          synchModel.i_last_updated_at = Int(NSDate().timeIntervalSince1970)
+          self.saveToRealm(synchModel)
         }
         // return true if get course info success
         let result = ["success" : "true"];

@@ -17,26 +17,35 @@ class Attendance: NSObject {
   // get attendance(s) info
   @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    GetApi.getAttendanceInfo(url,
+    var last_updated_at = 0
+    let realm = try! Realm()
+    
+    if realm.objects(SynchronizationModel).count > 0{
+      last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = 0").first!.i_last_updated_at
+    }
+    
+    let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
+    
+    GetApi.getAttendanceInfo(url + "&updated_at=" + updated_at,
                          
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
-        
-        if response.count > 0{
+        if response["result"]?.count > 0{
           
           let response = ((response["result"]! as! NSArray) as Array)
           
-          dispatch_async(backgroundQueue, {
-            print("This is run on the background queue")
+          for i in 0...(response.count-1){
+            
+            let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
+            self.saveToRealm(attendanceModel)
+          } // end of for loop
           
-            for i in 0...(response.count-1){
-              
-              let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
-              self.saveToRealm(attendanceModel)
-            } // end of for loop
-          }) // end of background queue
+          let synchModel = SynchronizationModel()
+          synchModel.i_table_id        = 0
+          synchModel.s_table_name      = "attendance table"
+          synchModel.i_last_updated_at = Int(NSDate().timeIntervalSince1970)
+          self.saveToRealm(synchModel)
         } // end of if()
         
         // return true if get course info success
@@ -69,12 +78,3 @@ class Attendance: NSObject {
       })
   }
 }
-
-
-//    dispatch_async(dispatch_queue_create("background", nil)) {
-//      let realm = try! Realm()
-//      try! realm.write({
-//        realm.add(realmObject, update: true)
-//      })
-//      }
-//  }
