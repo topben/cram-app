@@ -17,7 +17,11 @@ class Attendance: NSObject {
   // get attendance(s) info
   @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
-    GetApi.getAttendanceInfo(url,
+    let realm = try! Realm()
+    let last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = '0'").first!.i_last_updated_at
+    let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
+    
+    GetApi.getAttendanceInfo(url + "&updated_at=" + updated_at,
                          
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
@@ -36,6 +40,12 @@ class Attendance: NSObject {
               let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
               self.saveToRealm(attendanceModel)
             } // end of for loop
+            
+            let synchModel = SynchronizationModel()
+            synchModel.i_table_id        = 0
+            synchModel.s_table_name      = "attendance table"
+            synchModel.i_last_updated_at = Int(NSDate().timeIntervalSince1970)
+            self.saveToRealm(synchModel)
           }) // end of background queue
         } // end of if()
         
@@ -69,12 +79,3 @@ class Attendance: NSObject {
       })
   }
 }
-
-
-//    dispatch_async(dispatch_queue_create("background", nil)) {
-//      let realm = try! Realm()
-//      try! realm.write({
-//        realm.add(realmObject, update: true)
-//      })
-//      }
-//  }

@@ -64,6 +64,7 @@
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
+		F4D1ABAF1D53215E005482F1 /* SynchronizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D1ABAE1D53215E005482F1 /* SynchronizationModel.swift */; };
 		F4DA5FA31D485B80009B5735 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FA21D485B80009B5735 /* Course.m */; };
 		F4DA5FB51D485B89009B5735 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FB41D485B89009B5735 /* Course.swift */; };
 		F4DA5FB81D485C67009B5735 /* Teacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FB71D485C67009B5735 /* Teacher.swift */; };
@@ -266,6 +267,7 @@
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
+		F4D1ABAE1D53215E005482F1 /* SynchronizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationModel.swift; sourceTree = "<group>"; };
 		F4DA5FA21D485B80009B5735 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		F4DA5FB41D485B89009B5735 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		F4DA5FB71D485C67009B5735 /* Teacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Teacher.swift; sourceTree = "<group>"; };
@@ -530,6 +532,7 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F4D1AB9D1D53214E005482F1 /* Synchronization */,
 				F41032111D50410000CA579D /* Klass */,
 				F4DA5FB61D485C55009B5735 /* Teacher */,
 				F4F52AA31D38D47A00166B69 /* Notification */,
@@ -651,6 +654,14 @@
 				F49757431D35F1F800DEE799 /* CourseModel.swift */,
 			);
 			name = Course;
+			sourceTree = "<group>";
+		};
+		F4D1AB9D1D53214E005482F1 /* Synchronization */ = {
+			isa = PBXGroup;
+			children = (
+				F4D1ABAE1D53215E005482F1 /* SynchronizationModel.swift */,
+			);
+			name = Synchronization;
 			sourceTree = "<group>";
 		};
 		F4DA5FB61D485C55009B5735 /* Teacher */ = {
@@ -1059,6 +1070,7 @@
 				F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */,
 				F4F52AA51D38D48C00166B69 /* NotificationModel.swift in Sources */,
 				F41032261D50411400CA579D /* Klass.swift in Sources */,
+				F4D1ABAF1D53215E005482F1 /* SynchronizationModel.swift in Sources */,
 				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
 				F41032271D50411400CA579D /* KlassModel.swift in Sources */,
 				F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */,

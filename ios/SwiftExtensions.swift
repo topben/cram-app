@@ -8,20 +8,6 @@
 
 import Foundation
 
-extension Bool{
-  
-  func toString() -> String{
-    
-    if self.boolValue{
-      return "true"
-    }
-    else{
-      return "false"
-    }
-  }
-  
-}
-
 extension NSDate{
   
   convenience init(dateString: String) {
@@ -33,6 +19,14 @@ extension NSDate{
     self.init(timeInterval:0, sinceDate:d)
   }
   
-  
+  func toFormattedString() -> String{
+    
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+    let formattedDate = dateFormatter.stringFromDate(self)
+    
+    return formattedDate
+  }
   
 }
