@@ -37,8 +37,9 @@ const Realm          = require('realm');
 class Scanner extends Component {
   constructor(props){
      super(props);
-     this.onBarCodeRead = this.onBarCodeRead.bind(this);
+     this.onBarCodeRead    = this.onBarCodeRead.bind(this);
      this.openStudentModal = this.openStudentModal.bind(this);
+     this.convertTimestamp = this.convertTimestamp.bind(this);
      this.barCodeData = "";
      this.state = {
          swipeToClose: true,
@@ -87,19 +88,19 @@ class Scanner extends Component {
                 alert(results.msg);
               });
 
-            // Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
-            //   function successCallback(results) {
-            //   },
-            //   function errorCallback(results) {
-            //     alert(results.msg);
-            //   });
-            //
-            // Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
-            //   function successCallback(results) {
-            //   },
-            //   function errorCallback(results) {
-            //     alert(results.msg);
-            //   });
+            Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
+
+            Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
 
             Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
               function successCallback(results) {
@@ -159,7 +160,15 @@ class Scanner extends Component {
               let realm = new Realm({schema: realm_schema});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
               $this.setState({name: studentModel.s_name});
-              //alert(studentModel.s_name + ' checked in successfully!');
+
+              var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
+              var attendanceModel = models[models.length-1];
+
+              $this.setState({status: attendanceModel.s_status});
+              var arrived_at = $this.convertTimestamp(attendanceModel.i_arrived_at);
+              $this.setState({arrived_at: arrived_at});
+
+              alert(studentModel.s_name + ' ' + attendanceModel.s_status + ' at ' + arrived_at);
               $this.openStudentModal();
             },
             function errorCallback(results) {
@@ -167,6 +176,31 @@ class Scanner extends Component {
             });
       } // end of if qr code dupe check
     } // end of onBarCodeRead()
+
+    convertTimestamp(timestamp) {
+      var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
+      		yyyy = d.getFullYear(),
+      		mm = ('0' + (d.getMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
+      		dd = ('0' + d.getDate()).slice(-2),			// Add leading 0.
+      		hh = d.getHours(),
+      		h = hh,
+      		min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
+      		ampm = 'AM',
+      		time;
+      if (hh > 12) {
+      		h = hh - 12;
+      		ampm = 'PM';
+      	} else if (hh === 12) {
+      		h = 12;
+      		ampm = 'PM';
+      	} else if (hh == 0) {
+      		h = 12;
+      	}
+        // ie: 2013-02-18, 8:35 AM
+      	time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
+      return time;
+    }
+
 
     // isStudentQrCode(students, barCodeData){
     //   var studentQrCode = false;
