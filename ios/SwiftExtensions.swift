@@ -22,7 +22,7 @@ extension NSDate{
   func toFormattedString() -> String{
     
     let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    dateFormatter.dateFormat = "yyyy-MM-dd-HH:mm:ss"
     dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
     let formattedDate = dateFormatter.stringFromDate(self)
     
