@@ -37,8 +37,7 @@ class Notifications extends Component {
 
     buildAttendanceNotifications(){
       // initialize realm
-      let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
-
+      let realm = new Realm({schema: realm_schema});
       // get notification realm objects
       var notifications = realm.objects('NotificationModel').filtered('s_attendance_id != ""');
 

@@ -57,7 +57,7 @@ class SignUp extends Component {
 
     pushNewRoute(route , phoneWithCountryCode) {
       // Create Realm
-      let realm = new Realm({schema: [realm_schema.People]});
+      let realm = new Realm({schema: realm_schema});
 
       // check realm library
       // let people = realm.objects('People').filtered('s_phone_id = "'+$this.state.phone+'"');
