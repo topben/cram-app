@@ -32,24 +32,30 @@ module.exports = StyleSheet.create({
     },
     markerTop:{
       flex: 1,
+      marginTop: 30,
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
     markerBottom:{
+      marginBottom:30,
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between'
     },
     markerTopLeft:{
+      marginLeft:30,
       transform: [{rotate: '0deg'}],
     },
     markerTopRight:{
+      marginRight:30,
       transform: [{rotate: '90deg'}],
     },
     markerBottomLeft:{
+      marginLeft:30,
       transform: [{rotate: '270deg'}],
     },
     markerBottomRight:{
+      marginRight:30,
       transform: [{rotate: '180deg'}],
     },
     student_modal: {

@@ -158,7 +158,7 @@ class Scanner extends Component {
 
               let realm = new Realm({schema: realm_schema});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
-              this.setState({name: studentModel.s_name});
+              $this.setState({name: studentModel.s_name});
               //alert(studentModel.s_name + ' checked in successfully!');
               $this.openStudentModal();
             },
@@ -248,7 +248,9 @@ class Scanner extends Component {
               <Modal style={styles.student_modal} backdrop={false} ref={"student_modal"} swipeToClose={true} position="bottom" entry="bottom">
                   <Card style={styles.space}>
                       <View style={{flexDirection:'row',paddingTop:20}}>
-                      </View>
+                        <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
+                        <Text>{this.state.name}</Text>
+                    </View>
                   </Card>
               </Modal>
             </Camera>

@@ -31,7 +31,7 @@ class Notifications extends Component {
         this.state = {
             notification_list: []
         };
-        this.convertTimestamp = this.convertTimestamp.bind(this);
+        this.convertTimestamp             = this.convertTimestamp.bind(this);
         this.buildAttendanceNotifications = this.buildAttendanceNotifications.bind(this);
     }
 

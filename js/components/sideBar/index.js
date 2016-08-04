@@ -15,7 +15,6 @@ class SideBar extends Component {
     render(){
         return (
           <Content style={{backgroundColor: '#f5f6f7'}} >
-              <Thumbnail size={200} style={{alignSelf: 'center', marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/tmot_logo/ic_tmot_logo.png')} />
               <List  foregroundColor={"white"} >
                 <ListItem button onPress={() => this.navigateTo('account')} iconLeft  style={styles.links} >
                     <Icon name="ios-person-outline" style={{color: '#ff6100'}}/>
