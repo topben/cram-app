@@ -45,12 +45,10 @@ class Edit extends Component {
     }
 
     onNextPressed(){
-
       var $this = this;
-
       console.log(this.state.email);
 
-      let realm = new Realm({schema: [realm_schema.People]});
+      let realm = new Realm({schema: realm_schema});
       let people = realm.objects('People');
       let person = people[people.length - 1];
 

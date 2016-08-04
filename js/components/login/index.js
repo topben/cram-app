@@ -19,6 +19,8 @@ import {Container, Content, Text, InputGroup, Input, Button, Icon, View } from '
 import login from './login-theme';
 import styles from './styles';
 
+const Realm = require('realm');
+
 class Login extends Component {
 
     constructor(props) {
@@ -48,6 +50,10 @@ class Login extends Component {
 
     pushNewRoute(route) {
          this.props.pushNewRoute(route);
+    }
+
+    componentWillMount(){
+
     }
 
     render() {

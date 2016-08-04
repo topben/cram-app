@@ -83,7 +83,7 @@ class SignUpCreate extends Component {
         return;
       }
 
-      let realm = new Realm({schema: [realm_schema.People]});
+      let realm = new Realm({schema: realm_schema});
       // get realm object
       let people = realm.objects('People');
       let person = people[people.length - 1];
