@@ -38,11 +38,14 @@ class Scanner extends Component {
   constructor(props){
      super(props);
      this.onBarCodeRead = this.onBarCodeRead.bind(this);
-     this.openModal = this.openModal.bind(this);
+     this.openStudentModal = this.openStudentModal.bind(this);
      this.barCodeData = "";
      this.state = {
          swipeToClose: true,
-         studentInfo: ""
+         name: '',
+         status: '',
+         arrived_at: '',
+         profileImage: ''
        };
     }
 
@@ -84,19 +87,19 @@ class Scanner extends Component {
                 alert(results.msg);
               });
 
-            Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
-
-            Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+            // Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+            //   function successCallback(results) {
+            //   },
+            //   function errorCallback(results) {
+            //     alert(results.msg);
+            //   });
+            //
+            // Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
+            //   function successCallback(results) {
+            //   },
+            //   function errorCallback(results) {
+            //     alert(results.msg);
+            //   });
 
             Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
               function successCallback(results) {
@@ -107,13 +110,13 @@ class Scanner extends Component {
           });
     }
 
-    openModal() {
+    openStudentModal() {
         VibrationIOS.vibrate();
-        this.refs.modal.open();
+        this.refs.student_modal.open();
     }
 
     closeModal() {
-        this.refs.modal.close();
+        this.refs.student_modal.close();
         this.pushNewRoute('scannerOverlay');
     }
 
@@ -129,9 +132,6 @@ class Scanner extends Component {
 
       if (this.barCodeData != null && this.barCodeData != result.data) {
         this.barCodeData = result.data;
-
-          this.setState({studentInfo: result.data});
-
           let realm = new Realm({schema: realm_schema});
           // get user access token
           var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -158,9 +158,9 @@ class Scanner extends Component {
 
               let realm = new Realm({schema: realm_schema});
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
-
-              alert(studentModel.s_name + ' checked in successfully!');
-              //$this.openModal();
+              this.setState({name: studentModel.s_name});
+              //alert(studentModel.s_name + ' checked in successfully!');
+              $this.openStudentModal();
             },
             function errorCallback(results) {
               alert('qr code is not a student qr code. This qr code is: ' + $this.barCodeData)
@@ -223,7 +223,7 @@ class Scanner extends Component {
                   </Image>
                 </View>
               </View>
-              <Modal style={styles.modal} backdrop={false} ref={"modal"} swipeToClose={true} position="bottom" entry="bottom">
+              <Modal style={styles.student_modal} backdrop={false} ref={"class_modal"} swipeToClose={true} position="bottom" entry="bottom">
                   <Card style={styles.space}>
                       <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
                       <View style={{flexDirection:'row',paddingTop:20}}>
@@ -243,6 +243,12 @@ class Scanner extends Component {
                       <Button rounded style={styles.btn} onPress={this.closeModal.bind(this)} >
                         <Text style={styles.btnTxtCh}>未到名單</Text>
                       </Button>
+                  </Card>
+              </Modal>
+              <Modal style={styles.student_modal} backdrop={false} ref={"student_modal"} swipeToClose={true} position="bottom" entry="bottom">
+                  <Card style={styles.space}>
+                      <View style={{flexDirection:'row',paddingTop:20}}>
+                      </View>
                   </Card>
               </Modal>
             </Camera>

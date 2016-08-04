@@ -52,7 +52,7 @@ module.exports = StyleSheet.create({
     markerBottomRight:{
       transform: [{rotate: '180deg'}],
     },
-    modal: {
+    student_modal: {
       height: (deviceHeight/2)-78,
       width: deviceWidth-40,
       // marginTop: (deviceHeight/2)+78,
