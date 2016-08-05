@@ -253,6 +253,37 @@ class GetApi{
   } // end of getAttendanceInfo()
   
   
+  // get list of students in a specific course
+  static func getStudentList(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Get student list of course success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Get student list of course failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getStudentList()
+
+  
+  
+  
   // MARK: NOT USED YET
   
   

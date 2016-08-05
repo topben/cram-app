@@ -21,7 +21,7 @@ class Attendance: NSObject {
     let realm = try! Realm()
     
     if realm.objects(SynchronizationModel).count > 0{
-      last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = 0").first!.i_last_updated_at
+      last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = 1").first!.i_last_updated_at
     }
     
     let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
