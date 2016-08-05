@@ -68,8 +68,7 @@ module.exports = StyleSheet.create({
        backgroundColor: 'transparent'
     },
     space: {
-      marginTop: 10,
-      marginBottom: 10,
+      backgroundColor:'#fff',
       width:deviceWidth-40,
       alignSelf: 'center',
     },
@@ -167,5 +166,28 @@ module.exports = StyleSheet.create({
       height:70,
       borderRadius:35,
       alignSelf:'center'
-    }
+    },
+    studentModalName: {
+      fontFamily: 'PingFangTC-Light',
+      color:'#4a4a4a',
+      fontSize:25,
+      paddingLeft:20,
+      paddingTop:20,
+      alignSelf:'center',
+    },
+    studentModalStatus: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#77b4bb',
+      fontSize:17,
+      alignSelf:'center',
+      paddingLeft:20,
+      paddingTop:50
+    },
+    studentModalArrivalTime: {
+      fontFamily: 'SFUIDisplay-Medium',
+      color:'#77b4bb',
+      fontSize:17,
+      alignSelf:'center',
+      paddingLeft:20
+    },
 });

@@ -23,7 +23,7 @@ class Student: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        if response.count > 0{
+        if response["result"]!.count > 0{
         
           let response = ((response["result"]! as! NSArray) as Array)
           

@@ -16,6 +16,7 @@ import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, F
 import FooterComponent from "./../footer";
 
 import theme from '../../themes/base-theme';
+import scanner from './scanner-theme';
 import styles from './styles';
 import Camera from 'react-native-camera';
 import Modal from 'react-native-modalbox';
@@ -39,6 +40,7 @@ class Scanner extends Component {
      super(props);
      this.onBarCodeRead    = this.onBarCodeRead.bind(this);
      this.openStudentModal = this.openStudentModal.bind(this);
+     this.closeStudentModal = this.closeStudentModal.bind(this);
      this.convertTimestamp = this.convertTimestamp.bind(this);
      this.barCodeData = "";
      this.state = {
@@ -46,7 +48,8 @@ class Scanner extends Component {
          name: '',
          status: '',
          arrived_at: '',
-         profileImage: ''
+         profileImage: '',
+         isStudentModalOpen: false
        };
     }
 
@@ -57,7 +60,7 @@ class Scanner extends Component {
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
 
-         console.log('path = ' + Realm.defaultPath);
+        console.log('path = ' + Realm.defaultPath);
 
         //  let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
         let realm = new Realm({schema: realm_schema});
@@ -116,9 +119,9 @@ class Scanner extends Component {
         this.refs.student_modal.open();
     }
 
-    closeModal() {
+    closeStudentModal() {
         this.refs.student_modal.close();
-        this.pushNewRoute('scannerOverlay');
+        //this.pushNewRoute('scannerOverlay');
     }
 
     replaceRoute(route) {
@@ -158,18 +161,25 @@ class Scanner extends Component {
             function successCallback(results) {
 
               let realm = new Realm({schema: realm_schema});
+
+              // set student info state for student arrival modal
               var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
               $this.setState({name: studentModel.s_name});
 
               var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
               var attendanceModel = models[models.length-1];
 
-              $this.setState({status: attendanceModel.s_status});
-              var arrived_at = $this.convertTimestamp(attendanceModel.i_arrived_at);
-              $this.setState({arrived_at: arrived_at});
+              if(attendanceModel.s_status == 'arrived')
+              {
+                $this.setState({status: '抵達'});
+              }
 
-              alert(studentModel.s_name + ' ' + attendanceModel.s_status + ' at ' + arrived_at);
+              var arrived_at = $this.convertTimestamp(attendanceModel.i_arrived_at);
+              arrived_at = arrived_at.split(",")[1];
+              $this.setState({arrived_at: arrived_at});
+              $this.closeStudentModal();
               $this.openStudentModal();
+              //alert(studentModel.s_name + ' ' + attendanceModel.s_status + ' at ' + arrived_at);
             },
             function errorCallback(results) {
               alert('qr code is not a student qr code. This qr code is: ' + $this.barCodeData)
@@ -218,7 +228,7 @@ class Scanner extends Component {
     render() {
       this.barCodeFlag = true;
         return (
-                  <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
+                  <View>
                     <Header style={{backgroundColor:'#f5f6f7'}}>
                       <Button
                         transparent
@@ -274,7 +284,7 @@ class Scanner extends Component {
                                   <Text style={styles.leaveNum}>17</Text>
                         </CardItem>
                       </View>
-                      <Button rounded style={styles.btn} onPress={this.closeModal.bind(this)} >
+                      <Button rounded style={styles.btn} onPress={this.closeStudentModal.bind(this)} >
                         <Text style={styles.btnTxtCh}>未到名單</Text>
                       </Button>
                   </Card>
@@ -283,8 +293,12 @@ class Scanner extends Component {
                   <Card style={styles.space}>
                       <View style={{flexDirection:'row',paddingTop:20}}>
                         <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
-                        <Text>{this.state.name}</Text>
-                    </View>
+                        <View style={{flexDirection:'column'}}>
+                          <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
+                          <Text style={styles.studentModalStatus}>{this.state.status}</Text>
+                          <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
+                        </View>
+                      </View>
                   </Card>
               </Modal>
             </Camera>

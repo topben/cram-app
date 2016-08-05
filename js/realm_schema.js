@@ -68,7 +68,7 @@ var student_schema = {
       s_student_id: {type: 'string', default: ''},
       s_student_qrCode: {type: 'string', default: ''},
       s_name: {type: 'string', default: ''},
-      s_group_role: {type: 'string', default: ''},
+      s_organization_role: {type: 'string', default: ''},
       s_profile_picture_url: {type: 'string', default: ''},
       b_isDelete: {type: 'bool', default: false}
   }
