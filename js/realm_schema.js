@@ -57,6 +57,7 @@ var course_schema = {
       s_name: {type: 'string', default: ''},
       i_frequency: {type: 'int', default: 0},
       s_period: {type: 'string', default: ''},
+      students: {type: 'list', objectType: 'StudentModel'},
       b_isDelete: {type: 'bool', default: false}
   }
 }
@@ -66,7 +67,10 @@ var student_schema = {
   primaryKey: 's_student_id',
   properties: {
       s_student_id: {type: 'string', default: ''},
-      s_student_qrCode: {type: 'string', default: ''},
+      s_organization_id: {type: 'string', default: ''},
+      s_phone: {type: 'string', default: ''},
+      s_email: {type: 'string', default: ''},
+      s_qr_code_id: {type: 'string', default: ''},
       s_name: {type: 'string', default: ''},
       s_organization_role: {type: 'string', default: ''},
       s_profile_picture_url: {type: 'string', default: ''},

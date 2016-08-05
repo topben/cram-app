@@ -91,6 +91,40 @@ class Scanner extends Component {
                 alert(results.msg);
               });
 
+            // // only call this code below if anyone dropped out or was added into a course
+            // var courses = realm.objects('CourseModel');
+            //
+            // for(var i = 0; i < 2; i++){
+            //     var $i = i;
+            //   Course.getStudentList(courses[i].s_course_id, global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+            //     function successCallback(results) {
+            //        console.log
+            //       // for(var x = 0; x < results.length; x++)
+            //       // {
+            //       //   console.log((Object.values(results))[x]);
+            //       // }
+            //
+            //       let realm = new Realm({schema: realm_schema});
+            //       // get current course model
+            //       var course = realm.objects('CourseModel');
+            //       // get each student model from student id
+            //       for(var j = 0; j < results.length; j++){
+            //         var student = realm.objects('StudentModel').filtered('s_student_id = "' + (Object.values(results))[j].s_student_id + '"');
+            //
+            //         console.log('course = ' + course);
+            //         console.log('course name = ' + course[i].s_name);
+            //         console.log('student name = ' + student.s_name);
+            //         // add the student model into the course list
+            //         realm.write(() => {
+            //           course[i].students.push(student);
+            //         });
+            //       } // end of for loop
+            //     },
+            //     function errorCallback(results) {
+            //       alert(results.msg);
+            //     });
+            // }
+
             Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
               function successCallback(results) {
               },
@@ -163,7 +197,7 @@ class Scanner extends Component {
               let realm = new Realm({schema: realm_schema});
 
               // set student info state for student arrival modal
-              var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
+              var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + $this.barCodeData + '"')[0];
               $this.setState({name: studentModel.s_name});
 
               var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');

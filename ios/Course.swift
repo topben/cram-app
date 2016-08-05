@@ -14,6 +14,45 @@ class Course: NSObject {
   
   // MARK: READY FUNCTIONS
   
+  
+  // get list of students in a specific course
+  @objc func getStudentList(course_id: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+    
+    
+    GetApi.getStudentList(url + "&course_id=" + course_id,
+                         
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        var student_ids = [String]()
+       
+        if response["result"]!.count > 0{
+          
+          let response = ((response["result"]! as! NSArray) as Array)
+          
+          for i in 0...(response.count-1){
+            let student_id = ((response[i] as! Dictionary<String, AnyObject>)["id"] as! String)
+            student_ids.append(student_id)
+            
+          } // end of for loop
+        } // end of if statement
+        
+        successCallBack([student_ids])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        failureCallBack([result])
+    })
+    
+    
+  } // end of getStudentList()
+
+  
   // get course(s) info
   @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
     
@@ -49,6 +88,8 @@ class Course: NSObject {
     
     
   }
+
+  
   
   // MARK: NOT READY FUNCTIONS
   
