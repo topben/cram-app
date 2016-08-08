@@ -57,8 +57,15 @@ var course_schema = {
       s_name: {type: 'string', default: ''},
       i_frequency: {type: 'int', default: 0},
       s_period: {type: 'string', default: ''},
-      students: {type: 'list', objectType: 'StudentModel'},
+      students: {type: 'list', objectType: 'myString'},
       b_isDelete: {type: 'bool', default: false}
+  }
+}
+
+var myString_schema = {
+  name: 'myString',
+  properties: {
+      string: {type: 'string', default: ''},
   }
 }
 
@@ -135,6 +142,7 @@ realm_model.push(attendance_schema);
 realm_model.push(klass_schema);
 realm_model.push(people_schema);
 realm_model.push(synchronization_schema);
+realm_model.push(myString_schema);
 
 // export
 module.exports =  realm_model;

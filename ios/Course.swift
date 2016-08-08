@@ -24,20 +24,30 @@ class Course: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        var student_ids = [String]()
-       
         if response["result"]!.count > 0{
           
           let response = ((response["result"]! as! NSArray) as Array)
+          // create a course model
+          let course = CourseModel()
+          // initialize the course model with the course id
+          course.s_course_id = course_id
           
           for i in 0...(response.count-1){
-            let student_id = ((response[i] as! Dictionary<String, AnyObject>)["id"] as! String)
-            student_ids.append(student_id)
-            
+            let id = ((response[i] as! Dictionary<String, AnyObject>)["id"] as! String)
+            // create a realm string object
+            let student_id = myString()
+            // set the 'string' value of the myString realm object
+            student_id.string = id
+            // add the student id into the course's student list
+            course.students.append(student_id)
           } // end of for loop
+          
+          // save to realm
+          self.saveToRealm(course)
+          
         } // end of if statement
-        
-        successCallBack([student_ids])
+        let result = ["success" : "true"];
+        successCallBack([result])
       },
       
       // FailureBlock (print the error message from server)
