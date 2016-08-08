@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 import {View, Text, Button,Icon, List, ListItem, Badge, Content, Thumbnail,Card} from 'native-base';
 import {connect} from 'react-redux';
 import {closeDrawer} from '../../actions/drawer';
@@ -10,6 +11,11 @@ class SideBar extends Component {
     navigateTo(route) {
         this.props.closeDrawer();
         this.props.replaceOrPushRoute(route);
+    }
+
+    pushNewRoute(route) {
+      this.props.closeDrawer();
+      this.props.pushNewRoute(route);
     }
 
     render(){
@@ -38,6 +44,7 @@ class SideBar extends Component {
 function bindAction(dispatch) {
     return {
         closeDrawer: ()=>dispatch(closeDrawer()),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route)),
         replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
     }
 }

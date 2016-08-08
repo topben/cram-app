@@ -14,13 +14,11 @@ import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 import { Image, View, VibrationIOS, ScrollView,InteractionManager} from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail} from 'native-base';
 import FooterComponent from "./../footer";
-
 import theme from '../../themes/base-theme';
 import scanner from './scanner-theme';
 import styles from './styles';
 import Camera from 'react-native-camera';
 import Modal from 'react-native-modalbox';
-import Overlay from 'react-native-overlay';
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 import global_variables from '../../global_variables';
@@ -44,6 +42,7 @@ class Scanner extends Component {
      this.openStudentModalBeta = this.openStudentModalBeta.bind(this);
      this.closeStudentModalBeta = this.closeStudentModalBeta.bind(this);
      this.convertTimestamp = this.convertTimestamp.bind(this);
+     this.showModalCheckInTitleAnimation = this.showModalCheckInTitleAnimation.bind(this);
      this.barCodeData = "";
      this.state = {
        swipeToClose: true,
@@ -53,6 +52,7 @@ class Scanner extends Component {
        profileImage: '',
        isOpenStudentModalAlpha: false,
        isOpenStudentModalBeta: false,
+       isNewStudentModal: false,
        studentModalStyleAlpha: styles.student_card_white,
        studentModalStyleAlpha: styles.student_card_white,
        };
@@ -96,13 +96,39 @@ class Scanner extends Component {
                 alert(results.msg);
               });
 
-            // change this hard codes course id later...
-            Course.getStudentList('e327424d-d456-488e-9b14-35e488c34c14', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+            // // only call this code below if anyone dropped out or was added into a course
+            // var courses = realm.objects('CourseModel');
+            //
+            // for(var i = 0; i < 2; i++){
+            //     var $i = i;
+            //   Course.getStudentList(courses[i].s_course_id, global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+            //     function successCallback(results) {
+            //        console.log
+            //       // for(var x = 0; x < results.length; x++)
+            //       // {
+            //       //   console.log((Object.values(results))[x]);
+            //       // }
+            //
+            //       let realm = new Realm({schema: realm_schema});
+            //       // get current course model
+            //       var course = realm.objects('CourseModel');
+            //       // get each student model from student id
+            //       for(var j = 0; j < results.length; j++){
+            //         var student = realm.objects('StudentModel').filtered('s_student_id = "' + (Object.values(results))[j].s_student_id + '"');
+            //
+            //         console.log('course = ' + course);
+            //         console.log('course name = ' + course[i].s_name);
+            //         console.log('student name = ' + student.s_name);
+            //         // add the student model into the course list
+            //         realm.write(() => {
+            //           course[i].students.push(student);
+            //         });
+            //       } // end of for loop
+            //     },
+            //     function errorCallback(results) {
+            //       alert(results.msg);
+            //     });
+            // }
 
             Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
               function successCallback(results) {
@@ -130,6 +156,7 @@ class Scanner extends Component {
     openStudentModalAlpha() {
         VibrationIOS.vibrate();
         this.refs.student_modal_alpha.open();
+        this.showModalCheckInTitleAnimation();
     }
 
     closeStudentModalAlpha() {
@@ -140,6 +167,7 @@ class Scanner extends Component {
     openStudentModalBeta() {
         VibrationIOS.vibrate();
         this.refs.student_modal_beta.open();
+        this.showModalCheckInTitleAnimation();
     }
 
     closeStudentModalBeta() {
@@ -147,6 +175,16 @@ class Scanner extends Component {
         //this.pushNewRoute('scannerOverlay');
     }
 
+    // for showing the "簽到完成" (Check Success) Animation
+    showModalCheckInTitleAnimation() {
+      var $this = this;
+      setTimeout(function(){
+        $this.setState({isNewStudentModal: true});
+      }, 200);
+      setTimeout(function(){
+        $this.setState({isNewStudentModal: false});
+      }, 1000);
+    }
 
     replaceRoute(route) {
         this.props.replaceRoute(route);
@@ -209,36 +247,33 @@ class Scanner extends Component {
               {
                 //alert('first');
                 $this.setState({isOpenStudentModalAlpha: true});
-                $this.openStudentModalAlpha();
+                $this.setState({isNewStudentModal: true});
+                //$this.openStudentModalAlpha();
+                setTimeout(function(){
+                  //$this.setState({isNewStudentModal: false});
+                }, 200);
               }
-              // Alpha Modal = Current Modal
+              // Alpha Modal (Switchable)
               else if($this.state.isOpenStudentModalAlpha == true)
               {
-                //alert('Alpha');
-                //$this.setState({studentModalStyleAlpha: styles.student_card_gray});
                 $this.closeStudentModalAlpha();
-                setTimeout(function() {$this.openStudentModalBeta()},200);
+                setTimeout(function(){
+                  $this.openStudentModalBeta();
+                  $this.setState({isNewStudentModal: true});
+                },200);
                 $this.setState({isOpenStudentModalBeta: true});
                 $this.setState({isOpenStudentModalAlpha: false});
-                setTimeout(function() {
-
-                  $this.setState({studentModalStyleAlpha: styles.student_card_white});
-                }, 500);
               }
-              // Beta Modal = Next Modal
+              // Beta Modal (Switchable)
               else if($this.state.isOpenStudentModalBeta == true)
               {
-                //alert('Beta');
-                //$this.setState({studentModalStyleBeta: styles.student_card_gray});
                 $this.closeStudentModalBeta();
-                setTimeout(function() {$this.openStudentModalAlpha();},200);
+                setTimeout(function() {
+                  $this.openStudentModalAlpha();
+                },200);
                 $this.setState({isOpenStudentModalAlpha: true});
                 $this.setState({isOpenStudentModalBeta: false});
-                setTimeout(function() {
-                  $this.setState({studentModalStyleBeta: styles.student_card_white});
-                }, 500);
               }
-              //alert(studentModel.s_name + ' ' + attendanceModel.s_status + ' at ' + arrived_at);
             },
             function errorCallback(results) {
               alert('qr code is not a student qr code. This qr code is: ' + $this.barCodeData)
@@ -350,6 +385,10 @@ class Scanner extends Component {
               </Modal>
             <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_alpha"} swipeToClose={false} position="bottom" entry="bottom">
                 <Card style={this.state.studentModalStyleAlpha}>
+                  {this.state.isNewStudentModal?
+                    <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
+                    :<View style={{height:23}}></View>
+                  }
                     <View style={{flexDirection:'row',paddingTop:20}}>
                       <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
                       <View style={{flexDirection:'column'}}>
@@ -362,6 +401,10 @@ class Scanner extends Component {
             </Modal>
             <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_beta"} swipeToClose={false} position="bottom" entry="bottom">
                 <Card style={this.state.studentModalStyleBeta}>
+                  {this.state.isNewStudentModal?
+                    <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
+                    :<View style={{height:23}}></View>
+                  }
                     <View style={{flexDirection:'row',paddingTop:20}}>
                       <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
                       <View style={{flexDirection:'column'}}>
