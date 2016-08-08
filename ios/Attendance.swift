@@ -20,7 +20,7 @@ class Attendance: NSObject {
     var last_updated_at = 0
     let realm = try! Realm()
     
-    if realm.objects(SynchronizationModel).count > 0{
+    if realm.objects(SynchronizationModel).count > 1{
       last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = 1").first!.i_last_updated_at
     }
     

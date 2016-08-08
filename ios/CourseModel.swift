@@ -16,8 +16,7 @@ class CourseModel: Object{
   dynamic var s_name             : String = ""
   dynamic var i_frequency        : Int    = 0
   dynamic var s_period           : String = ""
-          let students           = List<StudentModel>()
-  
+          let students           = List<myString>()
   dynamic var b_isDelete         : Bool   = false
   
   
@@ -36,4 +35,8 @@ class CourseModel: Object{
     return courseModel
   }
   
+}
+
+class myString: Object{
+  dynamic var string : String = ""
 }
