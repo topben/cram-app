@@ -35,6 +35,9 @@ const {Student}      = require('NativeModules');
 const {Notification} = require('NativeModules');
 const Realm          = require('realm');
 
+var count = 0;
+var interval_id = 0;
+
 class Scanner extends Component {
   constructor(props){
      super(props);
@@ -44,6 +47,7 @@ class Scanner extends Component {
      this.openStudentModalBeta = this.openStudentModalBeta.bind(this);
      this.closeStudentModalBeta = this.closeStudentModalBeta.bind(this);
      this.convertTimestamp = this.convertTimestamp.bind(this);
+     this.getClassCurrentAttendance = this.getClassCurrentAttendance.bind(this);
      this.barCodeData = "";
      this.state = {
        swipeToClose: true,
@@ -60,6 +64,73 @@ class Scanner extends Component {
 
     pushNewRoute(route) {
          this.props.pushNewRoute(route);
+    }
+
+    doSomething(){
+
+      var $this = this;
+      // add all code of check in successCallback here..
+      let realm = new Realm({schema: realm_schema});
+
+      var haha = realm.objects('AttendanceModel');
+      console.log('attendance count = ' + haha.length);
+
+      // set student info state for student arrival modal
+      var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + this.barCodeData + '"')[0];
+      this.setState({name: studentModel.s_name});
+
+      var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
+      var attendanceModel = models[models.length-1];
+
+       // switch status to specific chinese words
+      if(attendanceModel.s_status == 'arrived')
+      {
+        this.setState({status: '抵達'});
+      }
+
+      // split datetime string to "time"
+      var arrived_at = this.convertTimestamp(attendanceModel.i_arrived_at);
+      arrived_at = arrived_at.split(",")[1];
+      this.setState({arrived_at: arrived_at});
+
+      // check if first time to open student modal
+      if(this.state.isOpenStudentModalAlpha == false && this.state.isOpenStudentModalBeta == false)
+      {
+        //alert('first');
+        this.setState({isOpenStudentModalAlpha: true});
+        this.openStudentModalAlpha();
+      }
+      // Alpha Modal = Current Modal
+      else if(this.state.isOpenStudentModalAlpha == true)
+      {
+        //alert('Alpha');
+        //$this.setState({studentModalStyleAlpha: styles.student_card_gray});
+        this.closeStudentModalAlpha();
+        setTimeout(function() {$this.openStudentModalBeta()},200);
+        this.setState({isOpenStudentModalBeta: true});
+        this.setState({isOpenStudentModalAlpha: false});
+        setTimeout(function() {
+
+          $this.setState({studentModalStyleAlpha: styles.student_card_white});
+        }, 500);
+      }
+      // Beta Modal = Next Modal
+      else if(this.state.isOpenStudentModalBeta == true)
+      {
+        //alert('Beta');
+        //$this.setState({studentModalStyleBeta: styles.student_card_gray});
+        this.closeStudentModalBeta();
+        setTimeout(function() {$this.openStudentModalAlpha();},200);
+        this.setState({isOpenStudentModalAlpha: true});
+        this.setState({isOpenStudentModalBeta: false});
+        setTimeout(function() {
+          $this.setState({studentModalStyleBeta: styles.student_card_white});
+        }, 500);
+      }
+
+      this.getClassCurrentAttendance();
+
+      clearInterval(interval_id);
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
@@ -156,6 +227,53 @@ class Scanner extends Component {
         this.props.popRoute();
     }
 
+    getClassCurrentAttendance(){
+
+      // add temp code here
+      let realm = new Realm({schema: realm_schema});
+      // get all student IDs and save in array
+      var temp_course = realm.objects('CourseModel').filtered('s_course_id = "e327424d-d456-488e-9b14-35e488c34c14"')[0];
+      // get all students in the class
+      var temp_students = temp_course.students;
+      // get total count of all students in the class
+      var temp_student_count = temp_students.length;
+      // get attendance model
+      var temp_attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true); // true is descending order
+      // get klass id
+      var temp_klass_id = temp_attendance[0].s_klass_id;
+      // get list of arrived students
+      var temp_arrived_students = realm.objects('AttendanceModel').filtered('s_status = "arrived" AND s_klass_id = "' + temp_klass_id + '"');
+      // get total count of arrived students
+      var temp_arrived_count = temp_arrived_students.length;
+      // get list of leave students
+      var temp_leave_students = realm.objects('AttendanceModel').filtered('s_status = "leave" AND s_klass_id = "' + temp_klass_id + '"');
+      // get total count of leave students
+      var temp_leave_count = temp_leave_students.length;
+
+      console.log('arrived count = ' + temp_arrived_count);
+      console.log('leave count = ' + temp_leave_count);
+
+      // combine both arrived and leave students into one array
+      var temp_students_confirmed = [];
+      for(var i = 0; i < temp_leave_count; i++){
+          temp_students_confirmed.push(temp_leave_students[i].string);
+      }
+      for(var i = 0; i < temp_arrived_count; i++){
+          temp_students_confirmed.push(temp_arrived_students[i].string);
+      }
+      // get list of absent students
+      var temp_absent_students = [];
+      for(var i = 0; i < temp_students; i++){
+        if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
+            temp_absent_students.push(temp_students[i].string);
+        }
+      }
+      // get absent student count
+      var temp_absent_count = temp_absent_students.length;
+      console.log('absent count = ' + temp_absent_count);
+      // end of temp code
+    }
+
     onBarCodeRead(result) {
 
       if (this.barCodeData != null && this.barCodeData != result.data) {
@@ -184,64 +302,21 @@ class Scanner extends Component {
           Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
             function successCallback(results) {
 
-              let realm = new Realm({schema: realm_schema});
+              count = parseInt(results.count);
 
-              // set student info state for student arrival modal
-              var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + $this.barCodeData + '"')[0];
-              $this.setState({name: studentModel.s_name});
+              interval_id = setInterval(function(){
+                let realm = new Realm({schema: realm_schema});
 
-              var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
-              var attendanceModel = models[models.length-1];
+                if(count == realm.objects('AttendanceModel').length){
+                  $this.doSomething()
+                }
 
-               // switch status to specific chinese words
-              if(attendanceModel.s_status == 'arrived')
-              {
-                $this.setState({status: '抵達'});
-              }
+              }, 200);
 
-              // split datetime string to "time"
-              var arrived_at = $this.convertTimestamp(attendanceModel.i_arrived_at);
-              arrived_at = arrived_at.split(",")[1];
-              $this.setState({arrived_at: arrived_at});
-
-              // check if first time to open student modal
-              if($this.state.isOpenStudentModalAlpha == false && $this.state.isOpenStudentModalBeta == false)
-              {
-                //alert('first');
-                $this.setState({isOpenStudentModalAlpha: true});
-                $this.openStudentModalAlpha();
-              }
-              // Alpha Modal = Current Modal
-              else if($this.state.isOpenStudentModalAlpha == true)
-              {
-                //alert('Alpha');
-                //$this.setState({studentModalStyleAlpha: styles.student_card_gray});
-                $this.closeStudentModalAlpha();
-                setTimeout(function() {$this.openStudentModalBeta()},200);
-                $this.setState({isOpenStudentModalBeta: true});
-                $this.setState({isOpenStudentModalAlpha: false});
-                setTimeout(function() {
-
-                  $this.setState({studentModalStyleAlpha: styles.student_card_white});
-                }, 500);
-              }
-              // Beta Modal = Next Modal
-              else if($this.state.isOpenStudentModalBeta == true)
-              {
-                //alert('Beta');
-                //$this.setState({studentModalStyleBeta: styles.student_card_gray});
-                $this.closeStudentModalBeta();
-                setTimeout(function() {$this.openStudentModalAlpha();},200);
-                $this.setState({isOpenStudentModalAlpha: true});
-                $this.setState({isOpenStudentModalBeta: false});
-                setTimeout(function() {
-                  $this.setState({studentModalStyleBeta: styles.student_card_white});
-                }, 500);
-              }
-              //alert(studentModel.s_name + ' ' + attendanceModel.s_status + ' at ' + arrived_at);
             },
             function errorCallback(results) {
-              alert('qr code is not a student qr code. This qr code is: ' + $this.barCodeData)
+              alert('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
+              clearInterval(interval_id);
             });
       } // end of if qr code dupe check
     } // end of onBarCodeRead()

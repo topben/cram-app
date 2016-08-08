@@ -30,9 +30,11 @@ class Teacher: NSObject {
           let attendanceModel = AttendanceModel.toRealmObject_list(response as! Dictionary<String, AnyObject>)
           self.saveToRealm(attendanceModel)
         }
-        
-        // return true if get course info success
-        let result = ["success" : "true"];
+        let realm = try! Realm()
+        let count = realm.objects(AttendanceModel.self).count.description
+        print("swift count = " + realm.objects(AttendanceModel.self).count.description)
+        // return total count
+        let result = ["count" : count];
         
         successCallBack([result])
     },
