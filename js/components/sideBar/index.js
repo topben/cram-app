@@ -15,7 +15,7 @@ class SideBar extends Component {
     render(){
         return (
           <Content style={{backgroundColor: '#f5f6f7'}} >
-              <List  foregroundColor={"white"} >
+              <List  foregroundColor={"white"} style={{paddingTop:80}}>
                 <ListItem button onPress={() => this.navigateTo('account')} iconLeft  style={styles.links} >
                     <Icon name="ios-person-outline" style={{color: '#ff6100'}}/>
                     <Text style={styles.sideBarChineseTxt}>帳號</Text>

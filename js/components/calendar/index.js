@@ -55,9 +55,6 @@ class Calendar extends Component {
                         selectedDate={this.state.date}
                         selectedBackgroundColor={'#000'}
                         onDateChange={this.onDateChange.bind(this)} />
-                      <Text style={{marginTop: 5, alignSelf: 'center'}} >
-                      Date:  { this.state.date.toString().substr(4,12) }
-                    </Text>
                 </Content>
             </Container>
         )
