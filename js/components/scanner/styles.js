@@ -67,6 +67,16 @@ module.exports = StyleSheet.create({
        justifyContent: 'center',
        backgroundColor: 'transparent'
     },
+    student_card_white: {
+      backgroundColor:'#fff',
+      width:deviceWidth-40,
+      alignSelf: 'center',
+    },
+    student_card_gray: {
+      backgroundColor:'#000',
+      width:deviceWidth-40,
+      alignSelf: 'center',
+    },
     space: {
       backgroundColor:'#fff',
       width:deviceWidth-40,

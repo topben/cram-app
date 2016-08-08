@@ -39,17 +39,22 @@ class Scanner extends Component {
   constructor(props){
      super(props);
      this.onBarCodeRead    = this.onBarCodeRead.bind(this);
-     this.openStudentModal = this.openStudentModal.bind(this);
-     this.closeStudentModal = this.closeStudentModal.bind(this);
+     this.openStudentModalAlpha = this.openStudentModalAlpha.bind(this);
+     this.closeStudentModalAlpha = this.closeStudentModalAlpha.bind(this);
+     this.openStudentModalBeta = this.openStudentModalBeta.bind(this);
+     this.closeStudentModalBeta = this.closeStudentModalBeta.bind(this);
      this.convertTimestamp = this.convertTimestamp.bind(this);
      this.barCodeData = "";
      this.state = {
-         swipeToClose: true,
-         name: '',
-         status: '',
-         arrived_at: '',
-         profileImage: '',
-         isStudentModalOpen: false
+       swipeToClose: true,
+       name: '',
+       status: '',
+       arrived_at: '',
+       profileImage: '',
+       isOpenStudentModalAlpha: false,
+       isOpenStudentModalBeta: false,
+       studentModalStyleAlpha: styles.student_card_white,
+       studentModalStyleAlpha: styles.student_card_white,
        };
     }
 
@@ -148,15 +153,26 @@ class Scanner extends Component {
           });
     }
 
-    openStudentModal() {
+    openStudentModalAlpha() {
         VibrationIOS.vibrate();
-        this.refs.student_modal.open();
+        this.refs.student_modal_alpha.open();
     }
 
-    closeStudentModal() {
-        this.refs.student_modal.close();
+    closeStudentModalAlpha() {
+        this.refs.student_modal_alpha.close();
         //this.pushNewRoute('scannerOverlay');
     }
+
+    openStudentModalBeta() {
+        VibrationIOS.vibrate();
+        this.refs.student_modal_beta.open();
+    }
+
+    closeStudentModalBeta() {
+        this.refs.student_modal_beta.close();
+        //this.pushNewRoute('scannerOverlay');
+    }
+
 
     replaceRoute(route) {
         this.props.replaceRoute(route);
@@ -203,16 +219,51 @@ class Scanner extends Component {
               var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
               var attendanceModel = models[models.length-1];
 
+               // switch status to specific chinese words
               if(attendanceModel.s_status == 'arrived')
               {
                 $this.setState({status: '抵達'});
               }
 
+              // split datetime string to "time"
               var arrived_at = $this.convertTimestamp(attendanceModel.i_arrived_at);
               arrived_at = arrived_at.split(",")[1];
               $this.setState({arrived_at: arrived_at});
-              $this.closeStudentModal();
-              $this.openStudentModal();
+
+              // check if first time to open student modal
+              if($this.state.isOpenStudentModalAlpha == false && $this.state.isOpenStudentModalBeta == false)
+              {
+                //alert('first');
+                $this.setState({isOpenStudentModalAlpha: true});
+                $this.openStudentModalAlpha();
+              }
+              // Alpha Modal = Current Modal
+              else if($this.state.isOpenStudentModalAlpha == true)
+              {
+                //alert('Alpha');
+                //$this.setState({studentModalStyleAlpha: styles.student_card_gray});
+                $this.closeStudentModalAlpha();
+                setTimeout(function() {$this.openStudentModalBeta()},200);
+                $this.setState({isOpenStudentModalBeta: true});
+                $this.setState({isOpenStudentModalAlpha: false});
+                setTimeout(function() {
+
+                  $this.setState({studentModalStyleAlpha: styles.student_card_white});
+                }, 500);
+              }
+              // Beta Modal = Next Modal
+              else if($this.state.isOpenStudentModalBeta == true)
+              {
+                //alert('Beta');
+                //$this.setState({studentModalStyleBeta: styles.student_card_gray});
+                $this.closeStudentModalBeta();
+                setTimeout(function() {$this.openStudentModalAlpha();},200);
+                $this.setState({isOpenStudentModalAlpha: true});
+                $this.setState({isOpenStudentModalBeta: false});
+                setTimeout(function() {
+                  $this.setState({studentModalStyleBeta: styles.student_card_white});
+                }, 500);
+              }
               //alert(studentModel.s_name + ' ' + attendanceModel.s_status + ' at ' + arrived_at);
             },
             function errorCallback(results) {
@@ -318,23 +369,35 @@ class Scanner extends Component {
                                   <Text style={styles.leaveNum}>17</Text>
                         </CardItem>
                       </View>
-                      <Button rounded style={styles.btn} onPress={this.closeStudentModal.bind(this)} >
+                      <Button rounded style={styles.btn} onPress={this.closeStudentModalBeta.bind(this)} >
                         <Text style={styles.btnTxtCh}>未到名單</Text>
                       </Button>
                   </Card>
               </Modal>
-              <Modal style={styles.student_modal} backdrop={false} ref={"student_modal"} swipeToClose={true} position="bottom" entry="bottom">
-                  <Card style={styles.space}>
-                      <View style={{flexDirection:'row',paddingTop:20}}>
-                        <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
-                        <View style={{flexDirection:'column'}}>
-                          <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
-                          <Text style={styles.studentModalStatus}>{this.state.status}</Text>
-                          <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
-                        </View>
+            <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_alpha"} swipeToClose={false} position="bottom" entry="bottom">
+                <Card style={this.state.studentModalStyleAlpha}>
+                    <View style={{flexDirection:'row',paddingTop:20}}>
+                      <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
+                      <View style={{flexDirection:'column'}}>
+                        <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
+                        <Text style={styles.studentModalStatus}>{this.state.status}</Text>
+                        <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
                       </View>
-                  </Card>
-              </Modal>
+                    </View>
+                </Card>
+            </Modal>
+            <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_beta"} swipeToClose={false} position="bottom" entry="bottom">
+                <Card style={this.state.studentModalStyleBeta}>
+                    <View style={{flexDirection:'row',paddingTop:20}}>
+                      <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
+                      <View style={{flexDirection:'column'}}>
+                        <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
+                        <Text style={styles.studentModalStatus}>{this.state.status}</Text>
+                        <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
+                      </View>
+                    </View>
+                </Card>
+            </Modal>
             </Camera>
           </View>
         )
