@@ -43,6 +43,14 @@ var styles = StyleSheet.create({
         alignSelf: 'center'
     },
 
+    seletctedDayLabel: {
+        fontSize: 14,
+        fontFamily: 'SFUIDisplay-Regular',
+        color:'#fff',
+        marginTop: 6,
+        alignSelf: 'center'
+    },
+
     dayLabelsWrapper: {
         width: deviceWidth-40,
         flexDirection: 'row',

@@ -255,7 +255,7 @@ class GetApi{
   
 
   // get list of students in a specific course
-  static func getStudentList(url: String, successBlock:Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+  static func getStudentList(url: String, successBlock:Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){ 
     
     Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
       

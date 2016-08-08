@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 import {View, Text, Button,Icon, List, ListItem, Badge, Content, Thumbnail,Card} from 'native-base';
 import {connect} from 'react-redux';
 import {closeDrawer} from '../../actions/drawer';
@@ -12,10 +13,15 @@ class SideBar extends Component {
         this.props.replaceOrPushRoute(route);
     }
 
+    pushNewRoute(route) {
+      this.props.closeDrawer();
+      this.props.pushNewRoute(route);
+    }
+
     render(){
         return (
           <Content style={{backgroundColor: '#f5f6f7'}} >
-              <List  foregroundColor={"white"} >
+              <List  foregroundColor={"white"} style={{paddingTop:80}}>
                 <ListItem button onPress={() => this.navigateTo('account')} iconLeft  style={styles.links} >
                     <Icon name="ios-person-outline" style={{color: '#ff6100'}}/>
                     <Text style={styles.sideBarChineseTxt}>帳號</Text>
@@ -38,6 +44,7 @@ class SideBar extends Component {
 function bindAction(dispatch) {
     return {
         closeDrawer: ()=>dispatch(closeDrawer()),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route)),
         replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route))
     }
 }

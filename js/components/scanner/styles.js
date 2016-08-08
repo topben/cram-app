@@ -73,8 +73,9 @@ module.exports = StyleSheet.create({
       alignSelf: 'center',
     },
     student_card_gray: {
-      backgroundColor:'#000',
+      opacity:1,
       width:deviceWidth-40,
+      height:30,
       alignSelf: 'center',
     },
     space: {
@@ -96,6 +97,12 @@ module.exports = StyleSheet.create({
       alignSelf:'center',
       paddingTop:20,
       letterSpacing:3
+    },
+    newModaltxt: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'#fff',
+      alignSelf:'center',
+      marginBottom: 2
     },
     btnTxtCh: {
       fontFamily: 'PingFangTC-Regular',
