@@ -35,17 +35,20 @@ const Realm          = require('realm');
 
 var count = 0;
 var interval_id = 0;
+var timeout_id = 0;
 
 class Scanner extends Component {
   constructor(props){
      super(props);
-     this.onBarCodeRead    = this.onBarCodeRead.bind(this);
-     this.openStudentModalAlpha = this.openStudentModalAlpha.bind(this);
-     this.closeStudentModalAlpha = this.closeStudentModalAlpha.bind(this);
-     this.openStudentModalBeta = this.openStudentModalBeta.bind(this);
-     this.closeStudentModalBeta = this.closeStudentModalBeta.bind(this);
-     this.convertTimestamp = this.convertTimestamp.bind(this);
-     this.getClassCurrentAttendance = this.getClassCurrentAttendance.bind(this);
+     this.onBarCodeRead                  = this.onBarCodeRead.bind(this);
+     this.openClassModal                 = this.openClassModal.bind(this);
+     this.closeClassModal                = this.closeClassModal.bind(this);
+     this.openStudentModalAlpha          = this.openStudentModalAlpha.bind(this);
+     this.closeStudentModalAlpha         = this.closeStudentModalAlpha.bind(this);
+     this.openStudentModalBeta           = this.openStudentModalBeta.bind(this);
+     this.closeStudentModalBeta          = this.closeStudentModalBeta.bind(this);
+     this.convertTimestamp               = this.convertTimestamp.bind(this);
+     this.getClassCurrentAttendance      = this.getClassCurrentAttendance.bind(this);
      this.showModalCheckInTitleAnimation = this.showModalCheckInTitleAnimation.bind(this);
 
      this.barCodeData = "";
@@ -55,11 +58,13 @@ class Scanner extends Component {
        status: '',
        arrived_at: '',
        profileImage: '',
+       student_arrivals: 0,
+       student_leaves:0,
+       student_absence:0,
        isOpenStudentModalAlpha: false,
        isOpenStudentModalBeta: false,
        isNewStudentModal: false,
        isCheckRealmOK: false,
-       isOpenClassModal: false,
        studentModalStyleAlpha: styles.student_card_white
        };
     }
@@ -68,7 +73,7 @@ class Scanner extends Component {
          this.props.pushNewRoute(route);
     }
 
-    fetch_for_modal(){
+    fetch_for_modal() {
       var $this = this;
       // add all code of check in successCallback here..
       let realm = new Realm({schema: realm_schema});
@@ -94,19 +99,35 @@ class Scanner extends Component {
       // split datetime string to "time"
       var arrived_at = $this.convertTimestamp(attendanceModel.i_arrived_at);
       arrived_at = arrived_at.split(",")[1];
-      $this.setState({arrived_at: arrived_at});
+      this.setState({arrived_at: arrived_at});
 
       // show modal animation
       this.modalAnimation();
 
       this.getClassCurrentAttendance();
       clearInterval(interval_id);
+
+
+      // clear interval
+      clearInterval(timeout_id);
+
+      // set timeout for class modal
+      timeout_id = setInterval(function(){
+        $this.closeStudentModalBeta();
+        $this.closeStudentModalAlpha();
+        $this.openClassModal();
+        clearInterval(timeout_id);
+      }, 5000);
+    }
+
+    // for testing
+    componentDidMount() {
+      //this.openClassModal();
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
         console.log('path = ' + Realm.defaultPath);
-
         //  let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
         let realm = new Realm({schema: realm_schema});
          // get user access token
@@ -174,6 +195,14 @@ class Scanner extends Component {
           });
     }
 
+    openClassModal() {
+      this.refs.class_modal.open();
+    }
+
+    closeClassModal() {
+      this.refs.class_modal.close();
+    }
+
     openStudentModalAlpha() {
         VibrationIOS.vibrate();
         this.refs.student_modal_alpha.open();
@@ -196,6 +225,7 @@ class Scanner extends Component {
         //this.pushNewRoute('scannerOverlay');
     }
 
+
     // for showing the "簽到完成" (Check Success) Animation
     showModalCheckInTitleAnimation() {
       var $this = this;
@@ -215,7 +245,7 @@ class Scanner extends Component {
         //alert('first');
         this.setState({isOpenStudentModalAlpha: true});
         this.setState({isNewStudentModal: true});
-        //$this.openStudentModalAlpha();
+        $this.openStudentModalAlpha();
       }
       // Alpha Modal (Switchable)
       else if(this.state.isOpenStudentModalAlpha == true)
@@ -250,50 +280,63 @@ class Scanner extends Component {
 
     getClassCurrentAttendance(){
 
-      // add temp code here
-      let realm = new Realm({schema: realm_schema});
-      // get all student IDs and save in array
-      var temp_course = realm.objects('CourseModel').filtered('s_course_id = "e327424d-d456-488e-9b14-35e488c34c14"')[0];
-      // get all students in the class
-      var temp_students = temp_course.students;
-      // get total count of all students in the class
-      var temp_student_count = temp_students.length;
-      // get attendance model
-      var temp_attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true); // true is descending order
-      // get klass id
-      var temp_klass_id = temp_attendance[0].s_klass_id;
-      // get list of arrived students
-      var temp_arrived_students = realm.objects('AttendanceModel').filtered('s_status = "arrived" AND s_klass_id = "' + temp_klass_id + '"');
-      // get total count of arrived students
-      var temp_arrived_count = temp_arrived_students.length;
-      // get list of leave students
-      var temp_leave_students = realm.objects('AttendanceModel').filtered('s_status = "leave" AND s_klass_id = "' + temp_klass_id + '"');
-      // get total count of leave students
-      var temp_leave_count = temp_leave_students.length;
+         // add temp code here
+         let realm = new Realm({schema: realm_schema});
+         // get all student IDs and save in array
+         var temp_course = realm.objects('CourseModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
+         // get all students in the class
+         var temp_students = temp_course.students;
+         // get total count of all students in the class
+         var temp_student_count = temp_students.length;
+         // get attendance model
+         var temp_attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true); // true is descending order
+         // get klass id
+         var temp_klass_id = temp_attendance[0].s_klass_id;
+         // get list of arrived students
+         var temp_arrived_students = realm.objects('AttendanceModel').filtered('s_status = "arrived" AND s_klass_id = "' + temp_klass_id + '"');
+         // get total count of arrived students
+         var temp_arrived_count = temp_arrived_students.length;
+         // get list of leave students
+         var temp_leave_students = realm.objects('AttendanceModel').filtered('s_status = "leave" AND s_klass_id = "' + temp_klass_id + '"');
+         // get total count of leave students
+         var temp_leave_count = temp_leave_students.length;
 
-      console.log('arrived count = ' + temp_arrived_count);
-      console.log('leave count = ' + temp_leave_count);
+         console.log('temp_leave_count = ' + temp_leave_count);
+         console.log('temp_arrived_count = ' + temp_arrived_count);
 
-      // combine both arrived and leave students into one array
-      var temp_students_confirmed = [];
-      for(var i = 0; i < temp_leave_count; i++){
-          temp_students_confirmed.push(temp_leave_students[i].string);
-      }
-      for(var i = 0; i < temp_arrived_count; i++){
-          temp_students_confirmed.push(temp_arrived_students[i].string);
-      }
-      // get list of absent students
-      var temp_absent_students = [];
-      for(var i = 0; i < temp_students; i++){
-        if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
-            temp_absent_students.push(temp_students[i].string);
-        }
-      }
-      // get absent student count
-      var temp_absent_count = temp_absent_students.length;
-      console.log('absent count = ' + temp_absent_count);
-      // end of temp code
-    }
+         // combine both arrived and leave students into one array
+         var temp_students_confirmed = [];
+         for(var i = 0; i < temp_leave_count; i++){
+             temp_students_confirmed.push(temp_leave_students[i].s_student_id);
+         }
+         for(var i = 0; i < temp_arrived_count; i++){
+             temp_students_confirmed.push(temp_arrived_students[i].s_student_id);
+         }
+
+         // get list of absent students
+         var temp_absent_students = [];
+         for(var i = 0; i < temp_student_count; i++){
+           if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
+               temp_absent_students.push(temp_students[i].string);
+           }
+         }
+         // get absent student count
+         var temp_absent_count = temp_absent_students.length;
+
+         console.log('confirmed count = ' + temp_students_confirmed.length);
+
+         // temp is real
+         console.log('total count = ' + temp_student_count);
+         console.log('arrived count = ' + temp_arrived_count);
+         console.log('leave count = ' + temp_leave_count);
+         console.log('absent count = ' + temp_absent_count);
+         // end of temp code
+
+         // set student statistics
+         $this.setState({student_arrivals:temp_arrived_count}); // 抵達
+         $this.setState({student_leaves:temp_leave_count}); // 請假
+         $this.setState({student_absent:temp_absent_count}); // 未到
+       }
 
     onBarCodeRead(result) {
       if (this.barCodeData != null && this.barCodeData != result.data) {
@@ -418,26 +461,28 @@ class Scanner extends Component {
                   </Image>
                 </View>
               </View>
-              <Modal style={styles.student_modal} backdrop={false} ref={"class_modal"} swipeToClose={true} position="bottom" entry="bottom">
+              <Modal style={styles.class_modal} backdrop={false} ref={"class_modal"} swipeToClose={false} position="bottom" entry="bottom">
                   <Card style={styles.space}>
-                      <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
-                      <View style={{flexDirection:'row',paddingTop:20}}>
-                        <CardItem padder>
+                    <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
+                      <View style={{flexDirection:'column',paddingTop:20}}>
+                        <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+                        <View>
                                   <Text style={styles.arriveTxtCh}>抵達</Text>
-                                  <Text style={styles.arriveNum}>3</Text>
-                        </CardItem>
-                        <CardItem padder>
+                                  <Text style={styles.arriveNum}>{this.state.student_arrivals}</Text>
+                        </View>
+                        <View >
                                   <Text style={styles.abscenceTxtCh}>請假</Text>
-                                  <Text style={styles.abscenceNum}>2</Text>
-                        </CardItem>
-                        <CardItem padder>
+                                  <Text style={styles.abscenceNum}>{this.state.student_leaves}</Text>
+                        </View>
+                        <View style={{borderWidth:0}}>
                                   <Text style={styles.leaveTxtCh}>未到</Text>
-                                  <Text style={styles.leaveNum}>17</Text>
-                        </CardItem>
+                                  <Text style={styles.leaveNum}>{this.state.student_absent}</Text>
+                        </View>
+                        </View>
+                        <Button rounded style={styles.btn} onPress={this.closeStudentModalBeta.bind(this)} >
+                          <Text style={styles.btnTxtCh}>未到名單</Text>
+                        </Button>
                       </View>
-                      <Button rounded style={styles.btn} onPress={this.closeStudentModalBeta.bind(this)} >
-                        <Text style={styles.btnTxtCh}>未到名單</Text>
-                      </Button>
                   </Card>
               </Modal>
             <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_alpha"} swipeToClose={false} position="bottom" entry="bottom">

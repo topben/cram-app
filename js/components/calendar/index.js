@@ -60,7 +60,7 @@ class Calendar extends Component {
                         selectedBackgroundColor={'#000'}
                         onDateChange={this.onDateChange.bind(this)}/>
                   </View>
-                  <List>
+                  <List style={{paddingTop:30}}>
                     {(this.state.attendance_list.length != 0)?this.state.attendance_list.map((i, index)=>
                       <ListItem iconLeft button>
                           <Icon name="ios-people" style={{color: '#ff6100'}}/>

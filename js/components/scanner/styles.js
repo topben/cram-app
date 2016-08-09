@@ -67,6 +67,15 @@ module.exports = StyleSheet.create({
        justifyContent: 'center',
        backgroundColor: 'transparent'
     },
+    class_modal: {
+      height: (deviceHeight/2)-78,
+      width: deviceWidth-40,
+      // marginTop: (deviceHeight/2)+78,
+      // height: deviceHeight-78,
+      // position: 'relative',
+       justifyContent: 'center',
+       backgroundColor: 'transparent'
+    },
     student_card_white: {
       backgroundColor:'#fff',
       width:deviceWidth-40,
@@ -80,8 +89,7 @@ module.exports = StyleSheet.create({
     },
     space: {
       backgroundColor:'#fff',
-      width:deviceWidth-40,
-      alignSelf: 'center',
+      width:deviceWidth-40
     },
     overlay: {
       height:deviceHeight,
@@ -92,11 +100,11 @@ module.exports = StyleSheet.create({
     },
     modalTitleCh: {
       fontFamily: 'PingFangTC-Regular',
-      color:'#ff6100',
+      color:'#4a4a4a',
       fontSize:25,
       alignSelf:'center',
       paddingTop:20,
-      letterSpacing:3
+      letterSpacing:1
     },
     newModaltxt: {
       fontFamily: 'PingFangTC-Regular',
@@ -156,6 +164,7 @@ module.exports = StyleSheet.create({
     btn: {
       width:300,
       height:45,
+      marginTop:20,
       alignSelf:'center',
       backgroundColor: '#f6f3ed',
       borderColor:'#ff6100',
@@ -207,4 +216,11 @@ module.exports = StyleSheet.create({
       alignSelf:'center',
       paddingLeft:20
     },
+    circleAvatar: {
+      alignSelf: 'center',
+      marginLeft:20,
+      marginTop: 20,
+      marginBottom: 15,
+      resizeMode: 'contain'
+    }
 });
