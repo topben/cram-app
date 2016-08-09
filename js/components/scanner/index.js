@@ -242,7 +242,7 @@ class Scanner extends Component {
       // check if first time to open student modal
       if(this.state.isOpenStudentModalAlpha == false && this.state.isOpenStudentModalBeta == false)
       {
-        //alert('first');
+        // alert('first');
         this.setState({isOpenStudentModalAlpha: true});
         this.setState({isNewStudentModal: true});
         $this.openStudentModalAlpha();
@@ -280,63 +280,63 @@ class Scanner extends Component {
 
     getClassCurrentAttendance(){
 
-         // add temp code here
-         let realm = new Realm({schema: realm_schema});
-         // get all student IDs and save in array
-         var temp_course = realm.objects('CourseModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
-         // get all students in the class
-         var temp_students = temp_course.students;
-         // get total count of all students in the class
-         var temp_student_count = temp_students.length;
-         // get attendance model
-         var temp_attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true); // true is descending order
-         // get klass id
-         var temp_klass_id = temp_attendance[0].s_klass_id;
-         // get list of arrived students
-         var temp_arrived_students = realm.objects('AttendanceModel').filtered('s_status = "arrived" AND s_klass_id = "' + temp_klass_id + '"');
-         // get total count of arrived students
-         var temp_arrived_count = temp_arrived_students.length;
-         // get list of leave students
-         var temp_leave_students = realm.objects('AttendanceModel').filtered('s_status = "leave" AND s_klass_id = "' + temp_klass_id + '"');
-         // get total count of leave students
-         var temp_leave_count = temp_leave_students.length;
+      // add temp code here
+      let realm = new Realm({schema: realm_schema});
+      // get all student IDs and save in array
+      var temp_course = realm.objects('CourseModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
+      // get all students in the class
+      var temp_students = temp_course.students;
+      // get total count of all students in the class
+      var temp_student_count = temp_students.length;
+      // get attendance model
+      var temp_attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true); // true is descending order
+      // get klass id
+      var temp_klass_id = temp_attendance[0].s_klass_id;
+      // get list of arrived students
+      var temp_arrived_students = realm.objects('AttendanceModel').filtered('s_status = "arrived" AND s_klass_id = "' + temp_klass_id + '"');
+      // get total count of arrived students
+      var temp_arrived_count = temp_arrived_students.length;
+      // get list of leave students
+      var temp_leave_students = realm.objects('AttendanceModel').filtered('s_status = "leave" AND s_klass_id = "' + temp_klass_id + '"');
+      // get total count of leave students
+      var temp_leave_count = temp_leave_students.length;
 
-         console.log('temp_leave_count = ' + temp_leave_count);
-         console.log('temp_arrived_count = ' + temp_arrived_count);
+      console.log('temp_leave_count = ' + temp_leave_count);
+      console.log('temp_arrived_count = ' + temp_arrived_count);
 
-         // combine both arrived and leave students into one array
-         var temp_students_confirmed = [];
-         for(var i = 0; i < temp_leave_count; i++){
-             temp_students_confirmed.push(temp_leave_students[i].s_student_id);
-         }
-         for(var i = 0; i < temp_arrived_count; i++){
-             temp_students_confirmed.push(temp_arrived_students[i].s_student_id);
-         }
+      // combine both arrived and leave students into one array
+      var temp_students_confirmed = [];
+      for(var i = 0; i < temp_leave_count; i++){
+          temp_students_confirmed.push(temp_leave_students[i].s_student_id);
+      }
+      for(var i = 0; i < temp_arrived_count; i++){
+          temp_students_confirmed.push(temp_arrived_students[i].s_student_id);
+      }
 
-         // get list of absent students
-         var temp_absent_students = [];
-         for(var i = 0; i < temp_student_count; i++){
-           if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
-               temp_absent_students.push(temp_students[i].string);
-           }
-         }
-         // get absent student count
-         var temp_absent_count = temp_absent_students.length;
+      // get list of absent students
+      var temp_absent_students = [];
+      for(var i = 0; i < temp_student_count; i++){
+        if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
+            temp_absent_students.push(temp_students[i].string);
+        }
+      }
+      // get absent student count
+      var temp_absent_count = temp_absent_students.length;
 
-         console.log('confirmed count = ' + temp_students_confirmed.length);
+      console.log('confirmed count = ' + temp_students_confirmed.length);
 
-         // temp is real
-         console.log('total count = ' + temp_student_count);
-         console.log('arrived count = ' + temp_arrived_count);
-         console.log('leave count = ' + temp_leave_count);
-         console.log('absent count = ' + temp_absent_count);
-         // end of temp code
+      console.log('total count = ' + temp_student_count);
+      console.log('arrived count = ' + temp_arrived_count);
+      console.log('leave count = ' + temp_leave_count);
+      console.log('absent count = ' + temp_absent_count);
+      // end of temp code
 
-         // set student statistics
-         $this.setState({student_arrivals:temp_arrived_count}); // 抵達
-         $this.setState({student_leaves:temp_leave_count}); // 請假
-         $this.setState({student_absent:temp_absent_count}); // 未到
-       }
+      // set student statistics
+      $this.setState({student_arrivals:temp_arrived_count}); // 抵達
+      $this.setState({student_leaves:temp_leave_count}); // 請假
+      $this.setState({student_absent:temp_absent_count}); // 未到
+    }
+
 
     onBarCodeRead(result) {
       if (this.barCodeData != null && this.barCodeData != result.data) {
