@@ -75,7 +75,6 @@ class Scanner extends Component {
       let realm = new Realm({schema: realm_schema});
 
       var haha = realm.objects('AttendanceModel');
-      console.log('attendance count = ' + haha.length);
 
       // set student info state for student arrival modal
       var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + this.barCodeData + '"')[0];
@@ -171,40 +170,21 @@ class Scanner extends Component {
               function errorCallback(results) {
                 alert(results.msg);
               });
+              // 師大
+              Course.getStudentList('5ff2a1a7-78d9-4835-91a9-566ce9ed6651', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+                function successCallback(results) {
+                },
+                function errorCallback(results) {
+                  alert(results.msg);
+                });
+              // 樂高
+              Course.getStudentList('e327424d-d456-488e-9b14-35e488c34c14', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+                function successCallback(results) {
+                },
+                function errorCallback(results) {
+                  alert(results.msg);
+                });
 
-            // // only call this code below if anyone dropped out or was added into a course
-            // var courses = realm.objects('CourseModel');
-            //
-            // for(var i = 0; i < 2; i++){
-            //     var $i = i;
-            //   Course.getStudentList(courses[i].s_course_id, global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-            //     function successCallback(results) {
-            //        console.log
-            //       // for(var x = 0; x < results.length; x++)
-            //       // {
-            //       //   console.log((Object.values(results))[x]);
-            //       // }
-            //
-            //       let realm = new Realm({schema: realm_schema});
-            //       // get current course model
-            //       var course = realm.objects('CourseModel');
-            //       // get each student model from student id
-            //       for(var j = 0; j < results.length; j++){
-            //         var student = realm.objects('StudentModel').filtered('s_student_id = "' + (Object.values(results))[j].s_student_id + '"');
-            //
-            //         console.log('course = ' + course);
-            //         console.log('course name = ' + course[i].s_name);
-            //         console.log('student name = ' + student.s_name);
-            //         // add the student model into the course list
-            //         realm.write(() => {
-            //           course[i].students.push(student);
-            //         });
-            //       } // end of for loop
-            //     },
-            //     function errorCallback(results) {
-            //       alert(results.msg);
-            //     });
-            // }
 
             Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
               function successCallback(results) {
