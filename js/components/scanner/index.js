@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {openDrawer} from '../../actions/drawer';
 import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
-import { Image, View, VibrationIOS, ScrollView,InteractionManager} from 'react-native';
+import { Image, View, VibrationIOS, ScrollView,InteractionManager,AlertIOS} from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail} from 'native-base';
 import FooterComponent from "./../footer";
 import theme from '../../themes/base-theme';
@@ -36,6 +36,7 @@ const Realm          = require('realm');
 var count = 0;
 var interval_id = 0;
 var timeout_id = 0;
+var canScan = true;
 
 class Scanner extends Component {
   constructor(props){
@@ -118,6 +119,8 @@ class Scanner extends Component {
         $this.openClassModal();
         clearInterval(timeout_id);
       }, 5000);
+
+      canScan = true;
     }
 
     // for testing
@@ -201,6 +204,7 @@ class Scanner extends Component {
 
     closeClassModal() {
       this.refs.class_modal.close();
+      this.props.pushNewRoute('scannerOverlay');
     }
 
     openStudentModalAlpha() {
@@ -332,14 +336,16 @@ class Scanner extends Component {
       // end of temp code
 
       // set student statistics
-      $this.setState({student_arrivals:temp_arrived_count}); // 抵達
-      $this.setState({student_leaves:temp_leave_count}); // 請假
-      $this.setState({student_absent:temp_absent_count}); // 未到
+      this.setState({student_arrivals:temp_arrived_count}); // 抵達
+      this.setState({student_leaves:temp_leave_count}); // 請假
+      this.setState({student_absent:temp_absent_count}); // 未到
     }
 
-
     onBarCodeRead(result) {
-      if (this.barCodeData != null && this.barCodeData != result.data) {
+
+      if (canScan && this.barCodeData != null && this.barCodeData != result.data) {
+        canScan = false;
+
         this.barCodeData = result.data;
           let realm = new Realm({schema: realm_schema});
           // get user access token
@@ -375,7 +381,17 @@ class Scanner extends Component {
 
             },
             function errorCallback(results) {
-              alert('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
+              //AlertIOS.prompt('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
+              //canScan = true;
+
+              AlertIOS.alert(
+               'qr code is not a student qr code or the code has already been scanned.',
+               '',
+               [
+                 {text: 'OK', onPress: () => canScan = true, style: 'cancel'},
+               ],
+              );
+
               clearInterval(interval_id);
             });
       } // end of if qr code dupe check
@@ -467,19 +483,19 @@ class Scanner extends Component {
                       <View style={{flexDirection:'column',paddingTop:20}}>
                         <View style={{flexDirection:'row',justifyContent:'space-around'}}>
                         <View>
-                                  <Text style={styles.arriveTxtCh}>抵達</Text>
-                                  <Text style={styles.arriveNum}>{this.state.student_arrivals}</Text>
+                          <Text style={styles.arriveTxtCh}>抵達</Text>
+                          <Text style={styles.arriveNum}>{this.state.student_arrivals}</Text>
                         </View>
                         <View >
-                                  <Text style={styles.abscenceTxtCh}>請假</Text>
-                                  <Text style={styles.abscenceNum}>{this.state.student_leaves}</Text>
+                          <Text style={styles.abscenceTxtCh}>請假</Text>
+                          <Text style={styles.abscenceNum}>{this.state.student_leaves}</Text>
                         </View>
                         <View style={{borderWidth:0}}>
-                                  <Text style={styles.leaveTxtCh}>未到</Text>
-                                  <Text style={styles.leaveNum}>{this.state.student_absent}</Text>
+                          <Text style={styles.leaveTxtCh}>未到</Text>
+                          <Text style={styles.leaveNum}>{this.state.student_absent}</Text>
                         </View>
                         </View>
-                        <Button rounded style={styles.btn} onPress={this.closeStudentModalBeta.bind(this)} >
+                        <Button rounded style={styles.btn} onPress={this.closeClassModal.bind(this)} >
                           <Text style={styles.btnTxtCh}>未到名單</Text>
                         </Button>
                       </View>

@@ -37,37 +37,24 @@ const Realm          = require('realm');
 class ScannerOverlay extends Component {
   constructor(props){
      super(props);
-     this.onBarCodeRead = this.onBarCodeRead.bind(this);
      this.openModal = this.openModal.bind(this);
      this.barCodeData = "";
      this.state = {
-         swipeToClose: true,
-         studentInfo: ""
+         test: ''
        };
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
 
-         console.log('path = ' + Realm.defaultPath);
-
-         let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
-
-         // get user access token
-         var users = realm.objects('UserModel').sorted('i_login_at', true);
-         var access_token = users[users.length-1].s_access_token;
-
-         console.log('access_token = ' + access_token);
-    }
-
-    openModal() {
-        VibrationIOS.vibrate();
-        this.refs.modal.open();
-    }
-
-    closeModal() {
-        this.refs.modal.close();
-        this.setState({isOverlay: true});
+        //  console.log('path = ' + Realm.defaultPath);
+         //
+        //  let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
+         //
+        //  // get user access token
+        //  var users = realm.objects('UserModel').sorted('i_login_at', true);
+        //  var access_token = users[users.length-1].s_access_token;
+        // console.log('access_token = ' + access_token);
     }
 
     replaceRoute(route) {
@@ -82,48 +69,7 @@ class ScannerOverlay extends Component {
          this.props.pushNewRoute(route);
     }
 
-    onBarCodeRead(result) {
-      var $this = this;
-
-      if ($this.barCodeData != result.data) {
-        $this.barCodeData = result.data;
-
-        var Id = setInterval(function(){
-
-          if($this.barCodeData == null)
-            return;
-          // var $schema = realm_schema;
-          $this.setState({studentInfo: result.data});
-
-          let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
-          // get user access token
-          var users = realm.objects('UserModel').sorted('i_login_at', true);
-          var current_user = users[users.length-1];
-          var access_token = current_user.s_access_token;
-
-          realm.write(() => {
-            current_user.i_scannerUsage += 1;
-          });
-
-          Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
-            function successCallback(results) {
-              let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
-              var studentModel = realm.objects('StudentModel').filtered('s_student_qrCode = "' + $this.barCodeData + '"')[0];
-              alert(studentModel.s_name + ' checked in successfully!');
-              clearInterval(Id);
-            },
-            function errorCallback(results) {
-              alert(result.msg)
-              clearInterval(Id);
-            });
-
-        },500); // end of setInterval()
-
-      } // end of if qr code dupe check
-    } // end of onBarCodeRead()
-
     render() {
-      this.barCodeFlag = true;
         return (
               <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
                 <View style={styles.overlay}>
