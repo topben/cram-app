@@ -135,7 +135,7 @@ class Notifications extends Component {
                             <Text style={styles.timeTxt} note >{i.date}</Text>
                             </View>
                         </ListItem>
-                      ):<View/>}
+                      ):<View><Text>No notification</Text></View>}
                     </List>
                 </View>
             </Container>

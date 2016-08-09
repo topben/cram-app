@@ -12,7 +12,7 @@ var deviceWidth = Dimensions.get('window').width;
 
 var styles = StyleSheet.create({
     calendar: {
-        height: 320,
+        height: 280,
         marginTop: 5
     },
     dayWrapper: {
