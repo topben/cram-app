@@ -23,16 +23,20 @@ class Teacher: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
-        let response = response["result"]!
-        
-        if response.count > 0{
+        if response["result"]?.count > 0{
           
-          let attendanceModel = AttendanceModel.toRealmObject_list(response as! Dictionary<String, AnyObject>)
-          self.saveToRealm(attendanceModel)
-        }
+          let response = ((response["result"]! as! NSArray) as Array)
+        
+          for i in 0...(response.count-1){
+            
+            let attendanceModel = AttendanceModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
+            self.saveToRealm(attendanceModel)
+          } // end of for loop
+        } // end of if statement
+        
         let realm = try! Realm()
         let count = realm.objects(AttendanceModel.self).count.description
-        print("swift count = " + realm.objects(AttendanceModel.self).count.description)
+//        print("swift count = " + realm.objects(AttendanceModel.self).count.description)
         // return total count
         let result = ["count" : count];
         

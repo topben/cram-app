@@ -212,10 +212,10 @@ class Scanner extends Component {
       // check if first time to open student modal
       if(this.state.isOpenStudentModalAlpha == false && this.state.isOpenStudentModalBeta == false)
       {
-        //alert('first');
+        // alert('first');
         this.setState({isOpenStudentModalAlpha: true});
         this.setState({isNewStudentModal: true});
-        //$this.openStudentModalAlpha();
+        $this.openStudentModalAlpha();
       }
       // Alpha Modal (Switchable)
       else if(this.state.isOpenStudentModalAlpha == true)
@@ -253,7 +253,7 @@ class Scanner extends Component {
       // add temp code here
       let realm = new Realm({schema: realm_schema});
       // get all student IDs and save in array
-      var temp_course = realm.objects('CourseModel').filtered('s_course_id = "e327424d-d456-488e-9b14-35e488c34c14"')[0];
+      var temp_course = realm.objects('CourseModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
       // get all students in the class
       var temp_students = temp_course.students;
       // get total count of all students in the class
@@ -271,26 +271,33 @@ class Scanner extends Component {
       // get total count of leave students
       var temp_leave_count = temp_leave_students.length;
 
-      console.log('arrived count = ' + temp_arrived_count);
-      console.log('leave count = ' + temp_leave_count);
+      console.log('temp_leave_count = ' + temp_leave_count);
+      console.log('temp_arrived_count = ' + temp_arrived_count);
 
       // combine both arrived and leave students into one array
       var temp_students_confirmed = [];
       for(var i = 0; i < temp_leave_count; i++){
-          temp_students_confirmed.push(temp_leave_students[i].string);
+          temp_students_confirmed.push(temp_leave_students[i].s_student_id);
       }
       for(var i = 0; i < temp_arrived_count; i++){
-          temp_students_confirmed.push(temp_arrived_students[i].string);
+          temp_students_confirmed.push(temp_arrived_students[i].s_student_id);
       }
+
       // get list of absent students
       var temp_absent_students = [];
-      for(var i = 0; i < temp_students; i++){
+      for(var i = 0; i < temp_student_count; i++){
         if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
             temp_absent_students.push(temp_students[i].string);
         }
       }
       // get absent student count
       var temp_absent_count = temp_absent_students.length;
+
+      console.log('confirmed count = ' + temp_students_confirmed.length);
+
+      console.log('total count = ' + temp_student_count);
+      console.log('arrived count = ' + temp_arrived_count);
+      console.log('leave count = ' + temp_leave_count);
       console.log('absent count = ' + temp_absent_count);
       // end of temp code
     }
