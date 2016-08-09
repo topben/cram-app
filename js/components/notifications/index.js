@@ -40,7 +40,8 @@ class Notifications extends Component {
       let realm = new Realm({schema: realm_schema});
       // get notification realm objects
       var notifications = realm.objects('NotificationModel').filtered('s_attendance_id != ""');
-
+      // temp list for notification state
+      var notifications_list = [];
       // loop through each notification object and build the notifications
       for(var i = 0; i < notifications.length; i++){
 
@@ -72,8 +73,8 @@ class Notifications extends Component {
         notify.note = checkInNote;
         notify.date = timestamp;
 
-        this.state.notification_list.push(notify);
-
+        notifications_list.push(notify);
+        this.setState({notification_list: notifications_list});
       } // end of for loop
 
     } // end of buildAttendanceNotifications()
@@ -127,7 +128,7 @@ class Notifications extends Component {
                 </Header>
                 <View style={{backgroundColor: 'transparent'}}>
                     <List>
-                      {(this.state.notification_list == [])?this.state.notification_list.map((i, index)=>
+                      {(this.state.notification_list != [])?this.state.notification_list.map((i, index)=>
                         <ListItem iconLeft button>
                             <Icon name="ios-people" style={{color: '#ff6100'}}/>
                             <View style={{paddingLeft:30}}>
@@ -141,7 +142,6 @@ class Notifications extends Component {
             </Container>
         )
     }
-                  // {this.state.notifications.map((i, index)=>)}
 }
 
 function bindAction(dispatch) {
