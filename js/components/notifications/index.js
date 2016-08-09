@@ -125,9 +125,9 @@ class Notifications extends Component {
                         <Image source={require('../../../images/button/btn_close.png')}/>
                       </Button>
                 </Header>
-                <Content style={{backgroundColor: 'transparent'}}>
+                <View style={{backgroundColor: 'transparent'}}>
                     <List>
-                      {this.state.notification_list.map((i, index)=>
+                      {(this.state.notification_list == [])?this.state.notification_list.map((i, index)=>
                         <ListItem iconLeft button>
                             <Icon name="ios-people" style={{color: '#ff6100'}}/>
                             <View style={{paddingLeft:30}}>
@@ -135,9 +135,9 @@ class Notifications extends Component {
                             <Text style={styles.timeTxt} note >{i.date}</Text>
                             </View>
                         </ListItem>
-                      )}
+                      ):<View/>}
                     </List>
-                </Content>
+                </View>
             </Container>
         )
     }
