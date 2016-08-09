@@ -78,14 +78,10 @@ class Scanner extends Component {
 
       // set student info state for student arrival modal
       var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + this.barCodeData + '"')[0];
+      if(studentModel == null){
+        studentModel = realm.objects('StudentModel').filtered('s_student_id = "' + this.barCodeData + '"')[0];
+      }
       this.setState({name: studentModel.s_name});
-
-      var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
-      var attendanceModel = models[models.length-1];
-
-      // set student info state for student arrival modal
-      var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + $this.barCodeData + '"')[0];
-      $this.setState({name: studentModel.s_name});
 
       var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
       var attendanceModel = models[models.length-1];
