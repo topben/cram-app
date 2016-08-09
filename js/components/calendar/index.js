@@ -61,14 +61,14 @@ class Calendar extends Component {
                         onDateChange={this.onDateChange.bind(this)}/>
                   </View>
                   <List>
-                    {(this.state.attendance_list == [])?this.state.attendance_list.map((i, index)=>
+                    {(this.state.attendance_list.length != 0)?this.state.attendance_list.map((i, index)=>
                       <ListItem iconLeft button>
                           <Icon name="ios-people" style={{color: '#ff6100'}}/>
                           <View style={{paddingLeft:30}}>
                           <Text numberOfLines={2}>{i}</Text>
                           </View>
                       </ListItem>
-                    ):<View><Text>No Attendance</Text></View>}
+                    ):<View><Text style={{alignSelf:'center'}}>No Attendance</Text></View>}
                   </List>
                 </Content>
             </Container>

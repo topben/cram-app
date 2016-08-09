@@ -69,11 +69,13 @@ class Notifications extends Component {
 
         console.log(i + ". " + checkInNote);
 
+        // temp object for list
         var notify = new Object();
         notify.note = checkInNote;
         notify.date = timestamp;
 
         notifications_list.push(notify);
+
         this.setState({notification_list: notifications_list});
       } // end of for loop
 
@@ -108,8 +110,8 @@ class Notifications extends Component {
       return time;
     }
 
-    popRoute() {
-        this.props.popRoute();
+    popRoute(route) {
+        this.props.popRoute(route);
     }
 
     replaceRoute(route) {
@@ -122,13 +124,13 @@ class Notifications extends Component {
                 <Header>
                   <View></View>
                     <Text style={styles.topTitle}>通知</Text>
-                      <Button transparent onPress={() => this.replaceRoute('scanner')}>
+                      <Button transparent onPress={() => this.popRoute('scanner')}>
                         <Image source={require('../../../images/button/btn_close.png')}/>
                       </Button>
                 </Header>
                 <View style={{backgroundColor: 'transparent'}}>
                     <List>
-                      {(this.state.notification_list != [])?this.state.notification_list.map((i, index)=>
+                      {(this.state.notification_list.length != 0 )?this.state.notification_list.map((i, index)=>
                         <ListItem iconLeft button>
                             <Icon name="ios-people" style={{color: '#ff6100'}}/>
                             <View style={{paddingLeft:30}}>
@@ -136,7 +138,7 @@ class Notifications extends Component {
                             <Text style={styles.timeTxt} note >{i.date}</Text>
                             </View>
                         </ListItem>
-                      ):<View><Text>No notification</Text></View>}
+                      ):<View><Text style={{alignSelf:'center',paddingTop:30}}>No Notification</Text></View>}
                     </List>
                 </View>
             </Container>

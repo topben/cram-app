@@ -59,8 +59,8 @@ class Scanner extends Component {
        isOpenStudentModalBeta: false,
        isNewStudentModal: false,
        isCheckRealmOK: false,
-       studentModalStyleAlpha: styles.student_card_white,
-       studentModalStyleAlpha: styles.student_card_white,
+       isOpenClassModal: false,
+       studentModalStyleAlpha: styles.student_card_white
        };
     }
 
@@ -68,8 +68,7 @@ class Scanner extends Component {
          this.props.pushNewRoute(route);
     }
 
-    doSomething(){
-
+    fetch_for_modal(){
       var $this = this;
       // add all code of check in successCallback here..
       let realm = new Realm({schema: realm_schema});
@@ -101,38 +100,9 @@ class Scanner extends Component {
       var arrived_at = $this.convertTimestamp(attendanceModel.i_arrived_at);
       arrived_at = arrived_at.split(",")[1];
       $this.setState({arrived_at: arrived_at});
-      // check if first time to open student modal
-      if($this.state.isOpenStudentModalAlpha == false && $this.state.isOpenStudentModalBeta == false)
-      {
-        //alert('first');
-        $this.setState({isOpenStudentModalAlpha: true});
-        $this.setState({isNewStudentModal: true});
-        //$this.openStudentModalAlpha();
-        setTimeout(function(){
-          //$this.setState({isNewStudentModal: false});
-        }, 200);
-      }
-      // Alpha Modal (Switchable)
-      else if($this.state.isOpenStudentModalAlpha == true)
-      {
-        $this.closeStudentModalAlpha();
-        setTimeout(function(){
-          $this.openStudentModalBeta();
-          $this.setState({isNewStudentModal: true});
-        },200);
-        $this.setState({isOpenStudentModalBeta: true});
-        $this.setState({isOpenStudentModalAlpha: false});
-      }
-      // Beta Modal (Switchable)
-      else if($this.state.isOpenStudentModalBeta == true)
-      {
-        $this.closeStudentModalBeta();
-        setTimeout(function() {
-          $this.openStudentModalAlpha();
-        },200);
-        $this.setState({isOpenStudentModalAlpha: true});
-        $this.setState({isOpenStudentModalBeta: false});
-      }
+
+      // show modal animation
+      this.modalAnimation();
 
       this.getClassCurrentAttendance();
       clearInterval(interval_id);
@@ -140,7 +110,6 @@ class Scanner extends Component {
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
-
         console.log('path = ' + Realm.defaultPath);
 
         //  let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
@@ -262,6 +231,39 @@ class Scanner extends Component {
       }, 1000);
     }
 
+    modalAnimation() {
+      var $this = this;
+      // check if first time to open student modal
+      if(this.state.isOpenStudentModalAlpha == false && this.state.isOpenStudentModalBeta == false)
+      {
+        //alert('first');
+        this.setState({isOpenStudentModalAlpha: true});
+        this.setState({isNewStudentModal: true});
+        //$this.openStudentModalAlpha();
+      }
+      // Alpha Modal (Switchable)
+      else if(this.state.isOpenStudentModalAlpha == true)
+      {
+        this.closeStudentModalAlpha();
+        setTimeout(function(){
+          $this.openStudentModalBeta();
+          $this.setState({isNewStudentModal: true});
+        },200);
+        this.setState({isOpenStudentModalBeta: true});
+        this.setState({isOpenStudentModalAlpha: false});
+      }
+      // Beta Modal (Switchable)
+      else if(this.state.isOpenStudentModalBeta == true)
+      {
+        this.closeStudentModalBeta();
+        setTimeout(function() {
+          $this.openStudentModalAlpha();
+        },200);
+        this.setState({isOpenStudentModalAlpha: true});
+        this.setState({isOpenStudentModalBeta: false});
+      }
+    }
+
     replaceRoute(route) {
         this.props.replaceRoute(route);
     }
@@ -318,7 +320,6 @@ class Scanner extends Component {
     }
 
     onBarCodeRead(result) {
-
       if (this.barCodeData != null && this.barCodeData != result.data) {
         this.barCodeData = result.data;
           let realm = new Realm({schema: realm_schema});
@@ -349,7 +350,7 @@ class Scanner extends Component {
                 let realm = new Realm({schema: realm_schema});
                 if(count == realm.objects('AttendanceModel').length){
                   //$this.setState({isCheckRealmOK: true});
-                  $this.doSomething();
+                  $this.fetch_for_modal();
                 }
               }, 200);
 
@@ -412,7 +413,7 @@ class Scanner extends Component {
                       <Image style={{alignSelf:'center'}}source={require('../../../images/scanner/ic_tmot_scan.png')}/>
                        <Button
                          transparent
-                         onPress={() => this.replaceRoute('notifications')}>
+                         onPress={() => this.pushNewRoute('notifications')}>
                          <Image source={require('../../../images/notification/btn_notification.png')}/>
                        </Button>
                     </Header>
@@ -470,7 +471,7 @@ class Scanner extends Component {
                     :<View style={{height:23}}></View>
                   }
                     <View style={{flexDirection:'row',paddingTop:20}}>
-                      <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
+                      <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
                       <View style={{flexDirection:'column'}}>
                         <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
                         <Text style={styles.studentModalStatus}>{this.state.status}</Text>
@@ -486,7 +487,7 @@ class Scanner extends Component {
                     :<View style={{height:23}}></View>
                   }
                     <View style={{flexDirection:'row',paddingTop:20}}>
-                      <Thumbnail size={135} style={{alignSelf: 'center', marginLeft:20 ,marginTop: 20, marginBottom: 15, resizeMode: 'contain'}} circular source={require('../../../images/contacts/atul.png')} />
+                      <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
                       <View style={{flexDirection:'column'}}>
                         <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
                         <Text style={styles.studentModalStatus}>{this.state.status}</Text>
