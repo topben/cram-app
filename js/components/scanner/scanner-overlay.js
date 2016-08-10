@@ -33,6 +33,7 @@ const {Course}       = require('NativeModules');
 const {Student}      = require('NativeModules');
 const {Notification} = require('NativeModules');
 const Realm          = require('realm');
+const ABSENT_COLUMNS = 4;
 
 class ScannerOverlay extends Component {
   constructor(props){
@@ -46,7 +47,11 @@ class ScannerOverlay extends Component {
        start_time:'',
        end_time:'',
        organization_name:'',
-       absent_students:[]
+       absent_students:[],
+       absent_students_Col_1:[],
+       absent_students_Col_2:[],
+       absent_students_Col_3:[],
+       absent_students_Col_4:[]
        };
     }
 
@@ -120,13 +125,29 @@ class ScannerOverlay extends Component {
 
       // get list of absent students
       var temp_absent_students = [];
+      var temp_absent_students_Col_1;
+      var temp_absent_students_Col_2;
+      var temp_absent_students_Col_3;
+      var temp_absent_students_Col_4;
       for(var i = 0; i < temp_student_count; i++){
         if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
-            temp_absent_students.push(temp_students[i].string);
+          temp_absent_students[.push(temp_students[i].string);
         }
       }
 
+      for(var i =0; i < temp_absent_students.length; i++)
+      {
+          if(i > 0 && i < temp_student_count/ABSENT_COLUMNS)
+          {
+            //temp_absent_students_Col_1.push(temp_absent_students[i]);
+          }
+          else if(i > (temp_student_count/ABSENT_COLUMNS) && i < temp_student_count/ABSENT_COLUMNS )
+          {
+            //temp_absent_students_Col_2.push(temp_absent_students[i]);
+          }
+          else if()
 
+      }
 
       // get absent student count
       var temp_absent_count = temp_absent_students.length;
@@ -143,7 +164,7 @@ class ScannerOverlay extends Component {
       this.setState({absent_students:temp_absent_students}); // 未到學生名單
       this.setState({student_arrivals:temp_arrived_count}); // 抵達
       this.setState({student_leaves:temp_leave_count}); // 請假
-      this.setState({student_absent:temp_absent_count}); // 未到
+      this.setState({student_absence:temp_absent_count}); // 未到
 
     }
 
@@ -170,8 +191,8 @@ class ScannerOverlay extends Component {
 
       // set title information
       this.setState({course_name:course_name}); // 課程名稱
-      this.setState({time:start_time}); // 課程開始時間
-      this.setState({end_time:end_time}); // 課程結束時間
+      this.setState({start_time:start_time+" "}); // 課程開始時間
+      this.setState({end_time:" "+end_time}); // 課程結束時間
       this.setState({organization_name:organization_name}); // 補習班/組織 名稱
 
       this.getClassCurrentAttendance();
@@ -199,9 +220,9 @@ class ScannerOverlay extends Component {
                       <Image source={require('../../../images/button/btn_close.png')}/>
                     </Button>
                     <View style={styles.overlay}>
-                        <Text style={styles.modalTitleCh}>{this.state.course_name}</Text>
+                        <Text numberOfLines={2} style={styles.modalTitleCh}>{this.state.course_name}</Text>
                         <Text style={styles.subtitle}>{this.state.organization_name}</Text>
-                        <Text style={styles.subtitle}>1{this.state.start_time} ~ {this.state.end_time}</Text>
+                        <Text style={styles.subtitle}>{this.state.start_time}~{this.state.end_time}</Text>
                         <View style={{flexDirection:'row',justifyContent:'space-around',padding:20}}>
                           <View>
                               <Text style={styles.arriveTxtCh}>抵達</Text>
@@ -220,18 +241,19 @@ class ScannerOverlay extends Component {
                     <Grid style={styles.gridStyle}>
                       <Text style={styles.overlayAbsence}>未到名單</Text>
                       <Row>
+                      {(this.state.absent_students.length != 0 )?this.state.absent_students.map((i, index)=>
                         <Col>
                           <Row style={styles.overlayRow}>
                           <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
+                            <Text style={{alignSelf:'center'}}>張幼犬</Text>
                           </Row>
+                        </Col>
+                      ):<View><Text style={{alignSelf:'center',paddingTop:30}}>No Notification</Text></View>}
+
+                        <Col>
                           <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
+                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
+                            <Text style={{alignSelf:'center'}}>張幼犬</Text>
                           </Row>
                         </Col>
                         <Col>
@@ -239,41 +261,17 @@ class ScannerOverlay extends Component {
                           <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
                             <Text style={{alignSelf:'center'}}>Card Header</Text>
                           </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
                         </Col>
                         <Col>
                           <Row style={styles.overlayRow}>
                           <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
                             <Text style={{alignSelf:'center'}}>Card Header</Text>
                           </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
                         </Col>
                         <Col>
                           <Row style={styles.overlayRow}>
                           <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
                             <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
-                          <Row style={styles.overlayRow}>
-                            <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                              <Text style={{alignSelf:'center'}}>Card Header</Text>
                           </Row>
                         </Col>
                       </Row>

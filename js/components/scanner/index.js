@@ -119,7 +119,7 @@ class Scanner extends Component {
         $this.closeStudentModalAlpha();
         $this.openClassModal();
         clearInterval(timeout_id);
-      }, 5000);
+      }, 3000);
 
       canScan = true;
     }
