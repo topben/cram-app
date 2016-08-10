@@ -92,7 +92,6 @@ module.exports = StyleSheet.create({
       width:deviceWidth-40
     },
     overlay: {
-      height:deviceHeight,
       width:deviceWidth,
       backgroundColor:'#f5f6f7',
       alignSelf:'center',

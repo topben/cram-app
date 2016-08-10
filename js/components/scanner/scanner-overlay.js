@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {openDrawer} from '../../actions/drawer';
-import {popRoute, replaceRoute} from '../../actions/route';
+import {popRoute, replaceRoute,pushNewRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
 import { Image, View, VibrationIOS, ScrollView} from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail} from 'native-base';
@@ -37,7 +37,6 @@ const Realm          = require('realm');
 class ScannerOverlay extends Component {
   constructor(props){
      super(props);
-     this.openModal = this.openModal.bind(this);
      this.barCodeData = "";
      this.state = {
          test: ''
@@ -78,22 +77,22 @@ class ScannerOverlay extends Component {
                       onPress={() => this.popRoute()}>
                       <Image source={require('../../../images/button/btn_close.png')}/>
                     </Button>
-                    <View style={styles.space}>
+                    <View style={styles.overlay}>
                         <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
                         <Text style={styles.subtitle}>向日葵補習班</Text>
-                        <View style={{flexDirection:'row',paddingTop:20}}>
-                          <CardItem padder>
+                        <View style={{flexDirection:'row',justifyContent:'space-around',padding:20}}>
+                          <View>
                                     <Text style={styles.arriveTxtCh}>抵達</Text>
                                     <Text style={styles.arriveNum}>3</Text>
-                          </CardItem>
-                          <CardItem padder>
+                          </View>
+                          <View>
                                     <Text style={styles.abscenceTxtCh}>請假</Text>
                                     <Text style={styles.abscenceNum}>2</Text>
-                          </CardItem>
-                          <CardItem padder>
+                          </View>
+                          <View>
                                     <Text style={styles.leaveTxtCh}>未到</Text>
                                     <Text style={styles.leaveNum}>17</Text>
-                          </CardItem>
+                          </View>
                         </View>
                       </View>
                     <Grid style={styles.gridStyle}>
