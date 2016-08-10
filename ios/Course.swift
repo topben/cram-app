@@ -28,7 +28,7 @@ class Course: NSObject {
           
           let response = ((response["result"]! as! NSArray) as Array)
           // create a course model
-          let course = CourseModel()
+          let course = CourseStudentModel()
           // initialize the course model with the course id
           course.s_course_id = course_id
           

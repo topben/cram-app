@@ -10,9 +10,7 @@
 
 #import "RCTBridgeModule.h"
 
-@interface RCT_EXTERN_MODULE(Teacher, NSObject)
-
-RCT_EXTERN_METHOD(checkIn:(NSString *)qrCode_id checkIn_method:(NSString *) checkIn_method url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
+@interface RCT_EXTERN_MODULE(Organization, NSObject)
 
 RCT_EXTERN_METHOD(getInfo:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 

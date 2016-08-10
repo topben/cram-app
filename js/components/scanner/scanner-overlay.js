@@ -43,17 +43,116 @@ class ScannerOverlay extends Component {
        };
     }
 
+    convertTimestamp(timestamp) {
+      var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
+      		yyyy = d.getFullYear(),
+      		mm = ('0' + (d.getMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
+      		dd = ('0' + d.getDate()).slice(-2),			// Add leading 0.
+      		hh = d.getHours(),
+      		h = hh,
+      		min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
+      		ampm = 'AM',
+      		time;
+      if (hh > 12) {
+      		h = hh - 12;
+      		ampm = 'PM';
+      	} else if (hh === 12) {
+      		h = 12;
+      		ampm = 'PM';
+      	} else if (hh == 0) {
+      		h = 12;
+      	}
+        // ie: 8:35 AM
+      	time = h + ':' + min + ' ' + ampm;
+      return time;
+    }
+
+    accessToken(){
+       let realm = new Realm({schema: realm_schema});
+       // get user access token
+       var users = realm.objects('UserModel').sorted('i_login_at', true);
+       var access_token = users[users.length-1].s_access_token;
+
+       return access_token;
+    }
+
+    getClassCurrentAttendance(){
+
+      // add temp code here
+      let realm = new Realm({schema: realm_schema});
+      // get all student IDs and save in array
+      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
+      // get all students in the class
+      var temp_students = temp_course.students;
+      // get total count of all students in the class
+      var temp_student_count = temp_students.length;
+      // get attendance model
+      var temp_attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true); // true is descending order
+      // get klass id
+      var temp_klass_id = temp_attendance[0].s_klass_id;
+      // get list of arrived students
+      var temp_arrived_students = realm.objects('AttendanceModel').filtered('s_status = "arrived" AND s_klass_id = "' + temp_klass_id + '"');
+      // get total count of arrived students
+      var temp_arrived_count = temp_arrived_students.length;
+      // get list of leave students
+      var temp_leave_students = realm.objects('AttendanceModel').filtered('s_status = "leave" AND s_klass_id = "' + temp_klass_id + '"');
+      // get total count of leave students
+      var temp_leave_count = temp_leave_students.length;
+
+      console.log('temp_leave_count = ' + temp_leave_count);
+      console.log('temp_arrived_count = ' + temp_arrived_count);
+
+      // combine both arrived and leave students into one array
+      var temp_students_confirmed = [];
+      for(var i = 0; i < temp_leave_count; i++){
+          temp_students_confirmed.push(temp_leave_students[i].s_student_id);
+      }
+      for(var i = 0; i < temp_arrived_count; i++){
+          temp_students_confirmed.push(temp_arrived_students[i].s_student_id);
+      }
+
+      // get list of absent students
+      var temp_absent_students = [];
+      for(var i = 0; i < temp_student_count; i++){
+        if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
+            temp_absent_students.push(temp_students[i].string);
+        }
+      }
+      // get absent student count
+      var temp_absent_count = temp_absent_students.length;
+
+      console.log('confirmed count = ' + temp_students_confirmed.length);
+
+      console.log('total count = ' + temp_student_count);
+      console.log('arrived count = ' + temp_arrived_count);
+      console.log('leave count = ' + temp_leave_count);
+      console.log('absent count = ' + temp_absent_count);
+      // end of temp code
+
+    }
+
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
 
-        //  console.log('path = ' + Realm.defaultPath);
-         //
-        //  let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.StudentModel]});
-         //
-        //  // get user access token
-        //  var users = realm.objects('UserModel').sorted('i_login_at', true);
-        //  var access_token = users[users.length-1].s_access_token;
-        // console.log('access_token = ' + access_token);
+      let realm = new Realm({schema: realm_schema});
+      // get most current attendance data
+      var attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true)[0];
+      // get klass id from attendance model to get klass location, start/end time
+      var klass = realm.objects('KlassModel').filtered('s_klass_id = "' + attendance.s_klass_id + '"')[0];
+      var start_time = this.convertTimestamp(klass.i_start_date);
+      var end_time = this.convertTimestamp(klass.i_end_date);
+      // get course name
+      var course = realm.objects('CourseModel').filtered('s_course_id = "' + klass.s_course_id + '"')[0];
+      var course_name = course.s_name;
+      // get organization name
+      var organization = realm.objects('OrganizationModel').filtered('s_organization_id = "' + course.s_organization_id + '"')[0];
+      var organization_name = organization.s_name;
+
+      console.log('course_name = ' + course_name);
+      console.log('start time = '  + start_time);
+      console.log('end_time = '    + end_time);
+
+      this.getClassCurrentAttendance();
     }
 
     replaceRoute(route) {

@@ -64,6 +64,9 @@
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
+		F4C3639A1D5B04B600B6DAFB /* Organization.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C363991D5B04B600B6DAFB /* Organization.m */; };
+		F4C3639C1D5B04BE00B6DAFB /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C3639B1D5B04BE00B6DAFB /* Organization.swift */; };
+		F4C3639E1D5B04C700B6DAFB /* OrganizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C3639D1D5B04C700B6DAFB /* OrganizationModel.swift */; };
 		F4D1ABAF1D53215E005482F1 /* SynchronizationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D1ABAE1D53215E005482F1 /* SynchronizationModel.swift */; };
 		F4DA5FA31D485B80009B5735 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FA21D485B80009B5735 /* Course.m */; };
 		F4DA5FB51D485B89009B5735 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DA5FB41D485B89009B5735 /* Course.swift */; };
@@ -267,6 +270,9 @@
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
+		F4C363991D5B04B600B6DAFB /* Organization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Organization.m; sourceTree = "<group>"; };
+		F4C3639B1D5B04BE00B6DAFB /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		F4C3639D1D5B04C700B6DAFB /* OrganizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationModel.swift; sourceTree = "<group>"; };
 		F4D1ABAE1D53215E005482F1 /* SynchronizationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationModel.swift; sourceTree = "<group>"; };
 		F4DA5FA21D485B80009B5735 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		F4DA5FB41D485B89009B5735 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
@@ -532,6 +538,7 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F4C363881D5B04A100B6DAFB /* Organization */,
 				F4D1AB9D1D53214E005482F1 /* Synchronization */,
 				F41032111D50410000CA579D /* Klass */,
 				F4DA5FB61D485C55009B5735 /* Teacher */,
@@ -654,6 +661,16 @@
 				F49757431D35F1F800DEE799 /* CourseModel.swift */,
 			);
 			name = Course;
+			sourceTree = "<group>";
+		};
+		F4C363881D5B04A100B6DAFB /* Organization */ = {
+			isa = PBXGroup;
+			children = (
+				F4C363991D5B04B600B6DAFB /* Organization.m */,
+				F4C3639B1D5B04BE00B6DAFB /* Organization.swift */,
+				F4C3639D1D5B04C700B6DAFB /* OrganizationModel.swift */,
+			);
+			name = Organization;
 			sourceTree = "<group>";
 		};
 		F4D1AB9D1D53214E005482F1 /* Synchronization */ = {
@@ -1055,6 +1072,7 @@
 				F4F52A7C1D376DAB00166B69 /* Invitation.m in Sources */,
 				F4F52A9F1D38D06E00166B69 /* AnnouncementModel.swift in Sources */,
 				B592F7F71D336E6E000C9DA8 /* User.m in Sources */,
+				F4C3639E1D5B04C700B6DAFB /* OrganizationModel.swift in Sources */,
 				F4F52AA91D3CA50900166B69 /* Notification.m in Sources */,
 				F410322B1D507C1700CA579D /* Attendance.swift in Sources */,
 				B592F7EE1D336E55000C9DA8 /* People.m in Sources */,
@@ -1062,11 +1080,13 @@
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
 				F4F52AA21D38D30E00166B69 /* DirectMessageModel.swift in Sources */,
 				F4DA5FB51D485B89009B5735 /* Course.swift in Sources */,
+				F4C3639A1D5B04B600B6DAFB /* Organization.m in Sources */,
 				B592F7F01D336E55000C9DA8 /* peopleModel.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				F410322D1D507C2B00CA579D /* Attendance.m in Sources */,
 				F4F52A641D36376100166B69 /* Student.swift in Sources */,
 				F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */,
+				F4C3639C1D5B04BE00B6DAFB /* Organization.swift in Sources */,
 				F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */,
 				F4F52AA51D38D48C00166B69 /* NotificationModel.swift in Sources */,
 				F41032261D50411400CA579D /* Klass.swift in Sources */,

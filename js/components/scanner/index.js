@@ -31,6 +31,7 @@ const {User}         = require('NativeModules');
 const {Course}       = require('NativeModules');
 const {Student}      = require('NativeModules');
 const {Notification} = require('NativeModules');
+const {Organization} = require('NativeModules');
 const Realm          = require('realm');
 
 var count = 0;
@@ -195,6 +196,21 @@ class Scanner extends Component {
               function errorCallback(results) {
                 alert(results.msg);
               });
+
+            Organization.getInfo(global_variables.HOST + '/api/v1/organizations?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
+
+            Teacher.getInfo(global_variables.HOST + '/api/v1/teachers?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
+
           });
     }
 
@@ -287,7 +303,7 @@ class Scanner extends Component {
       // add temp code here
       let realm = new Realm({schema: realm_schema});
       // get all student IDs and save in array
-      var temp_course = realm.objects('CourseModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
+      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
       // get all students in the class
       var temp_students = temp_course.students;
       // get total count of all students in the class

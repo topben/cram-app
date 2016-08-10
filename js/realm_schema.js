@@ -55,9 +55,7 @@ var course_schema = {
   properties: {
       s_course_id: {type: 'string', default: ''},
       s_name: {type: 'string', default: ''},
-      i_frequency: {type: 'int', default: 0},
-      s_period: {type: 'string', default: ''},
-      students: {type: 'list', objectType: 'myString'},
+      s_organization_id: {type: 'string', default: ''},
       b_isDelete: {type: 'bool', default: false}
   }
 }
@@ -123,6 +121,42 @@ var people_schema = {
   }
 }
 
+var organization_schema = {
+  name: 'OrganizationModel',
+  primaryKey: 's_organization_id',
+  properties: {
+    s_organization_id: {type: 'string', default: ''},
+    s_name: {type: 'string', default: ''},
+    b_isDelete: {type: 'bool', false: ''},
+  }
+}
+
+var teacher_schema = {
+  name: 'TeacherModel',
+  primaryKey: 's_teacher_id',
+  properties: {
+    s_teacher_id: {type: 'string', default: ''},
+    s_organization_id: {type: 'string', default: ''},
+    s_organization_role: {type: 'string', default: ''},
+    s_name: {type: 'string', default: ''},
+    s_phone: {type: 'string', default: ''},
+    s_email: {type: 'string', default: ''},
+    s_qr_code_id: {type: 'string', default: ''},
+    s_profile_picture_url: {type: 'string', default: ''},
+    s_parent_id: {type: 'string', default: ''},
+    b_isDelete: {type: 'bool', false: ''},
+  }
+}
+
+var course_student_schema = {
+  name: 'CourseStudentModel',
+  primaryKey: 's_course_id',
+  properties: {
+      s_course_id: {type: 'string', default: ''},
+      students: {type: 'list', objectType: 'myString'},
+  }
+}
+
 var synchronization_schema = {
   name: 'SynchronizationModel',
   primaryKey: 'i_table_id',
@@ -143,6 +177,10 @@ realm_model.push(klass_schema);
 realm_model.push(people_schema);
 realm_model.push(synchronization_schema);
 realm_model.push(myString_schema);
+realm_model.push(teacher_schema);
+realm_model.push(organization_schema);
+realm_model.push(teacher_schema);
+realm_model.push(course_student_schema);
 
 // export
 module.exports =  realm_model;

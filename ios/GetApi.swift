@@ -253,6 +253,63 @@ class GetApi{
   } // end of getAttendanceInfo()
   
   
+  // get teacher info
+  static func getTeacherInfo(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Get teacher info success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Get teacher info failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getTeacherInfo()
+  
+  
+  // get organization info
+  static func getOrganizationInfo(url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Get organization info success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Get organization info failed.")
+        let error = ["error": "Server Error: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of getOrganizationInfo()
+  
 
   // get list of students in a specific course
   static func getStudentList(url: String, successBlock:Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){ 

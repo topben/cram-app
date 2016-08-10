@@ -55,6 +55,43 @@ class Teacher: NSObject {
     
   }
   
+  // get full list of teachers
+  @objc func getInfo(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+    
+    // return verification code in callback
+    GetApi.getTeacherInfo(url,
+                    
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        if response["result"]?.count > 0{
+          
+          let response = ((response["result"]! as! NSArray) as Array)
+          
+          for i in 0...(response.count-1){
+            
+            let teacherModel = TeacherModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
+            self.saveToRealm(teacherModel)
+          } // end of for loop
+        } // end of if statement
+        
+        let result = ["success" : "true"];
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        failureCallBack([result])
+    })
+    
+    
+  } // end of getInfo()
+
+  
   // MARK: NOT READY FUNCTIONS
   
   // private methods just for swift

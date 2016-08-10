@@ -14,9 +14,7 @@ class CourseModel: Object{
   
   dynamic var s_course_id        : String = ""
   dynamic var s_name             : String = ""
-  dynamic var i_frequency        : Int    = 0
-  dynamic var s_period           : String = ""
-          let students           = List<myString>()
+  dynamic var s_organization_id  : String = ""
   dynamic var b_isDelete         : Bool   = false
   
   
@@ -29,12 +27,23 @@ class CourseModel: Object{
     
     let courseModel = CourseModel()
 
-    courseModel.s_course_id = data["id"]   as! String
-    courseModel.s_name      = data["name"] as! String
+    courseModel.s_course_id       = data["id"]   as! String
+    courseModel.s_name            = data["name"] as! String
+    courseModel.s_organization_id = data["organization_id"] as? String ?? ""
    
     return courseModel
   }
   
+}
+
+class CourseStudentModel: Object{
+  
+  dynamic var s_course_id : String = ""
+          let students             = List<myString>()
+  
+  static override func primaryKey() -> String?{
+    return "s_course_id"
+  }
 }
 
 class myString: Object{
