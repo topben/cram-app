@@ -26,8 +26,9 @@ class Calendar extends Component {
         this.navigateTo = this.navigateTo.bind(this);
         this.state= {
             date: new Date(),
-            title: '孩子的行事曆',
-            attendance_list : []
+            title: '孩子的行事曆', // Switchable Title( Teacher / Parent )
+            children_attendances : [], // Parent's View
+            student_attendances: [] // Teacher's View
         };
     }
 
@@ -41,6 +42,17 @@ class Calendar extends Component {
 
     popRoute() {
         this.props.popRoute();
+    }
+
+    componentWillMount(){
+      // temp object for list
+      var attendance = new Object();
+      attendance.isLeave = true; //請假
+      attendance.class_time = '6:00~7:00 PM';
+      attendance.class_name = '兒童英語對話 A班';
+      attendance.student_name = '王小明';
+
+      children_attendances.push(attendatce);
     }
 
     render() {
@@ -61,7 +73,7 @@ class Calendar extends Component {
                         onDateChange={this.onDateChange.bind(this)}/>
                   </View>
                   <List style={{paddingTop:30}}>
-                    {(this.state.attendance_list.length != 0)?this.state.attendance_list.map((i, index)=>
+                    {(this.state.children_attendances.length != 0)?this.state.children_attendances.map((i, index)=>
                       <ListItem iconLeft button>
                           <Icon name="ios-people" style={{color: '#ff6100'}}/>
                           <View style={{paddingLeft:30}}>

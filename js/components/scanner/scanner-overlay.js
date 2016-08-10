@@ -179,18 +179,19 @@ class ScannerOverlay extends Component {
                     <View style={styles.overlay}>
                         <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
                         <Text style={styles.subtitle}>向日葵補習班</Text>
+                        <Text style={styles.subtitle}>10:AM ~ 11:AM</Text>
                         <View style={{flexDirection:'row',justifyContent:'space-around',padding:20}}>
                           <View>
-                                    <Text style={styles.arriveTxtCh}>抵達</Text>
-                                    <Text style={styles.arriveNum}>3</Text>
+                              <Text style={styles.arriveTxtCh}>抵達</Text>
+                              <Text style={styles.arriveNum}>3</Text>
                           </View>
                           <View>
-                                    <Text style={styles.abscenceTxtCh}>請假</Text>
-                                    <Text style={styles.abscenceNum}>2</Text>
+                              <Text style={styles.abscenceTxtCh}>請假</Text>
+                              <Text style={styles.abscenceNum}>2</Text>
                           </View>
                           <View>
-                                    <Text style={styles.leaveTxtCh}>未到</Text>
-                                    <Text style={styles.leaveNum}>17</Text>
+                              <Text style={styles.leaveTxtCh}>未到</Text>
+                              <Text style={styles.leaveNum}>17</Text>
                           </View>
                         </View>
                       </View>
