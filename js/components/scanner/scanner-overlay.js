@@ -39,7 +39,14 @@ class ScannerOverlay extends Component {
      super(props);
      this.barCodeData = "";
      this.state = {
-         test: ''
+       student_arrivals: 0,
+       student_leaves:0,
+       student_absence:0,
+       course_name:'',
+       start_time:'',
+       end_time:'',
+       organization_name:'',
+       absent_students:[]
        };
     }
 
@@ -118,6 +125,9 @@ class ScannerOverlay extends Component {
             temp_absent_students.push(temp_students[i].string);
         }
       }
+
+
+
       // get absent student count
       var temp_absent_count = temp_absent_students.length;
 
@@ -128,6 +138,12 @@ class ScannerOverlay extends Component {
       console.log('leave count = ' + temp_leave_count);
       console.log('absent count = ' + temp_absent_count);
       // end of temp code
+
+      // set student statistics
+      this.setState({absent_students:temp_absent_students}); // 未到學生名單
+      this.setState({student_arrivals:temp_arrived_count}); // 抵達
+      this.setState({student_leaves:temp_leave_count}); // 請假
+      this.setState({student_absent:temp_absent_count}); // 未到
 
     }
 
@@ -151,6 +167,12 @@ class ScannerOverlay extends Component {
       console.log('course_name = ' + course_name);
       console.log('start time = '  + start_time);
       console.log('end_time = '    + end_time);
+
+      // set title information
+      this.setState({course_name:course_name}); // 課程名稱
+      this.setState({time:start_time}); // 課程開始時間
+      this.setState({end_time:end_time}); // 課程結束時間
+      this.setState({organization_name:organization_name}); // 補習班/組織 名稱
 
       this.getClassCurrentAttendance();
     }
@@ -177,21 +199,21 @@ class ScannerOverlay extends Component {
                       <Image source={require('../../../images/button/btn_close.png')}/>
                     </Button>
                     <View style={styles.overlay}>
-                        <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
-                        <Text style={styles.subtitle}>向日葵補習班</Text>
-                        <Text style={styles.subtitle}>10:AM ~ 11:AM</Text>
+                        <Text style={styles.modalTitleCh}>{this.state.course_name}</Text>
+                        <Text style={styles.subtitle}>{this.state.organization_name}</Text>
+                        <Text style={styles.subtitle}>1{this.state.start_time} ~ {this.state.end_time}</Text>
                         <View style={{flexDirection:'row',justifyContent:'space-around',padding:20}}>
                           <View>
                               <Text style={styles.arriveTxtCh}>抵達</Text>
-                              <Text style={styles.arriveNum}>3</Text>
+                              <Text style={styles.arriveNum}>{this.state.student_arrivals}</Text>
                           </View>
                           <View>
                               <Text style={styles.abscenceTxtCh}>請假</Text>
-                              <Text style={styles.abscenceNum}>2</Text>
+                              <Text style={styles.abscenceNum}>{this.state.student_leaves}</Text>
                           </View>
                           <View>
                               <Text style={styles.leaveTxtCh}>未到</Text>
-                              <Text style={styles.leaveNum}>17</Text>
+                              <Text style={styles.leaveNum}>{this.state.student_absence}</Text>
                           </View>
                         </View>
                       </View>
