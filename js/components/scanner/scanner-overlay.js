@@ -138,32 +138,30 @@ class ScannerOverlay extends Component {
         }
       }
 
+      // maximum divied number
+      var divided_number = temp_absent_students.length - (temp_absent_students.length % ABSENT_COLUMNS);
+
       // Separate Array into respective UI Columns
       for(var i =0; i < temp_absent_students.length; i++)
       {
           // First Column
-          if(i % ABSENT_COLUMNS == 0)
-          {
-            console.log('column1'+temp_absent_students[i]);
-            temp_absent_students_Col_1.push(temp_absent_students[i]);
+          if(i % ABSENT_COLUMNS == 0){
+              temp_absent_students_Col_1.push(temp_absent_students[i]);
           }
           // Second Column
           else if(i % ABSENT_COLUMNS == 1)
           {
-            console.log('column2'+temp_absent_students[i]);
-            temp_absent_students_Col_2.push(temp_absent_students[i]);
+              temp_absent_students_Col_2.push(temp_absent_students[i]);
           }
           // Third Column
           else if( i % ABSENT_COLUMNS == 2)
           {
-            console.log('column3'+temp_absent_students[i]);
-            temp_absent_students_Col_3.push(temp_absent_students[i]);
+              temp_absent_students_Col_3.push(temp_absent_students[i]);
           }
           // Fourth Column
           else if( i % ABSENT_COLUMNS == 3)
           {
-            console.log('column4'+temp_absent_students[i]);
-            temp_absent_students_Col_4.push(temp_absent_students[i]);
+              temp_absent_students_Col_4.push(temp_absent_students[i]);
           }
       }
 
@@ -187,11 +185,12 @@ class ScannerOverlay extends Component {
       this.setState({student_leaves:temp_leave_count}); // 請假
       this.setState({student_absence:temp_absent_count}); // 未到
 
-      // Absent Columns
+      // set Absent Columns
       this.setState({absent_students_Col_1:temp_absent_students_Col_1});
       this.setState({absent_students_Col_2:temp_absent_students_Col_2});
       this.setState({absent_students_Col_3:temp_absent_students_Col_3});
       this.setState({absent_students_Col_4:temp_absent_students_Col_4});
+
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
@@ -237,10 +236,16 @@ class ScannerOverlay extends Component {
     }
 
     render() {
+      var _scrollView: ScrollView;
         return (
-              <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
+          <View style={{flex:1,backgroundColor:'#f5f6f7'}}>
+          <ScrollView
+            ref={(scrollView) => { _scrollView = scrollView; }}
+            automaticallyAdjustContentInsets={false}
+            scrollEventThrottle={200}
+            contentContainerStyle={{backgroundColor:'#f5f6f7'}}>
+              <View style={{backgroundColor:'#f5f6f7',paddingTop:20}}>
                 <View style={styles.overlay}>
-                  <ScrollView contentContainerStyle={{paddingTop:20}}>
                     <Button transparent style={{alignSelf:'flex-end'}}
                       onPress={() => this.popRoute()}>
                       <Image source={require('../../../images/button/btn_close.png')}/>
@@ -249,7 +254,7 @@ class ScannerOverlay extends Component {
                         <Text numberOfLines={2} style={styles.modalTitleCh}>{this.state.course_name}</Text>
                         <Text style={styles.subtitle}>{this.state.organization_name}</Text>
                         <Text style={styles.subtitle}>{this.state.start_time}~{this.state.end_time}</Text>
-                        <View style={{flexDirection:'row',justifyContent:'space-around',padding:20}}>
+                        <View style={{flexDirection:'row',justifyContent:'space-around',paddingTop:50,paddingBottom:20}}>
                           <View>
                               <Text style={styles.arriveTxtCh}>抵達</Text>
                               <Text style={styles.arriveNum}>{this.state.student_arrivals}</Text>
@@ -267,40 +272,44 @@ class ScannerOverlay extends Component {
                     <Grid style={styles.gridStyle}>
                       <Text style={styles.overlayAbsence}>未到名單</Text>
                       <Row>
-                        <Col>
-                          {(this.state.absent_students_Col_1.length != 0 )?this.state.absent_students_Col_1.map((i, index)=>
+                        <Col style={styles.overlayColumn}>
+                          {(this.state.absent_students_Col_1.length != 0 ) ? this.state.absent_students_Col_1.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Text>GGG</Text>
-                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_1[i]}</Text>
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
                         </Col>
-                        <Col>
+                        <Col style={styles.overlayColumn}>
                           {(this.state.absent_students_Col_2.length != 0 )?this.state.absent_students_Col_2.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_2[i]}</Text>
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
                         </Col>
-                        <Col>
+                        <Col style={styles.overlayColumn}>
                           {(this.state.absent_students_Col_3.length != 0 )?this.state.absent_students_Col_3.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_3[i]}</Text>
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
                         </Col>
-                        <Col>
+                        <Col style={styles.overlayColumn}>
                           {(this.state.absent_students_Col_4.length != 0 )?this.state.absent_students_Col_4.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_4[i]}</Text>
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
                         </Col>
                       </Row>
                    </Grid>
-                    </ScrollView>
               </View>
           </View>
+          </ScrollView>
+        </View>
         )
     }
 }

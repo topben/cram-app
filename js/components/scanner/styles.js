@@ -170,10 +170,10 @@ module.exports = StyleSheet.create({
       borderWidth: 1
     },
     gridStyle: {
-      width:deviceWidth-40,
-      height:deviceHeight/2+50,
+      width:deviceWidth - 40,
+      height:500,
       alignSelf:'center',
-      backgroundColor: '#fff',
+      backgroundColor: '#fff'
     },
     overlayAbsence: {
       fontFamily: 'PingFangTC-Regular',
@@ -184,7 +184,11 @@ module.exports = StyleSheet.create({
       paddingBottom:30
     },
     overlayRow:{
-      flexDirection:'column'
+      flexDirection:'column',
+      marginTop:10
+    },
+    overlayColumn:{
+      alignSelf:'flex-start'
     },
     overlayThumb:{
       width:70,
@@ -221,5 +225,11 @@ module.exports = StyleSheet.create({
       marginTop: 20,
       marginBottom: 15,
       resizeMode: 'contain'
+    },
+    studentPhoto: {
+      width:deviceWidth/10,
+      height:deviceWidth/10,
+      borderRadius:(deviceWidth/10)/2,
+      alignSelf:'center'
     }
 });

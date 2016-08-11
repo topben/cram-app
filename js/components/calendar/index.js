@@ -52,7 +52,7 @@ class Calendar extends Component {
       attendance.class_name = '兒童英語對話 A班';
       attendance.student_name = '王小明';
 
-      children_attendances.push(attendatce);
+      //this.state.children_attendances.push(attendance);
     }
 
     render() {
