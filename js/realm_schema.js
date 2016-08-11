@@ -167,6 +167,22 @@ var synchronization_schema = {
   }
 }
 
+var parent_schema = {
+  name: 'ParentModel',
+  primaryKey: 's_parent_id',
+  properties: {
+    s_parent_id: {type: 'string', default: ''},
+    s_organization_id: {type: 'string', default: ''},
+    s_organization_role: {type: 'string', default: ''},
+    s_name: {type: 'string', default: ''},
+    s_phone: {type: 'string', default: ''},
+    s_email: {type: 'string', default: ''},
+    s_qr_code_id: {type: 'string', default: ''},
+    s_profile_picture_url: {type: 'string', default: ''},
+    b_isDelete: {type: 'bool', default: false},
+  }
+}
+
 // push array
 realm_model.push(user_schema);
 realm_model.push(notification_schema);
@@ -181,6 +197,7 @@ realm_model.push(teacher_schema);
 realm_model.push(organization_schema);
 realm_model.push(teacher_schema);
 realm_model.push(course_student_schema);
+realm_model.push(parent_schema);
 
 // export
 module.exports =  realm_model;

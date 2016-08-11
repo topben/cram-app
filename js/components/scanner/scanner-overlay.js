@@ -129,25 +129,25 @@ class ScannerOverlay extends Component {
       var temp_absent_students_Col_2;
       var temp_absent_students_Col_3;
       var temp_absent_students_Col_4;
-      for(var i = 0; i < temp_student_count; i++){
-        if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
-          temp_absent_students[.push(temp_students[i].string);
-        }
-      }
+      // for(var i = 0; i < temp_student_count; i++){
+      //   if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
+      //     temp_absent_students[.push(temp_students[i].string);
+      //   }
+      // }
 
-      for(var i =0; i < temp_absent_students.length; i++)
-      {
-          if(i > 0 && i < temp_student_count/ABSENT_COLUMNS)
-          {
-            //temp_absent_students_Col_1.push(temp_absent_students[i]);
-          }
-          else if(i > (temp_student_count/ABSENT_COLUMNS) && i < temp_student_count/ABSENT_COLUMNS )
-          {
-            //temp_absent_students_Col_2.push(temp_absent_students[i]);
-          }
-          else if()
-
-      }
+      // for(var i =0; i < temp_absent_students.length; i++)
+      // {
+      //     if(i > 0 && i < temp_student_count/ABSENT_COLUMNS)
+      //     {
+      //       //temp_absent_students_Col_1.push(temp_absent_students[i]);
+      //     }
+      //     else if(i > (temp_student_count/ABSENT_COLUMNS) && i < temp_student_count/ABSENT_COLUMNS )
+      //     {
+      //       //temp_absent_students_Col_2.push(temp_absent_students[i]);
+      //     }
+      //     else if()
+      //
+      // }
 
       // get absent student count
       var temp_absent_count = temp_absent_students.length;

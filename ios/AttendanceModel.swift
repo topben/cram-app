@@ -34,7 +34,7 @@ class AttendanceModel: Object{
     attendanceModel.s_klass_id        = data["klass_id"]        as! String
     attendanceModel.s_student_id      = data["student_id"]      as! String
     attendanceModel.s_teacher_id      = data["teacher_id"]      as? String ?? ""
-    attendanceModel.s_check_in_method = data["check_in_method"] as! String
+    attendanceModel.s_check_in_method = data["check_in_method"] as? String ?? ""
     attendanceModel.s_status          = data["status"]          as! String
     attendanceModel.i_arrived_at      = data["arrived_at"]      as? Int ?? 0
     

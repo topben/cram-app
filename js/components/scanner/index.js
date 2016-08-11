@@ -25,6 +25,7 @@ import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 
 const {Klass}        = require('NativeModules');
+const {Parent}       = require('NativeModules');
 const {Teacher}      = require('NativeModules');
 const {Attendance}   = require('NativeModules');
 const {User}         = require('NativeModules');
@@ -160,21 +161,22 @@ class Scanner extends Component {
               function errorCallback(results) {
                 alert(results.msg);
               });
-              // 師大
-              Course.getStudentList('5ff2a1a7-78d9-4835-91a9-566ce9ed6651', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-                function successCallback(results) {
-                },
-                function errorCallback(results) {
-                  alert(results.msg);
-                });
-              // 樂高
-              Course.getStudentList('e327424d-d456-488e-9b14-35e488c34c14', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-                function successCallback(results) {
-                },
-                function errorCallback(results) {
-                  alert(results.msg);
-                });
 
+            // 師大
+            Course.getStudentList('5ff2a1a7-78d9-4835-91a9-566ce9ed6651', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
+              
+            // 樂高
+            Course.getStudentList('e327424d-d456-488e-9b14-35e488c34c14', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
 
             Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
               function successCallback(results) {
@@ -205,6 +207,13 @@ class Scanner extends Component {
               });
 
             Teacher.getInfo(global_variables.HOST + '/api/v1/teachers?access_token=' + access_token,
+              function successCallback(results) {
+              },
+              function errorCallback(results) {
+                alert(results.msg);
+              });
+
+            Parent.getInfo(global_variables.HOST + '/api/v1/parents?access_token=' + access_token,
               function successCallback(results) {
               },
               function errorCallback(results) {

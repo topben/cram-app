@@ -143,6 +143,39 @@ class PostApi{
   } // end of login()
   
   
+  // 請假
+  static func takeDayOff(student_id: String, klass_id: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    var parameters = [String : AnyObject]()
+    parameters["student_id"] = student_id
+    parameters["klass_id"]   = klass_id
+    parameters["leave_from"] = "parent"
+    
+    Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("請假 success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("請假 failed.")
+        let error = ["error": "Status Code: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of takeDayOff()
+
   
   
   // MARK: NOT USED YET
