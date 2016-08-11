@@ -47,7 +47,6 @@ class ScannerOverlay extends Component {
        start_time:'',
        end_time:'',
        organization_name:'',
-       absent_students:[],
        absent_students_Col_1:[],
        absent_students_Col_2:[],
        absent_students_Col_3:[],
@@ -125,35 +124,53 @@ class ScannerOverlay extends Component {
 
       // get list of absent students
       var temp_absent_students = [];
-      var temp_absent_students_Col_1;
-      var temp_absent_students_Col_2;
-      var temp_absent_students_Col_3;
-      var temp_absent_students_Col_4;
+      var temp_absent_students_Col_1 = [];
+      var temp_absent_students_Col_2 = [];
+      var temp_absent_students_Col_3 = [];
+      var temp_absent_students_Col_4 = [];
+
       for(var i = 0; i < temp_student_count; i++){
         if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
-          temp_absent_students[.push(temp_students[i].string);
+
+          var absent_student_name = realm.objects('StudentModel').filtered('s_student_id = "' + temp_students[i].string + '"')[0].s_name;
+
+          temp_absent_students.push(absent_student_name);
         }
       }
 
+      // Separate Array into respective UI Columns
       for(var i =0; i < temp_absent_students.length; i++)
       {
-          if(i > 0 && i < temp_student_count/ABSENT_COLUMNS)
+          // First Column
+          if(i % ABSENT_COLUMNS == 0)
           {
-            //temp_absent_students_Col_1.push(temp_absent_students[i]);
+            console.log('column1'+temp_absent_students[i]);
+            temp_absent_students_Col_1.push(temp_absent_students[i]);
           }
-          else if(i > (temp_student_count/ABSENT_COLUMNS) && i < temp_student_count/ABSENT_COLUMNS )
+          // Second Column
+          else if(i % ABSENT_COLUMNS == 1)
           {
-            //temp_absent_students_Col_2.push(temp_absent_students[i]);
+            console.log('column2'+temp_absent_students[i]);
+            temp_absent_students_Col_2.push(temp_absent_students[i]);
           }
-          else if()
-
+          // Third Column
+          else if( i % ABSENT_COLUMNS == 2)
+          {
+            console.log('column3'+temp_absent_students[i]);
+            temp_absent_students_Col_3.push(temp_absent_students[i]);
+          }
+          // Fourth Column
+          else if( i % ABSENT_COLUMNS == 3)
+          {
+            console.log('column4'+temp_absent_students[i]);
+            temp_absent_students_Col_4.push(temp_absent_students[i]);
+          }
       }
 
       // get absent student count
       var temp_absent_count = temp_absent_students.length;
 
       console.log('confirmed count = ' + temp_students_confirmed.length);
-
       console.log('total count = ' + temp_student_count);
       console.log('arrived count = ' + temp_arrived_count);
       console.log('leave count = ' + temp_leave_count);
@@ -166,6 +183,15 @@ class ScannerOverlay extends Component {
       this.setState({student_leaves:temp_leave_count}); // 請假
       this.setState({student_absence:temp_absent_count}); // 未到
 
+      this.setState({student_arrivals:temp_arrived_count}); // 抵達
+      this.setState({student_leaves:temp_leave_count}); // 請假
+      this.setState({student_absence:temp_absent_count}); // 未到
+
+      // Absent Columns
+      this.setState({absent_students_Col_1:temp_absent_students_Col_1});
+      this.setState({absent_students_Col_2:temp_absent_students_Col_2});
+      this.setState({absent_students_Col_3:temp_absent_students_Col_3});
+      this.setState({absent_students_Col_4:temp_absent_students_Col_4});
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
@@ -241,38 +267,34 @@ class ScannerOverlay extends Component {
                     <Grid style={styles.gridStyle}>
                       <Text style={styles.overlayAbsence}>未到名單</Text>
                       <Row>
-                      {(this.state.absent_students.length != 0 )?this.state.absent_students.map((i, index)=>
                         <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>張幼犬</Text>
-                          </Row>
-                        </Col>
-                      ):<View><Text style={{alignSelf:'center',paddingTop:30}}>No Notification</Text></View>}
-
-                        <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>張幼犬</Text>
-                          </Row>
+                          {(this.state.absent_students_Col_1.length != 0 )?this.state.absent_students_Col_1.map((i, index)=>
+                            <Row style={styles.overlayRow}>
+                              <Text>GGG</Text>
+                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_1[i]}</Text>
+                            </Row>
+                          ):<View/>}
                         </Col>
                         <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
+                          {(this.state.absent_students_Col_2.length != 0 )?this.state.absent_students_Col_2.map((i, index)=>
+                            <Row style={styles.overlayRow}>
+                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_2[i]}</Text>
+                            </Row>
+                          ):<View/>}
                         </Col>
                         <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
+                          {(this.state.absent_students_Col_3.length != 0 )?this.state.absent_students_Col_3.map((i, index)=>
+                            <Row style={styles.overlayRow}>
+                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_3[i]}</Text>
+                            </Row>
+                          ):<View/>}
                         </Col>
                         <Col>
-                          <Row style={styles.overlayRow}>
-                          <Thumbnail style={{width:70,height:70,borderRadius:35,alignSelf:'center'}}source={require('../../../images/contacts/sanket.png')} />
-                            <Text style={{alignSelf:'center'}}>Card Header</Text>
-                          </Row>
+                          {(this.state.absent_students_Col_4.length != 0 )?this.state.absent_students_Col_4.map((i, index)=>
+                            <Row style={styles.overlayRow}>
+                              <Text style={{alignSelf:'center'}}>{this.state.absent_students_Col_4[i]}</Text>
+                            </Row>
+                          ):<View/>}
                         </Col>
                       </Row>
                    </Grid>
