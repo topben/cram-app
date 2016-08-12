@@ -1,7 +1,11 @@
 /* @flow */
 'use strict';
 
-import { StyleSheet } from "react-native";
+var React = require('react-native');
+var { StyleSheet, Dimensions } = React;
+
+var deviceHeight = Dimensions.get('window').height;
+var deviceWidth = Dimensions.get('window').width;
 
 module.exports = StyleSheet.create({
     container: {
@@ -15,5 +19,47 @@ module.exports = StyleSheet.create({
       color:'#ff6100',
       letterSpacing:3,
       alignSelf:'center'
+    },
+    listItem: {
+      flexDirection:'row',
+      justifyContent:'space-around',
+      borderBottomWidth:1,
+      borderColor:'rgba(181, 181, 181, 0.34)',
+      padding:10      
+    },
+    leaveButton: {
+      width:92,
+      height:35,
+      backgroundColor: '#ff6100',
+      alignSelf:'center'
+    },
+    leaveBtnTxt: {
+      fontFamily: 'PingFangTC-Regular',
+      fontSize: 15,
+      color:'white',
+    },
+    studentPhoto: {
+      width:deviceWidth/10,
+      height:deviceWidth/10,
+      borderRadius:(deviceWidth/10)/2,
+      alignSelf:'center'
+    },
+    list_student_name: {
+      fontFamily: 'PingFangTC-Light',
+      color:'rgba(74, 74, 74, 1)',
+      fontSize:12,
+      alignSelf:'flex-start'
+    },
+    list_arrived_time: {
+      fontFamily: 'SFUIDisplay-Regular',
+      color:'rgba(74, 74, 74, 1)',
+      fontSize:12,
+      alignSelf:'flex-start'
+    },
+    list_class_name: {
+      fontFamily: 'PingFangTC-Light',
+      color:'#4a4a4a',
+      fontSize:17,
+      alignSelf:'flex-start'
     }
 });

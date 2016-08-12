@@ -190,7 +190,6 @@ class ScannerOverlay extends Component {
       this.setState({absent_students_Col_2:temp_absent_students_Col_2});
       this.setState({absent_students_Col_3:temp_absent_students_Col_3});
       this.setState({absent_students_Col_4:temp_absent_students_Col_4});
-
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
@@ -275,7 +274,7 @@ class ScannerOverlay extends Component {
                         <Col style={styles.overlayColumn}>
                           {(this.state.absent_students_Col_1.length != 0 ) ? this.state.absent_students_Col_1.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
                               <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
@@ -283,7 +282,7 @@ class ScannerOverlay extends Component {
                         <Col style={styles.overlayColumn}>
                           {(this.state.absent_students_Col_2.length != 0 )?this.state.absent_students_Col_2.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
                               <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
@@ -291,7 +290,7 @@ class ScannerOverlay extends Component {
                         <Col style={styles.overlayColumn}>
                           {(this.state.absent_students_Col_3.length != 0 )?this.state.absent_students_Col_3.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
                               <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
@@ -299,7 +298,7 @@ class ScannerOverlay extends Component {
                         <Col style={styles.overlayColumn}>
                           {(this.state.absent_students_Col_4.length != 0 )?this.state.absent_students_Col_4.map((i, index)=>
                             <Row style={styles.overlayRow}>
-                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')} />
+                              <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
                               <Text style={{alignSelf:'center'}}>{i}</Text>
                             </Row>
                           ):<View/>}
