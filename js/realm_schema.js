@@ -72,6 +72,7 @@ var student_schema = {
   primaryKey: 's_student_id',
   properties: {
       s_student_id: {type: 'string', default: ''},
+      s_parent_id: {type: 'string', default: ''},
       s_organization_id: {type: 'string', default: ''},
       s_phone: {type: 'string', default: ''},
       s_email: {type: 'string', default: ''},
@@ -136,6 +137,7 @@ var teacher_schema = {
   primaryKey: 's_teacher_id',
   properties: {
     s_teacher_id: {type: 'string', default: ''},
+    s_user_id: {type: 'string', default: ''},
     s_organization_id: {type: 'string', default: ''},
     s_organization_role: {type: 'string', default: ''},
     s_name: {type: 'string', default: ''},
@@ -173,6 +175,7 @@ var parent_schema = {
   properties: {
     s_parent_id: {type: 'string', default: ''},
     s_organization_id: {type: 'string', default: ''},
+    s_user_id: {type: 'string', default: ''},
     s_organization_role: {type: 'string', default: ''},
     s_name: {type: 'string', default: ''},
     s_phone: {type: 'string', default: ''},
