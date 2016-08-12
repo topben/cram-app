@@ -14,6 +14,7 @@ class ParentModel: Object{
   
   dynamic var s_parent_id           : String = ""
   dynamic var s_organization_id     : String = ""
+  dynamic var s_user_id             : String = ""
   dynamic var s_organization_role   : String = ""
   dynamic var s_name                : String = ""
   dynamic var s_phone               : String = ""
@@ -34,6 +35,7 @@ class ParentModel: Object{
     
     parentModel.s_parent_id           =     data["id"]                  as! String
     parentModel.s_organization_id     =     data["organization_id"]     as? String ?? ""
+    parentModel.s_user_id             =     data["user_id"]             as? String ?? ""
     parentModel.s_organization_role   =     data["organization_role"]   as! String
     parentModel.s_name                =     data["name"]                as! String
     parentModel.s_phone               =     data["phone"]               as? String ?? ""

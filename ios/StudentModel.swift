@@ -20,6 +20,7 @@ class StudentModel: Object{
   dynamic var s_email               : String = ""
   dynamic var s_organization_role   : String = ""
   dynamic var s_profile_picture_url : String = ""
+  dynamic var s_parent_id           : String = ""
   dynamic var b_isDelete            : Bool   = false
   
   static override func primaryKey() -> String?{
@@ -33,6 +34,7 @@ class StudentModel: Object{
     
     studentModel.s_student_id              = data["id"]                  as! String
     studentModel.s_qr_code_id              = data["qr_code_id"]          as! String
+    studentModel.s_parent_id               = data["parent_id"]           as! String
     studentModel.s_organization_id         = data["organization_id"]     as? String ?? ""
     studentModel.s_email                   = data["email"]               as? String ?? ""
     studentModel.s_phone                   = data["phone"]               as? String ?? ""

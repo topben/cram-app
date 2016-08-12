@@ -103,7 +103,7 @@ class SignUpCreate extends Component {
       User.create(userInfo, global_variables.HOST+'/api/v1/signup',
        function successCallback(results) {
          // navigate to scanner page
-          $this.navigateTo('scanner');
+          $this.navigateTo('login');
        },
        function errorCallback(results) {
            alert(results.msg);

@@ -14,6 +14,7 @@ class TeacherModel: Object{
   
   dynamic var s_teacher_id          : String = ""
   dynamic var s_organization_id     : String = ""
+  dynamic var s_user_id             : String = ""
   dynamic var s_organization_role   : String = ""
   dynamic var s_name                : String = ""
   dynamic var s_phone               : String = ""
@@ -35,6 +36,7 @@ class TeacherModel: Object{
     
     teacherModel.s_teacher_id          =     data["id"]                  as! String
     teacherModel.s_organization_id     =     data["organization_id"]     as? String ?? ""
+    teacherModel.s_user_id             =     data["user_id"]             as? String ?? ""
     teacherModel.s_organization_role   =     data["organization_role"]   as? String ?? ""
     teacherModel.s_name                =     data["name"]                as! String
     teacherModel.s_phone               =     data["phone"]               as? String ?? ""
