@@ -92,7 +92,7 @@ class ScannerOverlay extends Component {
       // add temp code here
       let realm = new Realm({schema: realm_schema});
       // get all student IDs and save in array
-      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
+      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "0aeb7f71-9e1f-45c8-928c-d9bb911f0c94"')[0];
       // get all students in the class
       var temp_students = temp_course.students;
       // get total count of all students in the class

@@ -61,6 +61,8 @@
 		F41032291D50412B00CA579D /* PatchApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41032281D50412B00CA579D /* PatchApi.swift */; };
 		F410322B1D507C1700CA579D /* Attendance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F410322A1D507C1700CA579D /* Attendance.swift */; };
 		F410322D1D507C2B00CA579D /* Attendance.m in Sources */ = {isa = PBXBuildFile; fileRef = F410322C1D507C2B00CA579D /* Attendance.m */; };
+		F41656271D60672600EDCB4E /* Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = F41656261D60672600EDCB4E /* Debug.m */; };
+		F41656291D60673100EDCB4E /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41656281D60673100EDCB4E /* Debug.swift */; };
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
@@ -270,6 +272,8 @@
 		F41032281D50412B00CA579D /* PatchApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatchApi.swift; sourceTree = "<group>"; };
 		F410322A1D507C1700CA579D /* Attendance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attendance.swift; sourceTree = "<group>"; };
 		F410322C1D507C2B00CA579D /* Attendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attendance.m; sourceTree = "<group>"; };
+		F41656261D60672600EDCB4E /* Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Debug.m; sourceTree = "<group>"; };
+		F41656281D60673100EDCB4E /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
@@ -544,6 +548,7 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F41656151D60671B00EDCB4E /* Debug */,
 				F4C3639F1D5C3FE000B6DAFB /* Parent */,
 				F4C363881D5B04A100B6DAFB /* Organization */,
 				F4D1AB9D1D53214E005482F1 /* Synchronization */,
@@ -638,6 +643,15 @@
 				F41032241D50411400CA579D /* KlassModel.swift */,
 			);
 			name = Klass;
+			sourceTree = "<group>";
+		};
+		F41656151D60671B00EDCB4E /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				F41656261D60672600EDCB4E /* Debug.m */,
+				F41656281D60673100EDCB4E /* Debug.swift */,
+			);
+			name = Debug;
 			sourceTree = "<group>";
 		};
 		F497573C1D35EF6C00DEE799 /* Student */ = {
@@ -1093,6 +1107,7 @@
 				F4C3639E1D5B04C700B6DAFB /* OrganizationModel.swift in Sources */,
 				F4F52AA91D3CA50900166B69 /* Notification.m in Sources */,
 				F410322B1D507C1700CA579D /* Attendance.swift in Sources */,
+				F41656271D60672600EDCB4E /* Debug.m in Sources */,
 				B592F7EE1D336E55000C9DA8 /* People.m in Sources */,
 				B592F7F91D336E6E000C9DA8 /* UserModel.swift in Sources */,
 				B592F7E91D336E48000C9DA8 /* PostApi.swift in Sources */,
@@ -1114,6 +1129,7 @@
 				F41032271D50411400CA579D /* KlassModel.swift in Sources */,
 				F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				F41656291D60673100EDCB4E /* Debug.swift in Sources */,
 				B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */,
 				F4DA5FBA1D485C74009B5735 /* Teacher.m in Sources */,
 				B592F7EF1D336E55000C9DA8 /* People.swift in Sources */,
