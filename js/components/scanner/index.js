@@ -134,7 +134,7 @@ class Scanner extends Component {
     componentWillMount () {
         console.log('path = ' + Realm.defaultPath);
         //  let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
-        let realm = new Realm({schema: realm_schema});
+         let realm = new Realm({schema: realm_schema});
          // get user access token
          var users = realm.objects('UserModel').sorted('i_login_at', true);
          var access_token = users[users.length-1].s_access_token;
@@ -169,7 +169,7 @@ class Scanner extends Component {
               function errorCallback(results) {
                 alert(results.msg);
               });
-              
+
             // 樂高
             Course.getStudentList('e327424d-d456-488e-9b14-35e488c34c14', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
               function successCallback(results) {
