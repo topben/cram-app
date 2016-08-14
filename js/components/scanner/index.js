@@ -162,16 +162,7 @@ class Scanner extends Component {
                 alert(results.msg);
               });
 
-            // 師大
-            Course.getStudentList('5ff2a1a7-78d9-4835-91a9-566ce9ed6651', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
-
-            // 樂高
-            Course.getStudentList('e327424d-d456-488e-9b14-35e488c34c14', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+            Course.getStudentList('0aeb7f71-9e1f-45c8-928c-d9bb911f0c94', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
               function successCallback(results) {
               },
               function errorCallback(results) {
@@ -312,7 +303,7 @@ class Scanner extends Component {
       // add temp code here
       let realm = new Realm({schema: realm_schema});
       // get all student IDs and save in array
-      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "5ff2a1a7-78d9-4835-91a9-566ce9ed6651"')[0];
+      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "0aeb7f71-9e1f-45c8-928c-d9bb911f0c94"')[0];
       // get all students in the class
       var temp_students = temp_course.students;
       // get total count of all students in the class
