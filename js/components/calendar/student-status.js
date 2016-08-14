@@ -51,21 +51,43 @@ class LeaveButton extends Component {
               break;
           case 'leave-button':
               if(!this.state.isToggled){
-                this.setState({ isToggled: true });
-              }
-              else{
+
                 let realm = new Realm({schema: realm_schema});
                 // get user access token
                 var users = realm.objects('UserModel').sorted('i_login_at', true);
                 var access_token = users[users.length-1].s_access_token;
 
-                Parent.takeDayOff(this.props.student_id, this.props.klass_id, global_variables.HOST + '/api/v1/attedances/leave?access_token=' + access_token,
+                var uuid = realm.objects('AttendanceModel').filtered('s_student_id = "' + this.props.student_id + '" AND s_klass_id = "' + this.props.klass_id + '"')[0].s_attendance_id;
+                var $this = this;
+                Parent.dontTakeDayOff(global_variables.HOST + '/api/v1/attendances/' + uuid + '?access_token=' + access_token,
                   function successCallback(results) {
-                    alert("success 請假");
+
+                    let realm = new Realm({schema: realm_schema});
+                    realm.write(() => {
+                      var attendanceModel = realm.objects('AttendanceModel').filtered('s_student_id = "' + $this.props.student_id + '" AND s_klass_id = "' + $this.props.klass_id + '"')[0];
+                      realm.delete(attendanceModel);
+                    });
                   },
                   function errorCallback(results) {
                     alert(results.msg);
                   });
+
+                this.setState({ isToggled: true });
+              }
+              else{
+
+                let realm = new Realm({schema: realm_schema});
+                // get user access token
+                var users = realm.objects('UserModel').sorted('i_login_at', true);
+                var access_token = users[users.length-1].s_access_token;
+
+                Parent.takeDayOff(this.props.student_id, this.props.klass_id, global_variables.HOST + '/api/v1/attendances/leave?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
+
                 this.setState({ isToggled: false });
               }
               break;

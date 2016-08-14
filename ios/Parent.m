@@ -14,6 +14,8 @@
 
 RCT_EXTERN_METHOD(getInfo:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
+RCT_EXTERN_METHOD(dontTakeDayOff:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
+
 RCT_EXTERN_METHOD(takeDayOff:(NSString *) student_id klass_id:(NSString *) klass_id url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
 @end

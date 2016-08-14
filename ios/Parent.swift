@@ -88,6 +88,31 @@ class Parent: NSObject {
   } // end of takeDayOff()
   
   
+  // 取消請假
+  @objc func dontTakeDayOff(url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+    
+    
+    DeleteApi.dontTakeDayOff(url,
+                       
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        let result = ["success" : "true"];
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        failureCallBack([result])
+    })
+    
+    
+  } // end of dontTakeDayOff()
+  
   
   // MARK: NOT READY FUNCTIONS
   
