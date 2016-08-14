@@ -67,7 +67,7 @@ class LeaveButton extends Component {
             style={(this.state.isToggled)?styles.leaveButtonPressed:styles.leaveButtonNormal}
             onPress={() => this.onButtonPressed()}>
             <View>
-              <Text style={(this.state.isToggled)?styles.leaveBtnTxtPressed:styles.leaveBtnTxtNormal}>請假</Text>
+              <Text style={(this.state.isToggled)?styles.leaveBtnTxtPressed:styles.leaveBtnTxtNormal}>{(this.state.isToggled)?'請假':'我要請假'}</Text>
             </View>
           </Button>;
           default :
