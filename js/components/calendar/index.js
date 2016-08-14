@@ -198,6 +198,7 @@ class Calendar extends Component {
               cell.push(cell_data);
               console.log('CELL'+cell);
               this.setState({children_attendances:cell});
+
             } // end of for loop 'klasses'
           } // end of for loop 'students'
           this.setState({children_attendances:cell});
@@ -239,6 +240,11 @@ class Calendar extends Component {
               var student_name = students[i].s_name;
               cell_data['student_name'] = student_name;
               var status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"');
+
+              var student_id = students[i].s_student_id;
+              cell_data['student_id'] = student_id;
+              var klass_id = classes_today[j].s_klass_id;
+              cell_data['klass_id'] = klass_id;
 
               cell_data['status'] = 'leave-button';
 
@@ -283,7 +289,7 @@ class Calendar extends Component {
                     scrollEventThrottle={200}>
                       {(this.state.children_attendances.length != 0 )?this.state.children_attendances.map((i, index)=>
                     <View style={styles.listItem}>
-                        <StudentStatus status_type={i.status} isToggled={i.is_toggled}/>
+                        <StudentStatus status_type={i.status} isToggled={i.is_toggled} student_id ={i.student_id} klass_id ={i.klass_id}/>
                         <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
                             <View style={{flexDirection:'column'}}>
                             <Text style={styles.list_arrived_time}>{i.start_time}-{i.end_time}</Text>
