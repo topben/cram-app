@@ -25,18 +25,30 @@ module.exports = StyleSheet.create({
       justifyContent:'space-around',
       borderBottomWidth:1,
       borderColor:'rgba(181, 181, 181, 0.34)',
-      padding:10      
+      padding:10
     },
-    leaveButton: {
+    leaveButtonPressed: {
       width:92,
       height:35,
       backgroundColor: '#ff6100',
       alignSelf:'center'
     },
-    leaveBtnTxt: {
+    leaveButtonNormal: {
+      width:92,
+      height:35,
+      backgroundColor: '#f6f3ed',
+      borderColor:'#ff6100',
+      alignSelf:'center'
+    },
+    leaveBtnTxtPressed: {
       fontFamily: 'PingFangTC-Regular',
       fontSize: 15,
       color:'white',
+    },
+    leaveBtnTxtNormal: {
+      fontFamily: 'PingFangTC-Regular',
+      fontSize: 15,
+      color:'#ff6100',
     },
     studentPhoto: {
       width:deviceWidth/10,
@@ -61,5 +73,28 @@ module.exports = StyleSheet.create({
       color:'#4a4a4a',
       fontSize:17,
       alignSelf:'flex-start'
+    },
+    arriveTxtCh: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#77b4bb',
+      fontSize:18,
+      alignSelf:'center'
+    },
+    arriveTime: {
+      fontFamily: 'PingFangTC-Light',
+      color:'#77b4bb',
+      fontSize:12,
+      alignSelf:'center'
+    },
+    abscenceTxtCh: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'#4a4a4a',
+      fontSize:18,
+      alignSelf:'center'
+    },
+    leaveTxtCh: {
+      fontFamily: 'PingFangTC-Medium',
+      color:'rgba(255, 85, 0, 1)',
+      fontSize:18
     }
 });

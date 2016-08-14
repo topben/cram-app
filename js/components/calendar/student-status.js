@@ -30,16 +30,46 @@ class LeaveButton extends Component {
       class_id: PropTypes.string.isRequired
     };
 
+    onButtonPressed() {
+      switch (this.props.status_type) {
+          case 'leave-label':
+              break;
+          case 'arrive-label':
+              break;
+          case 'absent-label':
+              break;
+          case 'leave-button':
+          if(!this.state.isToggled)
+          {
+            this.setState({ isToggled: true });
+          }
+          else
+          {
+            this.setState({ isToggled: false });
+          }
+              break;
+          default :
+              break;
+      }
+    }
+
     render() {
       switch (this.props.status_type) {
           case 'leave-label':
-              return <View/>
+              return <View style={{alignSelf:'center'}}><Text style={styles.leaveTxtCh}>請假</Text></View>
           case 'arrive-label':
-              return <View/>
+              return <View style={{alignSelf:'center',flexDirection:'column'}}><Text style={styles.arriveTxtCh}>抵達</Text><Text style={styles.arriveTime}>12:00</Text></View>
           case 'absent-label':
-              return <View/>
+              return <View style={{alignSelf:'center'}}><Text style={styles.leaveTxtCh}>未到</Text></View>
           case 'leave-button':
-              return <Button rounded style={styles.leaveButton}><View><Text style={styles.leaveBtnTxt}>請假</Text></View></Button>;
+          return <Button
+            rounded
+            style={(this.state.isToggled)?styles.leaveButtonPressed:styles.leaveButtonNormal}
+            onPress={() => this.onButtonPressed()}>
+            <View>
+              <Text style={(this.state.isToggled)?styles.leaveBtnTxtPressed:styles.leaveBtnTxtNormal}>請假</Text>
+            </View>
+          </Button>;
           default :
               return <View/>;
       }
