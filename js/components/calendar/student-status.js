@@ -9,6 +9,7 @@ import { Text, Container, Content, Button } from 'native-base';
 import styles from './styles';
 
 type Props = {
+  isToggled: bool,
   status_type: string,
   student_id: string,
   class_id: string
@@ -20,23 +21,24 @@ class LeaveButton extends Component {
     constructor(props) {
         super(props);
         this.state= {
-          isToggled: false
+          isToggled: this.props.isToggled
         };
     }
 
     static propTypes = {
       button_type: PropTypes.string.isRequired,
       student_id: PropTypes.string.isRequired,
-      class_id: PropTypes.string.isRequired
+      class_id: PropTypes.string.isRequired,
+      isToggled: PropTypes.bool.isRequired
     };
 
     onButtonPressed() {
       switch (this.props.status_type) {
-          case 'leave-label':
+          case 'leave':
               break;
-          case 'arrive-label':
+          case 'arrived':
               break;
-          case 'absent-label':
+          case 'absent':
               break;
           case 'leave-button':
           if(!this.state.isToggled)
@@ -67,7 +69,7 @@ class LeaveButton extends Component {
             style={(this.state.isToggled)?styles.leaveButtonPressed:styles.leaveButtonNormal}
             onPress={() => this.onButtonPressed()}>
             <View>
-              <Text style={(this.state.isToggled)?styles.leaveBtnTxtPressed:styles.leaveBtnTxtNormal}>請假</Text>
+              <Text style={(this.state.isToggled)?styles.leaveBtnTxtPressed:styles.leaveBtnTxtNormal}>{(this.state.isToggled)?'請假':'取消請假'}</Text>
             </View>
           </Button>;
           default :

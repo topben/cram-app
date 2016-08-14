@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image, View, ScrollView } from 'react-native';
+import { Image, View, ScrollView,InteractionManager } from 'react-native';
 import {openDrawer} from '../../actions/drawer';
 import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 
@@ -43,7 +43,9 @@ class Calendar extends Component {
     }
 
     onDateChange (date) {
+        // unresolved problem delayed interaction
         this.setState({ date: date });
+        this.getAttendance(this.convertDateToTimeStamp(this.state.date));
     }
 
     popRoute() {
@@ -101,6 +103,31 @@ class Calendar extends Component {
       return time;
     }
 
+    convertDateToTimeStamp(date)
+    {
+      var myDate=String(date);
+
+      myDate=myDate.split(" ");
+      var month = new Array();
+          month["Jan"] = 1;
+          month["Feb"] = 2;
+          month["Mar"] = 3;
+          month["Apr"] = 4;
+          month["May"] = 5;
+          month["June"] = 6;
+          month["July"] = 7;
+          month["Aug"] = 8;
+          month["Sept"] = 9;
+          month["Oct"] = 10;
+          month["Nov"] = 11;
+          month["Dec"] = 12;
+
+      var newDate=month[myDate[1]]+"/"+myDate[2]+"/"+myDate[3];
+      //console.log("converted"+newDate);
+      console.log("the"+new Date(newDate).getTime()/1000+"date")
+      return (new Date(newDate).getTime()/1000);
+    }
+
     isStudentInKlass(student_id, klass_id){
 
       let realm = new Realm({schema: realm_schema});
@@ -155,7 +182,7 @@ class Calendar extends Component {
               var start_time = this.convertTimestamp(classes_today[j].i_start_date);
               cell_data['start_time'] = start_time;
               var end_time = this.convertTimestamp(classes_today[j].i_end_date);
-              cell_data['end_date'] = end_time;
+              cell_data['end_time'] = end_time;
               var course_name = realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0].s_name;
               cell_data['course_name'] = course_name;
               var student_name = students[i].s_name;
@@ -163,11 +190,15 @@ class Calendar extends Component {
               var status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"')[0].s_status;
 
               cell_data['status'] = status;
+              cell_data['is_toggled'] = false;
 
               Debug.variable(cell_data);
               cell.push(cell_data);
+              console.log('CELL'+cell);
+              this.setState({children_attendances:cell});
             } // end of for loop 'klasses'
           } // end of for loop 'students'
+          this.setState({children_attendances:cell});
         } // end of if
       // if user selected a date after today including today
       else{
@@ -200,20 +231,23 @@ class Calendar extends Component {
               var start_time = this.convertTimestamp(classes_today[j].i_start_date);
               cell_data['start_time'] = start_time;
               var end_time = this.convertTimestamp(classes_today[j].i_end_date);
-              cell_data['end_date'] = end_time;
+              cell_data['end_time'] = end_time;
               var course_name = realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0].s_name;
               cell_data['course_name'] = course_name;
               var student_name = students[i].s_name;
               cell_data['student_name'] = student_name;
               var status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"');
 
+              cell_data['status'] = 'leave-button';
+
               if (status.length == 0)
-                cell_data['status'] = '我要請假';
+                cell_data['is_toggled'] = true;
               else
-                cell_data['status'] = '取消請假';
+                cell_data['is_toggled'] = false;
 
               Debug.variable(cell_data);
               cell.push(cell_data);
+              this.setState({children_attendances:cell});
             } // end of for loop 'klasses'
           } // end of for loop 'students'
         } // end of else
@@ -222,6 +256,7 @@ class Calendar extends Component {
 
 
     render() {
+      var _scrollView: ScrollView;
         return (
             <Container theme={calendar} style={{backgroundColor: '#f5f6f7'}}>
                 <Header style={{borderColor:"rgba(181, 181, 181, 0.34)",borderBottomWidth:1.1,height:70}}>
@@ -238,22 +273,29 @@ class Calendar extends Component {
                         selectedBackgroundColor={'#000'}
                         onDateChange={this.onDateChange.bind(this)}/>
                   </View>
-                  <ScrollView style={{paddingTop:18}}>
+                  <View style={{flex:1}}>
+                  <ScrollView style={{paddingTop:18}}
+                    ref={(scrollView) => { _scrollView = scrollView; }}
+                    automaticallyAdjustContentInsets={false}
+                    scrollEventThrottle={200}>
+                      {(this.state.children_attendances.length != 0 )?this.state.children_attendances.map((i, index)=>
                     <View style={styles.listItem}>
-                      <StudentStatus status_type='leave-button'/>
-                      <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
-                        <View style={{flexDirection:'column'}}>
-                          <Text style={styles.list_arrived_time}>6:00 ~ 7:00 PM</Text>
-                          <Text style={styles.list_class_name}>兒童英語對話 Ａ班</Text>
-                          <Text style={styles.list_student_name}>王大明</Text>
+                        <StudentStatus status_type={i.status} isToggled={i.is_toggled}/>
+                        <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
+                            <View style={{flexDirection:'column'}}>
+                            <Text style={styles.list_arrived_time}>{i.start_time}-{i.end_time}</Text>
+                            <Text style={styles.list_class_name} numberOfLines={2} >{i.course_name}</Text>
+                            <Text style={styles.list_student_name}>{i.student_name}</Text>
+                          </View>
+                          <Button
+                            transparent
+                            onPress={() => this.pushNewRoute('scanner')}>
+                            <Image source={require('../../../images/button/btn_arrow.png')}/>
+                          </Button>
                         </View>
-                        <Button
-                          transparent
-                          onPress={() => this.pushNewRoute('scanner')}>
-                          <Image source={require('../../../images/button/btn_arrow.png')}/>
-                        </Button>
-                    </View>
+                      ):<View><Text style={{alignSelf:'center',paddingTop:30}}>No Attendances</Text></View>}
                   </ScrollView>
+                </View>
                 </View>
             </Container>
         )

@@ -72,7 +72,8 @@ module.exports = StyleSheet.create({
       fontFamily: 'PingFangTC-Light',
       color:'#4a4a4a',
       fontSize:17,
-      alignSelf:'flex-start'
+      alignSelf:'flex-start',
+      width: deviceWidth/3
     },
     arriveTxtCh: {
       fontFamily: 'PingFangTC-Medium',
