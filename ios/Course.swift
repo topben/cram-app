@@ -71,9 +71,9 @@ class Course: NSObject {
       // SuccessBlock (parse response to realm object)
       successBlock: { (response) in
         
+        let response = ((response["result"]! as! NSArray) as Array)
+
         if response.count > 0{
-        
-          let response = ((response["result"]! as! NSArray) as Array)
           
           for i in 0...(response.count-1){
             let courseModel = CourseModel.toRealmObject_list(response[i] as! Dictionary<String, AnyObject>)
