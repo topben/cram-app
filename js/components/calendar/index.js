@@ -30,6 +30,8 @@ class Calendar extends Component {
     constructor(props) {
         super(props);
         this.navigateTo = this.navigateTo.bind(this);
+        this.getAttendance = this.getAttendance.bind(this);
+        this.convertDateToTimeStamp = this.convertDateToTimeStamp.bind(this);
         this.state= {
             date: new Date(),
             title: '孩子的行事曆', // Switchable Title( Teacher / Parent )
@@ -43,9 +45,9 @@ class Calendar extends Component {
     }
 
     onDateChange (date) {
+        console.log("The Datee!!!"+date);
         // unresolved problem delayed interaction
         this.setState({ date: date });
-        this.getAttendance(this.convertDateToTimeStamp(this.state.date));
     }
 
     popRoute() {
@@ -256,6 +258,7 @@ class Calendar extends Component {
 
 
     render() {
+      console.log("render"+this.state.date);
       var _scrollView: ScrollView;
         return (
             <Container theme={calendar} style={{backgroundColor: '#f5f6f7'}}>
