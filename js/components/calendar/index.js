@@ -19,6 +19,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 
 import styles from './styles';
 import calendar from './calendar-theme';
+import StudentStatus from './student-status';
 
 import global_variables from '../../global_variables';
 const Realm = require('realm');
@@ -239,7 +240,7 @@ class Calendar extends Component {
                   </View>
                   <ScrollView style={{paddingTop:18}}>
                     <View style={styles.listItem}>
-                      <Button rounded style={styles.leaveButton}><View><Text style={styles.leaveBtnTxt}>請假</Text></View></Button>
+                      <StudentStatus status_type='leave-button'/>
                       <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
                         <View style={{flexDirection:'column'}}>
                           <Text style={styles.list_arrived_time}>6:00 ~ 7:00 PM</Text>
