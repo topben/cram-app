@@ -51,22 +51,21 @@ class LeaveButton extends Component {
               break;
           case 'leave-button':
               if(!this.state.isToggled){
-
+                this.setState({ isToggled: true });
+              }
+              else{
                 let realm = new Realm({schema: realm_schema});
                 // get user access token
                 var users = realm.objects('UserModel').sorted('i_login_at', true);
                 var access_token = users[users.length-1].s_access_token;
-                
+
                 Parent.takeDayOff(this.props.student_id, this.props.klass_id, global_variables.HOST + '/api/v1/attedances/leave?access_token=' + access_token,
                   function successCallback(results) {
+                    alert("success 請假");
                   },
                   function errorCallback(results) {
                     alert(results.msg);
                   });
-
-                this.setState({ isToggled: true });
-              }
-              else{
                 this.setState({ isToggled: false });
               }
               break;

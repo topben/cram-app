@@ -6,7 +6,7 @@
 'use strict';
 //Currently using it as playground
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
 import { Image, View, ScrollView,InteractionManager } from 'react-native';
@@ -26,7 +26,13 @@ const Realm = require('realm');
 import realm_schema from '../../realm_schema';
 const {Debug} = require('NativeModules');
 
+type Props = {
+  date: date
+};
+
+
 class Calendar extends Component {
+    props: Props;
     constructor(props) {
         super(props);
         this.navigateTo = this.navigateTo.bind(this);
@@ -36,7 +42,8 @@ class Calendar extends Component {
             date: new Date(),
             title: '孩子的行事曆', // Switchable Title( Teacher / Parent )
             children_attendances : [], // Parent's View
-            student_attendances: [] // Teacher's View
+            student_attendances: [], // Teacher's View
+            isUpdateDate: false
         };
     }
 
@@ -46,8 +53,18 @@ class Calendar extends Component {
 
     onDateChange (date) {
         console.log("The Datee!!!"+date);
+
         // unresolved problem delayed interaction
-        this.setState({ date: date });
+        this.setState({ date: date , isUpdateDate: false});
+    }
+
+    componentDidUpdate(){
+      console.log("didupdate"+this.state.date)
+      if(!this.state.isUpdateDate)
+      {
+        this.getAttendance(this.convertDateToTimeStamp(this.state.date));
+        this.setState({isUpdateDate:true});
+      }
     }
 
     popRoute() {
@@ -264,7 +281,6 @@ class Calendar extends Component {
 
 
     render() {
-      console.log("render"+this.state.date);
       var _scrollView: ScrollView;
         return (
             <Container theme={calendar} style={{backgroundColor: '#f5f6f7'}}>
