@@ -57,7 +57,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        /* Uncomment this code for testing the update modal */
+        // /* Uncomment this code for testing the update modal */
         // this.setState({showDownloadingModal: true});
         // //this.setState({showInstalling: true});
         // this.refs.modal.open();
@@ -68,7 +68,6 @@ class App extends Component {
         //     }
         //     this.setState({downloadProgress: this.state.downloadProgress + 1});
         // }, 30);
-
         // Prompt the user when an update is available
         // and then display a "downloading" modal
 

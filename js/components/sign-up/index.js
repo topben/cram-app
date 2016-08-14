@@ -153,6 +153,9 @@ class SignUp extends Component {
                 theme={signup}
                 style={{backgroundColor: '#f5f6f7',marginTop: -(this.state.newHeight/3)}}
                 scrollEnabled={this.state.scroll}>
+                <Button transparent style={{marginTop:theme.headerBtnMarginTop-10}} onPress={() => this.popRoute()}>
+                  <Image source={require('../../../images/button/btn_back.png')}/>
+                </Button>
                 <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
                 <Text style={styles.newAccountTxt}>創建新帳號</Text>
                 <View style={styles.bg}>

@@ -89,10 +89,10 @@ class LoginEmail extends Component {
     render() {
         return (
             <Container style={{flex:1,backgroundColor:'#f5f6f7'}}>
-                <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
-                  <Image source={require('../../../images/button/btn_back.png')}/>
-                </Button>
                 <Content theme={login} padder style={{backgroundColor: 'transparent',marginTop:-(this.state.newHeight/3)}} scrollEnabled={true}>
+                  <Button transparent style={{marginTop:theme.headerBtnMarginTop-10}} onPress={() => this.popRoute()}>
+                    <Image source={require('../../../images/button/btn_back.png')}/>
+                  </Button>
                   <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
                   <Text style={styles.phoneLoginTitle}>電子信箱登入</Text>
                     <View padder>

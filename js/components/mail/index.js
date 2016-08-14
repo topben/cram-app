@@ -30,14 +30,13 @@ class Mail extends Component {
               <Image source={require('../../../images/glow2.png')} style={styles.container} >
                 <Header>
                     <Button transparent onPress={() => this.popRoute()}>
-                        <Icon name="ios-arrow-back" />
+                        <Icon name="ios-arrow-back"/>
                     </Button>
                     <Title>Mail</Title>
                     <Button transparent onPress={this.props.openDrawer}>
-                        <Icon name="ios-menu" />
+                        <Icon name="ios-menu"/>
                     </Button>
                 </Header>
-
                 <Content padder style={{backgroundColor: 'transparent'}}>
                     <Card transparent style={styles.card}>
                         <CardItem header style={styles.cardHeader}>
@@ -58,7 +57,7 @@ class Mail extends Component {
 
                       </Card>
                       <View style={{paddingTop: 10}} >
-                          <Text >Attachments</Text>
+                          <Text>Attachments</Text>
                           <View style={styles.attachment}>
                             <Icon name="ios-images" style={{fontSize: 27}} />
                             <Text style={{marginLeft: 5}}>invitation.jpg</Text>
