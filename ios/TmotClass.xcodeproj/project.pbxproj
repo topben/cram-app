@@ -63,6 +63,7 @@
 		F410322D1D507C2B00CA579D /* Attendance.m in Sources */ = {isa = PBXBuildFile; fileRef = F410322C1D507C2B00CA579D /* Attendance.m */; };
 		F41656271D60672600EDCB4E /* Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = F41656261D60672600EDCB4E /* Debug.m */; };
 		F41656291D60673100EDCB4E /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41656281D60673100EDCB4E /* Debug.swift */; };
+		F416562B1D60BC0900EDCB4E /* DeleteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416562A1D60BC0900EDCB4E /* DeleteApi.swift */; };
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
@@ -274,6 +275,7 @@
 		F410322C1D507C2B00CA579D /* Attendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attendance.m; sourceTree = "<group>"; };
 		F41656261D60672600EDCB4E /* Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Debug.m; sourceTree = "<group>"; };
 		F41656281D60673100EDCB4E /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		F416562A1D60BC0900EDCB4E /* DeleteApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteApi.swift; sourceTree = "<group>"; };
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 				B592F7E51D336E48000C9DA8 /* GetApi.swift */,
 				B592F7E61D336E48000C9DA8 /* PostApi.swift */,
 				B592F7E71D336E48000C9DA8 /* PutApi.swift */,
+				F416562A1D60BC0900EDCB4E /* DeleteApi.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -1130,6 +1133,7 @@
 				F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				F41656291D60673100EDCB4E /* Debug.swift in Sources */,
+				F416562B1D60BC0900EDCB4E /* DeleteApi.swift in Sources */,
 				B592F7E81D336E48000C9DA8 /* GetApi.swift in Sources */,
 				F4DA5FBA1D485C74009B5735 /* Teacher.m in Sources */,
 				B592F7EF1D336E55000C9DA8 /* People.swift in Sources */,
