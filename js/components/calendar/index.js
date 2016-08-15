@@ -187,6 +187,9 @@ class Calendar extends Component {
       // if user selected a date prior to today...
       if (date < this.today()){
           console.log('here, prior today');
+          var cell = [];
+          this.setState({children_attendances:cell});
+
           // get current logged in user_id
           var users = realm.objects('UserModel').sorted('i_login_at', true);
           var user_id = users[users.length-1].s_user_id;
@@ -207,9 +210,8 @@ class Calendar extends Component {
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
           // get today's classes
-          var classes_today = realm.objects('KlassModel').filtered('i_start_date < ' + this.today());
+          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + date + ' AND i_start_date < ' + (date + 86400));
 
-          var cell = [];
           // for each student get the klasses they are actually enrolled in
           for (var i = 0; i < students.length; i++){
 
@@ -259,11 +261,10 @@ class Calendar extends Component {
 
             } // end of for loop 'klasses'
           } // end of for loop 'students'
-          this.setState({children_attendances:cell});
         } // end of if
       // if user selected a date after today including today
       else{
-        var cell = [];
+          var cell = [];
           this.setState({children_attendances:cell});
           console.log('here, after today');
           // get current logged in user_id
@@ -287,7 +288,7 @@ class Calendar extends Component {
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
           // get today's classes
-          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + this.today());
+          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + date + ' AND i_start_date <' + (date+86400));
 
 
           // for each student get the klasses they are actually enrolled in

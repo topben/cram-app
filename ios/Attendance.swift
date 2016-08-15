@@ -24,8 +24,9 @@ class Attendance: NSObject {
       last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = 1").first!.i_last_updated_at
     }
     
-    let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
-    
+//    let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
+    let updated_at = NSDate(timeIntervalSince1970: Double(0)).toFormattedString()
+
     GetApi.getAttendanceInfo(url + "&updated_at=" + updated_at,
                          
       // SuccessBlock (parse response to realm object)
