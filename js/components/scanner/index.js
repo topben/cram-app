@@ -139,6 +139,13 @@ class Scanner extends Component {
          var users = realm.objects('UserModel').sorted('i_login_at', true);
          var access_token = users[0].s_access_token;
 
+         realm.write(() => {
+          let attendances = realm.objects('AttendanceModel');
+          realm.delete(attendances);
+          let notifications = realm.objects('NotificationModel');
+          realm.delete(notifications);
+         });
+
          InteractionManager.runAfterInteractions(() => {
            // perform api calls
            User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
