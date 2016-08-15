@@ -53,12 +53,11 @@ class Calendar extends Component {
 
     onDateChange (date) {
         console.log("The Datee!!!"+date);
-
         // unresolved problem delayed interaction
         this.setState({ date: date , isUpdateDate: false});
     }
 
-    componentDidUpdate(){
+    componentWillReceiveProps(){
       console.log("didupdate"+this.state.date)
       if(!this.state.isUpdateDate)
       {
@@ -85,7 +84,6 @@ class Calendar extends Component {
       attendance.student_name = '王小明';
       temp_attendance_list.push(attendance);
       //this.state.children_attendances.push(attendance);
-
       this.getAttendance(this.today());
     }
 
@@ -94,7 +92,6 @@ class Calendar extends Component {
       var now = new Date();
       var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       var timestamp = startOfDay / 1000;
-
       return timestamp
     }
 

@@ -63,7 +63,6 @@ export default function (state:State = initialState, action:Action): State {
         globalNav.navigator.replace({id: action.route});
         routes.pop();
       }
-
     }
 
     return {
