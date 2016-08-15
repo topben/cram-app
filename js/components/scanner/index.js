@@ -133,92 +133,100 @@ class Scanner extends Component {
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
         console.log('path = ' + Realm.defaultPath);
-          //  let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
+          // let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
          let realm = new Realm({schema: realm_schema});
-         // get user access token
-         var users = realm.objects('UserModel').sorted('i_login_at', true);
-         var access_token = users[0].s_access_token;
 
-         realm.write(() => {
-          let attendances = realm.objects('AttendanceModel');
-          realm.delete(attendances);
-          let notifications = realm.objects('NotificationModel');
-          realm.delete(notifications);
-         });
+         var users = realm.objects('UserModel');
+         // set interval for class modal
+         interval_id = setInterval(function(){
+           if (typeof users != 'undefined'){
+             // get user access token
+             var users = realm.objects('UserModel').sorted('i_login_at', true);
+             var access_token = users[0].s_access_token;
 
-         InteractionManager.runAfterInteractions(() => {
-           // perform api calls
-           User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
-             function successCallback(results) {
-             },
-             function errorCallback(results) {
-               alert(results.msg);
+             realm.write(() => {
+              let attendances = realm.objects('AttendanceModel');
+              realm.delete(attendances);
+              let notifications = realm.objects('NotificationModel');
+              realm.delete(notifications);
              });
 
-            Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+             InteractionManager.runAfterInteractions(() => {
+               // perform api calls
+               User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
+                 function successCallback(results) {
+                 },
+                 function errorCallback(results) {
+                   alert(results.msg);
+                 });
 
-            Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-            Course.getStudentList('0aeb7f71-9e1f-45c8-928c-d9bb911f0c94', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-            Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Course.getStudentList('0aeb7f71-9e1f-45c8-928c-d9bb911f0c94', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-            Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-            Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-            Organization.getInfo(global_variables.HOST + '/api/v1/organizations?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-            Teacher.getInfo(global_variables.HOST + '/api/v1/teachers?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Organization.getInfo(global_variables.HOST + '/api/v1/organizations?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-            Parent.getInfo(global_variables.HOST + '/api/v1/parents?access_token=' + access_token,
-              function successCallback(results) {
-              },
-              function errorCallback(results) {
-                alert(results.msg);
-              });
+                Teacher.getInfo(global_variables.HOST + '/api/v1/teachers?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
 
-          });
+                Parent.getInfo(global_variables.HOST + '/api/v1/parents?access_token=' + access_token,
+                  function successCallback(results) {
+                  },
+                  function errorCallback(results) {
+                    alert(results.msg);
+                  });
+
+              });
+           }
+           clearInterval(interval_id);
+         }, 300);
     }
 
     openClassModal() {

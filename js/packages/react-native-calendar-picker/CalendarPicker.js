@@ -259,7 +259,7 @@ var CalendarPicker = React.createClass({
     } = this.state,
       date = new Date(year, month, day.day);
 
-    this.setState({date: date,});
+    this.setState({date: date});
     this.props.onDateChange(date);
   },
 
@@ -271,8 +271,8 @@ var CalendarPicker = React.createClass({
     } = this.state,
       date = new Date(year, month, day);
 
-    this.setState({date: date,});
-    this.props.onDateChange(date);
+    this.setState({date: date});
+    //this.props.onDateChange(date);
   },
 
   getNextYear(){
@@ -283,7 +283,8 @@ var CalendarPicker = React.createClass({
       year
     } = this.state,
       date = new Date(year+1, month, day);
-      this.props.onDateChange(date);
+      this.setState({date: date});
+      //this.props.onDateChange(date);
   },
 
   getPrevYear() {
@@ -294,7 +295,8 @@ var CalendarPicker = React.createClass({
       year
     } = this.state,
       date = new Date(year-1, month, day);
-      this.props.onDateChange(date);
+      this.setState({date: date});
+      //this.props.onDateChange(date);
   },
 
   onDateChange() {
