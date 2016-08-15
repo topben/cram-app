@@ -251,6 +251,21 @@ class Calendar extends Component {
                   return;
               }
 
+              var now = new Date();
+              now = now.getTime();
+
+              if(now > classes_today[j].i_end_date){
+                cell_data['status'] = status;
+              }
+              else{
+                cell_data['status'] = 'leave-button';
+
+                if (status.length == 0)
+                  cell_data['is_toggled'] = true;
+                else
+                  cell_data['is_toggled'] = false;
+              }
+
               cell_data['status'] = status;
               cell_data['is_toggled'] = false;
 
@@ -327,12 +342,22 @@ class Calendar extends Component {
               var klass_id = classes_today[j].s_klass_id;
               cell_data['klass_id'] = klass_id;
 
-              cell_data['status'] = 'leave-button';
 
-              if (status.length == 0)
-                cell_data['is_toggled'] = true;
-              else
-                cell_data['is_toggled'] = false;
+
+              var now = new Date();
+              now = now.getTime();
+
+              if(now > classes_today[j].i_end_date){
+                cell_data['status'] = status[0].s_status;
+              }
+              else{
+                cell_data['status'] = 'leave-button';
+
+                if (status.length == 0)
+                  cell_data['is_toggled'] = true;
+                else
+                  cell_data['is_toggled'] = false;
+              }
 
               Debug.variable(cell_data);
               cell.push(cell_data);
@@ -378,6 +403,7 @@ class Calendar extends Component {
                           </View>
                           <Button
                             transparent
+                            style={{alignSelf:'center'}}
                             onPress={() => this.pushNewRoute('scanner')}>
                             <Image source={require('../../../images/button/btn_arrow.png')}/>
                           </Button>

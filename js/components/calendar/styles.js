@@ -77,8 +77,8 @@ module.exports = StyleSheet.create({
     },
     arriveTxtCh: {
       fontFamily: 'PingFangTC-Medium',
-      color:'#77b4bb',
-      fontSize:18,
+      color:'rgba(119, 180, 187, 1)',
+      fontSize:14,
       alignSelf:'center'
     },
     arriveTime: {
@@ -89,13 +89,13 @@ module.exports = StyleSheet.create({
     },
     abscenceTxtCh: {
       fontFamily: 'PingFangTC-Medium',
-      color:'#4a4a4a',
-      fontSize:18,
+      color:'rgba(255, 85, 0, 1)',
+      fontSize:14,
       alignSelf:'center'
     },
     leaveTxtCh: {
       fontFamily: 'PingFangTC-Medium',
-      color:'rgba(255, 85, 0, 1)',
-      fontSize:18
+      color:'rgba(74, 74, 74, 1)',
+      fontSize:14
     }
 });
