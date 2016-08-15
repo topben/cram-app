@@ -253,33 +253,51 @@ var CalendarPicker = React.createClass({
 
   onDayChange(day) {
     this.setState({day: day.day,});
-    this.onDateChange();
+    var {
+      month,
+      year
+    } = this.state,
+      date = new Date(year, month, day.day);
+
+    this.setState({date: date,});
+    this.props.onDateChange(date);
   },
 
   onMonthChange(month) {
     this.setState({month: month,});
-    this.onDateChange();
-  },
-
-  getNextYear(){
-    this.setState({year: this.state.year + 1,});
-    this.onDateChange();
-  },
-
-  getPrevYear() {
-    this.setState({year: this.state.year - 1,});
-    this.onDateChange();
-  },
-
-  onDateChange() {
     var {
       day,
-      month,
       year
     } = this.state,
       date = new Date(year, month, day);
 
     this.setState({date: date,});
+    this.props.onDateChange(date);
+  },
+
+  getNextYear(){
+    this.setState({year: this.state.year + 1,});
+    var {
+      day,
+      month,
+      year
+    } = this.state,
+      date = new Date(year+1, month, day);
+      this.props.onDateChange(date);
+  },
+
+  getPrevYear() {
+    this.setState({year: this.state.year - 1,});
+    var {
+      day,
+      month,
+      year
+    } = this.state,
+      date = new Date(year-1, month, day);
+      this.props.onDateChange(date);
+  },
+
+  onDateChange() {
     this.props.onDateChange(date);
   },
 
@@ -292,7 +310,6 @@ var CalendarPicker = React.createClass({
           onMonthChange={this.onMonthChange}
           getNextYear={this.getNextYear}
           getPrevYear={this.getPrevYear} />
-
         <WeekDaysLabels />
 
         <Days
