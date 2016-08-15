@@ -57,7 +57,7 @@ class Calendar extends Component {
         this.setState({ date: date , isUpdateDate: false});
     }
 
-    componentWillReceiveProps(){
+    componentWillUpdate(){
       console.log("didupdate"+this.state.date)
       if(!this.state.isUpdateDate)
       {
@@ -147,12 +147,29 @@ class Calendar extends Component {
     isStudentInKlass(student_id, klass_id){
 
       let realm = new Realm({schema: realm_schema});
+
       // get all the classes today, then filter using student id
-      var klass = realm.objects('KlassModel').filtered('s_klass_id = "' + klass_id + '"')[0];
+      var klass = {};
+      if (typeof realm.objects('KlassModel').filtered('s_klass_id = "' + klass_id + '"')[0] != 'undefined')
+      {
+        klass = realm.objects('KlassModel').filtered('s_klass_id = "' + klass_id + '"')[0];
+      }
+      else
+      {
+          return;
+      }
+
       // check if student is in klass
       var course = realm.objects('CourseStudentModel').filtered('s_course_id = "' + klass.s_course_id + '"');
-
-      var klass_students = course[0].students;
+      var klass_students = {};
+      if( typeof course[0].students != 'undefined')
+      {
+        klass_students = course[0].students;
+      }
+      else
+      {
+          return;
+      }
 
       for (var i = 0; i < klass_students.length; i++){
         if (klass_students[i].string == student_id){
@@ -173,9 +190,19 @@ class Calendar extends Component {
           // get current logged in user_id
           var users = realm.objects('UserModel').sorted('i_login_at', true);
           var user_id = users[users.length-1].s_user_id;
+
           // get parent_id
-          var parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0];
-          var parent_id = parent.s_parent_id;
+          var parent = {};
+          var parent_id = 0;
+          if(typeof realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0] != 'undefined')
+          {
+            parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0];
+            parent_id = parent.s_parent_id;
+          }
+          else
+          {
+            return ;
+          }
 
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
@@ -199,8 +226,17 @@ class Calendar extends Component {
               cell_data['start_time'] = start_time;
               var end_time = this.convertTimestamp(classes_today[j].i_end_date);
               cell_data['end_time'] = end_time;
-              var course_name = realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0].s_name;
-              cell_data['course_name'] = course_name;
+              var course_name = {};
+              if(typeof realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0] != 'undefined')
+              {
+                course_name = realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0].s_name;
+                cell_data['course_name'] = course_name;
+              }
+              else
+              {
+                  return;
+              }
+
               var student_name = students[i].s_name;
               cell_data['student_name'] = student_name;
               var status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"')[0].s_status;
@@ -219,20 +255,33 @@ class Calendar extends Component {
         } // end of if
       // if user selected a date after today including today
       else{
+        var cell = [];
+          this.setState({children_attendances:cell});
           console.log('here, after today');
           // get current logged in user_id
           var users = realm.objects('UserModel').sorted('i_login_at', true);
           var user_id = users[users.length-1].s_user_id;
+
+          var parent = {};
+          var parent_id = 0;
+
           // get parent_id
-          var parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0];
-          var parent_id = parent.s_parent_id;
+          if(typeof realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0] != 'undefined')
+          {
+            parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0];
+            parent_id = parent.s_parent_id;
+          }
+          else
+          {
+            return;
+          }
 
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
           // get today's classes
           var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + this.today());
 
-          var cell = [];
+
           // for each student get the klasses they are actually enrolled in
           for (var i = 0; i < students.length; i++){
 
@@ -249,12 +298,21 @@ class Calendar extends Component {
               cell_data['start_time'] = start_time;
               var end_time = this.convertTimestamp(classes_today[j].i_end_date);
               cell_data['end_time'] = end_time;
-              var course_name = realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0].s_name;
-              cell_data['course_name'] = course_name;
+              var course_name = '';
+              if(typeof realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0] != 'undefined')
+              {
+                course_name = realm.objects('CourseModel').filtered('s_course_id = "' + classes_today[j].s_course_id + '"')[0].s_name;
+                cell_data['course_name'] = course_name;
+              }
+              else
+              {
+                  return;
+              }
+
               var student_name = students[i].s_name;
               cell_data['student_name'] = student_name;
-              var status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"');
 
+              var status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"');
               var student_id = students[i].s_student_id;
               cell_data['student_id'] = student_id;
               var klass_id = classes_today[j].s_klass_id;
