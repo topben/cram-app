@@ -239,7 +239,15 @@ class Calendar extends Component {
 
               var student_name = students[i].s_name;
               cell_data['student_name'] = student_name;
-              var status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"')[0].s_status;
+              var status = '';
+              if (typeof realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"')[0] != 'undefined')
+              {
+                status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"')[0].s_status;
+              }
+              else
+              {
+                  return;
+              }
 
               cell_data['status'] = status;
               cell_data['is_toggled'] = false;
