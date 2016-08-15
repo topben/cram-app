@@ -177,7 +177,9 @@ class SignUpCreate extends Component {
                   rounded
                   style={styles.getVerifyBtn}
                   onPress={this.onNextPressed}>
-                  <Text style={styles.verifyTxt}>下一步</Text>
+                  <View>
+                    <Text style={styles.verifyTxt}>完成</Text>
+                  </View>
                 </Button>
               </View>
             </Content>

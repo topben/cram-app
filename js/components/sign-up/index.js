@@ -111,7 +111,8 @@ class SignUp extends Component {
       }
       else
       {
-        this.setState({client_error_msg: '電話規格錯誤'});
+        //this.setState({client_error_msg: '電話規格錯誤'});
+        alert('電話規格錯誤');
         return false;
       }
     }
@@ -128,7 +129,8 @@ class SignUp extends Component {
       var first_two_phone_numbers = this.state.phone.substring(0, 2);
       if(first_two_phone_numbers != '09')
       {
-        this.setState({client_error_msg: '需要09開頭'});
+        //this.setState({client_error_msg: '需要09開頭'});
+        alert('需要09開頭');
         return;
       }
 
@@ -164,7 +166,9 @@ class SignUp extends Component {
                       <Text>{this.state.client_error_msg}</Text>
                     </View>
                     <Button transparent rounded style={styles.getVerifyBtn} onPress={this.onNextPressed}>
+                      <View>
                       <Text style={styles.verifyTxt}>取得驗證碼</Text>
+                      </View>
                     </Button>
                 </View>
               </Content>

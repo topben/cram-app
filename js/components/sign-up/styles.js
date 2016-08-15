@@ -42,15 +42,14 @@ module.exports = StyleSheet.create({
       color:'#fff',
       alignSelf:'center',
       alignItems:'center',
-      fontSize: 15,
-      marginBottom:10
+      fontSize: 15
     },
     getVerifyBtn: {
       flex:1,
       width:deviceWidth/2,
       height:45,
       alignSelf:'center',
-      backgroundColor: '#9b9b9b',
+      backgroundColor: '#77b4bb',
       margin: 10
     },
     verifyPwd:{

@@ -83,9 +83,11 @@ class Account extends Component {
                 <Row style={styles.row}><Text style={styles.subGrayTxt}>QR Code 掃描次數</Text><Text style={styles.subOrangeTxt}>{this.state.scan_count}</Text></Row>
               </Grid>
               <View style={{paddingTop:100}}>
-              <ListItem button onPress={() => this.navigateTo('login')} style={{borderWidth:0.5,borderColor:'#808080',backgroundColor:'#fff',height:50}}>
+              <Button  block onPress={() => this.navigateTo('login')} style={{borderWidth:1,borderColor:'#808080',backgroundColor:'#fff',height:50}}>
+                <View>
                   <Text style={styles.logOutText}>回首頁</Text>
-              </ListItem>
+                </View>
+              </Button>
               </View>
             </Content>
           </View>
