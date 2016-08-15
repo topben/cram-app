@@ -137,7 +137,7 @@ class Scanner extends Component {
          let realm = new Realm({schema: realm_schema});
          // get user access token
          var users = realm.objects('UserModel').sorted('i_login_at', true);
-         var access_token = users[users.length-1].s_access_token;
+         var access_token = users[0].s_access_token;
 
          InteractionManager.runAfterInteractions(() => {
            // perform api calls

@@ -66,6 +66,13 @@ class LoginEmail extends Component {
     // next button tapped
     onNextPressed(){
       console.log('path =    ' + Realm.defaultPath);
+      let realm = new Realm({schema: realm_schema});
+      
+      realm.write(() => {
+        let allUsers = realm.objects('UserModel');
+        realm.delete(allUsers); // Deletes all books
+      });
+
       // for obj connecting
       var $this = this;
       // Spinner Control
