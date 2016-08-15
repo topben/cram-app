@@ -103,10 +103,10 @@ class App extends Component {
                             <View style={{flex:1, alignSelf: 'stretch', justifyContent: 'center', padding:20}}>
                                 {this.state.showInstalling ?
                                     <Text style={{color: theme.brandSecondary, textAlign: 'center',marginBottom: 15, fontSize: 15 }}>
-                                        Installing update...
+                                        安裝更新中...
                                     </Text> :
                                     <View style={{flex:1, alignSelf: 'stretch', justifyContent: 'center', padding:20}}>
-                                        <Text style={{color: theme.brandSecondary, textAlign: 'center',marginBottom: 15, fontSize: 15 }}>Downloading update... {parseInt(this.state.downloadProgress) + ' %'}</Text>
+                                        <Text style={{color: theme.brandSecondary, textAlign: 'center',marginBottom: 15, fontSize: 15 }}>下載更新中... {parseInt(this.state.downloadProgress) + ' %'}</Text>
                                         <ProgressBar color="theme.brandSuccess" progress={parseInt(this.state.downloadProgress)} />
                                     </View>
                                 }

@@ -72,13 +72,13 @@ class Edit extends Component {
     render() {
         return (
           <Container style={{flex:1,backgroundColor:'#f5f6f7'}}>
-            <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
-              <Image source={require('../../../images/button/btn_back.png')}/>
-            </Button>
             <Content
               theme={edit}
               style={{backgroundColor: '#f5f6f7'}}
               >
+              <Button transparent style={{marginTop:theme.headerBtnMarginTop}} onPress={() => this.popRoute()}>
+                <Image source={require('../../../images/button/btn_back.png')}/>
+              </Button>
               <Image source={require('../../../images/profile/ic_profile_photo_md.png')} style={{alignSelf:'center',marginTop:105}} />
               <Text style={styles.mainTitle}>設定新帳號</Text>
               <View style={styles.bg}>
@@ -87,7 +87,9 @@ class Edit extends Component {
                     <Text>{this.state.client_error_msg}</Text>
                   </View>
                   <Button transparent rounded style={styles.finishBtn} onPress={this.onNextPressed}>
-                    <Text style={styles.emailTxt}>完成</Text>
+                    <View>
+                    <Text style={styles.emailTxt}>下一步</Text>
+                    </View>
                   </Button>
               </View>
             </Content>

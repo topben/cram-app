@@ -67,7 +67,7 @@ class LoginEmail extends Component {
     onNextPressed(){
       console.log('path =    ' + Realm.defaultPath);
       let realm = new Realm({schema: realm_schema});
-      
+
       realm.write(() => {
         let allUsers = realm.objects('UserModel');
         realm.delete(allUsers); // Deletes all books
@@ -110,7 +110,7 @@ class LoginEmail extends Component {
                             <Input secureTextEntry={true} placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
                         </View>
                         <Button rounded style={styles.phoneBtn} disabled={this.state.btnDisabled} onPress={this.onNextPressed}>
-                          {this.state.isProcessing?<Spinner color='#000'/>:<Text style={styles.phoneLoginTxt}>登入</Text>}
+                          {this.state.isProcessing?<Spinner color='#000'/>:<View><Text style={styles.phoneLoginTxt}>登入</Text></View>}
                         </Button>
                     </View>
                 </Content>

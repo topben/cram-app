@@ -99,7 +99,9 @@ class SignUpVerify extends Component {
                     <Text>{this.state.client_error_msg}</Text>
                   </View>
                   <Button transparent rounded style={styles.getVerifyBtn} onPress={this.onNextPressed}>
-                    <Text style={styles.verifyTxt}>驗證驗證碼</Text>
+                    <View>
+                      <Text style={styles.verifyTxt}>驗證驗證碼</Text>
+                    </View>
                   </Button>
               </View>
             </Content>

@@ -60,7 +60,7 @@ class Login extends Component {
         return (
           <Container>
             <Content
-              style={{backgroundColor: '#f5f6f7'}}
+              style={{backgroundColor: '#f5f6f7',paddingTop:55}}
               theme={login}
               scrollEnabled={this.state.scroll}>
               <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
@@ -70,9 +70,11 @@ class Login extends Component {
                   rounded
                   style={styles.btn}
                   onPress={() => this.pushNewRoute('loginEmail')}>
-                  <Text style={styles.phoneLoginTxt}>
-                  電子信箱登入
-                  </Text>
+                  <View>
+                    <Text style={styles.phoneLoginTxt}>
+                      電子信箱登入
+                    </Text>
+                  </View>
                 </Button>
                 <Button
                   transparent

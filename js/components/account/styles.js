@@ -44,7 +44,6 @@ module.exports = StyleSheet.create({
       color:'#ff6100',
       letterSpacing:7,
       alignSelf:'center',
-      marginTop:10,
       justifyContent:'center'
     },
     subGrayTxt: {

@@ -21,8 +21,7 @@ module.exports = StyleSheet.create({
     },
     bg: {
         flex: 1,
-        marginTop: (deviceHeight/2)-220,
-        paddingTop: 20,
+        marginTop: (deviceHeight/2)-250,
         paddingLeft: 20,
         paddingRight: 20,
         paddingBottom: 70
@@ -35,7 +34,6 @@ module.exports = StyleSheet.create({
       borderBottomWidth: 1
     },
     btn: {
-      flex:1,
       width:300,
       height:45,
       alignSelf:'center',
@@ -47,7 +45,8 @@ module.exports = StyleSheet.create({
       fontSize:36,
       alignSelf:'center',
       color:'#4a4a4a',
-      letterSpacing:7
+      letterSpacing:7,
+      paddingTop:30
     },
     registerTxt: {
       fontFamily: 'PingFangTC-Regular',
@@ -61,7 +60,6 @@ module.exports = StyleSheet.create({
       alignSelf:'center',
       alignItems:'center',
       fontSize: 15,
-      marginBottom:10
     },
     phoneLoginTitle: {
       fontFamily: 'PingFangTC-Ultralight',
