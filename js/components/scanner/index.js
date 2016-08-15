@@ -24,6 +24,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 
+const {Debug}        = require('NativeModules');
 const {Klass}        = require('NativeModules');
 const {Parent}       = require('NativeModules');
 const {Teacher}      = require('NativeModules');
@@ -132,17 +133,22 @@ class Scanner extends Component {
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
-        console.log('path = ' + Realm.defaultPath);
-          // let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
-         let realm = new Realm({schema: realm_schema});
+         console.log('path = ' + Realm.defaultPath);
+         // let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
 
-         var users = realm.objects('UserModel');
          // set interval for class modal
          interval_id = setInterval(function(){
-           if (typeof users != 'undefined'){
+
+           let realm = new Realm({schema: realm_schema});
+           var users = realm.objects('UserModel');
+           
+           if (users.length == 1){
+             console.log('hahahahaha');
+
              // get user access token
              var users = realm.objects('UserModel').sorted('i_login_at', true);
              var access_token = users[0].s_access_token;
+
 
              realm.write(() => {
               let attendances = realm.objects('AttendanceModel');
