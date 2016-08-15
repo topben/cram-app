@@ -114,11 +114,11 @@ class LeaveButton extends Component {
 
     render() {
       switch (this.props.status_type) {
-          case 'leave-label':
+          case 'leave':
               return <View style={{alignSelf:'center'}}><Text style={styles.leaveTxtCh}>請假</Text></View>
-          case 'arrive-label':
+          case 'arrived':
               return <View style={{alignSelf:'center',flexDirection:'column'}}><Text style={styles.arriveTxtCh}>抵達</Text><Text style={styles.arriveTime}>12:00</Text></View>
-          case 'absent-label':
+          case 'absent':
               return <View style={{alignSelf:'center'}}><Text style={styles.leaveTxtCh}>未到</Text></View>
           case 'leave-button':
           return <Button
