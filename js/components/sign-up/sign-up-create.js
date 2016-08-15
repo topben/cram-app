@@ -23,6 +23,8 @@ import realm_schema from '../../realm_schema';
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
+var interval_id = 0;
+
 class SignUpCreate extends Component {
 
   constructor(props) {
@@ -100,10 +102,37 @@ class SignUpCreate extends Component {
       	phone    : person.s_phone
       };
 
+      var $this = this;
+      var $person = person;
+
+      realm.write(() => {
+        let allUsers = realm.objects('UserModel');
+        realm.delete(allUsers); // Deletes all books
+      });
+
       User.create(userInfo, global_variables.HOST+'/api/v1/signup',
        function successCallback(results) {
          // navigate to scanner page
-          $this.navigateTo('login');
+
+         interval_id = setInterval(function(){
+           let realm = new Realm({schema: realm_schema});
+           if(realm.objects('UserModel').length == 1){
+
+             User.login($person.s_email, $this.state.password, 'password', global_variables.HOST+'/oauth/token',
+               function successCallback(results){
+                 clearInterval(interval_id);
+                 $this.navigateTo('scanner');
+               },
+               function failureCallback(results){
+
+               });
+
+           }
+         }, 200);
+
+
+
+
        },
        function errorCallback(results) {
            alert(results.msg);
