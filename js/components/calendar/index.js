@@ -54,17 +54,10 @@ class Calendar extends Component {
     onDateChange (date) {
         console.log("The Datee!!!"+date);
         // unresolved problem delayed interaction
+        this.getAttendance(this.convertDateToTimeStamp(date));
         this.setState({ date: date , isUpdateDate: false});
     }
 
-    componentWillUpdate(){
-      console.log("didupdate"+this.state.date)
-      if(!this.state.isUpdateDate)
-      {
-        this.getAttendance(this.convertDateToTimeStamp(this.state.date));
-        this.setState({isUpdateDate:true});
-      }
-    }
 
     popRoute() {
         this.props.popRoute();
