@@ -92,7 +92,10 @@ class ScannerOverlay extends Component {
       // add temp code here
       let realm = new Realm({schema: realm_schema});
       // get all student IDs and save in array
-      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "0aeb7f71-9e1f-45c8-928c-d9bb911f0c94"')[0];
+      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "0aeb7f71-9e1f-45c8-928c-d9bb911f0c94"');
+      if (temp_course.length == 0)
+        return;
+      temp_course = temp_course[0];
       // get all students in the class
       var temp_students = temp_course.students;
       // get total count of all students in the class
@@ -132,7 +135,10 @@ class ScannerOverlay extends Component {
       for(var i = 0; i < temp_student_count; i++){
         if(temp_students_confirmed.indexOf(temp_students[i].string) == -1){
 
-          var absent_student_name = realm.objects('StudentModel').filtered('s_student_id = "' + temp_students[i].string + '"')[0].s_name;
+          var absent_student = realm.objects('StudentModel').filtered('s_student_id = "' + temp_students[i].string + '"');
+          if (absent_student.length == 0)
+            continue;
+          var absent_student_name = absent_student[0].s_name;
 
           temp_absent_students.push(absent_student_name);
         }
@@ -197,17 +203,31 @@ class ScannerOverlay extends Component {
 
       let realm = new Realm({schema: realm_schema});
       // get most current attendance data
-      var attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true)[0];
+      var attendance = realm.objects('AttendanceModel').sorted('i_arrived_at', true);
+      if (attendance.length == 0)
+        return;
+      attendance = attendance[0];
+
       // get klass id from attendance model to get klass location, start/end time
-      var klass = realm.objects('KlassModel').filtered('s_klass_id = "' + attendance.s_klass_id + '"')[0];
+      var klass = realm.objects('KlassModel').filtered('s_klass_id = "' + attendance.s_klass_id + '"');
+      if (klass.length == 0)
+        return;
+      klass = klass[0];
+
       var start_time = this.convertTimestamp(klass.i_start_date);
       var end_time = this.convertTimestamp(klass.i_end_date);
       // get course name
-      var course = realm.objects('CourseModel').filtered('s_course_id = "' + klass.s_course_id + '"')[0];
+      var course = realm.objects('CourseModel').filtered('s_course_id = "' + klass.s_course_id + '"');
+      if (course.length == 0)
+        return;
+      course = course[0];
+
       var course_name = course.s_name;
       // get organization name
-      var organization = realm.objects('OrganizationModel').filtered('s_organization_id = "' + course.s_organization_id + '"')[0];
-      var organization_name = organization.s_name;
+      var organization = realm.objects('OrganizationModel').filtered('s_organization_id = "' + course.s_organization_id + '"');
+      if (organization.length == 0)
+        return;
+      var organization_name = organization[0].s_name;
 
       console.log('course_name = ' + course_name);
       console.log('start time = '  + start_time);

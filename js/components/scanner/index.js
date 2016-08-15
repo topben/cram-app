@@ -85,10 +85,17 @@ class Scanner extends Component {
       var haha = realm.objects('AttendanceModel');
 
       // set student info state for student arrival modal
-      var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + this.barCodeData + '"')[0];
-      if(studentModel == null){
-        studentModel = realm.objects('StudentModel').filtered('s_student_id = "' + this.barCodeData + '"')[0];
+      var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + this.barCodeData + '"');
+
+      if (studentModel.length == 0){
+        studentModel = realm.objects('StudentModel').filtered('s_student_id = "' + this.barCodeData + '"');
       }
+
+      if (studentModel.length == 0)
+        return;
+
+      studentModel = studentModel[0];
+
       this.setState({name: studentModel.s_name});
 
       var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
@@ -134,21 +141,18 @@ class Scanner extends Component {
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
          console.log('path = ' + Realm.defaultPath);
-         // let realm = new Realm({schema: [realm_schema.UserModel, realm_schema.NotificationModel, realm_schema.StudentModel, realm_schema.CourseModel, realm_schema.AttendanceModel, realm_schema.KlassModel]});
 
          // set interval for class modal
          interval_id = setInterval(function(){
 
            let realm = new Realm({schema: realm_schema});
            var users = realm.objects('UserModel');
-           
+
            if (users.length == 1){
-             console.log('hahahahaha');
 
              // get user access token
              var users = realm.objects('UserModel').sorted('i_login_at', true);
              var access_token = users[0].s_access_token;
-
 
              realm.write(() => {
               let attendances = realm.objects('AttendanceModel');
@@ -324,7 +328,10 @@ class Scanner extends Component {
       // add temp code here
       let realm = new Realm({schema: realm_schema});
       // get all student IDs and save in array
-      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "0aeb7f71-9e1f-45c8-928c-d9bb911f0c94"')[0];
+      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "0aeb7f71-9e1f-45c8-928c-d9bb911f0c94"');
+      if (temp_course.length == 0)
+        return;
+      temp_course = temp_course[0];
       // get all students in the class
       var temp_students = temp_course.students;
       // get total count of all students in the class

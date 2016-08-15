@@ -49,19 +49,36 @@ class Notifications extends Component {
         var s_attendance_id = notifications[i].s_attendance_id;
 
         // get klass id
-        var s_klass_id = realm.objects('AttendanceModel').filtered('s_attendance_id = "' + s_attendance_id + '"')[0].s_klass_id;
+        var klass = realm.objects('AttendanceModel').filtered('s_attendance_id = "' + s_attendance_id + '"');
+        if (klass.length == 0)
+          continue;
+
+        var s_klass_id = klass[0].s_klass_id;
 
         // get course id & name
-        var s_course_id = realm.objects('KlassModel').filtered('s_klass_id = "' + s_klass_id + '"')[0].s_course_id;
-        var course_name = realm.objects('CourseModel').filtered('s_course_id = "' + s_course_id + '"')[0].s_name;
+        var klass = realm.objects('KlassModel').filtered('s_klass_id = "' + s_klass_id + '"');
+        if (klass.length == 0)
+          continue;
+        var s_course_id = klass[0].s_course_id;
+
+        var course = realm.objects('CourseModel').filtered('s_course_id = "' + s_course_id + '"');
+        if (course.length == 0)
+          continue;
+        var course_name = course[0].s_name;
 
         // get student id & name
-        var s_student_id = realm.objects('AttendanceModel').filtered('s_attendance_id = "' + s_attendance_id + '"')[0].s_student_id;
+        var attendance = realm.objects('AttendanceModel').filtered('s_attendance_id = "' + s_attendance_id + '"');
+        if (attendance.length == 0)
+          continue;
+        var s_student_id = attendance[0].s_student_id;
 
-        var student_name = realm.objects('StudentModel').filtered('s_student_id = "' + s_student_id + '"')[0].s_name;
+        var student = realm.objects('StudentModel').filtered('s_student_id = "' + s_student_id + '"');
+        if (student.length == 0)
+          continue;
+        var student_name = student[0].s_name;
 
         // get timestamp of notification and convert it to date format
-        var i_created_at = notifications[i].i_created_at
+        var i_created_at = notifications[i].i_created_at;
         var timestamp = this.convertTimestamp(i_created_at);
 
         // build the attendance notification
