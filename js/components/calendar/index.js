@@ -44,6 +44,7 @@ class Calendar extends Component {
 
     onDateChange (date) {
         // unresolved problem delayed interaction
+
         this.setState({ date: date });
         this.getAttendance(this.convertDateToTimeStamp(this.state.date));
     }
@@ -77,6 +78,16 @@ class Calendar extends Component {
       var timestamp = startOfDay / 1000;
 
       return timestamp
+    }
+
+    tomorrow(){
+
+      return (this.today() + 86400)
+    }
+
+    nextDay(date){
+
+      return (date + 86400)
     }
 
     convertTimestamp(timestamp) {
@@ -124,7 +135,7 @@ class Calendar extends Component {
 
       var newDate=month[myDate[1]]+"/"+myDate[2]+"/"+myDate[3];
       //console.log("converted"+newDate);
-      console.log("the"+new Date(newDate).getTime()/1000+"date")
+      // console.log("the"+new Date(newDate).getTime()/1000+"date")
       return (new Date(newDate).getTime()/1000);
     }
 
@@ -150,6 +161,7 @@ class Calendar extends Component {
     getAttendance(date){
 
       let realm = new Realm({schema: realm_schema});
+      console.log('date = ' + date);
 
       // if user selected a date prior to today...
       if (date < this.today()){
@@ -164,9 +176,13 @@ class Calendar extends Component {
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
           // get today's classes
-          var classes_today = realm.objects('KlassModel').filtered('i_start_date < ' + this.today());
+          var classes_today = realm.objects('KlassModel').filtered('i_start_date < ' + date + ' AND i_start_date < ' + this.nextDay(date));
+          console.log('start date = ' + date);
+          console.log('end date = '   + this.nextDay(date));
+
 
           var cell = [];
+          this.setState({children_attendances:cell});
           // for each student get the klasses they are actually enrolled in
           for (var i = 0; i < students.length; i++){
 
@@ -192,9 +208,9 @@ class Calendar extends Component {
               cell_data['status'] = status;
               cell_data['is_toggled'] = false;
 
-              Debug.variable(cell_data);
+              // Debug.variable(cell_data);
               cell.push(cell_data);
-              console.log('CELL'+cell);
+              // console.log('CELL'+cell);
               this.setState({children_attendances:cell});
 
             } // end of for loop 'klasses'
@@ -214,9 +230,12 @@ class Calendar extends Component {
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
           // get today's classes
-          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + this.today());
+          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + date + ' AND i_start_date < ' + this.nextDay(date));
+          console.log('start date = ' + date);
+          console.log('end date = '   + this.nextDay(date));
 
           var cell = [];
+          this.setState({children_attendances:cell});
           // for each student get the klasses they are actually enrolled in
           for (var i = 0; i < students.length; i++){
 
@@ -251,7 +270,7 @@ class Calendar extends Component {
               else
                 cell_data['is_toggled'] = false;
 
-              Debug.variable(cell_data);
+              // Debug.variable(cell_data);
               cell.push(cell_data);
               this.setState({children_attendances:cell});
             } // end of for loop 'klasses'
