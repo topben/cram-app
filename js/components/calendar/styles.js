@@ -96,6 +96,7 @@ module.exports = StyleSheet.create({
     leaveTxtCh: {
       fontFamily: 'PingFangTC-Medium',
       color:'rgba(74, 74, 74, 1)',
-      fontSize:14
+      fontSize:14,
+      alignSelf:'center'
     }
 });

@@ -260,7 +260,7 @@ class Calendar extends Component {
 
               if(now > classes_today[j].i_end_date){
                 cell_data['status'] = status;
-                cell_date['arrived_at'] = convertTimestamp(status.i_arrived_at);
+                cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
               }
               else{
                 cell_data['status'] = 'leave-button';
@@ -377,9 +377,9 @@ class Calendar extends Component {
               if(now > classes_today[j].i_end_date){
                 if (status.length == 0)
                   continue;
-                
+
                 cell_data['status'] = status[0].s_status;
-                cell_date['arrived_at'] = convertTimestamp(status.i_arrived_at);
+                cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
               }
               else{
                 cell_data['status'] = 'leave-button';
@@ -418,8 +418,8 @@ class Calendar extends Component {
                         selectedBackgroundColor={'#000'}
                         onDateChange={this.onDateChange.bind(this)}/>
                   </View>
-                  <View style={{flex:1}}>
-                  <ScrollView style={{paddingTop:18}}
+                  <View>
+                  <ScrollView style={{height:this.state.children_attendances.length*20,paddingTop:18}}
                     ref={(scrollView) => { _scrollView = scrollView; }}
                     automaticallyAdjustContentInsets={false}
                     scrollEventThrottle={200}>

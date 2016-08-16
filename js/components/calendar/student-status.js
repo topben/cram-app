@@ -119,7 +119,7 @@ class LeaveButton extends Component {
           case 'arrived':
           console.log('arrived..');
               return <View style={{alignSelf:'center',flexDirection:'column'}}><Text style={styles.arriveTxtCh}>抵達</Text><Text style={styles.arriveTime}>12:00</Text></View>
-          case 'absent':
+          case 'late':
               return <View style={{alignSelf:'center'}}><Text style={styles.leaveTxtCh}>未到</Text></View>
           case 'leave-button':
           return <Button
