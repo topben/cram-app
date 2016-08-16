@@ -46,11 +46,11 @@ class UserModel: Object{
     
     let userModel = UserModel()
     
-    userModel.s_user_id                   = result["id"]               as! String
-    userModel.s_email                     = result["email"]            as! String
-    userModel.s_phone                     = result["phone"]            as! String
-    userModel.s_role                      = result["role"]             as! String
-    userModel.s_profile_picture_file_name = result["profile_picture_url"] as! String
+    userModel.s_user_id                   = result["id"]                  as? String ?? ""
+    userModel.s_email                     = result["email"]               as? String ?? ""
+    userModel.s_phone                     = result["phone"]               as? String ?? ""
+    userModel.s_role                      = result["role"]                as? String ?? ""
+    userModel.s_profile_picture_file_name = result["profile_picture_url"] as! String ?? ""
     
     return userModel
   }
@@ -61,11 +61,11 @@ class UserModel: Object{
     let result = data
     let userModel = UserModel()
     
-    userModel.s_user_id                   = result["resource_owner_id"]              as! String
-    userModel.s_access_token              = result["access_token"]                   as! String
-    userModel.s_token_type                = result["token_type"]                     as! String
-    userModel.s_refresh_token             = result["refresh_token"]                  as! String
-    userModel.i_created_at                = result["created_at"]                     as! Int
+    userModel.s_user_id                   = result["resource_owner_id"]              as? String ?? ""
+    userModel.s_access_token              = result["access_token"]                   as? String ?? ""
+    userModel.s_token_type                = result["token_type"]                     as? String ?? ""
+    userModel.s_refresh_token             = result["refresh_token"]                  as? String ?? ""
+    userModel.i_created_at                = result["created_at"]                     as? Int    ?? 0
     userModel.i_login_at                  = Int(NSDate().timeIntervalSince1970)
     
     return userModel
@@ -79,10 +79,10 @@ class UserModel: Object{
     
     try! realm.write({
       
-      userModel.s_email                     = data["email"]            as! String
-      userModel.s_phone                     = data["phone"]            as! String
-      userModel.s_role                      = data["role"]             as! String
-      userModel.s_profile_picture_file_name = data["profile_picture_url"] as! String
+      userModel.s_email                     = data["email"]               as? String ?? ""
+      userModel.s_phone                     = data["phone"]               as? String ?? ""
+      userModel.s_role                      = data["role"]                as? String ?? ""
+      userModel.s_profile_picture_file_name = data["profile_picture_url"] as? String ?? ""
     })
     
   }

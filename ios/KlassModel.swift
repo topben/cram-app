@@ -29,12 +29,12 @@ class KlassModel: Object{
     
     let klassModel = KlassModel()
     
-    klassModel.s_klass_id     = data["id"]             as! String
+    klassModel.s_klass_id     = data["id"]             as? String ?? ""
     klassModel.s_course_id    = data["course_id"]      as? String ?? ""
     klassModel.s_teacher_id   = data["teacher_id"]     as? String ?? "TBA"
     klassModel.s_location     = data["location"]       as? String ?? "TBA"
-    klassModel.i_start_date   = data["start_date"] as! Int
-    klassModel.i_end_date     = data["end_date"]   as! Int
+    klassModel.i_start_date   = data["start_date"]     as? Int    ?? 0
+    klassModel.i_end_date     = data["end_date"]       as? Int    ?? 0
     
     return klassModel
     

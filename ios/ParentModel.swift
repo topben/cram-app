@@ -33,15 +33,15 @@ class ParentModel: Object{
       
     let parentModel = ParentModel()
     
-    parentModel.s_parent_id           =     data["id"]                  as! String
+    parentModel.s_parent_id           =     data["id"]                  as? String ?? ""
     parentModel.s_organization_id     =     data["organization_id"]     as? String ?? ""
     parentModel.s_user_id             =     data["user_id"]             as? String ?? ""
-    parentModel.s_organization_role   =     data["organization_role"]   as! String
-    parentModel.s_name                =     data["name"]                as! String
+    parentModel.s_organization_role   =     data["organization_role"]   as? String ?? ""
+    parentModel.s_name                =     data["name"]                as? String ?? ""
     parentModel.s_phone               =     data["phone"]               as? String ?? ""
     parentModel.s_email               =     data["email"]               as? String ?? ""
     parentModel.s_qr_code_id          =     data["qr_code_id"]          as? String ?? ""
-    parentModel.s_profile_picture_url =     data["profile_picture_url"] as! String
+    parentModel.s_profile_picture_url =     data["profile_picture_url"] as? String ?? ""
     
     return parentModel
   }

@@ -37,12 +37,12 @@ class NotificationModel: Object{
     
     let notificationModel = NotificationModel()
     
-    notificationModel.s_notification_id =     data["id"]               as! String
+    notificationModel.s_notification_id =     data["id"]               as? String ?? ""
     notificationModel.s_announcement_id =     data["announcement_id"]  as? String ?? ""
     notificationModel.s_attendance_id   =     data["attendance_id"]    as? String ?? ""
     notificationModel.s_message_id      =     data["message_id"]       as? String ?? ""
     notificationModel.s_invitation_id   =     data["invitation_id"]    as? String ?? ""
-    notificationModel.i_created_at      =     data["created_at"]       as! Int
+    notificationModel.i_created_at      =     data["created_at"]       as? Int    ?? 0
     
     return notificationModel
     
@@ -54,19 +54,19 @@ class NotificationModel: Object{
     
     let notificationModel = NotificationModel()
     
-    notificationModel.s_notification_id =     data["id"]         as! String
-    notificationModel.s_type            =     data["type"]       as! String
-    notificationModel.i_created_at      = Int(data["created_at"] as! String)!
+    notificationModel.s_notification_id =     data["id"]         as? String ?? ""
+    notificationModel.s_type            =     data["type"]       as? String ?? ""
+    notificationModel.i_created_at      =     data["created_at"] as? Int    ?? 0
     
     switch notificationModel.s_type {
       
       case "student_late":
         let result = data["objects"]!["attendance"]!
-        notificationModel.s_course_id       = result!["course_id"]       as! String
-        notificationModel.s_student_id      = result!["student_id"]      as! String
+        notificationModel.s_course_id       = result!["course_id"]       as? String ?? ""
+        notificationModel.s_student_id      = result!["student_id"]      as? String ?? ""
         notificationModel.s_teacher_id      = result!["teacher_id"]      as? String ?? ""
-        notificationModel.s_check_in_method = result!["check_in_method"] as! String
-        notificationModel.s_status          = result!["status"]          as! String
+        notificationModel.s_check_in_method = result!["check_in_method"] as? String ?? ""
+        notificationModel.s_status          = result!["status"]          as? String ?? ""
         break
       
       default:

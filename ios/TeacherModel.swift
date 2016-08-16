@@ -34,11 +34,11 @@ class TeacherModel: Object{
     
     let teacherModel = TeacherModel()
     
-    teacherModel.s_teacher_id          =     data["id"]                  as! String
+    teacherModel.s_teacher_id          =     data["id"]                  as? String ?? ""
     teacherModel.s_organization_id     =     data["organization_id"]     as? String ?? ""
     teacherModel.s_user_id             =     data["user_id"]             as? String ?? ""
     teacherModel.s_organization_role   =     data["organization_role"]   as? String ?? ""
-    teacherModel.s_name                =     data["name"]                as! String
+    teacherModel.s_name                =     data["name"]                as? String ?? ""
     teacherModel.s_phone               =     data["phone"]               as? String ?? ""
     teacherModel.s_email               =     data["email"]               as? String ?? ""
     teacherModel.s_qr_code_id          =     data["qr_code_id"]          as? String ?? ""

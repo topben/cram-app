@@ -138,9 +138,32 @@ class Scanner extends Component {
       //this.openClassModal();
     }
 
+    fetchNotifications(){
+
+      let realm = new Realm({schema: realm_schema});
+      var users = realm.objects('UserModel').sorted('i_login_at', true);
+
+      if (users.length == 0)
+        return;
+
+      // get user access token
+      var access_token = users[0].s_access_token;
+
+      Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+        function successCallback(results) {
+
+        },
+        function errorCallback(results) {
+          alert(results.msg);
+        });
+
+    }
+
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
          console.log('path = ' + Realm.defaultPath);
+
+         setInterval(()=>{this.fetchNotifications()}, 10000);
 
          // set interval for class modal
          interval_id = setInterval(function(){

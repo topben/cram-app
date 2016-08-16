@@ -27,8 +27,8 @@ class CourseModel: Object{
     
     let courseModel = CourseModel()
 
-    courseModel.s_course_id       = data["id"]   as! String
-    courseModel.s_name            = data["name"] as! String
+    courseModel.s_course_id       = data["id"]              as? String ?? ""
+    courseModel.s_name            = data["name"]            as? String ?? ""
     courseModel.s_organization_id = data["organization_id"] as? String ?? ""
    
     return courseModel

@@ -18,7 +18,7 @@ class SynchronizationModel: Object{
   dynamic var i_table_id        : Int = 0
   
   dynamic var s_table_name      : String = ""
-  dynamic var i_last_updated_at : Int = 0
+  dynamic var i_last_updated_at : Int    = 0
   
   static override func primaryKey() -> String?{
     return "i_table_id"

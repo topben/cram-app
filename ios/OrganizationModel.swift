@@ -26,8 +26,8 @@ class OrganizationModel: Object{
     
     let organizationModel = OrganizationModel()
     
-    organizationModel.s_organization_id =     data["id"]   as! String
-    organizationModel.s_name            =     data["name"] as! String
+    organizationModel.s_organization_id =     data["id"]   as? String ?? ""
+    organizationModel.s_name            =     data["name"] as? String ?? ""
     
     return organizationModel
   }
