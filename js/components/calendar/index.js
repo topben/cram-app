@@ -419,7 +419,7 @@ class Calendar extends Component {
                         onDateChange={this.onDateChange.bind(this)}/>
                   </View>
                   <View>
-                  <ScrollView style={{height:this.state.children_attendances.length*20,paddingTop:18}}
+                  <ScrollView style={styles.scroll}
                     ref={(scrollView) => { _scrollView = scrollView; }}
                     automaticallyAdjustContentInsets={false}
                     scrollEventThrottle={200}>
