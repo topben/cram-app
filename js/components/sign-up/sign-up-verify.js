@@ -28,7 +28,8 @@ class SignUpVerify extends Component {
       super(props);
       this.state = {
           code: '',
-          newHeight:0
+          newHeight:0,
+          isBtnDisabled: false
       };
       this.onNextPressed = this.onNextPressed.bind(this);
   }
@@ -70,6 +71,10 @@ class SignUpVerify extends Component {
         )
         return;
       }
+
+      // disable button to prevent rapidly tapping
+      this.setState({isBtnDisabled: true});
+
       // Create Realm
       let realm = new Realm({schema: realm_schema});
       // get realm object
@@ -79,6 +84,9 @@ class SignUpVerify extends Component {
       User.checkVerificationCode(this.state.code, global_variables.HOST+'/api/v1/signup/check_verification_code',
        function successCallback(results) {
 
+         // enable and release button lock
+         $this.setState({isBtnDisabled: false});
+          // navigate to the next page
           $this.props.pushNewRoute('edit');
           //  $this.props.pushNewRoute('signUpCreate');
 
@@ -94,7 +102,9 @@ class SignUpVerify extends Component {
              {text: 'OK', onPress: () => {}}
            ]
          )
-          $this.setState({code: ''});
+           // enable and release button lock
+           $this.setState({isBtnDisabled: false});
+           $this.setState({code: ''});
            //alert(results.msg);
        });
       //  console.log(Realm.defaultPath);
@@ -118,9 +128,9 @@ class SignUpVerify extends Component {
                     <Input placeholder="驗證碼" onChangeText={(code) => this.setState({code})} value={this.state.code} />
                     <Text>{this.state.client_error_msg}</Text>
                   </View>
-                  <Button transparent rounded style={styles.getVerifyBtn} onPress={this.onNextPressed}>
+                  <Button transparent rounded disabled={this.state.isBtnDisabled} style={styles.getVerifyBtn} onPress={this.onNextPressed}>
                     <View>
-                      <Text style={styles.verifyTxt}>驗證驗證碼</Text>
+                      <Text style={styles.verifyTxt}>下一步</Text>
                     </View>
                   </Button>
               </View>

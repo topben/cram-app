@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
-import { DeviceEventEmitter, Dimensions, Image, Keyboard} from 'react-native';
+import { DeviceEventEmitter, Dimensions, Image, Keyboard, Alert} from 'react-native';
 import {Container, Header, Title, Content, Card, Thumbnail, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
 import theme from '../../themes/base-theme';
 import styles from './styles';
@@ -28,7 +28,8 @@ class Edit extends Component {
       super(props);
       this.onNextPressed = this.onNextPressed.bind(this);
       this.state = {
-          email: ''
+          email: '',
+          isBtnDisabled: false
       };
   }
 
@@ -52,20 +53,45 @@ class Edit extends Component {
       let people = realm.objects('People');
       let person = people[people.length - 1];
 
+      // check empty email
+      if(this.state.email == '')
+      {
+        Alert.alert(
+          '',
+          '請輸入電子信箱',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+        return;
+      }
+
+      // disable button to prevent rapidly tapping
+      this.setState({isBtnDisabled: true});
+
       User.checkUsername(this.state.email, global_variables.HOST+'/api/v1/signup/check_username',
        function successCallback(results) {
+
+         // enable / release button lock
+         $this.setState({isBtnDisabled: false});
          // navigate to sign-up-create
           $this.pushNewRoute('signUpCreate');
-
           realm.write(() => {
             person.s_email = $this.state.email;
           });
        },
        function errorCallback(results) {
-           alert(results.msg);
+         // enable and release button lock
+         $this.setState({isBtnDisabled: false});
+          //alert(results.msg);
+          Alert.alert(
+            '',
+            '輸入電話錯誤，請重新輸入',
+            [
+              {text: 'OK', onPress: () => {}}
+            ]
+          )
        });
-
-
         //this.props.replaceOrPushRoute('scanner');
     }
 
@@ -86,7 +112,7 @@ class Edit extends Component {
                     <Input placeholder="電子信箱" onChangeText={(email) => this.setState({email})} value={this.state.email} />
                     <Text>{this.state.client_error_msg}</Text>
                   </View>
-                  <Button transparent rounded style={styles.finishBtn} onPress={this.onNextPressed}>
+                  <Button transparent disabled={this.state.isBtnDisabled} rounded style={styles.finishBtn} onPress={this.onNextPressed}>
                     <View>
                     <Text style={styles.emailTxt}>下一步</Text>
                     </View>

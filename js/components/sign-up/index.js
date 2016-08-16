@@ -29,7 +29,8 @@ class SignUp extends Component {
         this.state = {
             phone: '',
             client_error_msg: '',
-            newHeight: 0
+            newHeight: 0,
+            isBtnDisabled: false
         };
     }
 
@@ -128,6 +129,7 @@ class SignUp extends Component {
     onNextPressed(){
       //console.warn('onNextPressed')
       var $this = this;
+
       if(this.isPhoneNumber(this.state.phone)==false)
       {
         return;
@@ -148,15 +150,22 @@ class SignUp extends Component {
         return;
       }
 
+      // disable button to prevent rapidly tapping
+      this.setState({isBtnDisabled: true});
+
       var phoneWithCountryCode = '886' + this.state.phone.substring(1, 10);
 
       User.sendVerificationCode(phoneWithCountryCode, global_variables.HOST+'/api/v1/signup/send_verification_code_sms',
 
        function successCallback(results) {
+          // enable and release button lock
+          $this.setState({isBtnDisabled: false});
           $this.pushNewRoute('signUpVerify',phoneWithCountryCode);
        },
 
        function errorCallback(results) {
+         // enable and release button lock
+         $this.setState({isBtnDisabled: false});
            //alert(results.msg);
            Alert.alert(
              '',
@@ -186,9 +195,9 @@ class SignUp extends Component {
                       <Input placeholder="手機號碼" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
                       <Text>{this.state.client_error_msg}</Text>
                     </View>
-                    <Button transparent rounded style={styles.getVerifyBtn} onPress={this.onNextPressed}>
+                    <Button transparent rounded disabled={this.state.isBtnDisabled} style={styles.getVerifyBtn} onPress={this.onNextPressed}>
                       <View>
-                      <Text style={styles.verifyTxt}>取得驗證碼</Text>
+                        <Text style={styles.verifyTxt}>取得驗證碼</Text>
                       </View>
                     </Button>
                 </View>

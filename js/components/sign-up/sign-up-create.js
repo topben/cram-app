@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard } from 'react-native';
+import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard, Alert } from 'react-native';
 import {pushNewRoute,popRoute} from '../../actions/route';
 import {closeDrawer} from '../../actions/drawer';
 import {replaceOrPushRoute} from '../../actions/route';
@@ -34,7 +34,8 @@ class SignUpCreate extends Component {
           re_password: '',
           verifyPwdMsg: '',
           checkPwdMsg: '',
-          newHeight: 0
+          newHeight: 0,
+          isBtnDisabled: false
       };
       this.onNextPressed = this.onNextPressed.bind(this);
   }
@@ -75,15 +76,32 @@ class SignUpCreate extends Component {
       var $this = this;
       if(this.state.password == this.state.re_password && this.state.password == "")
       {
-        alert("未輸入密碼");
+        Alert.alert(
+          '',
+          '密碼輸入錯誤，請重新輸入',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+        //alert("未輸入密碼");
         return;
       }
 
       if(this.state.password != this.state.re_password)
       {
-        alert("密碼不一致");
+        Alert.alert(
+          '',
+          '密碼輸入錯誤，請重新輸入',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+        //alert("密碼不一致");
         return;
       }
+
+      // disable button to prevent rapidly tapping
+      this.setState({isBtnDisabled: true});
 
       let realm = new Realm({schema: realm_schema});
       // get realm object
@@ -112,29 +130,28 @@ class SignUpCreate extends Component {
 
       User.create(userInfo, global_variables.HOST+'/api/v1/signup',
        function successCallback(results) {
-         // navigate to scanner page
-
          interval_id = setInterval(function(){
            let realm = new Realm({schema: realm_schema});
            if(realm.objects('UserModel').length == 1){
 
              User.login($person.s_email, $this.state.password, 'password', global_variables.HOST+'/oauth/token',
                function successCallback(results){
+                 // enable and release button lock
+                 $this.setState({isBtnDisabled: false});
                  clearInterval(interval_id);
+                 // navigate to scanner page
                  $this.navigateTo('scanner');
                },
                function failureCallback(results){
-
+                 // enable and release button lock
+                 $this.setState({isBtnDisabled: false});
                });
-
            }
          }, 200);
-
-
-
-
        },
        function errorCallback(results) {
+         // enable and release button lock
+         $this.setState({isBtnDisabled: false});
            alert(results.msg);
        });
       // this.props.pushNewRoute('edit');
@@ -175,6 +192,7 @@ class SignUpCreate extends Component {
                 <Button
                   transparent
                   rounded
+                  disabled={this.state.isBtnDisabled}
                   style={styles.getVerifyBtn}
                   onPress={this.onNextPressed}>
                   <View>
