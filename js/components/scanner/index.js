@@ -549,7 +549,7 @@ class Scanner extends Component {
                 <Card style={this.state.studentModalStyleAlpha}>
                   {this.state.isNewStudentModal?
                     <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
-                    :<View style={{height:23}}></View>
+                    :<View style={{height:20}}></View>
                   }
                     <View style={{flexDirection:'row',paddingTop:20}}>
                       <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
@@ -565,7 +565,7 @@ class Scanner extends Component {
                 <Card style={this.state.studentModalStyleBeta}>
                   {this.state.isNewStudentModal?
                     <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
-                    :<View style={{height:23}}></View>
+                    :<View style={{height:20}}></View>
                   }
                     <View style={{flexDirection:'row',paddingTop:20}}>
                       <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />

@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard } from 'react-native';
+import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard, Alert} from 'react-native';
 import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
@@ -112,7 +112,14 @@ class SignUp extends Component {
       else
       {
         //this.setState({client_error_msg: '電話規格錯誤'});
-        alert('電話規格錯誤');
+        Alert.alert(
+          '',
+          '輸入電話錯誤，請重新輸入',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+        this.setState({phone: ''});
         return false;
       }
     }
@@ -130,7 +137,14 @@ class SignUp extends Component {
       if(first_two_phone_numbers != '09')
       {
         //this.setState({client_error_msg: '需要09開頭'});
-        alert('需要09開頭');
+        Alert.alert(
+          '',
+          '輸入電話錯誤，請重新輸入',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+        this.setState({phone:''});
         return;
       }
 
