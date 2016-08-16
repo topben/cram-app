@@ -47,7 +47,7 @@ class LeaveButton extends Component {
               break;
           case 'arrived':
               break;
-          case 'absent':
+          case 'late':
               break;
           case 'leave-button':
               if(!this.state.isToggled){

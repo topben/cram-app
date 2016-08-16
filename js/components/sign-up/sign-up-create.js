@@ -77,11 +77,16 @@ class SignUpCreate extends Component {
     }
 
     checkPassword(password){
+
+      var boolLeastEightChar = false;
+      var boolLeastUpperCase = false
       if(password.length < 8) {
         this.setState({isLeastEightChar: false});
+        boolLeastEightChar = false;
         //alert("Error: Password must contain at least six characters!");
       } else {
-        this.setState({isLeastEightChar: true})
+        this.setState({isLeastEightChar: true});
+        boolLeastEightChar = true;
       }
 
       // var re_special = /[@#$%^&+=]/
@@ -95,8 +100,10 @@ class SignUpCreate extends Component {
       if(!re_uppercase.test(password)) {
         //alert("Error: password must contain at least one uppercase letter (A-Z)!");
         this.setState({isLeastOneUppercase: false});
+        boolLeastUpperCase = false;
       } else {
         this.setState({isLeastOneUppercase: true});
+        boolLeastUpperCase = true;
       }
 
       var re_number = /[0-9]/;
@@ -108,13 +115,24 @@ class SignUpCreate extends Component {
       } else {
         this.setState({isMixedNumAlphabet: true});
       }
-      //
+
+
+
       // if(this.state.isLeastEightChar && this.state.isLeastOneSymbol && this.state.isLeastOneUppercase && this.state.isMixedNumAlphabet)
       // {
       //   this.setState({isPwdOK: true});
       // } else {
       //   this.setState({isPwdOK: false});
       // }
+
+      if(boolLeastUpperCase && boolLeastEightChar)
+      {
+        this.setState({isPwdOK: true});
+      }
+      else
+      {
+        this.setState({isPwdOK: false});
+      }
 
       this.setState({password:password})
     }
@@ -205,7 +223,7 @@ class SignUpCreate extends Component {
          $this.setState({isBtnDisabled: false});
          Alert.alert(
            '',
-           result.msg,
+           results.msg,
            [
              {text: 'OK', onPress: () => {}}
            ]
