@@ -44,6 +44,13 @@ module.exports = StyleSheet.create({
       alignItems:'center',
       fontSize: 15
     },
+    limitationTxt: {
+      fontFamily: 'PingFangTC-Regular',
+      color:'rgba(155, 155, 155, 1)',
+      alignSelf:'flex-start',
+      fontSize: 14,
+      letterSpacing: 3
+    },
     getVerifyBtn: {
       flex:1,
       width:deviceWidth/2,

@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {openDrawer} from '../../actions/drawer';
 import {popRoute,replaceRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
-import { Image, View } from 'react-native';
+import { Image, View, ScrollView } from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Badge} from 'native-base';
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
@@ -92,16 +92,13 @@ class Notifications extends Component {
         notify.date = timestamp;
 
         notifications_list.push(notify);
-
-        this.setState({notification_list: notifications_list});
       } // end of for loop
-
+      this.setState({notification_list: notifications_list});
     } // end of buildAttendanceNotifications()
 
     // build the 4 types of notifications
     componentWillMount () {
       setInterval(()=>{this.fetchNotifications()}, 10000);
-
       this.buildAttendanceNotifications();
     }
 
@@ -169,17 +166,21 @@ class Notifications extends Component {
                       </Button>
                 </Header>
                 <View style={{backgroundColor: 'transparent'}}>
-                    <List>
-                      {(this.state.notification_list.length != 0 )?this.state.notification_list.map((i, index)=>
-                        <ListItem iconLeft button>
-                            <Icon name="ios-people" style={{color: '#ff6100'}}/>
-                            <View style={{paddingLeft:30}}>
-                            <Text style={styles.subBlackTxt} numberOfLines={2}>{i.note}</Text>
-                            <Text style={styles.timeTxt} note >{i.date}</Text>
-                            </View>
-                        </ListItem>
-                      ):<View><Text style={{alignSelf:'center',paddingTop:30}}>No Notification</Text></View>}
-                    </List>
+                  <ScrollView>
+                    <View>
+                      <List>
+                        {(this.state.notification_list.length != 0 )?this.state.notification_list.map((i, index)=>
+                          <ListItem iconLeft button>
+                              <Icon name="ios-people" style={{color: '#ff6100'}}/>
+                              <View style={{paddingLeft:30}}>
+                              <Text style={styles.subBlackTxt} numberOfLines={2}>{i.note}</Text>
+                              <Text style={styles.timeTxt} note >{i.date}</Text>
+                              </View>
+                          </ListItem>
+                        ):<View><Text style={{alignSelf:'center',paddingTop:30}}>No Notification</Text></View>}
+                      </List>
+                    </View>
+                  </ScrollView>
                 </View>
             </Container>
         )

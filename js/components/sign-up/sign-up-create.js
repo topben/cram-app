@@ -35,7 +35,12 @@ class SignUpCreate extends Component {
           verifyPwdMsg: '',
           checkPwdMsg: '',
           newHeight: 0,
-          isBtnDisabled: false
+          isBtnDisabled: false,
+          isPwdOK: false,
+          isLeastEightChar: false,
+          isLeastOneSymbol: false,
+          isLeastOneUppercase: false,
+          isMixNumberAlphabet: false
       };
       this.onNextPressed = this.onNextPressed.bind(this);
   }
@@ -71,6 +76,49 @@ class SignUpCreate extends Component {
         this.props.replaceOrPushRoute(route);
     }
 
+    checkPassword(password){
+      if(password.length < 8) {
+        this.setState({isLeastEightChar: false});
+        //alert("Error: Password must contain at least six characters!");
+      } else {
+        this.setState({isLeastEightChar: true})
+      }
+
+      // var re_special = /[@#$%^&+=]/
+      // if(!re_special.test(password)){
+      //   this.setState({isLeastOneSymbol: false});
+      // } else {
+      //   this.setState({isLeastOneSymbol: true});
+      // }
+
+      var re_uppercase = /[A-Z]/;
+      if(!re_uppercase.test(password)) {
+        //alert("Error: password must contain at least one uppercase letter (A-Z)!");
+        this.setState({isLeastOneUppercase: false});
+      } else {
+        this.setState({isLeastOneUppercase: true});
+      }
+
+      var re_number = /[0-9]/;
+      var re_lowercase = /[a-z]/;
+
+      if(!re_number.test(password) || re_lowercase.test(password)) {
+        //alert("Error: password must contain at least one lowercase letter (a-z)!");
+        this.setState({isMixedNumAlphabet: false});
+      } else {
+        this.setState({isMixedNumAlphabet: true});
+      }
+      //
+      // if(this.state.isLeastEightChar && this.state.isLeastOneSymbol && this.state.isLeastOneUppercase && this.state.isMixedNumAlphabet)
+      // {
+      //   this.setState({isPwdOK: true});
+      // } else {
+      //   this.setState({isPwdOK: false});
+      // }
+
+      this.setState({password:password})
+    }
+
     // next button tapped
     onNextPressed(){
       var $this = this;
@@ -78,7 +126,7 @@ class SignUpCreate extends Component {
       {
         Alert.alert(
           '',
-          '密碼輸入錯誤，請重新輸入',
+          '密碼輸入空白，請重新輸入',
           [
             {text: 'OK', onPress: () => {}}
           ]
@@ -136,11 +184,14 @@ class SignUpCreate extends Component {
 
              User.login($person.s_email, $this.state.password, 'password', global_variables.HOST+'/oauth/token',
                function successCallback(results){
+                 if($this.state.isPwdOK)
+                 {
+                   clearInterval(interval_id);
+                   // navigate to scanner page
+                   $this.navigateTo('scanner');
+                 }
                  // enable and release button lock
                  $this.setState({isBtnDisabled: false});
-                 clearInterval(interval_id);
-                 // navigate to scanner page
-                 $this.navigateTo('scanner');
                },
                function failureCallback(results){
                  // enable and release button lock
@@ -152,7 +203,13 @@ class SignUpCreate extends Component {
        function errorCallback(results) {
          // enable and release button lock
          $this.setState({isBtnDisabled: false});
-           alert(results.msg);
+         Alert.alert(
+           '',
+           result.msg,
+           [
+             {text: 'OK', onPress: () => {}}
+           ]
+         )
        });
       // this.props.pushNewRoute('edit');
     }
@@ -177,7 +234,7 @@ class SignUpCreate extends Component {
                   <Input
                     placeholder="原始密碼"
                     secureTextEntry={true}
-                    onChangeText={(password) => this.setState({password})}
+                    onChangeText={(password) => this.checkPassword(password)}
                     value={this.state.password} />
                 </View>
                 <Text style={styles.verifyPwd}>{this.state.verifyPwdMsg}</Text>
@@ -189,6 +246,11 @@ class SignUpCreate extends Component {
                       value={this.state.re_password} />
                   </View>
                   <Text style={styles.checkPwd}>{this.state.checkPwdMsg}</Text>
+                  <View style={{alignSelf:'center',flexDirection:'column'}}>
+                    <View style={{paddingRight:20}}><Text style={styles.limitationTxt}>  密碼設定需符合:</Text></View>
+                    <View style={{flexDirection:'row'}}>{this.state.isLeastEightChar?<Text>OK</Text>:<Text>不OK</Text>}<Text style={styles.limitationTxt}>  至少八個字元</Text></View>
+                    <View style={{flexDirection:'row'}}>{this.state.isLeastOneUppercase?<Text>OK</Text>:<Text>不OK</Text>}<Text style={styles.limitationTxt}>  至少1個大寫英文字母</Text></View>
+                    </View>
                 <Button
                   transparent
                   rounded
