@@ -245,7 +245,7 @@ class Calendar extends Component {
               }
 
               var now = new Date();
-              now = now.getTime();
+              now = now.getTime() / 1000;
 
               if(now > classes_today[j].i_end_date){
                 cell_data['status'] = status;
@@ -335,12 +335,20 @@ class Calendar extends Component {
               var klass_id = classes_today[j].s_klass_id;
               cell_data['klass_id'] = klass_id;
 
+              console.log('klass id = ' + classes_today[j].s_klass_id);
+              console.log('student id = ' + student_id);
 
 
               var now = new Date();
-              now = now.getTime();
+              now = now.getTime() / 1000;
+
+              console.log('now = ' + now);
+              console.log('end date = ' + classes_today[j].i_end_date);
 
               if(now > classes_today[j].i_end_date){
+                if (status.length == 0)
+                  return;
+
                 cell_data['status'] = status[0].s_status;
               }
               else{

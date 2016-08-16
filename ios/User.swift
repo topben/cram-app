@@ -64,7 +64,7 @@ class User: NSObject {
       failureBlock: { (response) in
         
         // return false if get person info failed
-        var result = ["success" : "false"];
+        var result = ["success" : "false"]
         result["msg"] = (response["error"] as! String)
         
         failureCallBack([result])
