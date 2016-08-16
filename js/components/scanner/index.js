@@ -375,9 +375,18 @@ class Scanner extends Component {
       // add temp code here
       let realm = new Realm({schema: realm_schema});
       // get all student IDs and save in array
-      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "0aeb7f71-9e1f-45c8-928c-d9bb911f0c94"');
+      var temp = realm.objects('AttendanceModel').sorted('i_arrived_at', true);
+      if (temp.length == 0)
+        return;
+
+      var temp_2 = realm.objects('KlassModel').filtered('s_klass_id = "' + temp[0].s_klass_id + '"');
+      if (temp_2.length == 0)
+        return;
+
+      var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "' + temp_2[0].s_course_id + '"');
       if (temp_course.length == 0)
         return;
+        
       temp_course = temp_course[0];
       // get all students in the class
       var temp_students = temp_course.students;
