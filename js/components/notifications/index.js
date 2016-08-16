@@ -101,7 +101,7 @@ class Notifications extends Component {
     // build the 4 types of notifications
     componentWillMount () {
       setInterval(()=>{this.fetchNotifications()}, 10000);
-      
+
       this.buildAttendanceNotifications();
     }
 
@@ -115,10 +115,10 @@ class Notifications extends Component {
 
       // get user access token
       var access_token = users[0].s_access_token;
-
+      var $this = this;
       Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
         function successCallback(results) {
-
+          $this.buildAttendanceNotifications();
         },
         function errorCallback(results) {
           alert(results.msg);
