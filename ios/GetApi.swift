@@ -49,10 +49,9 @@ class GetApi{
   // check username
   static func checkUsername(username: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
     
-    var parameters = [String : AnyObject]()
-    parameters["username"] = username
+    let full_url = url + "?username=" + username
     
-    Alamofire.request(.GET, url, parameters: parameters).responseJSON { response in
+    Alamofire.request(.GET, full_url, parameters: nil).responseJSON { response in
       
       let json = response.result.value
       
@@ -70,7 +69,7 @@ class GetApi{
       default:
         print("Check username failed.")
         let error = ["error": "Server Error: " + String(statusCode)]
-        failureBlock(error)
+        failureBlock(json as! Dictionary<String, AnyObject>)
       } // end of switch
       
     } // end of request
