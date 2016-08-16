@@ -124,6 +124,7 @@ class LoginEmail extends Component {
           $this.navigateTo('scanner');
        },
        function errorCallback(results) {
+           alert('帳號或是密碼錯誤');
            $this.setState({btnDisabled: false});
            $this.setState({isProcessing: false});
            //alert(results.msg);

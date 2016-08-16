@@ -85,6 +85,7 @@ class Calendar extends Component {
       var now = new Date();
       var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       var timestamp = startOfDay / 1000;
+      // console.log('up here, timestamp = ' + timestamp);
       return timestamp
     }
 
@@ -133,7 +134,7 @@ class Calendar extends Component {
 
       var newDate=month[myDate[1]]+"/"+myDate[2]+"/"+myDate[3];
       //console.log("converted"+newDate);
-      console.log("the"+new Date(newDate).getTime()/1000+"date")
+      // console.log("the"+new Date(newDate).getTime()/1000+"date")
       return (new Date(newDate).getTime()/1000);
     }
 
@@ -174,7 +175,7 @@ class Calendar extends Component {
     } // end of function
 
     getAttendance(date){
-
+      // console.log('lalalal, date = ' + date);
       let realm = new Realm({schema: realm_schema});
 
       // if user selected a date prior to today...
@@ -202,8 +203,11 @@ class Calendar extends Component {
 
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
+
+          var date = date - (date % 86400000);
+
           // get today's classes
-          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + date + ' AND i_start_date < ' + (date + 86400));
+          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + date + ' AND i_start_date < ' + (date + 86400000));
 
           // for each student get the klasses they are actually enrolled in
           for (var i = 0; i < students.length; i++){
@@ -229,7 +233,7 @@ class Calendar extends Component {
               }
               else
               {
-                  return;
+                  continue;
               }
 
               var student_name = students[i].s_name;
@@ -241,7 +245,7 @@ class Calendar extends Component {
               }
               else
               {
-                  return;
+                  continue;
               }
 
               var now = new Date();
@@ -277,11 +281,10 @@ class Calendar extends Component {
           console.log('here, after today');
           // get current logged in user_id
           var users = realm.objects('UserModel').sorted('i_login_at', true);
-          var user_id = users[users.length-1].s_user_id;
+          var user_id = users[0].s_user_id;
 
           var parent = {};
           var parent_id = 0;
-
           // get parent_id
           if(typeof realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0] != 'undefined')
           {
@@ -292,25 +295,34 @@ class Calendar extends Component {
           {
             return;
           }
+          // console.log('user id = ' + user_id);
+          // console.log('parent id = ' + parent_id);
 
           // get all parent's kids
           var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
+          // console.log('student count = ' + students.length);
           // get today's classes
-          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + date + ' AND i_start_date <' + (date+86400));
+          // console.log('date = ' + date);
+          var date = date - (date % 86400);
 
+          console.log('beginning date = ' + date);
+          console.log('end date = ' + (date + 172800 - 28800));
 
+          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + (date+86400 - 28800) + ' AND i_start_date <' + (date+172800-28800));
+          // console.log('classes today count = ' + classes_today.length);
           // for each student get the klasses they are actually enrolled in
           for (var i = 0; i < students.length; i++){
-
+            // console.log('lalalala');
             // create cell_data dictionary and add values in it
             for (var j = 0; j < classes_today.length; j++){
-
+              // console.log('student_id = ' + students[i].s_student_id);
+              // console.log('klass_id = ' + classes_today[j].s_klass_id);
               if ( !this.isStudentInKlass(students[i].s_student_id, classes_today[j].s_klass_id) ) {
                   continue;
               }
 
               var cell_data = {};
-
+              console.log('here.....');
               var start_time = this.convertTimestamp(classes_today[j].i_start_date);
               cell_data['start_time'] = start_time;
               var end_time = this.convertTimestamp(classes_today[j].i_end_date);
@@ -323,7 +335,7 @@ class Calendar extends Component {
               }
               else
               {
-                  return;
+                  continue;
               }
 
               var student_name = students[i].s_name;
@@ -347,8 +359,8 @@ class Calendar extends Component {
 
               if(now > classes_today[j].i_end_date){
                 if (status.length == 0)
-                  return;
-
+                  continue;
+                  console.log('status = ' + status[0].s_status);
                 cell_data['status'] = status[0].s_status;
               }
               else{

@@ -24,6 +24,8 @@ const {Notification} = require('NativeModules');
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
+var id = 0;
+
 class Notifications extends Component {
 
     constructor(props) {
@@ -98,8 +100,13 @@ class Notifications extends Component {
 
     // build the 4 types of notifications
     componentWillMount () {
-      setInterval(()=>{this.fetchNotifications()}, 10000);
+      // setInterval(()=>{this.fetchNotifications()}, 10000);
+      // id = setInterval(()=>{this.fetchNotifications()}, 10000);
       this.buildAttendanceNotifications();
+    }
+
+    componentWillUnMount(){
+      // clearInterval(id);
     }
 
     fetchNotifications(){
