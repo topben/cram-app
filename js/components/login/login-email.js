@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Spinner from './../loaders/Spinner';
 // import CodePush from 'react-native-code-push';
-import {ScrollView, Image,TextInput,DeviceEventEmitter, Dimensions, Platform, Keyboard } from 'react-native';
+import {ScrollView, Image,TextInput,DeviceEventEmitter, Dimensions, Platform, Keyboard, Alert} from 'react-native';
 import {popRoute} from '../../actions/route';
 import {pushNewRoute, replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
@@ -63,9 +63,48 @@ class LoginEmail extends Component {
         this.props.replaceOrPushRoute(route);
     }
 
+    checkUserInput(){
+      if(this.state.email == '' && this.state.password =='')
+      {
+        Alert.alert(
+          '',
+          '信箱與密碼空白',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+      }
+      else if(this.state.email != '' && this.state.password =='')
+      {
+        Alert.alert(
+          '',
+          '密碼空白',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+      }
+      else if(this.state.email == '' && this.state.password != '')
+      {
+        Alert.alert(
+          '',
+          '信箱空白',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+      }
+    }
+
     // next button tapped
     onNextPressed(){
-      console.log('path =    ' + Realm.defaultPath);
+      // for obj connecting
+      var $this = this;
+
+      // check user input
+      this.checkUserInput();
+
+      //console.log('path =    ' + Realm.defaultPath);
       let realm = new Realm({schema: realm_schema});
 
       realm.write(() => {
@@ -73,8 +112,6 @@ class LoginEmail extends Component {
         realm.delete(allUsers); // Deletes all books
       });
 
-      // for obj connecting
-      var $this = this;
       // Spinner Control
       this.setState({isProcessing: true});
       this.setState({btnDisabled: true});
@@ -89,7 +126,7 @@ class LoginEmail extends Component {
        function errorCallback(results) {
            $this.setState({btnDisabled: false});
            $this.setState({isProcessing: false});
-           alert(results.msg);
+           //alert(results.msg);
        });
     }
 
