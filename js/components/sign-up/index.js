@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard, Alert} from 'react-native';
+import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard, Alert } from 'react-native';
 import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
@@ -157,7 +157,14 @@ class SignUp extends Component {
        },
 
        function errorCallback(results) {
-           alert(results.msg);
+           //alert(results.msg);
+           Alert.alert(
+             '',
+             '輸入電話錯誤，請重新輸入',
+             [
+               {text: 'OK', onPress: () => {}}
+             ]
+           )
        });
        //this.props.pushNewRoute('signUpVerify');
       }

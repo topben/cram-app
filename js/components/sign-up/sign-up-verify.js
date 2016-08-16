@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard } from 'react-native';
+import {Image ,TextInput, Dimensions, DeviceEventEmitter, Keyboard, Alert} from 'react-native';
 import {pushNewRoute,popRoute} from '../../actions/route';
 import {replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
@@ -58,6 +58,18 @@ class SignUpVerify extends Component {
 
     onNextPressed(){
       var $this = this;
+
+      if(this.state.code == '')
+      {
+        Alert.alert(
+          '',
+          '輸入驗證碼空白，請重新輸入',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
+        return;
+      }
       // Create Realm
       let realm = new Realm({schema: realm_schema});
       // get realm object
@@ -75,7 +87,15 @@ class SignUpVerify extends Component {
           });
        },
        function errorCallback(results) {
-           alert(results.msg);
+         Alert.alert(
+           '',
+           '輸入驗證碼錯誤，請重新輸入',
+           [
+             {text: 'OK', onPress: () => {}}
+           ]
+         )
+          $this.setState({code: ''});
+           //alert(results.msg);
        });
       //  console.log(Realm.defaultPath);
       //this.props.pushNewRoute('signUpCreate');
