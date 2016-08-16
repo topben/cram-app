@@ -39,6 +39,7 @@ const Realm          = require('realm');
 var count = 0;
 var interval_id = 0;
 var timeout_id = 0;
+var studentList_id = 0;
 var canScan = true;
 
 class Scanner extends Component {
@@ -159,9 +160,37 @@ class Scanner extends Component {
 
     }
 
+    getStudentListForEachCourse(){
+
+      let realm = new Realm({schema: realm_schema});
+      var courses = realm.objects('CourseModel');
+      var users = realm.objects('UserModel').sorted('i_login_at', true);
+
+      if (courses.length == 0 || users.length == 0)
+        return;
+
+      // get user access token
+      var access_token = users[0].s_access_token;
+
+      for (var i = 0; i < courses.length; i++){
+
+        Course.getStudentList(courses[i].s_course_id, global_variables.HOST + '/api/v1/students?access_token=' + access_token,
+          function successCallback(results) {
+
+          },
+          function errorCallback(results) {
+            alert(results.msg);
+          });
+      }
+
+      clearInterval(studentList_id);
+    }
+
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
          console.log('path = ' + Realm.defaultPath);
+
+         var $this = this;
 
          setInterval(()=>{this.fetchNotifications()}, 10000);
 
@@ -202,13 +231,8 @@ class Scanner extends Component {
 
                 Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
                   function successCallback(results) {
-                  },
-                  function errorCallback(results) {
-                    alert(results.msg);
-                  });
-
-                Course.getStudentList('0aeb7f71-9e1f-45c8-928c-d9bb911f0c94', global_variables.HOST + '/api/v1/students?access_token=' + access_token,
-                  function successCallback(results) {
+                      console.log('here');
+                      studentList_id = setInterval(()=>{$this.getStudentListForEachCourse()}, 200);
                   },
                   function errorCallback(results) {
                     alert(results.msg);
