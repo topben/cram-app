@@ -193,16 +193,23 @@ class Calendar extends Component {
           var parent_id = 0;
           if(typeof realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0] != 'undefined')
           {
-            parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0];
-            parent_id = parent.s_parent_id;
+            parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"');
           }
           else
           {
             return ;
           }
 
-          // get all parent's kids
-          var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
+          var students = [];
+
+          for (var i = 0; i < parent.length; i++){
+              var child = realm.objects('StudentModel').filtered('s_parent_id = "' + parent[i].s_parent_id + '"');
+
+              for (var j = 0; j < child.length; j++){
+                students.push(child[j]);
+              }
+          }
+
 
           var date = date - (date % 86400000);
 
@@ -253,6 +260,7 @@ class Calendar extends Component {
 
               if(now > classes_today[j].i_end_date){
                 cell_data['status'] = status;
+                cell_date['arrived_at'] = convertTimestamp(status.i_arrived_at);
               }
               else{
                 cell_data['status'] = 'leave-button';
@@ -288,8 +296,7 @@ class Calendar extends Component {
           // get parent_id
           if(typeof realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0] != 'undefined')
           {
-            parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"')[0];
-            parent_id = parent.s_parent_id;
+            parent = realm.objects('ParentModel').filtered('s_user_id = "' + user_id + '"');
           }
           else
           {
@@ -298,9 +305,19 @@ class Calendar extends Component {
           // console.log('user id = ' + user_id);
           // console.log('parent id = ' + parent_id);
 
+          var students = [];
+
+          for (var i = 0; i < parent.length; i++){
+              var child = realm.objects('StudentModel').filtered('s_parent_id = "' + parent[i].s_parent_id + '"');
+
+              for (var j = 0; j < child.length; j++){
+                students.push(child[j]);
+              }
+          }
+
           // get all parent's kids
-          var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
-          // console.log('student count = ' + students.length);
+          // var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
+          console.log('student count = ' + students.length);
           // get today's classes
           // console.log('date = ' + date);
           var date = date - (date % 86400);
@@ -360,8 +377,9 @@ class Calendar extends Component {
               if(now > classes_today[j].i_end_date){
                 if (status.length == 0)
                   continue;
-                  console.log('status = ' + status[0].s_status);
+                
                 cell_data['status'] = status[0].s_status;
+                cell_date['arrived_at'] = convertTimestamp(status.i_arrived_at);
               }
               else{
                 cell_data['status'] = 'leave-button';
