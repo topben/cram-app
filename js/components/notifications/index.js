@@ -93,11 +93,6 @@ class Notifications extends Component {
         notify.note = checkInNote;
         notify.date = timestamp;
 
-        realm.write(() => {
-          notifications[i].b_isRead = true;
-        });
-
-
         notifications_list.push(notify);
       } // end of for loop
       this.setState({notification_list: notifications_list});

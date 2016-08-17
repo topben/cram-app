@@ -148,8 +148,8 @@ class Scanner extends Component {
       if (users.length == 0)
         return;
 
-      var unread_notifications = realm.objects('NotificationModel').filtered('b_isRead == false').length;
-      this.setState({badgeCount:unread_notifications});
+      var notifications = realm.objects('NotificationModel').length;
+      this.setState({badgeCount:notifications});
 
       // get user access token
       var access_token = users[0].s_access_token;
