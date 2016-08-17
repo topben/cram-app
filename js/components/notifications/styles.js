@@ -4,7 +4,7 @@
 var React = require('react-native');
 var { StyleSheet, Dimensions } = React;
 var deviceWidth = Dimensions.get('window').width;
-
+var deviceHeight = Dimensions.get('window').height;
 module.exports = StyleSheet.create({
     container: {
         flex: 1,
@@ -50,5 +50,8 @@ module.exports = StyleSheet.create({
       fontSize:13,
       color:'#4a4a4a',
       letterSpacing:1
+    },
+    scroll:{
+      height: deviceHeight - 20
     }
 });

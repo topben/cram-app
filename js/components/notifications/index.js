@@ -173,7 +173,7 @@ class Notifications extends Component {
                       </Button>
                 </Header>
                 <View style={{backgroundColor: 'transparent'}}>
-                  <ScrollView>
+                  <ScrollView style={styles.scroll}>
                     <View>
                       <List>
                         {(this.state.notification_list.length != 0 )?this.state.notification_list.map((i, index)=>
