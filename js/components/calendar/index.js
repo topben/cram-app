@@ -385,13 +385,13 @@ class Calendar extends Component {
               if (status.length == 0 && now < classes_today[j].i_end_date){
                 console.log('yes leave button');
                 cell_data['status'] = 'leave-button';
-                cell_data['is_toggled'] = true;
+                cell_data['is_toggled'] = false;
               }
               // no leave with button
               if (status.length != 0 && now < classes_today[j].i_end_date){
                 console.log('no leave button');
                 cell_data['status'] = 'leave-button';
-                cell_data['is_toggled'] = false;
+                cell_data['is_toggled'] = true;
               }
               // late
               if (status.length != 0 && status[0].s_status == 'late' && now >= classes_today[j].i_end_date){
