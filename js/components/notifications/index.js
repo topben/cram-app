@@ -100,13 +100,14 @@ class Notifications extends Component {
 
     // build the 4 types of notifications
     componentWillMount () {
-      // setInterval(()=>{this.fetchNotifications()}, 10000);
-      // id = setInterval(()=>{this.fetchNotifications()}, 10000);
+       // setInterval(()=>{this.fetchNotifications()}, 10000);
+      //id = setInterval(()=>{this.buildAttendanceNotifications()}, 10000);
       this.buildAttendanceNotifications();
     }
 
+
     componentWillUnMount(){
-      // clearInterval(id);
+       //clearInterval(id);
     }
 
     fetchNotifications(){

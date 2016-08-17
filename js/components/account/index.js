@@ -85,7 +85,7 @@ class Account extends Component {
               <View style={{paddingTop:100}}>
               <Button  block onPress={() => this.navigateTo('login')} style={{borderWidth:1,borderColor:'#808080',backgroundColor:'#fff',height:50}}>
                 <View>
-                  <Text style={styles.logOutText}>回首頁</Text>
+                  <Text style={styles.logOutText}>登出</Text>
                 </View>
               </Button>
               </View>

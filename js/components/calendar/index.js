@@ -457,7 +457,7 @@ console.log('late');
                     scrollEventThrottle={200}>
                       {(this.state.children_attendances.length != 0 )?this.state.children_attendances.map((i, index)=>
                     <View style={styles.listItem}>
-                        <StudentStatus status_type={i.status} isToggled={i.is_toggled} student_id ={i.student_id} klass_id ={i.klass_id}/>
+                        <StudentStatus status_type={i.status} isToggled={i.is_toggled} student_id ={i.student_id} klass_id ={i.klass_id} arrived_at={i.arrived_at}/>
                         <Thumbnail style={styles.studentPhoto} source={require('../../../images/contacts/sanket.png')}/>
                             <View style={{flexDirection:'column'}}>
                             <Text style={styles.list_arrived_time}>{i.start_time}-{i.end_time}</Text>
