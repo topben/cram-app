@@ -69,6 +69,7 @@ class LeaveButton extends Component {
                 }
                 else
                 {
+                  alert('取消請假不成功，請再試一次');
                   return;
                 }
 
@@ -79,6 +80,7 @@ class LeaveButton extends Component {
                     var $attendanceModel = {};
                     if(typeof realm.objects('AttendanceModel').filtered('s_student_id = "' + $this.props.student_id + '" AND s_klass_id = "' + $this.props.klass_id + '"')[0] != 'undefined')
                     {
+                      alert('取消請假成功');
                       $attendanceModel = realm.objects('AttendanceModel').filtered('s_student_id = "' + $this.props.student_id + '" AND s_klass_id = "' + $this.props.klass_id + '"')[0];
                       realm.write(() =>
                       {
@@ -104,6 +106,7 @@ class LeaveButton extends Component {
 
                 Parent.takeDayOff(this.props.student_id, this.props.klass_id, global_variables.HOST + '/api/v1/attendances/leave?access_token=' + access_token,
                   function successCallback(results) {
+                    alert('請假成功');
                   },
                   function errorCallback(results) {
                     alert(results.msg);
