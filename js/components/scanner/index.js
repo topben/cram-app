@@ -12,7 +12,7 @@ import {openDrawer} from '../../actions/drawer';
 import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
 import { Image, View, VibrationIOS, ScrollView,InteractionManager,AlertIOS} from 'react-native';
-import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail} from 'native-base';
+import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail, Badge} from 'native-base';
 import FooterComponent from "./../footer";
 import theme from '../../themes/base-theme';
 import scanner from './scanner-theme';
@@ -20,7 +20,6 @@ import styles from './styles';
 import Camera from 'react-native-camera';
 import Modal from 'react-native-modalbox';
 import { Col, Row, Grid } from "react-native-easy-grid";
-
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 
@@ -70,7 +69,8 @@ class Scanner extends Component {
        isOpenStudentModalBeta: false,
        isNewStudentModal: false,
        isCheckRealmOK: false,
-       studentModalStyleAlpha: styles.student_card_white
+       studentModalStyleAlpha: styles.student_card_white,
+       badgeCount:0
        };
     }
 
@@ -136,6 +136,7 @@ class Scanner extends Component {
 
     // for testing
     componentDidMount() {
+      this.fetchNotifications();
       //this.openClassModal();
     }
 
@@ -146,6 +147,9 @@ class Scanner extends Component {
 
       if (users.length == 0)
         return;
+
+      var notifications = realm.objects('NotificationModel').length;
+      this.setState({badgeCount:notifications});
 
       // get user access token
       var access_token = users[0].s_access_token;
@@ -279,7 +283,6 @@ class Scanner extends Component {
                   function errorCallback(results) {
                     alert(results.msg);
                   });
-
               });
            }
            clearInterval(interval_id);
@@ -386,7 +389,7 @@ class Scanner extends Component {
       var temp_course = realm.objects('CourseStudentModel').filtered('s_course_id = "' + temp_2[0].s_course_id + '"');
       if (temp_course.length == 0)
         return;
-        
+
       temp_course = temp_course[0];
       // get all students in the class
       var temp_students = temp_course.students;
@@ -546,10 +549,10 @@ class Scanner extends Component {
                         <Image source={require('../../../images/menu/btn_menu.png')}/>
                       </Button>
                       <Image style={{alignSelf:'center'}}source={require('../../../images/scanner/ic_tmot_scan.png')}/>
-                       <Button
+                      <Button
                          transparent
                          onPress={() => this.pushNewRoute('notifications')}>
-                         <Image source={require('../../../images/notification/btn_notification.png')}/>
+                         {(this.state.badgeCount == 0)?<Image source={require('../../../images/notification/btn_notification.png')}/>:<Badge>{this.state.badgeCount}</Badge>}
                        </Button>
                     </Header>
                     <Camera

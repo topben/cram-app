@@ -21,6 +21,7 @@ type Props = {
   isToggled: bool,
   status_type: string,
   student_id: string,
+  arrived_at: string,
   klass_id: string
 };
 
@@ -38,7 +39,8 @@ class LeaveButton extends Component {
       button_type: PropTypes.string.isRequired,
       student_id: PropTypes.string.isRequired,
       klass_id: PropTypes.string.isRequired,
-      isToggled: PropTypes.bool.isRequired
+      isToggled: PropTypes.bool.isRequired,
+      arrived_at: PropTypes.string.isRequired
     };
 
     onButtonPressed() {
@@ -118,7 +120,7 @@ class LeaveButton extends Component {
               return <View style={{alignSelf:'center'}}><Text style={styles.leaveTxtCh}>請假</Text></View>
           case 'arrived':
           console.log('arrived..');
-              return <View style={{alignSelf:'center',flexDirection:'column'}}><Text style={styles.arriveTxtCh}>抵達</Text><Text style={styles.arriveTime}>12:00</Text></View>
+              return <View style={{alignSelf:'center',flexDirection:'column'}}><Text style={styles.arriveTxtCh}>抵達</Text><Text style={styles.arriveTime}>{this.props.arrived_at}</Text></View>
           case 'late':
               return <View style={{alignSelf:'center'}}><Text style={styles.leaveTxtCh}>未到</Text></View>
           case 'leave-button':
