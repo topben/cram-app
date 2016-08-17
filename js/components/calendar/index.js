@@ -248,7 +248,7 @@ class Calendar extends Component {
               var status = '';
               if (typeof realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"')[0] != 'undefined')
               {
-                status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"')[0].s_status;
+                status = realm.objects('AttendanceModel').filtered('s_klass_id = "' + classes_today[j].s_klass_id + '" AND s_student_id = "' + students[i].s_student_id + '"');
               }
               else
               {
@@ -259,9 +259,9 @@ class Calendar extends Component {
               now = now.getTime() / 1000;
 
               // if(now > classes_today[j].i_end_date){
-              cell_data['status'] = status;
+              cell_data['status'] = status[0].s_status;
               if(status == 'arrived')
-                cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
+                cell_data['arrived_at'] = this.convertTimestamp(status[0].i_arrived_at);
               // }
               // else{
               //   cell_data['status'] = 'leave-button';
@@ -377,7 +377,7 @@ class Calendar extends Component {
 
               // arrived..
               if (status.length != 0 && status[0].s_status == 'arrived'){
-console.log('arrived');
+                console.log('arrived');
                 cell_data['status'] = status[0].s_status;
                 cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
               }
@@ -389,13 +389,13 @@ console.log('arrived');
               }
               // no leave with button
               if (status.length != 0 && now < classes_today[j].i_end_date){
-console.log('no leave button');
+                console.log('no leave button');
                 cell_data['status'] = 'leave-button';
                 cell_data['is_toggled'] = false;
               }
               // late
               if (status.length != 0 && status[0].s_status == 'late' && now >= classes_today[j].i_end_date){
-console.log('late');
+                console.log('late');
                 cell_data['status'] = status[0].s_status;
               }
               // leave

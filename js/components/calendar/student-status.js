@@ -51,6 +51,7 @@ class LeaveButton extends Component {
               break;
           case 'leave-button':
               if(!this.state.isToggled){
+                this.setState({ isToggled: true });
 
                 let realm = new Realm({schema: realm_schema});
                 // get user access token
@@ -90,9 +91,10 @@ class LeaveButton extends Component {
                   function errorCallback(results) {
                     alert(results.msg);
                   });
-                this.setState({ isToggled: true });
+
               }
               else{
+                this.setState({ isToggled: false });
                 let realm = new Realm({schema: realm_schema});
                 // get user access token
                 var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -104,7 +106,7 @@ class LeaveButton extends Component {
                   function errorCallback(results) {
                     alert(results.msg);
                   });
-                this.setState({ isToggled: false });
+
               }
               break;
           default :
