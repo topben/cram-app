@@ -231,5 +231,9 @@ module.exports = StyleSheet.create({
       height:deviceWidth/10,
       borderRadius:(deviceWidth/10)/2,
       alignSelf:'center'
+    },
+    processing: {
+      alignSelf: 'center',
+      paddingTop: deviceHeight/2 -100
     }
 });
