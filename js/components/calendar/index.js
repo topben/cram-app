@@ -379,19 +379,19 @@ class Calendar extends Component {
               if (status.length != 0 && status[0].s_status == 'arrived'){
                 console.log('arrived');
                 cell_data['status'] = status[0].s_status;
-                cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
+                cell_data['arrived_at'] = this.convertTimestamp(status[0].i_arrived_at);
               }
               // leave with button
               if (status.length == 0 && now < classes_today[j].i_end_date){
                 console.log('yes leave button');
                 cell_data['status'] = 'leave-button';
-                cell_data['is_toggled'] = false;
+                cell_data['is_toggled'] = true;
               }
               // no leave with button
-              if (status.length != 0 && now < classes_today[j].i_end_date){
+              if (status.length != 0 && status[0].s_status == 'leave' && now < classes_today[j].i_end_date){
                 console.log('no leave button');
                 cell_data['status'] = 'leave-button';
-                cell_data['is_toggled'] = true;
+                cell_data['is_toggled'] = false;
               }
               // late
               if (status.length != 0 && status[0].s_status == 'late' && now >= classes_today[j].i_end_date){

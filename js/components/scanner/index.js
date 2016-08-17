@@ -153,9 +153,18 @@ class Scanner extends Component {
 
       // get user access token
       var access_token = users[0].s_access_token;
+      var $access_token = access_token;
 
-      Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+      Attendance.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
         function successCallback(results) {
+
+          Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + $access_token,
+            function successCallback(results) {
+
+            },
+            function errorCallback(results) {
+              alert(results.msg);
+            });
 
         },
         function errorCallback(results) {
