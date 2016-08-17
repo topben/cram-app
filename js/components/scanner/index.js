@@ -151,8 +151,9 @@ class Scanner extends Component {
       if (users.length == 0)
         return;
 
-      var notifications = realm.objects('NotificationModel').length;
-      this.setState({badgeCount:notifications});
+      var unread_notifications = realm.objects('NotificationModel').filtered('b_isRead == false').length;
+      this.setState({badgeCount:unread_notifications});
+
 
       // get user access token
       var access_token = users[0].s_access_token;
@@ -219,12 +220,12 @@ class Scanner extends Component {
              var users = realm.objects('UserModel').sorted('i_login_at', true);
              var access_token = users[0].s_access_token;
 
-             realm.write(() => {
-              let attendances = realm.objects('AttendanceModel');
-              realm.delete(attendances);
-              let notifications = realm.objects('NotificationModel');
-              realm.delete(notifications);
-             });
+            //  realm.write(() => {
+            //   let attendances = realm.objects('AttendanceModel');
+            //   realm.delete(attendances);
+              // let notifications = realm.objects('NotificationModel');
+              // realm.delete(notifications);
+            //  });
 
                // perform api calls
                User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,

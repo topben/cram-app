@@ -30,6 +30,8 @@ type Props = {
   date: date
 };
 
+var id = 0;
+var current_date = 0;
 
 class Calendar extends Component {
     props: Props;
@@ -56,6 +58,7 @@ class Calendar extends Component {
         // unresolved problem delayed interaction
         this.getAttendance(this.convertDateToTimeStamp(date));
         this.setState({ date: date , isUpdateDate: false});
+        current_date = this.convertDateToTimeStamp(date);
     }
 
 
@@ -64,7 +67,11 @@ class Calendar extends Component {
     }
 
     pushNewRoute(route) {
-         this.props.pushNewRoute(route);
+      this.props.pushNewRoute(route);
+    }
+
+    componentWillUnmount(){
+      clearInterval(id);
     }
 
     componentWillMount(){
@@ -77,6 +84,8 @@ class Calendar extends Component {
       attendance.student_name = '王小明';
       temp_attendance_list.push(attendance);
       //this.state.children_attendances.push(attendance);
+      current_date = this.today();
+      id = setInterval(()=>{this.getAttendance(current_date)}, 10000);
       this.getAttendance(this.today());
     }
 
@@ -177,7 +186,7 @@ class Calendar extends Component {
     getAttendance(date){
       // console.log('lalalal, date = ' + date);
       let realm = new Realm({schema: realm_schema});
-
+      console.log('updating attendances');
       // if user selected a date prior to today...
       if (date < this.today()){
           console.log('here, prior today');
@@ -210,12 +219,12 @@ class Calendar extends Component {
               }
           }
 
-
+          console.log('up here..... student count = ' + students.length);
           var date = date - (date % 86400000);
 
           // get today's classes
-          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + date + ' AND i_start_date < ' + (date + 86400000));
-
+          var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + (date+86400 - 28800) + ' AND i_start_date <' + (date+172800-28800));
+          console.log('up here..... klass count = ' + classes_today.length);
           // for each student get the klasses they are actually enrolled in
           for (var i = 0; i < students.length; i++){
 
@@ -223,6 +232,7 @@ class Calendar extends Component {
             for (var j = 0; j < classes_today.length; j++){
 
               if ( !this.isStudentInKlass(students[i].s_student_id, classes_today[j].s_klass_id) ) {
+                console.log('up here..... student no int the class = ');
                   continue;
               }
 
