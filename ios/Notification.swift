@@ -22,8 +22,8 @@ class Notification: NSObject {
       last_updated_at = realm.objects(SynchronizationModel).filter("i_table_id = 1").first!.i_last_updated_at
     }
     
-//    let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
-    let updated_at = NSDate(timeIntervalSince1970: Double(0)).toFormattedString()
+    let updated_at = NSDate(timeIntervalSince1970: Double(last_updated_at)).toFormattedString()
+//    let updated_at = NSDate(timeIntervalSince1970: Double(0)).toFormattedString()
     
     GetApi.getNotifications(url + "&updated_at=" + updated_at,
                                  
