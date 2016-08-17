@@ -150,7 +150,7 @@ class GetApi{
       
       switch(statusCode){
       case 200 ... 299:
-//        print("Get notifications success.")
+        print("Get notifications success.")
         successBlock(json as! Dictionary<String, AnyObject>)
         break
       default:
