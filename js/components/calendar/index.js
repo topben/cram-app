@@ -258,21 +258,22 @@ class Calendar extends Component {
               var now = new Date();
               now = now.getTime() / 1000;
 
-              if(now > classes_today[j].i_end_date){
-                cell_data['status'] = status;
-                cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
-              }
-              else{
-                cell_data['status'] = 'leave-button';
-
-                if (status.length == 0)
-                  cell_data['is_toggled'] = true;
-                else
-                  cell_data['is_toggled'] = false;
-              }
-
+              // if(now > classes_today[j].i_end_date){
               cell_data['status'] = status;
-              cell_data['is_toggled'] = false;
+              if(status == 'arrived')
+                cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
+              // }
+              // else{
+              //   cell_data['status'] = 'leave-button';
+              //
+              //   if (status.length == 0)
+              //     cell_data['is_toggled'] = true;
+              //   else
+              //     cell_data['is_toggled'] = false;
+              // }
+
+              // cell_data['status'] = status;
+              // cell_data['is_toggled'] = false;
 
               Debug.variable(cell_data);
               cell.push(cell_data);
@@ -364,31 +365,62 @@ class Calendar extends Component {
               var klass_id = classes_today[j].s_klass_id;
               cell_data['klass_id'] = klass_id;
 
-              console.log('klass id = ' + classes_today[j].s_klass_id);
-              console.log('student id = ' + student_id);
+              // console.log('klass id = ' + classes_today[j].s_klass_id);
+              // console.log('student id = ' + student_id);
 
 
               var now = new Date();
               now = now.getTime() / 1000;
 
-              console.log('now = ' + now);
-              console.log('end date = ' + classes_today[j].i_end_date);
+              // console.log('now = ' + now);
+              // console.log('end date = ' + classes_today[j].i_end_date);
 
-              if(now > classes_today[j].i_end_date){
-                if (status.length == 0)
-                  continue;
-
+              // arrived..
+              if (status.length != 0 && status[0].s_status == 'arrived'){
+console.log('arrived');
                 cell_data['status'] = status[0].s_status;
                 cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
               }
-              else{
+              // leave with button
+              if (status.length == 0 && now < classes_today[j].i_end_date){
+                console.log('yes leave button');
                 cell_data['status'] = 'leave-button';
-
-                if (status.length == 0)
-                  cell_data['is_toggled'] = true;
-                else
-                  cell_data['is_toggled'] = false;
+                cell_data['is_toggled'] = true;
               }
+              // no leave with button
+              if (status.length != 0 && now < classes_today[j].i_end_date){
+console.log('no leave button');
+                cell_data['status'] = 'leave-button';
+                cell_data['is_toggled'] = false;
+              }
+              // late
+              if (status.length != 0 && status[0].s_status == 'late' && now >= classes_today[j].i_end_date){
+console.log('late');
+                cell_data['status'] = status[0].s_status;
+              }
+              // leave
+              if (status.length != 0 && status[0].s_status == 'leave' && now >= classes_today[j].i_end_date){
+                console.log('leave');
+                cell_data['status'] = status[0].s_status;
+              }
+
+
+
+              // if(now > classes_today[j].i_end_date){
+              //   if (status.length == 0)
+              //     continue;
+              //
+              //   cell_data['status'] = status[0].s_status;
+              //   cell_data['arrived_at'] = this.convertTimestamp(status.i_arrived_at);
+              // }
+              // else{
+              //   cell_data['status'] = 'leave-button';
+              //   console.log('status........ = ' + status.length);
+              //   if (status.length == 0)
+              //     cell_data['is_toggled'] = true;
+              //   else
+              //     cell_data['is_toggled'] = false;
+              // }
 
               Debug.variable(cell_data);
               cell.push(cell_data);
