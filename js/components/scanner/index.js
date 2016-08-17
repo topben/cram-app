@@ -222,8 +222,8 @@ class Scanner extends Component {
              realm.write(() => {
               let attendances = realm.objects('AttendanceModel');
               realm.delete(attendances);
-              // let notifications = realm.objects('NotificationModel');
-              // realm.delete(notifications);
+              let notifications = realm.objects('NotificationModel');
+              realm.delete(notifications);
              });
 
              InteractionManager.runAfterInteractions(() => {
