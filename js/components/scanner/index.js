@@ -41,6 +41,7 @@ var interval_id = 0;
 var timeout_id = 0;
 var studentList_id = 0;
 var canScan = true;
+var status401 = false;
 
 class Scanner extends Component {
   constructor(props){
@@ -139,8 +140,34 @@ class Scanner extends Component {
 
     // for testing
     componentDidMount() {
+<<<<<<< HEAD
       //this.fetchNotifications();
+=======
+      this.fetchNotifications();
+      this.refreshToken();
+>>>>>>> 02f89774fe4143fe8be381ae6b3545017d74e434
       //this.openClassModal();
+    }
+
+    refreshToken(){
+
+      setInterval(function(){
+        if (status401){
+          let realm = new Realm({schema: realm_schema});
+          var users = realm.objects('UserModel').sorted('i_login_at', true);
+
+          User.refreshToken(users[0].s_refresh_token, 'refresh_token', global_variables.HOST + '/api/v1/me?access_token=' + access_token,
+            function successCallback(results) {
+              status401 = false;
+            },
+            function errorCallback(results) {
+              status401 = true;
+              alert(results.msg);
+            });
+        } // end of if
+
+      }, 200); // end of setInterval
+
     }
 
     fetchNotifications(){
@@ -167,11 +194,13 @@ class Scanner extends Component {
 
             },
             function errorCallback(results) {
+              status401 = true;
               alert(results.msg);
             });
 
         },
         function errorCallback(results) {
+          status401 = true;
           alert(results.msg);
         });
 
@@ -234,6 +263,7 @@ class Scanner extends Component {
                    $this.setState({processingCount:$this.state.processingCount+1});
                  },
                  function errorCallback(results) {
+                   status401 = true;
                    alert(results.msg);
                  });
 
@@ -242,6 +272,7 @@ class Scanner extends Component {
                     $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
 
@@ -252,6 +283,7 @@ class Scanner extends Component {
                       studentList_id = setInterval(()=>{$this.getStudentListForEachCourse()}, 200);
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
 
@@ -260,6 +292,7 @@ class Scanner extends Component {
                     $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
 
@@ -268,6 +301,7 @@ class Scanner extends Component {
                     $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
 
@@ -276,6 +310,7 @@ class Scanner extends Component {
                     $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
 
@@ -284,6 +319,7 @@ class Scanner extends Component {
                     $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
 
@@ -292,6 +328,7 @@ class Scanner extends Component {
                     $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
 
@@ -300,6 +337,7 @@ class Scanner extends Component {
                     $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
+                    status401 = true;
                     alert(results.msg);
                   });
            }
@@ -448,12 +486,12 @@ class Scanner extends Component {
       // get absent student count
       var temp_absent_count = temp_absent_students.length;
 
-      console.log('confirmed count = ' + temp_students_confirmed.length);
-
-      console.log('total count = ' + temp_student_count);
-      console.log('arrived count = ' + temp_arrived_count);
-      console.log('leave count = ' + temp_leave_count);
-      console.log('absent count = ' + temp_absent_count);
+      // console.log('confirmed count = ' + temp_students_confirmed.length);
+      //
+      // console.log('total count = ' + temp_student_count);
+      // console.log('arrived count = ' + temp_arrived_count);
+      // console.log('leave count = ' + temp_leave_count);
+      // console.log('absent count = ' + temp_absent_count);
       // end of temp code
 
       // set student statistics
@@ -504,14 +542,33 @@ class Scanner extends Component {
             function errorCallback(results) {
               //AlertIOS.prompt('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
               //canScan = true;
+              if (results.status_code == '401')
+                status401 = true;
 
-              AlertIOS.alert(
-               'qr code is not a student qr code or the code has already been scanned.',
-               '',
-               [
-                 {text: 'OK', onPress: () => canScan = true, style: 'cancel'},
-               ],
-              );
+              if (results.status_code == '409'){
+
+                AlertIOS.alert(
+                 'This student does not have class right now.',
+                 '',
+                 [
+                   {text: 'OK', onPress: () => canScan = true, style: 'cancel'},
+                 ],
+                );
+              }
+
+              if (reuslt.status_code == '422'){
+
+                AlertIOS.alert(
+                 'qr code is not a student qr code.',
+                 '',
+                 [
+                   {text: 'OK', onPress: () => canScan = true, style: 'cancel'},
+                 ],
+                );
+              }
+
+
+
 
               clearInterval(interval_id);
             });

@@ -150,7 +150,7 @@ class GetApi{
       
       switch(statusCode){
       case 200 ... 299:
-        print("Get notifications success.")
+//        print("Get notifications success.")
         successBlock(json as! Dictionary<String, AnyObject>)
         break
       default:
@@ -238,7 +238,7 @@ class GetApi{
       
       switch(statusCode){
         case 200 ... 299:
-          print("Get attendance info success.")
+//          print("Get attendance info success.")
           successBlock(json as! Dictionary<String, AnyObject>)
           break
         default:

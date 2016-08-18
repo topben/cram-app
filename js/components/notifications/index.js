@@ -41,7 +41,7 @@ class Notifications extends Component {
       // initialize realm
       let realm = new Realm({schema: realm_schema});
       // get notification realm objects
-      var notifications = realm.objects('NotificationModel').filtered('s_attendance_id != ""');
+      var notifications = realm.objects('NotificationModel').filtered('s_attendance_id != ""').sorted('i_created_at', true);
       // temp list for notification state
       var notifications_list = [];
       // loop through each notification object and build the notifications

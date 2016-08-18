@@ -92,7 +92,8 @@ class User: NSObject {
       failureBlock: { (response) in
         
         // return false if get person info failed
-        let result = ["msg" : (response["error"] as! String)]
+        var result = ["error" : "false"];
+        result["msg"] = (response["error"] as! String)
         
         failureCallBack([result])
     })
@@ -159,7 +160,37 @@ class User: NSObject {
         failureCallBack([result])
     })
     
-  } // end of getInfo()
+  } // end of login()
+  
+  
+  // user login
+  @objc func refreshToken(refreshToken: String, grantType: String, url: String, successCallBack: RCTResponseSenderBlock, failureCallBack: RCTResponseSenderBlock) -> Void {
+    
+    PostApi.refreshToken(refreshToken, grantType: grantType, url: url,
+                  
+      // SuccessBlock (parse response to realm object)
+      successBlock: { (response) in
+        
+        let userModel = UserModel.toRealmObject_login(response)
+        self.saveToRealm(userModel)
+        
+        // return true if get person info success
+        let result = ["success" : "true"];
+        
+        successCallBack([result])
+      },
+      
+      // FailureBlock (print the error message from server)
+      failureBlock: { (response) in
+        
+        // return false if get person info failed
+        var result = ["success" : "false"];
+        result["msg"] = (response["error"] as! String)
+        
+        failureCallBack([result])
+    })
+    
+  } // end of login()
   
   
   // get info

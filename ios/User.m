@@ -22,6 +22,8 @@ RCT_EXTERN_METHOD(create:(NSDictionary *)userInfo url:(NSString *) url successCa
 
 RCT_EXTERN_METHOD(login:(NSString *)username password:(NSString *) password grantType:(NSString *) grantType url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
+RCT_EXTERN_METHOD(refreshToken:(NSString *)refreshToken grantType:(NSString *) grantType url:(NSString *) url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
+
 RCT_EXTERN_METHOD(getInfo:(NSString *)url successCallBack:(RCTResponseSenderBlock) successCallBack failureCallBack:(RCTResponseSenderBlock)failureCallBack)
 
 

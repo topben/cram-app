@@ -47,8 +47,7 @@ class Teacher: NSObject {
       failureBlock: { (response) in
         
         // return false if get person info failed
-        var result = ["success" : "false"];
-        result["msg"] = (response["error"] as! String)
+        let result = ["status_code" : (response["status code"] as! String)]
         failureCallBack([result])
     })
     
