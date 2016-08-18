@@ -139,7 +139,7 @@ class Scanner extends Component {
 
     // for testing
     componentDidMount() {
-      this.fetchNotifications();
+      //this.fetchNotifications();
       //this.openClassModal();
     }
 
@@ -207,6 +207,7 @@ class Scanner extends Component {
     componentWillMount () {
          console.log('path = ' + Realm.defaultPath);
 
+         this.fetchNotifications();
          setInterval(()=>{this.fetchNotifications()}, 10000);
          var $this = this;
 
@@ -575,6 +576,7 @@ class Scanner extends Component {
                     {(this.state.processingCount < 8)?<View style={styles.processing}><Spinner color='#000'/><Text>正在處理中...</Text></View>:
                       <Camera
                         onBarCodeRead={this.onBarCodeRead}
+                        mode={Camera.constants.FlashMode.on}
                         style={styles.camera}>
                         <View style={styles.rectangleContainer}>
                           <View style={styles.markerTop}>
