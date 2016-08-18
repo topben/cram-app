@@ -64,6 +64,8 @@
 		F41656271D60672600EDCB4E /* Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = F41656261D60672600EDCB4E /* Debug.m */; };
 		F41656291D60673100EDCB4E /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41656281D60673100EDCB4E /* Debug.swift */; };
 		F416562B1D60BC0900EDCB4E /* DeleteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416562A1D60BC0900EDCB4E /* DeleteApi.swift */; };
+		F48A82831D6596A500343496 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = F48A82821D6596A500343496 /* Camera.m */; };
+		F48A82851D6596AF00343496 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A82841D6596AF00343496 /* Camera.swift */; };
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
@@ -276,6 +278,8 @@
 		F41656261D60672600EDCB4E /* Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Debug.m; sourceTree = "<group>"; };
 		F41656281D60673100EDCB4E /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		F416562A1D60BC0900EDCB4E /* DeleteApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteApi.swift; sourceTree = "<group>"; };
+		F48A82821D6596A500343496 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
+		F48A82841D6596AF00343496 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
@@ -551,22 +555,23 @@
 		B592F7E01D336E06000C9DA8 /* Data Modules */ = {
 			isa = PBXGroup;
 			children = (
-				F41656151D60671B00EDCB4E /* Debug */,
-				F4C3639F1D5C3FE000B6DAFB /* Parent */,
-				F4C363881D5B04A100B6DAFB /* Organization */,
-				F4D1AB9D1D53214E005482F1 /* Synchronization */,
-				F41032111D50410000CA579D /* Klass */,
-				F4DA5FB61D485C55009B5735 /* Teacher */,
-				F4F52AA31D38D47A00166B69 /* Notification */,
-				F4F52AA01D38D2FD00166B69 /* DirectMessage */,
 				F4F52A9D1D38D04000166B69 /* Announcement */,
-				F4F52A8C1D38CECC00166B69 /* Message */,
-				F4F52A761D376D6000166B69 /* Invitation */,
-				F49757421D35F1E600DEE799 /* Course */,
 				F497573D1D35EF7A00DEE799 /* Attendance */,
-				F497573C1D35EF6C00DEE799 /* Student */,
-				B592F7E11D336E11000C9DA8 /* User */,
+				F48A82711D65969100343496 /* Camera */,
+				F49757421D35F1E600DEE799 /* Course */,
+				F41656151D60671B00EDCB4E /* Debug */,
+				F4F52AA01D38D2FD00166B69 /* DirectMessage */,
+				F4F52A761D376D6000166B69 /* Invitation */,
+				F41032111D50410000CA579D /* Klass */,
+				F4F52A8C1D38CECC00166B69 /* Message */,
+				F4F52AA31D38D47A00166B69 /* Notification */,
+				F4C363881D5B04A100B6DAFB /* Organization */,
+				F4C3639F1D5C3FE000B6DAFB /* Parent */,
 				B592F7E21D336E1A000C9DA8 /* People */,
+				F497573C1D35EF6C00DEE799 /* Student */,
+				F4D1AB9D1D53214E005482F1 /* Synchronization */,
+				F4DA5FB61D485C55009B5735 /* Teacher */,
+				B592F7E11D336E11000C9DA8 /* User */,
 			);
 			name = "Data Modules";
 			sourceTree = "<group>";
@@ -655,6 +660,15 @@
 				F41656281D60673100EDCB4E /* Debug.swift */,
 			);
 			name = Debug;
+			sourceTree = "<group>";
+		};
+		F48A82711D65969100343496 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				F48A82821D6596A500343496 /* Camera.m */,
+				F48A82841D6596AF00343496 /* Camera.swift */,
+			);
+			name = Camera;
 			sourceTree = "<group>";
 		};
 		F497573C1D35EF6C00DEE799 /* Student */ = {
@@ -1129,6 +1143,7 @@
 				F41032261D50411400CA579D /* Klass.swift in Sources */,
 				F4D1ABAF1D53215E005482F1 /* SynchronizationModel.swift in Sources */,
 				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
+				F48A82831D6596A500343496 /* Camera.m in Sources */,
 				F41032271D50411400CA579D /* KlassModel.swift in Sources */,
 				F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
@@ -1147,6 +1162,7 @@
 				F4F52A9C1D38CF0300166B69 /* MessageModel.swift in Sources */,
 				F4F52A751D372A3000166B69 /* Student.m in Sources */,
 				F4DA5FB81D485C67009B5735 /* Teacher.swift in Sources */,
+				F48A82851D6596AF00343496 /* Camera.swift in Sources */,
 				F4F52A781D376D9200166B69 /* InvitationModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

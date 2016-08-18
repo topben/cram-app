@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 @objc(Debug)
 class Debug: NSObject {
