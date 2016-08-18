@@ -9,8 +9,8 @@
 import Foundation
 import AVFoundation
 
-@objc(Camera)
-class Camera: NSObject {
+@objc(myCamera)
+class myCamera: NSObject {
   
   // MARK: READY FUNCTIONS
   

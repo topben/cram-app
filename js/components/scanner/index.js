@@ -24,6 +24,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 
+
 const {Debug}        = require('NativeModules');
 const {Klass}        = require('NativeModules');
 const {Parent}       = require('NativeModules');
@@ -34,6 +35,7 @@ const {Course}       = require('NativeModules');
 const {Student}      = require('NativeModules');
 const {Notification} = require('NativeModules');
 const {Organization} = require('NativeModules');
+const {myCamera}     = require('NativeModules');
 const Realm          = require('realm');
 
 var count = 0;
@@ -72,6 +74,7 @@ class Scanner extends Component {
        isNewStudentModal: false,
        isCheckRealmOK: false,
        isProcessing: false,
+       isLightOn: false,
        processingCount:0,
        studentModalStyleAlpha: styles.student_card_white,
        badgeCount:0
@@ -140,17 +143,12 @@ class Scanner extends Component {
 
     // for testing
     componentDidMount() {
-<<<<<<< HEAD
-      //this.fetchNotifications();
-=======
       this.fetchNotifications();
       this.refreshToken();
->>>>>>> 02f89774fe4143fe8be381ae6b3545017d74e434
       //this.openClassModal();
     }
 
     refreshToken(){
-
       setInterval(function(){
         if (status401){
           let realm = new Realm({schema: realm_schema});
@@ -167,11 +165,10 @@ class Scanner extends Component {
         } // end of if
 
       }, 200); // end of setInterval
-
     }
 
     fetchNotifications(){
-
+      //myCamera.turnOnFlashLight();
       let realm = new Realm({schema: realm_schema});
       var users = realm.objects('UserModel').sorted('i_login_at', true);
 
@@ -206,8 +203,20 @@ class Scanner extends Component {
 
     }
 
-    getStudentListForEachCourse(){
+    toggleFlashLight(){
+      if(!this.state.isLightOn)
+      {
+        this.setState({isLightOn:true})
+        myCamera.turnOnFlashLight();
+      }
+      else
+      {
+        this.setState({isLightOn:false})
+        myCamera.turnOffFlashLight();
+      }
+    }
 
+    getStudentListForEachCourse(){
       let realm = new Realm({schema: realm_schema});
       var courses = realm.objects('CourseModel');
       var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -501,10 +510,9 @@ class Scanner extends Component {
     }
 
     onBarCodeRead(result) {
-
       if (canScan && this.barCodeData != null && this.barCodeData != result.data) {
         canScan = false;
-
+        alert('code');
         this.barCodeData = result.data;
           let realm = new Realm({schema: realm_schema});
           // get user access token
@@ -541,7 +549,7 @@ class Scanner extends Component {
             },
             function errorCallback(results) {
               //AlertIOS.prompt('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
-              //canScan = true;
+              canScan = true;
               if (results.status_code == '401')
                 status401 = true;
 
@@ -556,7 +564,7 @@ class Scanner extends Component {
                 );
               }
 
-              if (reuslt.status_code == '422'){
+              if (result.status_code == '422'){
 
                 AlertIOS.alert(
                  'qr code is not a student qr code.',
@@ -566,10 +574,6 @@ class Scanner extends Component {
                  ],
                 );
               }
-
-
-
-
               clearInterval(interval_id);
             });
       } // end of if qr code dupe check
@@ -633,7 +637,8 @@ class Scanner extends Component {
                     {(this.state.processingCount < 8)?<View style={styles.processing}><Spinner color='#000'/><Text>正在處理中...</Text></View>:
                       <Camera
                         onBarCodeRead={this.onBarCodeRead}
-                        mode={Camera.constants.FlashMode.on}
+                        flashMode={Camera.constants.FlashMode.on}
+                        ref={(cam) => {this.camera = cam;}}
                         style={styles.camera}>
                         <View style={styles.rectangleContainer}>
                           <View style={styles.markerTop}>
@@ -646,15 +651,32 @@ class Scanner extends Component {
                           style={styles.markerTopRight}>
                         </Image>
                       </View>
+                      {this.state.isLightOn?<View style={styles.flashOnArea}>
+                          <Text style={styles.flashText}>手電筒已開啟</Text>
+                        </View>
+                        :
+                        <View style={[styles.flashOffArea,{flexDirection:'column'}]}>
+                          <Text style={styles.flashText}>太暗掃不到？</Text>
+                          <Text style={styles.flashText}>請按手電筒</Text>
+                            <Image
+                            source={require('../../../images/flash/ic_camera_arrow.png')}
+                            style={{alignSelf:'flex-end'}}>
+                          </Image>
+                        </View>
+                      }
                       <View style={styles.markerBottom}>
                         <Image
                         source={require('../../../images/marker/qrcodescannermarker.png')}
                         style={styles.markerBottomLeft}>
                       </Image>
+                  <Button
+                    onPress={this.toggleFlashLight.bind(this)}
+                    transparent>
                       <Image
-                      source={require('../../../images/marker/qrcodescannermarker.png')}
+                      source={this.state.isLightOn?require('../../../images/flash/btn_camera_lighton.png'):require('../../../images/flash/btn_camera_lightoff.png')}
                       style={styles.markerBottomRight}>
                     </Image>
+                  </Button>
                   </View>
                 </View>
                 <Modal style={styles.class_modal} backdrop={false} ref={"class_modal"} swipeToClose={false} position="bottom" entry="bottom">

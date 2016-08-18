@@ -10,7 +10,7 @@
 
 #import "RCTBridgeModule.h"
 
-@interface RCT_EXTERN_MODULE(Camera, NSObject)
+@interface RCT_EXTERN_MODULE(myCamera, NSObject)
 
 RCT_EXTERN_METHOD(turnOnFlashLight)
 
