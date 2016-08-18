@@ -530,15 +530,33 @@ class Scanner extends Component {
             function errorCallback(results) {
               //AlertIOS.prompt('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
               //canScan = true;
-              status401 = true;
+              if (results.status_code == '401')
+                status401 = true;
 
-              AlertIOS.alert(
-               'qr code is not a student qr code or the code has already been scanned.',
-               '',
-               [
-                 {text: 'OK', onPress: () => canScan = true, style: 'cancel'},
-               ],
-              );
+              if (results.status_code == '409'){
+
+                AlertIOS.alert(
+                 'This student does not have class right now.',
+                 '',
+                 [
+                   {text: 'OK', onPress: () => canScan = true, style: 'cancel'},
+                 ],
+                );
+              }
+
+              if (reuslt.status_code == '422'){
+
+                AlertIOS.alert(
+                 'qr code is not a student qr code.',
+                 '',
+                 [
+                   {text: 'OK', onPress: () => canScan = true, style: 'cancel'},
+                 ],
+                );
+              }
+
+
+
 
               clearInterval(interval_id);
             });

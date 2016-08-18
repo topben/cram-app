@@ -167,7 +167,7 @@ class PostApi{
           break
         default:
           print("Check in failed.")
-          let error = ["error": "Status Code: " + String(statusCode)]
+          let error = ["status code": String(statusCode)]
           failureBlock(error)
       } // end of switch
       
