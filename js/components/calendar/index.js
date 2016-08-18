@@ -31,6 +31,7 @@ type Props = {
 };
 
 var id = 0;
+var needUpdate = false;
 var current_date = 0;
 
 class Calendar extends Component {
@@ -54,11 +55,11 @@ class Calendar extends Component {
     }
 
     onDateChange (date) {
-        console.log("The Datee!!!"+date);
+        // console.log("The Datee!!!"+date);
         // unresolved problem delayed interaction
+        current_date = this.convertDateToTimeStamp(date);
         this.getAttendance(this.convertDateToTimeStamp(date));
         this.setState({ date: date , isUpdateDate: false});
-        current_date = this.convertDateToTimeStamp(date);
     }
 
 
@@ -71,6 +72,7 @@ class Calendar extends Component {
     }
 
     componentWillUnmount(){
+      // console.log('clearing calendar update.... id = ' + id);
       clearInterval(id);
     }
 
@@ -186,7 +188,7 @@ class Calendar extends Component {
     getAttendance(date){
       // console.log('lalalal, date = ' + date);
       let realm = new Realm({schema: realm_schema});
-      console.log('updating attendances');
+      // console.log('updating attendances, date = ' + date);
       // if user selected a date prior to today...
       if (date < this.today()){
           console.log('here, prior today');
@@ -219,20 +221,21 @@ class Calendar extends Component {
               }
           }
 
-          console.log('up here..... student count = ' + students.length);
-          var date = date - (date % 86400000);
-
+          // console.log('up here..... student count = ' + students.length);
+          var date = date - (date % 86400);
+          // console.log('date = ' + date);
+          // console.log('start date = ' + (date+86400-28800) + ', till end time = ' + (date+172800-28800));
           // get today's classes
           var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + (date+86400 - 28800) + ' AND i_start_date <' + (date+172800-28800));
-          console.log('up here..... klass count = ' + classes_today.length);
+          // console.log('up here..... klass count = ' + classes_today.length);
           // for each student get the klasses they are actually enrolled in
-          for (var i = 0; i < students.length; i++){
+          for (var j = 0; j < classes_today.length; j++){
 
             // create cell_data dictionary and add values in it
-            for (var j = 0; j < classes_today.length; j++){
+            for (var i = 0; i < students.length; i++){
 
               if ( !this.isStudentInKlass(students[i].s_student_id, classes_today[j].s_klass_id) ) {
-                console.log('up here..... student no int the class = ');
+                // console.log('up here..... student no int the class = ');
                   continue;
               }
 
@@ -285,9 +288,9 @@ class Calendar extends Component {
               // cell_data['status'] = status;
               // cell_data['is_toggled'] = false;
 
-              Debug.variable(cell_data);
+              // Debug.variable(cell_data);
               cell.push(cell_data);
-              console.log('CELL'+cell);
+              // console.log('CELL'+cell);
               this.setState({children_attendances:cell});
 
             } // end of for loop 'klasses'
@@ -328,21 +331,21 @@ class Calendar extends Component {
 
           // get all parent's kids
           // var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
-          console.log('student count = ' + students.length);
+          // console.log('student count = ' + students.length);
           // get today's classes
           // console.log('date = ' + date);
           var date = date - (date % 86400);
 
-          console.log('beginning date = ' + date);
-          console.log('end date = ' + (date + 172800 - 28800));
+          // console.log('beginning date = ' + date);
+          // console.log('end date = ' + (date + 172800 - 28800));
 
           var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + (date+86400 - 28800) + ' AND i_start_date <' + (date+172800-28800));
           // console.log('classes today count = ' + classes_today.length);
           // for each student get the klasses they are actually enrolled in
-          for (var i = 0; i < students.length; i++){
+          for (var j = 0; j < classes_today.length; j++){
             // console.log('lalalala');
             // create cell_data dictionary and add values in it
-            for (var j = 0; j < classes_today.length; j++){
+            for (var i = 0; i < students.length; i++){
               // console.log('student_id = ' + students[i].s_student_id);
               // console.log('klass_id = ' + classes_today[j].s_klass_id);
               if ( !this.isStudentInKlass(students[i].s_student_id, classes_today[j].s_klass_id) ) {
@@ -350,7 +353,6 @@ class Calendar extends Component {
               }
 
               var cell_data = {};
-              console.log('here.....');
               var start_time = this.convertTimestamp(classes_today[j].i_start_date);
               cell_data['start_time'] = start_time;
               var end_time = this.convertTimestamp(classes_today[j].i_end_date);
@@ -387,35 +389,35 @@ class Calendar extends Component {
 
               // arrived..
               if (status.length != 0 && status[0].s_status == 'arrived'){
-                console.log('arrived');
+                // console.log('arrived');
                 cell_data['status'] = status[0].s_status;
                 cell_data['arrived_at'] = this.convertTimestamp(status[0].i_arrived_at);
               }
               // show 請假 button
               if (status.length == 0 && now < classes_today[j].i_end_date){
-                console.log('yes leave button');
+                // console.log('yes leave button');
                 cell_data['status'] = 'leave-button';
                 cell_data['is_toggled'] = true;
               }
               if (status.length != 0 && status[0].s_status == 'late' && now < classes_today[j].i_end_date){
-                console.log('yes leave button');
+                // console.log('yes leave button');
                 cell_data['status'] = 'leave-button';
                 cell_data['is_toggled'] = true;
               }
               // show 取消請假 button
               if (status.length != 0 && status[0].s_status == 'leave' && now < classes_today[j].i_end_date){
-                console.log('no leave button');
+                // console.log('no leave button');
                 cell_data['status'] = 'leave-button';
                 cell_data['is_toggled'] = false;
               }
               // late
               if (status.length != 0 && status[0].s_status == 'late' && now >= classes_today[j].i_end_date){
-                console.log('late');
+                // console.log('late');
                 cell_data['status'] = status[0].s_status;
               }
               // leave
               if (status.length != 0 && status[0].s_status == 'leave' && now >= classes_today[j].i_end_date){
-                console.log('leave');
+                // console.log('leave');
                 cell_data['status'] = status[0].s_status;
               }
 
@@ -437,7 +439,7 @@ class Calendar extends Component {
               //     cell_data['is_toggled'] = false;
               // }
 
-              Debug.variable(cell_data);
+              // Debug.variable(cell_data);
               cell.push(cell_data);
               this.setState({children_attendances:cell});
             } // end of for loop 'klasses'
