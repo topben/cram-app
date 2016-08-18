@@ -138,7 +138,7 @@ class Scanner extends Component {
     }
 
     // for testing
-    componentDidMount() {
+    componentWillMount() {
       this.fetchNotifications();
       //this.openClassModal();
     }
@@ -204,7 +204,7 @@ class Scanner extends Component {
     }
 
     // synchronize front/backend DB here.. call ALL 'GET APIs'
-    componentWillMount () {
+    componentDidMount () {
          console.log('path = ' + Realm.defaultPath);
 
          setInterval(()=>{this.fetchNotifications()}, 10000);
