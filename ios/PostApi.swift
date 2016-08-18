@@ -109,6 +109,39 @@ class PostApi{
   } // end of login()
   
   
+  // refreshToken()
+  static func refreshToken(refreshToken: String, grantType: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){
+    
+    var parameters = [String : AnyObject]()
+    parameters["grant_type"] = grantType
+    parameters["refresh_token"]   = refreshToken
+    
+    Alamofire.request(.POST, url, parameters: parameters).responseJSON { response in
+      
+      let json = response.result.value
+      
+      var statusCode = 404
+      
+      if(response.response?.statusCode != nil){
+        statusCode = (response.response?.statusCode)!
+      }
+      
+      switch(statusCode){
+      case 200 ... 299:
+        print("Refresh token success.")
+        successBlock(json as! Dictionary<String, AnyObject>)
+        break
+      default:
+        print("Refresh token failed.")
+        let error = ["error": "Status Code: " + String(statusCode)]
+        failureBlock(error)
+      } // end of switch
+      
+    } // end of request
+    
+  } // end of refreshToken()
+  
+  
   
   // student check in
   static func checkIn(qrCode_id: String, checkIn_method: String, url: String, successBlock: Dictionary<String, AnyObject> -> Void, failureBlock: Dictionary<String, AnyObject> -> Void){

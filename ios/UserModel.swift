@@ -50,7 +50,7 @@ class UserModel: Object{
     userModel.s_email                     = result["email"]               as? String ?? ""
     userModel.s_phone                     = result["phone"]               as? String ?? ""
     userModel.s_role                      = result["role"]                as? String ?? ""
-    userModel.s_profile_picture_file_name = result["profile_picture_url"] as! String ?? ""
+    userModel.s_profile_picture_file_name = result["profile_picture_url"] as? String ?? ""
     
     return userModel
   }
