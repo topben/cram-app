@@ -262,7 +262,14 @@ module.exports = StyleSheet.create({
       height:106,
       alignSelf:'center',
       marginBottom:70,
-      justifyContent:'center',
+      justifyContent:'space-around',
       backgroundColor:'rgba(0, 0, 0, 0.3)'
+    },
+    flashArrow: {
+      width:30,
+      height:33,
+      alignSelf:'flex-end',
+      marginBottom:10,
+      marginRight:10
     }
 });

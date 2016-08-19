@@ -24,7 +24,6 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 
-
 const {Debug}        = require('NativeModules');
 const {Klass}        = require('NativeModules');
 const {Parent}       = require('NativeModules');
@@ -75,6 +74,9 @@ class Scanner extends Component {
        isCheckRealmOK: false,
        isProcessing: false,
        isLightOn: false,
+       isLightOff: false,
+       isLightAlert: true,
+       isLightOnUI: false,
        processingCount:0,
        studentModalStyleAlpha: styles.student_card_white,
        badgeCount:0
@@ -94,7 +96,6 @@ class Scanner extends Component {
 
       // set student info state for student arrival modal
       var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + this.barCodeData + '"');
-
       if (studentModel.length == 0){
         studentModel = realm.objects('StudentModel').filtered('s_student_id = "' + this.barCodeData + '"');
       }
@@ -103,7 +104,6 @@ class Scanner extends Component {
         return;
 
       studentModel = studentModel[0];
-
       this.setState({name: studentModel.s_name});
 
       var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
@@ -204,14 +204,23 @@ class Scanner extends Component {
     }
 
     toggleFlashLight(){
+      var $this = this;
       if(!this.state.isLightOn)
       {
-        this.setState({isLightOn:true})
+        this.setState({isLightOn:true,
+          isLightOff:false,
+          isLightOnUI:true})
+        setTimeout(function(){
+          $this.setState({isLightOnUI: false});
+        }, 5000);
         myCamera.turnOnFlashLight();
       }
       else
       {
-        this.setState({isLightOn:false})
+        this.setState({isLightOff:true,isLightOn:false,isLightOnUI:false})
+        setTimeout(function(){
+          $this.setState({isLightOff: false});
+        }, 5000);
         myCamera.turnOffFlashLight();
       }
     }
@@ -244,6 +253,10 @@ class Scanner extends Component {
     // synchronize front/backend DB here.. call ALL 'GET APIs'
     componentWillMount () {
          console.log('path = ' + Realm.defaultPath);
+
+         setTimeout(function(){
+           $this.setState({isLightAlert: false});
+         }, 10000);
 
          this.fetchNotifications();
          setInterval(()=>{this.fetchNotifications()}, 10000);
@@ -637,8 +650,6 @@ class Scanner extends Component {
                     {(this.state.processingCount < 8)?<View style={styles.processing}><Spinner color='#000'/><Text>正在處理中...</Text></View>:
                       <Camera
                         onBarCodeRead={this.onBarCodeRead}
-                        flashMode={Camera.constants.FlashMode.on}
-                        ref={(cam) => {this.camera = cam;}}
                         style={styles.camera}>
                         <View style={styles.rectangleContainer}>
                           <View style={styles.markerTop}>
@@ -651,19 +662,9 @@ class Scanner extends Component {
                           style={styles.markerTopRight}>
                         </Image>
                       </View>
-                      {this.state.isLightOn?<View style={styles.flashOnArea}>
-                          <Text style={styles.flashText}>手電筒已開啟</Text>
-                        </View>
-                        :
-                        <View style={[styles.flashOffArea,{flexDirection:'column'}]}>
-                          <Text style={styles.flashText}>太暗掃不到？</Text>
-                          <Text style={styles.flashText}>請按手電筒</Text>
-                            <Image
-                            source={require('../../../images/flash/ic_camera_arrow.png')}
-                            style={{alignSelf:'flex-end'}}>
-                          </Image>
-                        </View>
-                      }
+                      {(this.state.isLightAlert && !this.state.isLightOn && !this.state.isLightOff)?<FlashAlert/>:(this.state.isLightOn || this.state.isLightOff)?<View/>:<View style={{height:175}}/>}
+                      {(this.state.isLightOn && this.state.isLightOnUI)?<FlashOnAlert/>:(this.state.isLightOnUI)?<View/>:<View style={{height:175}}/>}
+                      {(this.state.isLightOff)?<FlashOffAlert/>:<View/>}
                       <View style={styles.markerBottom}>
                         <Image
                         source={require('../../../images/marker/qrcodescannermarker.png')}
@@ -738,6 +739,44 @@ class Scanner extends Component {
               </Camera>}
           </View>
         )
+    }
+}
+
+class FlashAlert extends Component {
+    render() {
+        return (
+          <View style={[styles.flashOffArea,{flexDirection:'column'}]}>
+          <View style={{marginTop:10}}></View>
+          <View style={{marginTop:20}}>
+            <Text style={styles.flashText}>太暗掃不到？</Text>
+            <Text style={styles.flashText}>請按手電筒</Text>
+          </View>
+              <Image
+              source={require('../../../images/flash/ic_camera_arrow.png')}
+              style={styles.flashArrow}>
+            </Image>
+          </View>
+        );
+    }
+}
+
+class FlashOnAlert extends Component {
+    render() {
+        return (
+          <View style={styles.flashOnArea}>
+            <Text style={styles.flashText}>手電筒已開啟</Text>
+          </View>
+        );
+    }
+}
+
+class FlashOffAlert extends Component {
+    render() {
+        return (
+          <View style={styles.flashOnArea}>
+            <Text style={styles.flashText}>手電筒已關閉</Text>
+          </View>
+        );
     }
 }
 

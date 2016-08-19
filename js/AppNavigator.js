@@ -37,6 +37,7 @@ import ProgressBar from './components/progressbar/';
 import Spinner from './components/spinner/';
 import Contacts from './components/contact/';
 import Calendar from './components/calendar/';
+import CalendarClassInfo from './components/calendar/class-info';
 import Form from './components/form/';
 import Modal from './components/modal/';
 import Chat from './components/chat/';
@@ -215,6 +216,8 @@ class AppNavigator extends Component {
                 return <Contacts navigator={navigator} />;
             case 'calendar':
                 return <Calendar navigator={navigator} />;
+            case 'calendarClassInfo':
+                return <CalendarClassInfo navigator={navigator} />;
             case 'form':
                 return <Form navigator={navigator} />;
             case 'modal':
