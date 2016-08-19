@@ -68,7 +68,10 @@ class Calendar extends Component {
     }
 
     pushNewRoute(route) {
-      this.props.pushNewRoute(route);
+      this.props.pushNewRoute({
+      route: route,
+      props: { isPress:true }
+    });
     }
 
     componentWillUnmount(){
