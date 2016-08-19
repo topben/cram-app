@@ -49,3 +49,30 @@ class CourseStudentModel: Object{
 class myString: Object{
   dynamic var string : String = ""
 }
+
+
+// CourseDetails Model
+class CourseDetailsModel: Object{
+  
+  dynamic var year        : String = ""
+  dynamic var month        : String = ""
+  dynamic var date        : String = ""
+  dynamic var day        : String = ""
+  dynamic var start_time        : String = ""
+  dynamic var end_time        : String = ""
+  dynamic var teacher        : String = ""
+  dynamic var organization        : String = ""
+  dynamic var location        : String = ""
+  dynamic var course_name        : String = ""
+  dynamic var student_name        : String = ""
+  dynamic var classes_left        : String = ""
+  dynamic var arrival_count        : String = ""
+  dynamic var leave_count        : String = ""
+  dynamic var absent_count        : String = ""
+  dynamic var s_student_id        : String = ""
+  dynamic var s_parent_id        : String = ""
+  dynamic var s_course_id        : String = ""
+  dynamic var s_klass_id        : String = ""
+  dynamic var s_attendance_id        : String = ""
+  
+  }

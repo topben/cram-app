@@ -221,13 +221,13 @@ class Calendar extends Component {
               }
           }
 
-          // console.log('up here..... student count = ' + students.length);
+          console.log('student count = ' + students.length);
           var date = date - (date % 86400);
           // console.log('date = ' + date);
           // console.log('start date = ' + (date+86400-28800) + ', till end time = ' + (date+172800-28800));
           // get today's classes
           var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + (date+86400 - 28800) + ' AND i_start_date <' + (date+172800-28800));
-          // console.log('up here..... klass count = ' + classes_today.length);
+          console.log('klass count = ' + classes_today.length);
           // for each student get the klasses they are actually enrolled in
           for (var j = 0; j < classes_today.length; j++){
 
@@ -235,7 +235,7 @@ class Calendar extends Component {
             for (var i = 0; i < students.length; i++){
 
               if ( !this.isStudentInKlass(students[i].s_student_id, classes_today[j].s_klass_id) ) {
-                // console.log('up here..... student no int the class = ');
+                // console.log('student not in the class = ');
                   continue;
               }
 
@@ -253,6 +253,7 @@ class Calendar extends Component {
               }
               else
               {
+                  console.log('no course');
                   continue;
               }
 
@@ -265,8 +266,11 @@ class Calendar extends Component {
               }
               else
               {
+                  console.log('no attendance');
                   continue;
               }
+
+              console.log('building cell');
 
               var now = new Date();
               now = now.getTime() / 1000;
@@ -288,7 +292,7 @@ class Calendar extends Component {
               // cell_data['status'] = status;
               // cell_data['is_toggled'] = false;
 
-              // Debug.variable(cell_data);
+              Debug.variable(cell_data);
               cell.push(cell_data);
               // console.log('CELL'+cell);
               this.setState({children_attendances:cell});
@@ -439,7 +443,7 @@ class Calendar extends Component {
               //     cell_data['is_toggled'] = false;
               // }
 
-              // Debug.variable(cell_data);
+              Debug.variable(cell_data);
               cell.push(cell_data);
               this.setState({children_attendances:cell});
             } // end of for loop 'klasses'

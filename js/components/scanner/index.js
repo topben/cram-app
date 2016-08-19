@@ -183,7 +183,7 @@ class Scanner extends Component {
       var access_token = users[0].s_access_token;
       var $access_token = access_token;
 
-      Attendance.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
+      Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
         function successCallback(results) {
 
           Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + $access_token,
@@ -212,7 +212,7 @@ class Scanner extends Component {
           isLightOnUI:true})
         setTimeout(function(){
           $this.setState({isLightOnUI: false});
-        }, 5000);
+        }, 3000);
         myCamera.turnOnFlashLight();
       }
       else
@@ -220,7 +220,7 @@ class Scanner extends Component {
         this.setState({isLightOff:true,isLightOn:false,isLightOnUI:false})
         setTimeout(function(){
           $this.setState({isLightOff: false});
-        }, 5000);
+        }, 3000);
         myCamera.turnOffFlashLight();
       }
     }
@@ -256,7 +256,7 @@ class Scanner extends Component {
 
          setTimeout(function(){
            $this.setState({isLightAlert: false});
-         }, 10000);
+         }, 7000);
 
          this.fetchNotifications();
          setInterval(()=>{this.fetchNotifications()}, 10000);
@@ -663,7 +663,7 @@ class Scanner extends Component {
                         </Image>
                       </View>
                       {(this.state.isLightAlert && !this.state.isLightOn && !this.state.isLightOff)?<FlashAlert/>:(this.state.isLightOn || this.state.isLightOff)?<View/>:<View style={{height:175}}/>}
-                      {(this.state.isLightOn && this.state.isLightOnUI)?<FlashOnAlert/>:(this.state.isLightOnUI)?<View/>:<View style={{height:175}}/>}
+                      {(this.state.isLightOn && this.state.isLightOnUI)?<FlashOnAlert/>:(!this.state.isLightOnUI && this.state.isLightOn)?<View style={{height:175}}/>:<View/>}
                       {(this.state.isLightOff)?<FlashOffAlert/>:<View/>}
                       <View style={styles.markerBottom}>
                         <Image

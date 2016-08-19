@@ -187,7 +187,7 @@ var parent_schema = {
 }
 
 var courseDetails_schema = {
-  name: 'courseDetailsModel',
+  name: 'CourseDetailsModel',
   properties: {
     year: {type: 'string', default: ''},
     month: {type: 'string', default: ''},
@@ -214,7 +214,7 @@ var courseDetails_schema = {
 }
 
 // push array
-realm_model.push(courseDetailsModel);
+realm_model.push(courseDetails_schema);
 realm_model.push(user_schema);
 realm_model.push(notification_schema);
 realm_model.push(course_schema);
