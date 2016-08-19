@@ -64,8 +64,8 @@
 		F41656271D60672600EDCB4E /* Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = F41656261D60672600EDCB4E /* Debug.m */; };
 		F41656291D60673100EDCB4E /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41656281D60673100EDCB4E /* Debug.swift */; };
 		F416562B1D60BC0900EDCB4E /* DeleteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416562A1D60BC0900EDCB4E /* DeleteApi.swift */; };
-		F48A82831D6596A500343496 /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = F48A82821D6596A500343496 /* Camera.m */; };
-		F48A82851D6596AF00343496 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A82841D6596AF00343496 /* Camera.swift */; };
+		F48A82831D6596A500343496 /* myCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = F48A82821D6596A500343496 /* myCamera.m */; };
+		F48A82851D6596AF00343496 /* myCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A82841D6596AF00343496 /* myCamera.swift */; };
 		F497573F1D35EF9D00DEE799 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497573E1D35EF9D00DEE799 /* StudentModel.swift */; };
 		F49757411D35F0E900DEE799 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757401D35F0E900DEE799 /* AttendanceModel.swift */; };
 		F49757441D35F1F800DEE799 /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49757431D35F1F800DEE799 /* CourseModel.swift */; };
@@ -278,8 +278,8 @@
 		F41656261D60672600EDCB4E /* Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Debug.m; sourceTree = "<group>"; };
 		F41656281D60673100EDCB4E /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		F416562A1D60BC0900EDCB4E /* DeleteApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteApi.swift; sourceTree = "<group>"; };
-		F48A82821D6596A500343496 /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
-		F48A82841D6596AF00343496 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		F48A82821D6596A500343496 /* myCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myCamera.m; sourceTree = "<group>"; };
+		F48A82841D6596AF00343496 /* myCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myCamera.swift; sourceTree = "<group>"; };
 		F497573E1D35EF9D00DEE799 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		F49757401D35F0E900DEE799 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		F49757431D35F1F800DEE799 /* CourseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
@@ -665,8 +665,8 @@
 		F48A82711D65969100343496 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				F48A82821D6596A500343496 /* Camera.m */,
-				F48A82841D6596AF00343496 /* Camera.swift */,
+				F48A82821D6596A500343496 /* myCamera.m */,
+				F48A82841D6596AF00343496 /* myCamera.swift */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1143,7 +1143,7 @@
 				F41032261D50411400CA579D /* Klass.swift in Sources */,
 				F4D1ABAF1D53215E005482F1 /* SynchronizationModel.swift in Sources */,
 				B592F7EA1D336E48000C9DA8 /* PutApi.swift in Sources */,
-				F48A82831D6596A500343496 /* Camera.m in Sources */,
+				F48A82831D6596A500343496 /* myCamera.m in Sources */,
 				F41032271D50411400CA579D /* KlassModel.swift in Sources */,
 				F4DA5FBC1D485C84009B5735 /* TeacherModel.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
@@ -1162,7 +1162,7 @@
 				F4F52A9C1D38CF0300166B69 /* MessageModel.swift in Sources */,
 				F4F52A751D372A3000166B69 /* Student.m in Sources */,
 				F4DA5FB81D485C67009B5735 /* Teacher.swift in Sources */,
-				F48A82851D6596AF00343496 /* Camera.swift in Sources */,
+				F48A82851D6596AF00343496 /* myCamera.swift in Sources */,
 				F4F52A781D376D9200166B69 /* InvitationModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

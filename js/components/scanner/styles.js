@@ -35,6 +35,7 @@ module.exports = StyleSheet.create({
       marginTop: 30,
       flexDirection: 'row',
       justifyContent: 'space-between',
+      marginBottom:-250
     },
     markerBottom:{
       marginBottom:30,
@@ -55,9 +56,13 @@ module.exports = StyleSheet.create({
       transform: [{rotate: '270deg'}],
     },
     markerBottomRight:{
-      marginRight:30,
-      transform: [{rotate: '180deg'}],
+      marginRight:20
     },
+    flashButton:{
+      marginLeft:190,
+      marginBottom:70
+    }
+    ,
     student_modal: {
       height: (deviceHeight/2)-78,
       width: deviceWidth-40,
@@ -231,5 +236,40 @@ module.exports = StyleSheet.create({
       height:deviceWidth/10,
       borderRadius:(deviceWidth/10)/2,
       alignSelf:'center'
+    },
+    processing: {
+      alignSelf: 'center',
+      paddingTop: deviceHeight/2 -100
+    },
+    flashOnArea: {
+      borderRadius:10,
+      width:198,
+      height:106,
+      alignSelf:'center',
+      marginBottom:70,
+      justifyContent:'center',
+      backgroundColor:'rgba(0, 0, 0, 0.3)'
+    },
+    flashText: {
+      fontFamily: 'PingFangTC-Light',
+      color:'#fff',
+      fontSize:18,
+      alignSelf:'center',
+    },
+    flashOffArea: {
+      borderRadius:10,
+      width:198,
+      height:106,
+      alignSelf:'center',
+      marginBottom:70,
+      justifyContent:'space-around',
+      backgroundColor:'rgba(0, 0, 0, 0.3)'
+    },
+    flashArrow: {
+      width:30,
+      height:33,
+      alignSelf:'flex-end',
+      marginBottom:10,
+      marginRight:10
     }
 });

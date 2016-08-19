@@ -20,7 +20,6 @@ import login from './login-theme';
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 
-
 const {User} = require('NativeModules');
 const Realm = require('realm');
 
@@ -124,9 +123,18 @@ class LoginEmail extends Component {
           $this.navigateTo('scanner');
        },
        function errorCallback(results) {
-           alert('帳號或是密碼錯誤');
            $this.setState({btnDisabled: false});
            $this.setState({isProcessing: false});
+           if($this.state.email != '' || $this.state.password != '')
+           {
+             Alert.alert(
+               '',
+               '輸入錯誤，請重新輸入',
+               [
+                 {text: 'OK', onPress: () => {}}
+               ]
+             )
+          }
            //alert(results.msg);
        });
     }

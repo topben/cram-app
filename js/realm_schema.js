@@ -208,6 +208,7 @@ var courseDetails_schema = {
     s_student_id: {type: 'string', default: ''},
     s_parent_id: {type: 'string', default: ''},
     s_course_id: {type: 'string', default: ''},
+    s_klass_id: {type: 'string', default: ''},
     s_attendance_id: {type: 'string', default: ''},
   }
 }

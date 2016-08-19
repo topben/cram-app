@@ -13,6 +13,7 @@ import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
 // import CodePush from 'react-native-code-push';
 import { Image, View, VibrationIOS, ScrollView,InteractionManager,AlertIOS} from 'react-native';
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Card, CardItem, Thumbnail, Badge} from 'native-base';
+import Spinner from './../loaders/Spinner';
 import FooterComponent from "./../footer";
 import theme from '../../themes/base-theme';
 import scanner from './scanner-theme';
@@ -33,6 +34,7 @@ const {Course}       = require('NativeModules');
 const {Student}      = require('NativeModules');
 const {Notification} = require('NativeModules');
 const {Organization} = require('NativeModules');
+const {myCamera}     = require('NativeModules');
 const Realm          = require('realm');
 
 var count = 0;
@@ -70,6 +72,12 @@ class Scanner extends Component {
        isOpenStudentModalBeta: false,
        isNewStudentModal: false,
        isCheckRealmOK: false,
+       isProcessing: false,
+       isLightOn: false,
+       isLightOff: false,
+       isLightAlert: true,
+       isLightOnUI: false,
+       processingCount:0,
        studentModalStyleAlpha: styles.student_card_white,
        badgeCount:0
        };
@@ -88,7 +96,6 @@ class Scanner extends Component {
 
       // set student info state for student arrival modal
       var studentModel = realm.objects('StudentModel').filtered('s_qr_code_id = "' + this.barCodeData + '"');
-
       if (studentModel.length == 0){
         studentModel = realm.objects('StudentModel').filtered('s_student_id = "' + this.barCodeData + '"');
       }
@@ -97,7 +104,6 @@ class Scanner extends Component {
         return;
 
       studentModel = studentModel[0];
-
       this.setState({name: studentModel.s_name});
 
       var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
@@ -143,7 +149,6 @@ class Scanner extends Component {
     }
 
     refreshToken(){
-
       setInterval(function(){
         if (status401){
           let realm = new Realm({schema: realm_schema});
@@ -160,11 +165,10 @@ class Scanner extends Component {
         } // end of if
 
       }, 200); // end of setInterval
-
     }
 
     fetchNotifications(){
-
+      //myCamera.turnOnFlashLight();
       let realm = new Realm({schema: realm_schema});
       var users = realm.objects('UserModel').sorted('i_login_at', true);
 
@@ -199,8 +203,29 @@ class Scanner extends Component {
 
     }
 
-    getStudentListForEachCourse(){
+    toggleFlashLight(){
+      var $this = this;
+      if(!this.state.isLightOn)
+      {
+        this.setState({isLightOn:true,
+          isLightOff:false,
+          isLightOnUI:true})
+        setTimeout(function(){
+          $this.setState({isLightOnUI: false});
+        }, 5000);
+        myCamera.turnOnFlashLight();
+      }
+      else
+      {
+        this.setState({isLightOff:true,isLightOn:false,isLightOnUI:false})
+        setTimeout(function(){
+          $this.setState({isLightOff: false});
+        }, 5000);
+        myCamera.turnOffFlashLight();
+      }
+    }
 
+    getStudentListForEachCourse(){
       let realm = new Realm({schema: realm_schema});
       var courses = realm.objects('CourseModel');
       var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -229,16 +254,18 @@ class Scanner extends Component {
     componentWillMount () {
          console.log('path = ' + Realm.defaultPath);
 
-         var $this = this;
+         setTimeout(function(){
+           $this.setState({isLightAlert: false});
+         }, 10000);
 
+         this.fetchNotifications();
          setInterval(()=>{this.fetchNotifications()}, 10000);
+         var $this = this;
 
          // set interval for class modal
          interval_id = setInterval(function(){
-
            let realm = new Realm({schema: realm_schema});
            var users = realm.objects('UserModel');
-
            if (users.length == 1){
 
              // get user access token
@@ -252,10 +279,10 @@ class Scanner extends Component {
               // realm.delete(notifications);
             //  });
 
-             InteractionManager.runAfterInteractions(() => {
                // perform api calls
                User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
                  function successCallback(results) {
+                   $this.setState({processingCount:$this.state.processingCount+1});
                  },
                  function errorCallback(results) {
                    status401 = true;
@@ -264,6 +291,7 @@ class Scanner extends Component {
 
                 Student.getInfo(global_variables.HOST + '/api/v1/students?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
                     status401 = true;
@@ -272,6 +300,7 @@ class Scanner extends Component {
 
                 Course.getInfo(global_variables.HOST + '/api/v1/courses?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                       console.log('here');
                       studentList_id = setInterval(()=>{$this.getStudentListForEachCourse()}, 200);
                   },
@@ -282,6 +311,7 @@ class Scanner extends Component {
 
                 Notification.getInfo(global_variables.HOST + '/api/v1/notifications?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
                     status401 = true;
@@ -290,6 +320,7 @@ class Scanner extends Component {
 
                 Attendance.getInfo(global_variables.HOST + '/api/v1/attendances?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
                     status401 = true;
@@ -298,6 +329,7 @@ class Scanner extends Component {
 
                 Klass.getInfo(global_variables.HOST + '/api/v1/classes?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
                     status401 = true;
@@ -306,6 +338,7 @@ class Scanner extends Component {
 
                 Organization.getInfo(global_variables.HOST + '/api/v1/organizations?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
                     status401 = true;
@@ -314,6 +347,7 @@ class Scanner extends Component {
 
                 Teacher.getInfo(global_variables.HOST + '/api/v1/teachers?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
                     status401 = true;
@@ -322,12 +356,12 @@ class Scanner extends Component {
 
                 Parent.getInfo(global_variables.HOST + '/api/v1/parents?access_token=' + access_token,
                   function successCallback(results) {
+                    $this.setState({processingCount:$this.state.processingCount+1});
                   },
                   function errorCallback(results) {
                     status401 = true;
                     alert(results.msg);
                   });
-              });
            }
            clearInterval(interval_id);
          }, 300);
@@ -489,10 +523,9 @@ class Scanner extends Component {
     }
 
     onBarCodeRead(result) {
-
       if (canScan && this.barCodeData != null && this.barCodeData != result.data) {
         canScan = false;
-
+        alert('code');
         this.barCodeData = result.data;
           let realm = new Realm({schema: realm_schema});
           // get user access token
@@ -529,7 +562,7 @@ class Scanner extends Component {
             },
             function errorCallback(results) {
               //AlertIOS.prompt('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
-              //canScan = true;
+              canScan = true;
               if (results.status_code == '401')
                 status401 = true;
 
@@ -544,7 +577,7 @@ class Scanner extends Component {
                 );
               }
 
-              if (reuslt.status_code == '422'){
+              if (result.status_code == '422'){
 
                 AlertIOS.alert(
                  'qr code is not a student qr code.',
@@ -554,10 +587,6 @@ class Scanner extends Component {
                  ],
                 );
               }
-
-
-
-
               clearInterval(interval_id);
             });
       } // end of if qr code dupe check
@@ -618,90 +647,136 @@ class Scanner extends Component {
                          {(this.state.badgeCount == 0)?<Image source={require('../../../images/notification/btn_notification.png')}/>:<Badge>{this.state.badgeCount}</Badge>}
                        </Button>
                     </Header>
-                    <Camera
-                      onBarCodeRead={this.onBarCodeRead}
-                      style={styles.camera}>
-                      <View style={styles.rectangleContainer}>
-                        <View style={styles.markerTop}>
+                    {(this.state.processingCount < 8)?<View style={styles.processing}><Spinner color='#000'/><Text>正在處理中...</Text></View>:
+                      <Camera
+                        onBarCodeRead={this.onBarCodeRead}
+                        style={styles.camera}>
+                        <View style={styles.rectangleContainer}>
+                          <View style={styles.markerTop}>
+                            <Image
+                            source={require('../../../images/marker/qrcodescannermarker.png')}
+                            style={styles.markerTopLeft}>
+                          </Image>
                           <Image
                           source={require('../../../images/marker/qrcodescannermarker.png')}
-                          style={styles.markerTopLeft}>
+                          style={styles.markerTopRight}>
                         </Image>
+                      </View>
+                      {(this.state.isLightAlert && !this.state.isLightOn && !this.state.isLightOff)?<FlashAlert/>:(this.state.isLightOn || this.state.isLightOff)?<View/>:<View style={{height:175}}/>}
+                      {(this.state.isLightOn && this.state.isLightOnUI)?<FlashOnAlert/>:(this.state.isLightOnUI)?<View/>:<View style={{height:175}}/>}
+                      {(this.state.isLightOff)?<FlashOffAlert/>:<View/>}
+                      <View style={styles.markerBottom}>
                         <Image
                         source={require('../../../images/marker/qrcodescannermarker.png')}
-                        style={styles.markerTopRight}>
+                        style={styles.markerBottomLeft}>
                       </Image>
-                    </View>
-                    <View style={styles.markerBottom}>
+                  <Button
+                    onPress={this.toggleFlashLight.bind(this)}
+                    transparent>
                       <Image
-                      source={require('../../../images/marker/qrcodescannermarker.png')}
-                      style={styles.markerBottomLeft}>
+                      source={this.state.isLightOn?require('../../../images/flash/btn_camera_lighton.png'):require('../../../images/flash/btn_camera_lightoff.png')}
+                      style={styles.markerBottomRight}>
                     </Image>
-                    <Image
-                    source={require('../../../images/marker/qrcodescannermarker.png')}
-                    style={styles.markerBottomRight}>
-                  </Image>
+                  </Button>
+                  </View>
                 </View>
-              </View>
-              <Modal style={styles.class_modal} backdrop={false} ref={"class_modal"} swipeToClose={false} position="bottom" entry="bottom">
-                  <Card style={styles.space}>
-                    <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
-                      <View style={{flexDirection:'column',paddingTop:20}}>
-                        <View style={{flexDirection:'row',justifyContent:'space-around'}}>
-                        <View>
-                          <Text style={styles.arriveTxtCh}>抵達</Text>
-                          <Text style={styles.arriveNum}>{this.state.student_arrivals}</Text>
+                <Modal style={styles.class_modal} backdrop={false} ref={"class_modal"} swipeToClose={false} position="bottom" entry="bottom">
+                    <Card style={styles.space}>
+                      <Text style={styles.modalTitleCh}>兒童英文初級對話</Text>
+                        <View style={{flexDirection:'column',paddingTop:20}}>
+                          <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+                          <View>
+                            <Text style={styles.arriveTxtCh}>抵達</Text>
+                            <Text style={styles.arriveNum}>{this.state.student_arrivals}</Text>
+                          </View>
+                          <View >
+                            <Text style={styles.abscenceTxtCh}>請假</Text>
+                            <Text style={styles.abscenceNum}>{this.state.student_leaves}</Text>
+                          </View>
+                          <View style={{borderWidth:0}}>
+                            <Text style={styles.leaveTxtCh}>未到</Text>
+                            <Text style={styles.leaveNum}>{this.state.student_absent}</Text>
+                          </View>
+                          </View>
+                          <Button rounded style={styles.btn} onPress={this.closeClassModal.bind(this)} >
+                            <Text style={styles.btnTxtCh}>未到名單</Text>
+                          </Button>
                         </View>
-                        <View >
-                          <Text style={styles.abscenceTxtCh}>請假</Text>
-                          <Text style={styles.abscenceNum}>{this.state.student_leaves}</Text>
+                    </Card>
+                </Modal>
+              <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_alpha"} swipeToClose={false} position="bottom" entry="bottom">
+                  <Card style={this.state.studentModalStyleAlpha}>
+                    {this.state.isNewStudentModal?
+                      <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
+                      :<View style={{height:20}}></View>
+                    }
+                      <View style={{flexDirection:'row',paddingTop:20}}>
+                        <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
+                        <View style={{flexDirection:'column'}}>
+                          <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
+                          <Text style={styles.studentModalStatus}>{this.state.status}</Text>
+                          <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
                         </View>
-                        <View style={{borderWidth:0}}>
-                          <Text style={styles.leaveTxtCh}>未到</Text>
-                          <Text style={styles.leaveNum}>{this.state.student_absent}</Text>
-                        </View>
-                        </View>
-                        <Button rounded style={styles.btn} onPress={this.closeClassModal.bind(this)} >
-                          <Text style={styles.btnTxtCh}>未到名單</Text>
-                        </Button>
                       </View>
                   </Card>
               </Modal>
-            <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_alpha"} swipeToClose={false} position="bottom" entry="bottom">
-                <Card style={this.state.studentModalStyleAlpha}>
-                  {this.state.isNewStudentModal?
-                    <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
-                    :<View style={{height:20}}></View>
-                  }
-                    <View style={{flexDirection:'row',paddingTop:20}}>
-                      <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
-                      <View style={{flexDirection:'column'}}>
-                        <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
-                        <Text style={styles.studentModalStatus}>{this.state.status}</Text>
-                        <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
+              <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_beta"} swipeToClose={false} position="bottom" entry="bottom">
+                  <Card style={this.state.studentModalStyleBeta}>
+                    {this.state.isNewStudentModal?
+                      <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
+                      :<View style={{height:20}}></View>
+                    }
+                      <View style={{flexDirection:'row',paddingTop:20}}>
+                        <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
+                        <View style={{flexDirection:'column'}}>
+                          <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
+                          <Text style={styles.studentModalStatus}>{this.state.status}</Text>
+                          <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
+                        </View>
                       </View>
-                    </View>
-                </Card>
-            </Modal>
-            <Modal style={styles.student_modal} backdrop={false} ref={"student_modal_beta"} swipeToClose={false} position="bottom" entry="bottom">
-                <Card style={this.state.studentModalStyleBeta}>
-                  {this.state.isNewStudentModal?
-                    <View style={{backgroundColor:'#fec154'}}><Text style={styles.newModaltxt}>簽到完成</Text></View>
-                    :<View style={{height:20}}></View>
-                  }
-                    <View style={{flexDirection:'row',paddingTop:20}}>
-                      <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
-                      <View style={{flexDirection:'column'}}>
-                        <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
-                        <Text style={styles.studentModalStatus}>{this.state.status}</Text>
-                        <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
-                      </View>
-                    </View>
-                </Card>
-            </Modal>
-            </Camera>
+                  </Card>
+              </Modal>
+              </Camera>}
           </View>
         )
+    }
+}
+
+class FlashAlert extends Component {
+    render() {
+        return (
+          <View style={[styles.flashOffArea,{flexDirection:'column'}]}>
+          <View style={{marginTop:10}}></View>
+          <View style={{marginTop:20}}>
+            <Text style={styles.flashText}>太暗掃不到？</Text>
+            <Text style={styles.flashText}>請按手電筒</Text>
+          </View>
+              <Image
+              source={require('../../../images/flash/ic_camera_arrow.png')}
+              style={styles.flashArrow}>
+            </Image>
+          </View>
+        );
+    }
+}
+
+class FlashOnAlert extends Component {
+    render() {
+        return (
+          <View style={styles.flashOnArea}>
+            <Text style={styles.flashText}>手電筒已開啟</Text>
+          </View>
+        );
+    }
+}
+
+class FlashOffAlert extends Component {
+    render() {
+        return (
+          <View style={styles.flashOnArea}>
+            <Text style={styles.flashText}>手電筒已關閉</Text>
+          </View>
+        );
     }
 }
 
