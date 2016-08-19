@@ -186,7 +186,35 @@ var parent_schema = {
   }
 }
 
+var courseDetails_schema = {
+  name: 'CourseDetailsModel',
+  properties: {
+    year: {type: 'string', default: ''},
+    month: {type: 'string', default: ''},
+    date: {type: 'string', default: ''},
+    day: {type: 'string', default: ''},
+    start_time: {type: 'string', default: ''},
+    end_time: {type: 'string', default: ''},
+    teacher: {type: 'string', default: ''},
+    organization: {type: 'string', default: ''},
+    location: {type: 'string', default: ''},
+    course_name: {type: 'string', default: ''},
+    student_name: {type: 'string', default: ''},
+    classes_left: {type: 'string', default: ''},
+    arrival_count: {type: 'string', default: ''},
+    leave_count: {type: 'string', default: ''},
+    absent_count: {type: 'string', default: ''},
+
+    s_student_id: {type: 'string', default: ''},
+    s_parent_id: {type: 'string', default: ''},
+    s_course_id: {type: 'string', default: ''},
+    s_klass_id: {type: 'string', default: ''},
+    s_attendance_id: {type: 'string', default: ''},
+  }
+}
+
 // push array
+realm_model.push(courseDetails_schema);
 realm_model.push(user_schema);
 realm_model.push(notification_schema);
 realm_model.push(course_schema);
