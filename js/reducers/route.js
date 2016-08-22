@@ -52,7 +52,6 @@ export default function (state:State = initialState, action:Action): State {
       else
         routes = [];
     }
-
     else {
       if(action.route == 'home') {
         globalNav.navigator.resetTo({id: 'home'});
