@@ -19,10 +19,11 @@ export function replaceRoute(route:string):Action {
   }
 }
 
-export function pushNewRoute(route:string):Action {
+export function pushNewRoute(route:string,test:number):Action {
   return {
     type: PUSH_NEW_ROUTE,
-    route: route
+    route: route,
+    test:test
   }
 }
 

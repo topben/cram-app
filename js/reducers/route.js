@@ -23,9 +23,10 @@ export default function (state:State = initialState, action:Action): State {
   // console.log(state, "route state *()*(*&77");
   if (action.type === PUSH_NEW_ROUTE) {
     // console.log(action.route, "route");
-    globalNav.navigator.push({id: action.route});
+    globalNav.navigator.push({id: action.route,  test:action.test });
+    console.log(action.test);
     return {
-      routes: [...state.routes, action.route]
+      routes: [...state.routes, action.route,action.test]
     };
   }
 

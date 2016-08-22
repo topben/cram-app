@@ -256,7 +256,7 @@ class Scanner extends Component {
 
          setTimeout(function(){
            $this.setState({isLightAlert: false});
-         }, 7000);
+         }, 10000);
 
          this.fetchNotifications();
          setInterval(()=>{this.fetchNotifications()}, 10000);

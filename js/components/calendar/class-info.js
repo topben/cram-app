@@ -45,7 +45,7 @@ class ClassInfo extends Component {
 
     render() {
         return (
-          <View/>
+          <View style={{flex:1,alignSelf:'center',justifyContent:'center'}}><Text>{this.props.test}1523</Text></View>
         )
     }
 }

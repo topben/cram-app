@@ -6,7 +6,7 @@
 'use strict';
 
 export type Action =
-  { type: 'PUSH_NEW_ROUTE', route: string }
+  { type: 'PUSH_NEW_ROUTE', route: string, test:number }
     | { type: 'POP_ROUTE' }
     | { type: 'POP_TO_ROUTE', route: string }
     | { type: 'REPLACE_ROUTE', route: string }

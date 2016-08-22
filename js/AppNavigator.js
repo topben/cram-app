@@ -217,7 +217,8 @@ class AppNavigator extends Component {
             case 'calendar':
                 return <Calendar navigator={navigator} />;
             case 'calendarClassInfo':
-                return <CalendarClassInfo navigator={navigator} />;
+                console.warn(route.test);
+                return <CalendarClassInfo navigator={navigator} test={route.test}/>;
             case 'form':
                 return <Form navigator={navigator} />;
             case 'modal':
