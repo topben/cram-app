@@ -101,6 +101,10 @@ class Calendar extends Component {
       return timestamp
     }
 
+    onNextPressed(student_id, klass_id, attendance_id){
+      console.log(studentObj.student_name);
+    }
+
     convertTimestamp(timestamp) {
       var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
       		yyyy = d.getFullYear(),
@@ -222,7 +226,7 @@ class Calendar extends Component {
               }
           }
 
-          // console.log('up here..... student count = ' + students.length);
+          console.log('current parent has ' + students.length + ' children.');
           var date = date - (date % 86400);
           // console.log('date = ' + date);
           // console.log('start date = ' + (date+86400-28800) + ', till end time = ' + (date+172800-28800));
@@ -485,7 +489,7 @@ class Calendar extends Component {
                           <Button
                             transparent
                             style={{alignSelf:'center'}}
-                            onPress={() => this.pushNewRoute('calendarClassInfo')}>
+                            onPress={(i) => this.onNextPressed(i.st)}>
                             <Image source={require('../../../images/button/btn_arrow.png')}/>
                           </Button>
                         </View>
