@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
 import { Image, View, ScrollView,InteractionManager } from 'react-native';
 import {openDrawer} from '../../actions/drawer';
-import {popRoute, replaceRoute ,pushNewRoute} from '../../actions/route';
+import {popRoute, replaceRoute ,pushNewRoute , pushNewRouteInfo} from '../../actions/route';
 
 import {Container, Header, Title, Content, Text, Button, Icon, List, ListItem, Footer, Thumbnail} from 'native-base';
 import FooterComponent from "./../footer";
@@ -67,14 +67,18 @@ class Calendar extends Component {
         this.props.popRoute();
     }
 
-    pushNewRoute(route) {
+    pushNewRouteInfo(route) {
+      var test = new Array();
+      var word = 'helloworld';
+      test.push(word);
       //this.props.pushNewRoute(route);
-      this.props.pushNewRoute(route,5566);
+      this.props.pushNewRouteInfo(route,test);
     }
 
     componentWillUnmount(){
       // console.log('clearing calendar update.... id = ' + id);
       clearInterval(id);
+      this.pushNewRouteInfo('calendarClassInfo');
     }
 
     componentWillMount(){
@@ -485,7 +489,7 @@ class Calendar extends Component {
                           <Button
                             transparent
                             style={{alignSelf:'center'}}
-                            onPress={() => this.pushNewRoute('calendarClassInfo')}>
+                            onPress={() => this.pushNewRouteInfo('calendarClassInfo')}>
                             <Image source={require('../../../images/button/btn_arrow.png')}/>
                           </Button>
                         </View>
@@ -511,7 +515,8 @@ function bindAction(dispatch) {
     return {
         openDrawer: ()=>dispatch(openDrawer()),
         popRoute: () => dispatch(popRoute()),
-        pushNewRoute:(route,test)=>dispatch(pushNewRoute(route,test)),
+        pushNewRoute:(route)=>dispatch(pushNewRoute(route)),
+        pushNewRouteInfo:(route,info)=>dispatch(pushNewRouteInfo(route,info)),
         replaceRoute:(route)=>dispatch(replaceRoute(route))
     }
 }

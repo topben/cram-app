@@ -7,7 +7,7 @@
 
 import type {Action} from '../actions/types';
 import {globalNav} from '../AppNavigator';
-import { PUSH_NEW_ROUTE, POP_ROUTE, POP_TO_ROUTE, REPLACE_ROUTE, REPLACE_OR_PUSH_ROUTE } from '../actions/route';
+import { PUSH_NEW_ROUTE,PUSH_NEW_ROUTE_INFO, POP_ROUTE, POP_TO_ROUTE, REPLACE_ROUTE, REPLACE_OR_PUSH_ROUTE } from '../actions/route';
 import { REHYDRATE } from 'redux-persist/constants'
 
 export type State = {
@@ -23,10 +23,17 @@ export default function (state:State = initialState, action:Action): State {
   // console.log(state, "route state *()*(*&77");
   if (action.type === PUSH_NEW_ROUTE) {
     // console.log(action.route, "route");
-    globalNav.navigator.push({id: action.route,  test:action.test });
-    console.log(action.test);
+    globalNav.navigator.push({id: action.route });
     return {
-      routes: [...state.routes, action.route,action.test]
+      routes: [...state.routes, action.route]
+    };
+  }
+
+  if (action.type === PUSH_NEW_ROUTE_INFO) {
+    // console.log(action.route, "route");
+    globalNav.navigator.push({id: action.route,  info:action.info });
+    return {
+      routes: [...state.routes, action.route,action.info]
     };
   }
 
