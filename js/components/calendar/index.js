@@ -489,7 +489,7 @@ class Calendar extends Component {
                           <Button
                             transparent
                             style={{alignSelf:'center'}}
-                            onPress={() => this.pushNewRouteInfo('calendarClassInfo')}>
+                            onPress={() => this.pushNewRouteInfo('calendarClassInfo') }>
                             <Image source={require('../../../images/button/btn_arrow.png')}/>
                           </Button>
                         </View>
