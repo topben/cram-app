@@ -101,8 +101,11 @@ class Calendar extends Component {
       return timestamp
     }
 
-    onNextPressed(student_id, klass_id, attendance_id){
-      console.log(studentObj.student_name);
+    onNextPressed(){
+
+      
+
+
     }
 
     convertTimestamp(timestamp) {
@@ -232,7 +235,7 @@ class Calendar extends Component {
           // console.log('start date = ' + (date+86400-28800) + ', till end time = ' + (date+172800-28800));
           // get today's classes
           var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + (date+86400 - 28800) + ' AND i_start_date <' + (date+172800-28800));
-          // console.log('up here..... klass count = ' + classes_today.length);
+          console.log('there are ' + classes_today.length + ' classes today.');
           // for each student get the klasses they are actually enrolled in
           for (var j = 0; j < classes_today.length; j++){
 
@@ -240,7 +243,7 @@ class Calendar extends Component {
             for (var i = 0; i < students.length; i++){
 
               if ( !this.isStudentInKlass(students[i].s_student_id, classes_today[j].s_klass_id) ) {
-                // console.log('up here..... student no int the class = ');
+                  console.log(students[i].s_name + ' is not in class ' + classes_today[j].s_klass_id + '.');
                   continue;
               }
 
@@ -336,7 +339,7 @@ class Calendar extends Component {
 
           // get all parent's kids
           // var students = realm.objects('StudentModel').filtered('s_parent_id = "' + parent_id + '"');
-          // console.log('student count = ' + students.length);
+          console.log('current parent has ' + students.length + ' children.');
           // get today's classes
           // console.log('date = ' + date);
           var date = date - (date % 86400);
@@ -345,7 +348,7 @@ class Calendar extends Component {
           // console.log('end date = ' + (date + 172800 - 28800));
 
           var classes_today = realm.objects('KlassModel').filtered('i_start_date >= ' + (date+86400 - 28800) + ' AND i_start_date <' + (date+172800-28800));
-          // console.log('classes today count = ' + classes_today.length);
+          console.log('there are ' + classes_today.length + ' classes today.');
           // for each student get the klasses they are actually enrolled in
           for (var j = 0; j < classes_today.length; j++){
             // console.log('lalalala');
@@ -354,6 +357,7 @@ class Calendar extends Component {
               // console.log('student_id = ' + students[i].s_student_id);
               // console.log('klass_id = ' + classes_today[j].s_klass_id);
               if ( !this.isStudentInKlass(students[i].s_student_id, classes_today[j].s_klass_id) ) {
+                  console.log(students[i].s_name + ' is not in class ' + classes_today[j].s_klass_id + '.');
                   continue;
               }
 
@@ -489,7 +493,7 @@ class Calendar extends Component {
                           <Button
                             transparent
                             style={{alignSelf:'center'}}
-                            onPress={(i) => this.onNextPressed(i.st)}>
+                            onPress={(i) => this.onNextPressed(i)}>
                             <Image source={require('../../../images/button/btn_arrow.png')}/>
                           </Button>
                         </View>

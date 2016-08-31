@@ -154,6 +154,10 @@ class Scanner extends Component {
           let realm = new Realm({schema: realm_schema});
           var users = realm.objects('UserModel').sorted('i_login_at', true);
 
+          if (users.length == 0){
+            return;
+          }
+
           User.refreshToken(users[0].s_refresh_token, 'refresh_token', global_variables.HOST + '/oauth/token',
             function successCallback(results) {
               status401 = false;
