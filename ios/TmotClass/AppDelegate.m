@@ -10,6 +10,8 @@
 #import "AppDelegate.h"
 #import "CodePush.h"
 #import "RCTRootView.h"
+#import "RCTPushNotificationManager.h"
+
 
 @implementation AppDelegate
 
@@ -18,6 +20,7 @@
 {
   //register to receive notifications
   [application registerForRemoteNotifications];
+  [RCTPushNotificationManager didRegisterUserNotificationSettings:notificationSettings];
 }
 
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
@@ -39,6 +42,7 @@
   token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
   token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
   NSLog(@"deviceToken: %@", deviceToken);
+   [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -107,4 +111,18 @@
   return YES;
 }
 
+// Required for the notification event.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification
+{
+  [RCTPushNotificationManager didReceiveRemoteNotification:notification];
+}
+// Required for the localNotification event.
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+  [RCTPushNotificationManager didReceiveLocalNotification:notification];
+}
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+  NSLog(@"%@", error);
+}
 @end

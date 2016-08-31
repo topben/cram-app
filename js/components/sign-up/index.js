@@ -193,7 +193,6 @@ class SignUp extends Component {
                 <View style={styles.bg}>
                   <View style={styles.mb20}>
                       <Input placeholder="手機號碼" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
-                      <Text>{this.state.client_error_msg}</Text>
                     </View>
                     <Button transparent rounded disabled={this.state.isBtnDisabled} style={styles.getVerifyBtn} onPress={this.onNextPressed}>
                       <View>

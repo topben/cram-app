@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Spinner from './../loaders/Spinner';
 // import CodePush from 'react-native-code-push';
-import {ScrollView, Image,TextInput,DeviceEventEmitter, Dimensions, Platform, Keyboard, Alert} from 'react-native';
+import {ScrollView, Image,TextInput,DeviceEventEmitter, Dimensions, Platform, Keyboard, Alert,TouchableWithoutFeedback} from 'react-native';
 import {popRoute} from '../../actions/route';
 import {pushNewRoute, replaceOrPushRoute} from '../../actions/route';
 import {Container, Header, Title, Content, Text, Button, Icon, InputGroup, Input, View } from 'native-base';
@@ -27,12 +27,14 @@ class LoginEmail extends Component {
   constructor(props) {
       super(props);
       this.onNextPressed = this.onNextPressed.bind(this);
+      this.handleEmailInputSubmit = this.handleEmailInputSubmit.bind(this);
       this.state = {
           email: '',
           password: '',
           newHeight: 0,
           isProcessing: false,
-          btnDisabled: false
+          btnDisabled: false,
+          focusPasswordInput: false
       };
   }
 
@@ -41,6 +43,7 @@ class LoginEmail extends Component {
         Keyboard.addListener('keyboardWillHide', this.keyboardWillHide.bind(this));
     }
 
+
     keyboardWillShow (e) {
         let newSize = Dimensions.get('window').height - e.endCoordinates.height;
         this.setState({newHeight: newSize});
@@ -48,6 +51,11 @@ class LoginEmail extends Component {
 
     keyboardWillHide (e) {
         this.setState({newHeight: 0});
+    }
+
+    handleEmailInputSubmit() {
+      this.setState({focusPasswordInput: true});
+      console.warn('keyboardChanged');
     }
 
     popRoute() {
@@ -141,26 +149,66 @@ class LoginEmail extends Component {
 
     render() {
         return (
-            <Container style={{flex:1,backgroundColor:'#f5f6f7'}}>
-                <Content theme={login} padder style={{backgroundColor: 'transparent',marginTop:-(this.state.newHeight/3)}} scrollEnabled={true}>
-                  <Button transparent style={{marginTop:theme.headerBtnMarginTop-10}} onPress={() => this.popRoute()}>
-                    <Image source={require('../../../images/button/btn_back.png')}/>
-                  </Button>
-                  <Image source={require('../../../images/tmot_logo/ic_tmot_logo.png')} style={{alignSelf:'center',marginTop:105}} />
-                  <Text style={styles.phoneLoginTitle}>電子信箱登入</Text>
-                    <View padder>
-                        <View style={styles.mb20}>
-                            <Input placeholder="電子信箱" style={styles.generalChineseTxt} onChangeText={(email) => this.setState({email})} value={this.state.email}/>
-                        </View>
-                        <View style={styles.mb20}>
-                            <Input secureTextEntry={true} placeholder="密碼" style={styles.generalChineseTxt} onChangeText={(password) => this.setState({password})} value={this.state.password}/>
-                        </View>
-                        <Button rounded style={styles.phoneBtn} disabled={this.state.btnDisabled} onPress={this.onNextPressed}>
-                          {this.state.isProcessing?<Spinner color='#000'/>:<View><Text style={styles.phoneLoginTxt}>登入</Text></View>}
-                        </Button>
-                    </View>
-                </Content>
-            </Container>
+          <Container style={{flex:1,backgroundColor:'#f5f6f7'}}>
+            <Content
+              theme={login}
+              padder
+              style={{backgroundColor: 'transparent',marginTop:-(this.state.newHeight/3)}}
+              scrollEnabled={true}>
+              <Button
+                transparent
+                style={{marginTop:theme.headerBtnMarginTop-10}}
+                onPress={() => this.popRoute()}>
+                <Image source={require('../../../images/button/btn_back.png')}/>
+              </Button>
+              <Image
+              source={require('../../../images/tmot_logo/ic_tmot_logo.png')}
+              style={{alignSelf:'center',marginTop:105}} />
+            <Text style={styles.phoneLoginTitle}>電子信箱登入</Text>
+            <View padder>
+              <View style={styles.mb20}>
+                <Input
+                  ref={'email'}
+                  returnKeyType={ 'next'}
+                  autoCapitalize="none"
+                  autoCorrect={ false }
+                  autoFocus = {true}
+                  keyboardType='email-address'
+                  placeholder="電子信箱"
+                  onChangeText={(email) => this.setState({email})}
+                  onSubmitEditing={this.handleEmailInputSubmit}
+                  value={this.state.email}/>
+              </View>
+              <View style={styles.mb20}>
+                <Input
+                  ref={'password'}
+                  secureTextEntry={true}
+                  returnKeyType={'next'}
+                  autoCapitalize="none"
+                  autoCorrect={ false }
+                  autoFocus={this.state.focusPasswordInput}
+                  placeholder="密碼"
+                  onChangeText={(password) => this.setState({password})}
+                  value={this.state.password}/>
+              </View>
+               <TouchableWithoutFeedback onPress={this.onNextPressed}>
+              <Button
+                rounded
+                style={styles.phoneBtn}
+                disabled={this.state.btnDisabled}
+                onPress={this.onNextPressed}>
+                {this.state.isProcessing?
+                  <Spinner color='#000'/>
+                  :
+                  <View>
+                    <Text style={styles.phoneLoginTxt}>登入</Text>
+                  </View>
+                }
+              </Button>
+            </TouchableWithoutFeedback>
+            </View>
+          </Content>
+        </Container>
         )
     }
 }

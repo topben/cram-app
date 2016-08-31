@@ -51,8 +51,7 @@ module.exports = StyleSheet.create({
     registerTxt: {
       fontFamily: 'PingFangTC-Regular',
       color:'#ff6100',
-      fontSize: 14,
-      marginTop:100
+      fontSize: 14
     },
     phoneLoginTxt: {
       fontFamily: 'PingFangTC-Regular',

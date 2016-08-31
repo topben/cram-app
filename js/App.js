@@ -71,7 +71,7 @@ class App extends Component {
         // Prompt the user when an update is available
         // and then display a "downloading" modal
 
-        CodePush.sync({ updateDialog: true, installMode: CodePush.InstallMode.IMMEDIATE },
+        CodePush.sync({ updateDialog: false, installMode: CodePush.InstallMode.IMMEDIATE },
           (status) => {
               switch (status) {
                   case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
@@ -99,7 +99,6 @@ class App extends Component {
                 <Container theme={theme} style={{backgroundColor: '#fff'}}>
                     <Image source={require('../images/glow2.png')} style={styles.container} >
                         <Modal style={[styles.modal, styles.modal1]} backdrop={false} ref={"modal"} swipeToClose={false} >
-
                             <View style={{flex:1, alignSelf: 'stretch', justifyContent: 'center', padding:20}}>
                                 {this.state.showInstalling ?
                                     <Text style={{color: theme.brandSecondary, textAlign: 'center',marginBottom: 15, fontSize: 15 }}>

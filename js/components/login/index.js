@@ -9,17 +9,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 // import CodePush from 'react-native-code-push';
-import { DeviceEventEmitter, Dimensions, Image, Platform, Keyboard} from 'react-native';
+import { DeviceEventEmitter, Dimensions, Image, Alert, Platform, Keyboard,PushNotificationIOS} from 'react-native';
 import {pushNewRoute, replaceRoute} from '../../actions/route';
-
 
 import global_variables from '../../global_variables';
 import realm_schema from '../../realm_schema';
 import {Container, Content, Text, InputGroup, Input, Button, Icon, View } from 'native-base';
 import login from './login-theme';
 import styles from './styles';
-
 const Realm = require('realm');
+
 
 class Login extends Component {
 
@@ -53,8 +52,66 @@ class Login extends Component {
     }
 
     componentWillMount(){
-
+      // Add listener for push notifications
+          PushNotificationIOS.addEventListener('notification', this._onNotification);
+          // Add listener for local notifications
+          PushNotificationIOS.addEventListener('localNotification', this._onLocalNotification);
     }
+
+    componentWillUnmount() {
+      // Remove listener for push notifications
+      PushNotificationIOS.removeEventListener('notification', this._onNotification);
+      // Remove listener for local notifications
+      PushNotificationIOS.removeEventListener('localNotification', this._onLocalNotification);
+    }
+
+    // _sendNotification() {
+    //   require('RCTDeviceEventEmitter').emit('remoteNotificationReceived', {
+    //     aps: {
+    //       alert: 'Sample notification',
+    //       badge: '+1',
+    //       sound: 'default',
+    //       category: 'REACT_NATIVE'
+    //     },
+    //   });
+    // }
+    //
+    // _sendLocalNotification() {
+    //   require('RCTDeviceEventEmitter').emit('localNotificationReceived', {
+    //     aps: {
+    //       alert: 'Sample local notification',
+    //       badge: '+1',
+    //       sound: 'default',
+    //       category: 'REACT_NATIVE'
+    //     },
+    //   });
+    // }
+
+          _onNotification(notification) {
+            if(PushNotificationIOS.getInitialNotification(0)!= null)
+              {
+            Alert.alert(
+              'Push Notification Received',
+              'Alert message: ' + notification.getMessage(),
+              [{
+                text: 'Dismiss',
+                onPress: null,
+              }]
+            );
+          }
+        PushNotificationIOS.setApplicationIconBadgeNumber(0);
+      }
+
+          // _onLocalNotification(notification){
+          //   Alert.alert(
+          //     'Local Notification Received',
+          //     'Alert message: ' + notification.getMessage(),
+          //     [{
+          //       text: 'Dismiss',
+          //       onPress: null,
+          //     }]
+          //   );
+          // }
 
     render() {
         return (
