@@ -80,6 +80,7 @@ class SignUpCreate extends Component {
 
       var boolLeastEightChar = false;
       var boolLeastUpperCase = false
+
       if(password.length < 8) {
         this.setState({isLeastEightChar: false});
         boolLeastEightChar = false;
@@ -163,6 +164,18 @@ class SignUpCreate extends Component {
           ]
         )
         //alert("密碼不一致");
+        return;
+      }
+
+      if(!this.state.isPwdOK)
+      {
+        Alert.alert(
+          '',
+          '密碼輸入錯誤，請重新輸入',
+          [
+            {text: 'OK', onPress: () => {}}
+          ]
+        )
         return;
       }
 
@@ -265,7 +278,7 @@ class SignUpCreate extends Component {
                   </View>
                   <Text style={styles.checkPwd}>{this.state.checkPwdMsg}</Text>
                   <View style={{alignSelf:'center',flexDirection:'column'}}>
-                    <View style={{paddingRight:20}}><Text style={styles.limitationTxt}>  密碼設定需符合:</Text></View>
+                    <View style={{paddingRight:20}}><Text style={styles.limitationTxt}>密碼設定需符合:</Text></View>
                     <View style={{flexDirection:'row'}}>{this.state.isLeastEightChar?<Text>OK</Text>:<Text>不OK</Text>}<Text style={styles.limitationTxt}>  至少八個字元</Text></View>
                     <View style={{flexDirection:'row'}}>{this.state.isLeastOneUppercase?<Text>OK</Text>:<Text>不OK</Text>}<Text style={styles.limitationTxt}>  至少1個大寫英文字母</Text></View>
                     </View>

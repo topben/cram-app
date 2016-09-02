@@ -107,17 +107,19 @@ class Edit extends Component {
               </Button>
               <Image source={require('../../../images/profile/ic_profile_photo_md.png')} style={{alignSelf:'center',marginTop:105}} />
               <Text style={styles.mainTitle}>設定新帳號</Text>
-              <View style={styles.bg}>
                 <View style={styles.mb20}>
-                    <Input placeholder="電子信箱" onChangeText={(email) => this.setState({email})} value={this.state.email} />
+                    <Input
+                      placeholder="電子信箱"     
+                      autoFocus = {true}
+                      keyboardType='email-address'
+                      onChangeText={(email) => this.setState({email})} value={this.state.email} />
                     <Text>{this.state.client_error_msg}</Text>
                   </View>
-                  <Button transparent disabled={this.state.isBtnDisabled} rounded style={styles.finishBtn} onPress={this.onNextPressed}>
+                  <Button disabled={this.state.isBtnDisabled} rounded style={styles.finishBtn} onPress={this.onNextPressed}>
                     <View>
                     <Text style={styles.emailTxt}>下一步</Text>
                     </View>
                   </Button>
-              </View>
             </Content>
           </Container>
         )
@@ -126,7 +128,7 @@ class Edit extends Component {
 
 function bindAction(dispatch) {
     return {
-        popRoute: () => dispatch(popRoute()),
+        popRoute:() => dispatch(popRoute()),
         replaceOrPushRoute:(route)=>dispatch(replaceOrPushRoute(route)),
         pushNewRoute:(route)=>dispatch(pushNewRoute(route))
     }

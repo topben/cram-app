@@ -100,6 +100,6 @@ module.exports = StyleSheet.create({
       alignSelf:'center'
     },
     scroll:{
-      height: deviceHeight/2 - 20
+      height: deviceHeight/2 
     }
 });

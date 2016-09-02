@@ -173,7 +173,7 @@ class Notifications extends Component {
                 <Header>
                   <View></View>
                     <Text style={styles.topTitle}>通知</Text>
-                      <Button transparent onPress={() => this.popRoute('scanner')}>
+                      <Button style={{alignSelf:'center'}}transparent onPress={() => this.popRoute('scanner')}>
                         <Image source={require('../../../images/button/btn_close.png')}/>
                       </Button>
                 </Header>

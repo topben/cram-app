@@ -104,6 +104,7 @@ class Scanner extends Component {
         return;
 
       studentModel = studentModel[0];
+      console.warn(studentModel.s_name);
       this.setState({name: studentModel.s_name});
 
       var models = realm.objects('AttendanceModel').filtered('s_student_id = "' + studentModel.s_student_id + '"').sorted('i_arrived_at');
@@ -250,7 +251,6 @@ class Scanner extends Component {
             alert(results.msg);
           });
       }
-
       clearInterval(studentList_id);
     }
 
@@ -529,7 +529,6 @@ class Scanner extends Component {
     onBarCodeRead(result) {
       if (canScan && this.barCodeData != null && this.barCodeData != result.data) {
         canScan = false;
-        alert('code');
         this.barCodeData = result.data;
           let realm = new Realm({schema: realm_schema});
           // get user access token
@@ -551,7 +550,6 @@ class Scanner extends Component {
           // }
 
           var $this = this;
-
           Teacher.checkIn($this.barCodeData, 'scan_qr_code', global_variables.HOST + '/api/v1/attendances/checkin?access_token=' + access_token,
             function successCallback(results) {
               count = parseInt(results.count);
@@ -562,8 +560,8 @@ class Scanner extends Component {
                   $this.fetch_for_modal();
                 }
               }, 200);
-
             },
+
             function errorCallback(results) {
               //AlertIOS.prompt('qr code is not a student qr code or the code has already been scanned. This qr code is: ' + $this.barCodeData)
               canScan = true;
@@ -582,7 +580,6 @@ class Scanner extends Component {
               }
 
               if (result.status_code == '422'){
-
                 AlertIOS.alert(
                  'qr code is not a student qr code.',
                  '',
@@ -640,6 +637,7 @@ class Scanner extends Component {
                   <View>
                     <Header style={{backgroundColor:'#f5f6f7'}}>
                       <Button
+                        style={{alignSelf:'center'}}
                         transparent
                         onPress={this.props.openDrawer}>
                         <Image source={require('../../../images/menu/btn_menu.png')}/>
@@ -647,8 +645,9 @@ class Scanner extends Component {
                       <Image style={{alignSelf:'center'}}source={require('../../../images/scanner/ic_tmot_scan.png')}/>
                       <Button
                          transparent
+                         style={{alignSelf:'center'}}
                          onPress={() => this.pushNewRoute('notifications')}>
-                         {(this.state.badgeCount == 0)?<Image source={require('../../../images/notification/btn_notification.png')}/>:<Badge>{this.state.badgeCount}</Badge>}
+                         {(this.state.badgeCount == 0)?<Image source={require('../../../images/notification/btn_notification.png')}/>:<Badge style={{height:25}}>{this.state.badgeCount}</Badge>}
                        </Button>
                     </Header>
                     {(this.state.processingCount < 8)?<View style={styles.processing}><Spinner color='#000'/><Text>正在處理中...</Text></View>:
@@ -717,7 +716,7 @@ class Scanner extends Component {
                       <View style={{flexDirection:'row',paddingTop:20}}>
                         <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
                         <View style={{flexDirection:'column'}}>
-                          <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
+                          <Text style={styles.studentModalName}>{this.state.name}</Text>
                           <Text style={styles.studentModalStatus}>{this.state.status}</Text>
                           <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
                         </View>
@@ -733,7 +732,7 @@ class Scanner extends Component {
                       <View style={{flexDirection:'row',paddingTop:20}}>
                         <Thumbnail size={135} style={styles.circleAvatar} circular source={require('../../../images/contacts/atul.png')} />
                         <View style={{flexDirection:'column'}}>
-                          <Button transparent><Text style={styles.studentModalName}>{this.state.name}</Text></Button>
+                          <Text style={styles.studentModalName}>{this.state.name}</Text>
                           <Text style={styles.studentModalStatus}>{this.state.status}</Text>
                           <Text style={styles.studentModalArrivalTime}>{this.state.arrived_at}</Text>
                         </View>

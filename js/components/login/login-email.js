@@ -169,7 +169,7 @@ class LoginEmail extends Component {
               <View style={styles.mb20}>
                 <Input
                   ref={'email'}
-                  returnKeyType={ 'next'}
+                  returnKeyType={'next'}
                   autoCapitalize="none"
                   autoCorrect={ false }
                   autoFocus = {true}

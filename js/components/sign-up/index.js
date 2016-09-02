@@ -192,7 +192,10 @@ class SignUp extends Component {
                 <Text style={styles.newAccountTxt}>創建新帳號</Text>
                 <View style={styles.bg}>
                   <View style={styles.mb20}>
-                      <Input placeholder="手機號碼" onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
+                      <Input placeholder="手機號碼"
+                        autoFocus = {true}
+                        keyboardType='numeric'
+                        onChangeText={(phone) => this.setState({phone})} value={this.state.phone} />
                     </View>
                     <Button transparent rounded disabled={this.state.isBtnDisabled} style={styles.getVerifyBtn} onPress={this.onNextPressed}>
                       <View>

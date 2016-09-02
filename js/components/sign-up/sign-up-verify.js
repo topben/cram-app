@@ -125,7 +125,10 @@ class SignUpVerify extends Component {
               <Text style={styles.newAccountTxt}>創建新帳號</Text>
               <View style={styles.bg}>
                 <View style={styles.mb20}>
-                    <Input placeholder="驗證碼" onChangeText={(code) => this.setState({code})} value={this.state.code} />
+                    <Input placeholder="驗證碼"
+                      autoFocus = {true}
+                      keyboardType='numeric'
+                      onChangeText={(code) => this.setState({code})} value={this.state.code} />
                     <Text>{this.state.client_error_msg}</Text>
                   </View>
                   <Button transparent rounded disabled={this.state.isBtnDisabled} style={styles.getVerifyBtn} onPress={this.onNextPressed}>

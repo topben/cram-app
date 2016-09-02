@@ -14,14 +14,11 @@ module.exports = StyleSheet.create({
         height: null,
     },
     mb20:{
-      flex:1,
       flexDirection:'row',
       alignItems:'center',
-      borderColor: '#4a4a4a',
-      borderBottomWidth: 1,
-      marginLeft: deviceWidth/10,
-      marginRight: deviceWidth/10,
-      paddingTop:50
+      margin: 20,
+      borderBottomColor: '#4a4a4a',
+      borderBottomWidth: 1
     },
     card: {
       borderWidth: 0,
@@ -49,6 +46,5 @@ module.exports = StyleSheet.create({
       alignSelf:'center',
       backgroundColor: '#77b4bb',
       margin: 10,
-      marginTop: 100
     },
 });

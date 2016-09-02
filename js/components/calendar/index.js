@@ -78,7 +78,6 @@ class Calendar extends Component {
     componentWillUnmount(){
       // console.log('clearing calendar update.... id = ' + id);
       clearInterval(id);
-      this.pushNewRouteInfo('calendarClassInfo');
     }
 
     componentWillMount(){
@@ -489,11 +488,11 @@ class Calendar extends Component {
                           <Button
                             transparent
                             style={{alignSelf:'center'}}
-                            onPress={() => this.pushNewRouteInfo('calendarClassInfo') }>
+                            onPress={() => this.pushNewRouteInfo('calendarClassInfo')}>
                             <Image source={require('../../../images/button/btn_arrow.png')}/>
                           </Button>
                         </View>
-                      ):<View><Text style={{alignSelf:'center',paddingTop:30}}>No Attendances</Text></View>}
+                      ):<View><Text style={{alignSelf:'center'}}>No Attendances</Text></View>}
                   </ScrollView>
                 </View>
                 </View>
