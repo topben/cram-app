@@ -199,49 +199,43 @@ class SignUpCreate extends Component {
       	phone    : person.s_phone
       };
 
+      if(!$this.state.isPwdOK){ // if password is OK
+        return;
+      }
       var $this = this;
       var $person = person;
 
-      realm.write(() => {
-        let allUsers = realm.objects('UserModel');
-        realm.delete(allUsers); // Deletes all books
-      });
-
-      User.create(userInfo, global_variables.HOST+'/api/v1/signup',
-       function successCallback(results) {
-         interval_id = setInterval(function(){
-           let realm = new Realm({schema: realm_schema});
-           if(realm.objects('UserModel').length == 1){
-
-             User.login($person.s_email, $this.state.password, 'password', global_variables.HOST+'/oauth/token',
-               function successCallback(results){
-                 if($this.state.isPwdOK)
-                 {
-                   clearInterval(interval_id);
-                   // navigate to scanner page
-                   $this.navigateTo('scanner');
-                 }
-                 // enable and release button lock
-                 $this.setState({isBtnDisabled: false});
-               },
-               function failureCallback(results){
-                 // enable and release button lock
-                 $this.setState({isBtnDisabled: false});
-               });
-           }
-         }, 200);
-       },
-       function errorCallback(results) {
-         // enable and release button lock
-         $this.setState({isBtnDisabled: false});
-         Alert.alert(
-           '',
-           results.msg,
-           [
-             {text: 'OK', onPress: () => {}}
-           ]
-         )
-       });
+        User.create(userInfo, global_variables.HOST+'/api/v1/signup',
+         function successCallback(results) {
+             let realm = new Realm({schema: realm_schema});
+                   realm.write(() => {
+                     let allUsers = realm.objects('UserModel');
+                     realm.delete(allUsers); // Deletes all books
+                   });
+               User.login($person.s_email, $this.state.password, 'password', global_variables.HOST+'/oauth/token',
+                 function successCallback(results){
+                     clearInterval(interval_id);
+                     // navigate to scanner page
+                     $this.navigateTo('scanner');
+                   // enable and release button lock
+                   $this.setState({isBtnDisabled: false});
+                 },
+                 function failureCallback(results){
+                   // enable and release button lock
+                   $this.setState({isBtnDisabled: false});
+                 });
+         },
+         function errorCallback(results) {
+           // enable and release button lock
+           $this.setState({isBtnDisabled: false});
+           Alert.alert(
+             '',
+             results.msg,
+             [
+               {text: 'OK', onPress: () => {}}
+             ]
+           )
+         });
       // this.props.pushNewRoute('edit');
     }
 
