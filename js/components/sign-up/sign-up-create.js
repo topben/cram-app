@@ -214,7 +214,6 @@ class SignUpCreate extends Component {
                    });
                User.login($person.s_email, $this.state.password, 'password', global_variables.HOST+'/oauth/token',
                  function successCallback(results){
-                     clearInterval(interval_id);
                      // navigate to scanner page
                      $this.navigateTo('scanner');
                    // enable and release button lock

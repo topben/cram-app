@@ -41,6 +41,9 @@ var count = 0;
 var interval_id = 0;
 var timeout_id = 0;
 var studentList_id = 0;
+var interval_notification_id = 0;
+var interval_token_id = 0;
+
 var canScan = true;
 var status401 = false;
 
@@ -149,8 +152,16 @@ class Scanner extends Component {
       //this.openClassModal();
     }
 
+    componentWillUnmount(){
+      clearInterval(studentList_id);
+      clearInterval(timeout_id);
+      clearInterval(interval_notification_id);
+      clearInterval(interval_id);
+      clearInterval(interval_token_id);
+    }
+
     refreshToken(){
-      setInterval(function(){
+      interval_token_id = setInterval(function(){
         if (status401){
           let realm = new Realm({schema: realm_schema});
           var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -263,7 +274,7 @@ class Scanner extends Component {
          }, 10000);
 
          this.fetchNotifications();
-         setInterval(()=>{this.fetchNotifications()}, 10000);
+         interval_notification_id = setInterval(()=>{this.fetchNotifications()}, 10000);
          var $this = this;
 
          // set interval for class modal
