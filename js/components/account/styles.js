@@ -14,6 +14,7 @@ module.exports = StyleSheet.create({
         height: null,
     },
     bg:{
+      height:100,
       backgroundColor:'#ffffff'
     },
     mb20: {
@@ -75,6 +76,9 @@ module.exports = StyleSheet.create({
     },
     row:{
       justifyContent:'space-between',
-      margin:20
+      height:25,
+      marginLeft:20,
+      marginRight:20,
+      backgroundColor:'#fff'
     }
 });

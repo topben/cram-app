@@ -41,8 +41,6 @@ var count = 0;
 var interval_id = 0;
 var timeout_id = 0;
 var studentList_id = 0;
-var interval_notification_id = 0;
-var interval_token_id = 0;
 
 var canScan = true;
 var status401 = false;
@@ -152,16 +150,16 @@ class Scanner extends Component {
       //this.openClassModal();
     }
 
-    componentWillUnmount(){
-      clearInterval(studentList_id);
-      clearInterval(timeout_id);
-      clearInterval(interval_notification_id);
-      clearInterval(interval_id);
-      clearInterval(interval_token_id);
+    // for releasing
+    componentWillUnmount() {
+       clearInterval(interval_id);
+       clearInterval(timeout_id);
+       clearInterval(studentList_id); 
     }
 
+
     refreshToken(){
-      interval_token_id = setInterval(function(){
+      setInterval(function(){
         if (status401){
           let realm = new Realm({schema: realm_schema});
           var users = realm.objects('UserModel').sorted('i_login_at', true);
@@ -274,7 +272,7 @@ class Scanner extends Component {
          }, 10000);
 
          this.fetchNotifications();
-         interval_notification_id = setInterval(()=>{this.fetchNotifications()}, 10000);
+         setInterval(()=>{this.fetchNotifications()}, 10000);
          var $this = this;
 
          // set interval for class modal
@@ -287,14 +285,14 @@ class Scanner extends Component {
              var users = realm.objects('UserModel').sorted('i_login_at', true);
              var access_token = users[0].s_access_token;
 
-                //  realm.write(() => {
-                //   let attendances = realm.objects('AttendanceModel');
-                //   realm.delete(attendances);
-                //   let notifications = realm.objects('NotificationModel');
-                //   realm.delete(notifications);
-                //  });
+            //  realm.write(() => {
+            //   let attendances = realm.objects('AttendanceModel');
+            //   realm.delete(attendances);
+              // let notifications = realm.objects('NotificationModel');
+              // realm.delete(notifications);
+            //  });
 
-                // perform api calls
+               // perform api calls
                User.getInfo(global_variables.HOST + '/api/v1/me?access_token=' + access_token,
                  function successCallback(results) {
                    $this.setState({processingCount:$this.state.processingCount+1});
@@ -627,6 +625,7 @@ class Scanner extends Component {
       	time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
       return time;
     }
+
 
     // isStudentQrCode(students, barCodeData){
     //   var studentQrCode = false;

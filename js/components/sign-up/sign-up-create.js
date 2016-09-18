@@ -202,6 +202,7 @@ class SignUpCreate extends Component {
       if(!$this.state.isPwdOK){ // if password is OK
         return;
       }
+
       var $this = this;
       var $person = person;
 
@@ -270,7 +271,7 @@ class SignUpCreate extends Component {
                       value={this.state.re_password} />
                   </View>
                   <Text style={styles.checkPwd}>{this.state.checkPwdMsg}</Text>
-                  <View style={{alignSelf:'center',flexDirection:'column'}}>
+                    <View style={{alignSelf:'center',flexDirection:'column'}}>
                     <View style={{paddingRight:20}}><Text style={styles.limitationTxt}>密碼設定需符合:</Text></View>
                     <View style={{flexDirection:'row'}}>{this.state.isLeastEightChar?<Text>OK</Text>:<Text>不OK</Text>}<Text style={styles.limitationTxt}>  至少八個字元</Text></View>
                     <View style={{flexDirection:'row'}}>{this.state.isLeastOneUppercase?<Text>OK</Text>:<Text>不OK</Text>}<Text style={styles.limitationTxt}>  至少1個大寫英文字母</Text></View>

@@ -1,4 +1,4 @@
-const HOST  = "http://52.198.0.110";
+const HOST  = "http://tmotx.net";
 
 export default {
   HOST : HOST

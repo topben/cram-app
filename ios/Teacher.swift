@@ -50,8 +50,6 @@ class Teacher: NSObject {
         let result = ["status_code" : (response["status code"] as! String)]
         failureCallBack([result])
     })
-    
-    
   }
   
   // get full list of teachers

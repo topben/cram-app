@@ -33,17 +33,15 @@ class Account extends Component {
   }
 
     componentWillMount () {
-      var $this = this;
-
       let realm = new Realm({schema: realm_schema});
-      console.log(Realm.defaultPath);
+      // console.log(Realm.defaultPath);
       // get user access token
       var users = realm.objects('UserModel').sorted('i_login_at', true);
-      var currentUser = users[users.length-1]
-
-      this.state.phone = currentUser.s_phone;
-      this.state.email = currentUser.s_email;
-      this.state.scan_count = currentUser.i_scannerUsage;
+      var currentUser = users[users.length-1];
+      this.setState({phone:currentUser.s_phone});
+      this.setState({email:currentUser.s_email});
+      this.setState({scan_count:currentUser.i_scannerUsage});
+      //console.warn(currentUser.s_phone);
     }
 
     popRoute() {
@@ -76,11 +74,11 @@ class Account extends Component {
                 <Text style={styles.topTitle}>帳號</Text>
               </View>
               <Image source={require('../../../images/profile/ic_profile_photo_md.png')} style={{alignSelf:'center',marginTop:30}} />
-              <View style={{marginLeft:20,marginBottom:10}}><Text style={styles.subGrayTxt}>帳號資料</Text></View>
+              <View style={{marginLeft:20,marginBottom:10,paddingTop:40}}><Text style={styles.subGrayTxt}>帳號資料</Text></View>
               <Grid style={styles.bg}>
                 <Row style={styles.row}><Text style={styles.subGrayTxt}>手機號碼</Text><Text style={styles.subBlackTxt}>{this.state.phone}</Text></Row>
                 <Row style={styles.row}><Text style={styles.subGrayTxt}>電子信箱</Text><Text style={styles.subBlackTxt}>{this.state.email}</Text></Row>
-                <Row style={styles.row}><Text style={styles.subGrayTxt}>QR Code 掃描次數</Text><Text style={styles.subOrangeTxt}>{this.state.scan_count}</Text></Row>
+                <Row style={styles.row}><Text style={styles.subGrayTxt}>QR Code 掃描次數</Text><Text style={styles.subBlackTxt}>{this.state.scan_count}</Text></Row>
               </Grid>
               <View style={{paddingTop:100}}>
               <Button  block onPress={() => this.navigateTo('login')} style={{borderWidth:1,borderColor:'#808080',backgroundColor:'#fff',height:50}}>
